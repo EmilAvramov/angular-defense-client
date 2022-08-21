@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from './search/search.component';
+import { BrowseComponent } from './browse/browse.component';
 
 
 
 @NgModule({
   declarations: [
-    SearchComponent
+    BrowseComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class MarketplaceModule { }
+export class SpecsModule { }
