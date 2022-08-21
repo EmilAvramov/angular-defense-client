@@ -5,6 +5,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { connection } from 'database.config';
 
 import { AppServerModule } from './src/main.server';
 
@@ -56,9 +57,21 @@ function run(): void {
 
 	// Start up the Node server
 	const server = app();
+
 	server.listen(port, () => {
 		console.log(`Node Express server listening on http://localhost:${port}`);
 	});
+
+	const connectToDB = async () => {
+		try {
+			await connection.authenticate();
+			console.log('Connection to database successful...');
+		} catch (err) {
+			console.log('Unable to connect', err);
+		}
+	};
+
+	connectToDB();
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
