@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@ngx-env/builder:browser",
           "options": {
             "outputPath": "dist/angular-defense-project/browser",
             "index": "src/index.html",
@@ -66,7 +66,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@ngx-env/builder:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "angular-defense-project:build:production"
@@ -78,13 +78,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@ngx-env/builder:extract-i18n",
           "options": {
             "browserTarget": "angular-defense-project:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@ngx-env/builder:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
@@ -102,12 +102,15 @@
           }
         },
         "server": {
-          "builder": "@angular-devkit/build-angular:server",
+          "builder": "@ngx-env/builder:server",
           "options": {
-            "outputPath": "dist/angular-defense-project/server",
+            "progress": false,
+            "outputPath": "dist/express-engine-ivy-prerender/server",
+            "externalDependencies": [
+              "pg"
+            ],
             "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "inlineStyleLanguage": "sass"
+            "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
             "production": {

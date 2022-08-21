@@ -1,19 +1,14 @@
-const pg = require('pg');
-delete pg.native;
+import * as pg from 'pg';
+import { Sequelize } from 'sequelize';
 
-const Sequelize = require('sequelize');
-
-export const connection = new Sequelize({
-	database: 'mobispace',
-	dialect: 'postgres',
-	native: false,
-	username: process.env['USERNAME'],
-	password: process.env['PASSWORD'],
-	host: process.env['HOST'],
-	port: process.env['PORT'],
-	dialectModule: pg,
-	define: {
-		timestamps: false
-	},
-	logging: false
-})
+export const db = new Sequelize(
+	process.env['NG_APP_DB']!,
+	process.env['NG_APP_USERNAME']!,
+	process.env['NG_APP_PASSWORD'],
+	{
+		host: process.env['NG_APP_HOST'],
+		port: Number(process.env['NG_APP_PORT']),
+		dialect: 'postgres',
+		dialectModule: pg,
+	}
+);
