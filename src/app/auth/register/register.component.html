@@ -7,9 +7,7 @@
 			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
 		>
 			<p *ngIf="email?.errors?.['required']">This field is required</p>
-			<p *ngIf="email?.errors?.['email']">
-				Please enter a valid email address
-			</p>
+			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
 		</span>
 
 		<label for="password">Password: </label>
@@ -19,8 +17,9 @@
 			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
 		>
 			<p *ngIf="password?.errors?.['required']">This field is required</p>
-			<p *ngIf="password?.errors?.['minlength']">
-				Password must be at least 8 characters long
+			<p *ngIf="password?.errors?.['pattern']">
+				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+				character
 			</p>
 		</span>
 	</div>
@@ -33,17 +32,46 @@
 		>
 			<p *ngIf="firstName?.errors?.['required']">This field is required</p>
 		</span>
+
 		<label for="lastName">Last Name: </label>
 		<input id="last-name" type="text" formControlName="lastName" required />
+		<span
+			class="form__error"
+			*ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+		>
+			<p *ngIf="lastName?.errors?.['required']">This field is required</p>
+		</span>
 
 		<label for="phone">Phone Number: </label>
 		<input id="phone" type="text" formControlName="phone" required />
+		<span
+			class="form__error"
+			*ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+		>
+			<p *ngIf="phone?.errors?.['required']">This field is required</p>
+			<p *ngIf="phone?.errors?.['pattern']">
+				Phone must contain only digits and be at least 6 characters long
+			</p>
+		</span>
 
 		<label for="address">Address: </label>
 		<input id="address" type="text" formControlName="address" required />
+		<span
+			class="form__error"
+			*ngIf="address?.invalid && (address?.dirty || address?.touched)"
+		>
+			<p *ngIf="address?.errors?.['required']">This field is required</p>
+		</span>
 
 		<label for="city">City: </label>
 		<input id="city" type="text" formControlName="city" required />
+		<span
+			class="form__error"
+			*ngIf="city?.invalid && (city?.dirty || city?.touched)"
+		>
+			<p *ngIf="city?.errors?.['required']">This field is required</p>
+		</span>
+
 	</div>
 	<button>Register</button>
 </form>

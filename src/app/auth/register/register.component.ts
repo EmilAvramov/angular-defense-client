@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/models/user.model';
-import { emailPattern } from 'src/app/shared/variables/emailValidation';
+import {
+	emailPattern,
+	passwordPattern,
+	phonePattern,
+} from 'src/app/shared/variables/validationPatterns';
 
 @Component({
 	selector: 'app-register',
@@ -10,22 +14,19 @@ import { emailPattern } from 'src/app/shared/variables/emailValidation';
 	styleUrls: ['./register.component.sass'],
 })
 export class RegisterComponent implements OnInit {
-	// Pattern for checking email validitiy
-	emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
 	profileForm = this.fb.group({
 		credentials: this.fb.group({
 			email: [
 				'',
 				{
-					validators: [Validators.required, Validators.pattern(this.emailPattern)],
+					validators: [Validators.required, Validators.pattern(emailPattern)],
 					updateOn: 'blur',
 				},
 			],
 			password: [
 				'',
 				{
-					validators: [Validators.required, Validators.minLength(8)],
+					validators: [Validators.required, Validators.pattern(passwordPattern)],
 					updateOn: 'blur',
 				},
 			],
@@ -48,25 +49,21 @@ export class RegisterComponent implements OnInit {
 			phone: [
 				'',
 				{
-					validators: [
-						Validators.required,
-						Validators.minLength(7),
-						Validators.pattern('[0-9+]*'),
-					],
+					validators: [Validators.required, Validators.pattern(phonePattern)],
 					updateOn: 'blur',
 				},
 			],
 			address: [
 				'',
 				{
-					validators: [Validators.required, Validators.minLength(1)],
+					validators: [Validators.required],
 					updateOn: 'blur',
 				},
 			],
 			city: [
 				'',
 				{
-					validators: [Validators.required, Validators.minLength(1)],
+					validators: [Validators.required],
 					updateOn: 'blur',
 				},
 			],
