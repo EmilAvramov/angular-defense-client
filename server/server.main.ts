@@ -1,19 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const {} = require('express');
+const server = require('./config/express');
+const db = require('./config/database');
+const config = require('./config/settings');
 
-dotenv.config();
-
-const app = express();
-const port = 3000;
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req: Request, res: Response) => {
-	console.log('success');
-});
-
-app.listen(port, () => console.log(`Server is listening to port ${port}...`));
+try {
+	db
+		.authenticate()
+		.then(() => console.log('Database connected...'))
+		.then(() => {
+			server.listen(config.development.port, () =>
+				console.log(`Server is listening to port ${config.development.port}...`)
+			);
+		});
+} catch (err) {
+	console.log(err);
+}

@@ -1,5 +1,6 @@
-import { DataTypes } from 'sequelize'
-import { db } from 'database.config'
+// import { DataTypes } from 'sequelize'
+const { DataTypes } = require('sequelize')
+const db = require('../config/database')
 
 export const User = db.define('User', {
     email: {

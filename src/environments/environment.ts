@@ -2,26 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-declare const process: {
-  env: {
-      NG_APP_VERSION:string,
-      NG_APP_COMMIT:string,
-      NG_APP_ENABLE_SENTRY:string,
-      NG_APP_DB:string,
-      NG_APP_HOST:string,
-      NG_APP_PORT:string,
-      NG_APP_USERNAME:string,
-      NG_APP_PASSWORD:string,
-  };
-};
-
 export const environment = {
   production: false,
-  database: process.env["NG_APP_DB"],
-  host: process.env["NG_APP_HOST"],
-  port: process.env["NG_APP_PORT"],
-  username: process.env["NG_APP_USERNAME"],
-  password: process.env["NG_APP_PASSWORD"],
 };
 
 /*

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
-import { User } from 'src/app/shared/models/user.model';
 import {
 	emailPattern,
 	passwordPattern,
@@ -93,10 +92,10 @@ export class RegisterComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		User.create({
-			...this.profileForm.value.credentials,
-			...this.profileForm.value.personalDetails,
-		});
+		// User.create({
+		// 	...this.profileForm.value.credentials,
+		// 	...this.profileForm.value.personalDetails,
+		// });
 		console.log(this.profileForm.value.credentials);
 		console.log(this.profileForm.valid);
 	}
