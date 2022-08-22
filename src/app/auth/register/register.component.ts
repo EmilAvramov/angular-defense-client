@@ -93,7 +93,11 @@ export class RegisterComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		console.log(this.profileForm.value);
+		User.create({
+			...this.profileForm.value.credentials,
+			...this.profileForm.value.personalDetails,
+		});
+		console.log(this.profileForm.value.credentials);
 		console.log(this.profileForm.valid);
 	}
 

@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev:ssr": "nodemon server/server.main.ts"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "rxjs": "~7.5.0",
     "sequelize": "^6.21.4",
     "sequelize-typescript": "^2.1.3",
+    "ts-node": "^10.9.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -32,14 +34,23 @@
     "@angular/cli": "~14.1.2",
     "@angular/compiler-cli": "^14.1.0",
     "@ngx-env/builder": "^2.2.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^18.7.9",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "jasmine-core": "~4.2.0",
+    "jsonwebtoken": "^8.5.1",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "nodemon": "^2.0.19",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
     "typescript": "~4.7.2"
   }
 }
