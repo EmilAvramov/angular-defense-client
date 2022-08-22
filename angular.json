@@ -15,9 +15,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@ngx-env/builder:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-defense-project/browser",
+            "outputPath": "dist/angular-defense-project",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,7 +66,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@ngx-env/builder:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "angular-defense-project:build:production"
@@ -78,13 +78,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@ngx-env/builder:extract-i18n",
+          "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "angular-defense-project:build"
           }
         },
         "test": {
-          "builder": "@ngx-env/builder:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
@@ -100,68 +100,6 @@
             ],
             "scripts": []
           }
-        },
-        "server": {
-          "builder": "@ngx-env/builder:server",
-          "options": {
-            "progress": false,
-            "outputPath": "dist/express-engine-ivy-prerender/server",
-            "externalDependencies": [
-              "pg"
-            ],
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "angular-defense-project:build:development",
-              "serverTarget": "angular-defense-project:server:development"
-            },
-            "production": {
-              "browserTarget": "angular-defense-project:build:production",
-              "serverTarget": "angular-defense-project:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "angular-defense-project:build:production",
-              "serverTarget": "angular-defense-project:server:production"
-            },
-            "development": {
-              "browserTarget": "angular-defense-project:build:development",
-              "serverTarget": "angular-defense-project:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }

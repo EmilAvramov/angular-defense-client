@@ -1,4 +1,3 @@
-import * as pg from 'pg';
 import { Sequelize } from 'sequelize';
 
 export const db = new Sequelize(
@@ -9,6 +8,5 @@ export const db = new Sequelize(
 		host: process.env['NG_APP_HOST'],
 		port: Number(process.env['NG_APP_PORT']),
 		dialect: 'postgres',
-		dialectModule: pg,
 	}
 );
