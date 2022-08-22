@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize';
+import { environment } from 'src/environments/environment';
 
 export const db = new Sequelize(
-	process.env['NG_APP_DB']!,
-	process.env['NG_APP_USERNAME']!,
-	process.env['NG_APP_PASSWORD'],
+	environment.database,
+	environment.username,
+	environment.password,
 	{
-		host: process.env['NG_APP_HOST'],
-		port: Number(process.env['NG_APP_PORT']),
+		host: environment.host,
+		port: Number(environment.port),
 		dialect: 'postgres',
 	}
 );
