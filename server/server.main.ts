@@ -1,14 +1,14 @@
-const server = require('./config/express');
-const db = require('./config/database');
-const config = require('./config/settings');
+import database from './config/database';
+import app from './config/express';
+import { port } from './config/settings';
 
 try {
-	db
+	database
 		.authenticate()
 		.then(() => console.log('Database connected...'))
 		.then(() => {
-			server.listen(config.development.port, () =>
-				console.log(`Server is listening to port ${config.development.port}...`)
+			app.listen(port, () =>
+				console.log(`Server is listening to port ${port}...`)
 			);
 		});
 } catch (err) {

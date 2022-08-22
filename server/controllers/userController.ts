@@ -1,9 +1,10 @@
-const router = require('express').Router()
-const {register} = require('../services/userService')
+import { Router } from 'express';
+import { register } from '../services/userService';
 
-router.post('/users/login', (req: Request, res: Response) => {
-    const data = req.body
+const router = Router();
 
-})
+router.post('/users/login', (req, res) => {
+	const data = req.body;
+});
 
-module.exports = router
+export default router

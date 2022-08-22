@@ -1,7 +1,17 @@
-const Sequelize = require('sequelize');
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
+
+declare const process: {
+	env: {
+		NG_APP_DB: string;
+		NG_APP_HOST: string;
+		NG_APP_PORT: string;
+		NG_APP_USERNAME: string;
+		NG_APP_PASSWORD: string;
+	};
+};
 
 const database = new Sequelize(
 	process.env['NG_APP_DB'],
@@ -9,10 +19,9 @@ const database = new Sequelize(
 	process.env['NG_APP_PASSWORD'],
 	{
 		host: process.env['NG_APP_HOST'],
-
-		port: Number(process.env['NG_APP_PORT="5432"']),
+		port: Number(process.env['NG_APP_PORT']),
 		dialect: 'postgres',
 	}
 );
 
-module.exports = database
+export default database

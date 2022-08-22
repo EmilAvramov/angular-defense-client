@@ -1,8 +1,8 @@
 // import { DataTypes } from 'sequelize'
 const { DataTypes } = require('sequelize');
-const db = require('../config/database');
+const database = require('../config/database');
 
-export const User = db.define('User', {
+export const User = database.define('User', {
 	email: {
 		type: DataTypes.STRING,
 		allowNull: false,
@@ -31,6 +31,8 @@ export const User = db.define('User', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-})(async () => {
-	await db.sync();
+})
+
+(async () => {
+	await database.sync();
 })();

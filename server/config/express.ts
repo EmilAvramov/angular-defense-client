@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const userController = require('../controllers/userController')
+import express from 'express';
+import { cors } from '../middelwares/cors';
+import userController from '../controllers/userController'
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/users', userController)
+app.use('/users', userController);
 
-module.exports = app
+export default app
