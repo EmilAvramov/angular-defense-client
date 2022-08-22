@@ -28,7 +28,7 @@ import { SpecsModule } from './specs/specs.module';
     AuthModule,
     MarketplaceModule,
     SpecsModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

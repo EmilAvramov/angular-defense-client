@@ -1,1 +1,49 @@
-<p>register works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+	<div formGroupName="credentials">
+		<label for="email">Email: </label>
+		<input id="email" type="text" formControlName="email" required />
+		<span
+			class="form__error"
+			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
+		>
+			<p *ngIf="email?.errors?.['required']">This field is required</p>
+			<p *ngIf="email?.errors?.['email']">
+				Please enter a valid email address
+			</p>
+		</span>
+
+		<label for="password">Password: </label>
+		<input id="password" type="text" formControlName="password" required />
+		<span
+			class="form__error"
+			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
+		>
+			<p *ngIf="password?.errors?.['required']">This field is required</p>
+			<p *ngIf="password?.errors?.['minlength']">
+				Password must be at least 8 characters long
+			</p>
+		</span>
+	</div>
+	<div formGroupName="personalDetails">
+		<label for="firstName">First Name: </label>
+		<input id="firstName" type="text" formControlName="firstName" required />
+		<span
+			class="form__error"
+			*ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
+		>
+			<p *ngIf="firstName?.errors?.['required']">This field is required</p>
+		</span>
+		<label for="lastName">Last Name: </label>
+		<input id="last-name" type="text" formControlName="lastName" required />
+
+		<label for="phone">Phone Number: </label>
+		<input id="phone" type="text" formControlName="phone" required />
+
+		<label for="address">Address: </label>
+		<input id="address" type="text" formControlName="address" required />
+
+		<label for="city">City: </label>
+		<input id="city" type="text" formControlName="city" required />
+	</div>
+	<button>Register</button>
+</form>
