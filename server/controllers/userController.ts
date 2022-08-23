@@ -3,8 +3,8 @@ import { register } from '../services/userService';
 
 const router = Router();
 
-router.post('/register', (req, res) => {
-	console.log('server says', req.body)
+router.post('/register', async (req, res) => {
+	await register(req.body)
 });
 
 export default router

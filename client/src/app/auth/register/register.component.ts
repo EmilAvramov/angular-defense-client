@@ -105,7 +105,7 @@ export class RegisterComponent implements OnInit {
 
 		this.http
 			.post<User>(
-				`${server}/users/register}`,
+				`${server}/users/register`,
 				{
 					email,
 					password,

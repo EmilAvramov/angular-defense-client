@@ -13,7 +13,7 @@ declare const process: {
 	};
 };
 
-const database = new Sequelize(
+const sequelize = new Sequelize(
 	process.env['NG_APP_DB'],
 	process.env['NG_APP_USERNAME'],
 	process.env['NG_APP_PASSWORD'],
@@ -24,4 +24,8 @@ const database = new Sequelize(
 	}
 );
 
-export default database
+const database = {
+	sequelize: sequelize,
+};
+
+export default database;

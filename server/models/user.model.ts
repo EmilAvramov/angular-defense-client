@@ -1,38 +1,35 @@
-// import { DataTypes } from 'sequelize'
-const { DataTypes } = require('sequelize');
-const database = require('../config/database');
+import database from '../config/database';
+import { DataType } from 'sequelize-typescript';
 
-export const User = database.define('User', {
+export const User = database.sequelize.define('User', {
 	email: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
 	password: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
 	firstName: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
 	lastName: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
 	phone: {
-		type: DataTypes.NUMBER,
+		type: DataType.BIGINT,
 		allowNull: false,
 	},
 	address: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
 	city: {
-		type: DataTypes.STRING,
+		type: DataType.CHAR,
 		allowNull: false,
 	},
-})
+});
 
-(async () => {
-	await database.sync();
-})();
+(async () => await database.sequelize.sync())()

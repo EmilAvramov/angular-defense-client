@@ -3,7 +3,7 @@ import app from './config/express';
 import { port } from './config/settings';
 
 try {
-	database
+	database.sequelize
 		.authenticate()
 		.then(() => console.log('Database connected...'))
 		.then(() => {
