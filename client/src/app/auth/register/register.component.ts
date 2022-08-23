@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import {
@@ -6,12 +9,15 @@ import {
 	passwordPattern,
 	phonePattern,
 } from 'src/app/shared/variables/validationPatterns';
+import { User } from 'src/app/shared/interfaces/User.interface';
+import { optionsPost, server } from 'src/app/shared/variables/config';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.sass'],
 })
+@Injectable()
 export class RegisterComponent implements OnInit {
 	profileForm = this.fb.group({
 		credentials: this.fb.group({
@@ -92,15 +98,33 @@ export class RegisterComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		// User.create({
-		// 	...this.profileForm.value.credentials,
-		// 	...this.profileForm.value.personalDetails,
-		// });
-		console.log(this.profileForm.value.credentials);
-		console.log(this.profileForm.valid);
+		const { email, password } = this.profileForm.value.credentials!;
+		const { firstName, lastName, phone, address, city } =
+			this.profileForm.value.personalDetails!;
+		const headers = { 'content-type': 'application/json' };
+
+		this.http
+			.post<User>(
+				`${server}/users/register}`,
+				{
+					email,
+					password,
+					firstName,
+					lastName,
+					phone,
+					address,
+					city,
+				},
+				{ headers: headers }
+			)
+			.subscribe({
+				next: (response) => console.log(response),
+				error: (error) => console.log(error),
+			});
+		this.profileForm.reset();
 	}
 
-	constructor(private fb: FormBuilder) {}
+	constructor(private fb: FormBuilder, private http: HttpClient) {}
 
 	ngOnInit(): void {}
 }
