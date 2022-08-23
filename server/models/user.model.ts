@@ -9,19 +9,19 @@ export const User = database.sequelize.define<UserModel>('User', {
 		autoIncrement: true
 	},
 	email: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	password: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	firstName: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	lastName: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	phone: {
@@ -29,11 +29,11 @@ export const User = database.sequelize.define<UserModel>('User', {
 		allowNull: false,
 	},
 	address: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	city: {
-		type: DataType.CHAR,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 });

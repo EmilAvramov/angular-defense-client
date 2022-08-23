@@ -7,5 +7,8 @@ export const setSessionStorage = (response: UserAuth) => {
 	sessionStorage.setItem('phone', response.payload.phone);
 	sessionStorage.setItem('address', response.payload.address);
 	sessionStorage.setItem('city', response.payload.city);
-	sessionStorage.setItem('token', response.accessToken);
+	sessionStorage.setItem(
+		'token',
+		JSON.stringify(response.accessToken).slice(1, -1)
+	);
 };

@@ -19,7 +19,7 @@ const createSession = (user: UserModel) => {
 		city: user.city,
 	};
 
-	const accessToken = jwt.sign(payload, jwtSecret!, {
+	const accessToken = jwt.sign(payload, jwtSecret as string, {
 		expiresIn: '2d'
 	})
 
