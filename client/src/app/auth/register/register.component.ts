@@ -1,16 +1,15 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
+
 import {
 	emailPattern,
 	passwordPattern,
 	phonePattern,
 } from 'src/app/shared/variables/validationPatterns';
-import { User } from 'src/app/shared/interfaces/User.interface';
-import { optionsPost, server } from 'src/app/shared/variables/config';
+import { UserAuth } from 'src/app/shared/interfaces/User.interface';
+import { server } from 'src/app/shared/variables/config';
+import { setSessionStorage } from '../helpers/sessionStorage';
 
 @Component({
 	selector: 'app-register',
@@ -104,7 +103,7 @@ export class RegisterComponent implements OnInit {
 		const headers = { 'content-type': 'application/json' };
 
 		this.http
-			.post<User>(
+			.post<UserAuth>(
 				`${server}/users/register`,
 				{
 					email,
@@ -115,11 +114,13 @@ export class RegisterComponent implements OnInit {
 					address,
 					city,
 				},
-				{ headers: headers }
+				{ headers: headers, responseType: 'json' }
 			)
 			.subscribe({
-				next: (response) => console.log(response),
-				error: (error) => console.log(error),
+				next: (response) => {
+					setSessionStorage(response);
+				},
+				error: (error: any) => console.log(error),
 			});
 		this.profileForm.reset();
 	}

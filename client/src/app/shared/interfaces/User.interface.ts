@@ -3,7 +3,19 @@ export interface User {
 	password: string;
 	firstName: string;
 	lastName: string;
-	phone: number;
+	phone: string;
 	address: string;
-	city: number;
+	city: string;
+}
+
+export interface UserAuth {
+	payload: {
+		email: string;
+		firstName: string;
+		lastName: string;
+		phone: string;
+		address: string;
+		city: string;
+	};
+	accessToken: string;
 }
