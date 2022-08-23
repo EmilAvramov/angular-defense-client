@@ -11,7 +11,7 @@
 		</span>
 
 		<label for="password">Password: </label>
-		<input id="password" type="text" formControlName="password" required />
+		<input id="password" type="password" formControlName="password" required />
 		<span
 			class="form__error"
 			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
@@ -71,7 +71,6 @@
 		>
 			<p *ngIf="city?.errors?.['required']">This field is required</p>
 		</span>
-
 	</div>
 	<button>Register</button>
 </form>
