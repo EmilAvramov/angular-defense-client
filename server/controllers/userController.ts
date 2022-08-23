@@ -22,7 +22,6 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-	console.log(req.body)
 	logout(req.body.accessToken)
 	res.status(204).end();
 })

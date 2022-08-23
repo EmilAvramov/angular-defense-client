@@ -18,8 +18,7 @@ export class HeaderComponent implements OnInit {
 	) {
 		try {
 			this.userSession = this.session;
-			this.token =
-				JSON.parse(this.session.getItem('token') as string) || undefined;
+			this.token = this.session.getItem('token') || undefined;
 		} catch {
 			this.userSession = undefined;
 			this.token = undefined;
@@ -32,14 +31,22 @@ export class HeaderComponent implements OnInit {
 
 	logout(): void {
 		this.http
-			.post(`${server}/users/logout`, this.token, {
-				headers: {
-					'content-type': 'application/json',
-					'x-authorization': this.token as string,
-				},
-			})
+			.post(
+				`${server}/users/logout`,
+				{ token: this.token as string },
+				{
+					headers: {
+						'content-type': 'application/json',
+						'x-authorization': this.token as string,
+					},
+				}
+			)
 			.subscribe({
-				next: () => sessionStorage.clear(),
+				next: () => {
+					sessionStorage.clear()
+					this.userSession = undefined
+					this.token = undefined
+				},
 				error: (error) => console.log(error),
 			});
 	}
