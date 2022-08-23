@@ -15,7 +15,7 @@ export interface UserModel
         password: string,
         firstName: string,
         lastName: string,
-        phone: number,
+        phone: string,
         address: string,
         city: string
     }

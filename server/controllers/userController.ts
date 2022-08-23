@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login } from '../services/userService';
+import { register, login, logout } from '../services/userService';
 
 const router = Router();
 
@@ -20,5 +20,10 @@ router.post('/login', async (req, res) => {
 		res.status(400).json({ message: err.message });
 	}
 });
+
+router.get('/logout', (req, res) => {
+	logout(req.body.accessToken)
+	res.status(204).end();
+})
 
 export default router;

@@ -25,7 +25,7 @@ export const User = database.sequelize.define<UserModel>('User', {
 		allowNull: false,
 	},
 	phone: {
-		type: DataType.BIGINT,
+		type: DataType.TEXT,
 		allowNull: false,
 	},
 	address: {
