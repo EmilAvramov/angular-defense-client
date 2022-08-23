@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -16,7 +16,6 @@ import { setSessionStorage } from '../helpers/sessionStorage';
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.sass'],
 })
-@Injectable()
 export class RegisterComponent implements OnInit {
 	profileForm = this.fb.group({
 		credentials: this.fb.group({

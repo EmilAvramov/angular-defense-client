@@ -1,13 +1,14 @@
 <header>
-    <h1>Mobispace - A Smart Mobile Marketplace</h1>
-    <nav>
-        <ul>
-            <li><a routerLink="/">Home</a></li>
-            <li><a routerLink="/search">Marketplace</a></li>
-            <li><a routerLink="/browse">Specs</a></li>
-            <li><a routerLink="/about">About</a></li>
-            <li><a routerLink="/login">Login</a></li>
-            <li><a routerLink="/register">Register</a></li>
-        </ul>
-    </nav>
+	<h1>Mobispace - A Smart Mobile Marketplace</h1>
+	<nav>
+		<ul>
+			<li><a routerLink="/">Home</a></li>
+			<li><a routerLink="/search">Marketplace</a></li>
+			<li><a routerLink="/browse">Specs</a></li>
+			<li><a routerLink="/about">About</a></li>
+			<li *ngIf="!hasToken()"><a routerLink="/login">Login</a></li>
+			<li *ngIf="!hasToken()"><a routerLink="/register">Register</a></li>
+			<li *ngIf="hasToken()"><a routerLink="/logout">Logout</a></li>
+		</ul>
+	</nav>
 </header>

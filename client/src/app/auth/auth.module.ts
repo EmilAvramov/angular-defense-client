@@ -8,5 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [LoginComponent, RegisterComponent],
 	imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
+	providers: [Storage]
 })
 export class AuthModule {}
