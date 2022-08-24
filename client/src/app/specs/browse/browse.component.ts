@@ -35,7 +35,7 @@ export class BrowseComponent implements OnInit {
 				next: (value) => console.log(value),
 				error: (err) => console.log(err.message),
 			});
-		this.http.get(`${server}/data/brands`).subscribe({
+		this.http.get(`${server}/data/devices`).subscribe({
 			next: (value) => console.log(value),
 			error: (err) => console.log(err.message),
 		});
