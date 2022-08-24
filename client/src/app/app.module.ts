@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { SpecsModule } from './specs/specs.module';
 import { SharedModule } from './shared/shared.module';
+import { StorageService } from './shared/services/storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule
   ],
-  providers: [],
+  providers: [StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

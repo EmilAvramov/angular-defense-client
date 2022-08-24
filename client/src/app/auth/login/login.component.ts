@@ -6,9 +6,10 @@ import {
 	emailPattern,
 	passwordPattern,
 } from 'src/app/shared/variables/validationPatterns';
-import { setSessionStorage } from '../helpers/sessionStorage';
 import { UserAuth } from 'src/app/shared/interfaces/User.interface';
 import { server } from 'src/app/shared/variables/config';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
 	selector: 'app-login',
@@ -16,6 +17,14 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
+
+	constructor(
+		private fb: FormBuilder,
+		private http: HttpClient,
+		private router: Router,
+		private storageService: StorageService
+	) {}
+
 	profileForm = this.fb.group({
 		email: [
 			'',
@@ -40,8 +49,6 @@ export class LoginComponent implements OnInit {
 		return this.profileForm.get(['credentials', 'password']);
 	}
 
-	constructor(private fb: FormBuilder, private http: HttpClient) {}
-
 	ngOnInit(): void {}
 
 	onSubmit(): void {
@@ -55,10 +62,13 @@ export class LoginComponent implements OnInit {
 				{ headers: headers, responseType: 'json' }
 			)
 			.subscribe({
-				next: (response) => setSessionStorage(response),
+				next: (response) => {
+					this.storageService.setStorage(response)
+					this.router.navigate(['/'])
+				},
 				error: (error) => console.log(error),
 			});
-			
+
 		this.profileForm.reset();
 	}
 }

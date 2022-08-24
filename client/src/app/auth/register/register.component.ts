@@ -9,7 +9,8 @@ import {
 } from 'src/app/shared/variables/validationPatterns';
 import { UserAuth } from 'src/app/shared/interfaces/User.interface';
 import { server } from 'src/app/shared/variables/config';
-import { setSessionStorage } from '../helpers/sessionStorage';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
 	selector: 'app-register',
@@ -17,6 +18,14 @@ import { setSessionStorage } from '../helpers/sessionStorage';
 	styleUrls: ['./register.component.sass'],
 })
 export class RegisterComponent implements OnInit {
+
+	constructor(
+		private fb: FormBuilder,
+		private http: HttpClient,
+		private router: Router,
+		private storageService: StorageService
+	) {}
+
 	profileForm = this.fb.group({
 		credentials: this.fb.group({
 			email: [
@@ -117,14 +126,13 @@ export class RegisterComponent implements OnInit {
 			)
 			.subscribe({
 				next: (response) => {
-					setSessionStorage(response);
+					this.storageService.setStorage(response)
+					this.router.navigate(['/']);
 				},
 				error: (error: any) => console.log(error),
 			});
 		this.profileForm.reset();
 	}
-
-	constructor(private fb: FormBuilder, private http: HttpClient) {}
 
 	ngOnInit(): void {}
 }

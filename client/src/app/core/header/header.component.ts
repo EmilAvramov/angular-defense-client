@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
-import { SessionStorage } from 'src/app/shared/tokens/injection-tokens';
+import { HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { server } from 'src/app/shared/variables/config';
 
 @Component({
@@ -9,20 +9,14 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-	token: string | undefined;
+	token: string | null;
 	userSession: object | undefined;
 
-	constructor(
-		@Inject(SessionStorage) private session: Window['sessionStorage'],
-		private http: HttpClient
-	) {
-		try {
-			this.userSession = this.session;
-			this.token = this.session.getItem('token') || undefined;
-		} catch {
-			this.userSession = undefined;
-			this.token = undefined;
-		}
+	constructor(private http: HttpClient, private storageService: StorageService) {
+		this.storageService.watchStorage().subscribe({
+			next: () => this.hasToken(),
+		});
+		this.token = this.storageService.getToken();
 	}
 
 	hasToken(): boolean {
@@ -42,11 +36,7 @@ export class HeaderComponent implements OnInit {
 				}
 			)
 			.subscribe({
-				next: () => {
-					sessionStorage.clear()
-					this.userSession = undefined
-					this.token = undefined
-				},
+				next: () => this.storageService.clearStorage(),
 				error: (error) => console.log(error),
 			});
 	}
