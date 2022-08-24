@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { server } from 'src/app/shared/variables/config';
@@ -10,24 +10,26 @@ import { server } from 'src/app/shared/variables/config';
 })
 export class HeaderComponent implements OnInit {
 	token: string | null;
-	userSession: object | undefined;
+	auth: boolean = !!this.storageService.getToken();
 
-	constructor(private http: HttpClient, private storageService: StorageService) {
-		this.storageService.watchStorage().subscribe({
-			next: () => this.hasToken(),
-		});
+	constructor(private http: HttpClient, public storageService: StorageService) {
 		this.token = this.storageService.getToken();
-	}
-
-	hasToken(): boolean {
-		return !!this.token;
+		this.storageService.watchStorage().subscribe({
+			next: (value) => {
+				if (value === 'added') {
+					this.auth = true;
+				} else {
+					this.auth = false;
+				}
+			},
+		});
 	}
 
 	logout(): void {
 		this.http
 			.post(
 				`${server}/users/logout`,
-				{ token: this.token as string },
+				{ token: this.token },
 				{
 					headers: {
 						'content-type': 'application/json',

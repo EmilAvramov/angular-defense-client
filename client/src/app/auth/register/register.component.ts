@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
 				'',
 				{
 					validators: [Validators.required],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 		}),

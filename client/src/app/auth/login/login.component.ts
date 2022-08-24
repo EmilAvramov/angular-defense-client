@@ -37,16 +37,16 @@ export class LoginComponent implements OnInit {
 			'',
 			{
 				validators: [Validators.required, Validators.pattern(passwordPattern)],
-				updateOn: 'blur',
+				updateOn: 'change',
 			},
 		],
 	});
 
 	get email() {
-		return this.profileForm.get(['credentials', 'email']);
+		return this.profileForm.get(['email']);
 	}
 	get password() {
-		return this.profileForm.get(['credentials', 'password']);
+		return this.profileForm.get(['password']);
 	}
 
 	ngOnInit(): void {}
