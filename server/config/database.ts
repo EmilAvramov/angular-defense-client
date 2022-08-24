@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
 		host: process.env['NG_APP_HOST'],
 		port: Number(process.env['NG_APP_PORT']),
 		dialect: 'postgres',
+		logging: false
 	}
 );
 
