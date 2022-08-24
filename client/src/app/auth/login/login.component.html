@@ -1,1 +1,25 @@
-<p>login works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+	<label for="email">Email: </label>
+	<input id="email" type="text" formControlName="email" required />
+	<span
+		class="form__error"
+		*ngIf="email?.invalid && (email?.dirty || email?.touched)"
+	>
+		<p *ngIf="email?.errors?.['required']">This field is required</p>
+		<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
+	</span>
+
+	<label for="password">Password: </label>
+	<input id="password" type="password" formControlName="password" required />
+	<span
+		class="form__error"
+		*ngIf="password?.invalid && (password?.dirty || password?.touched)"
+	>
+		<p *ngIf="password?.errors?.['required']">This field is required</p>
+		<p *ngIf="password?.errors?.['pattern']">
+			Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+			character
+		</p>
+	</span>
+    <button>Login</button>
+</form>

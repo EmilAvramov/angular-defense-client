@@ -50,7 +50,7 @@ export const register = async (data: UserModel) => {
 	return createSession(user);
 };
 
-export const login = async (data: UserModel) => {
+export const login = async (data: any) => {
 	const user = await User.findOne({ where: { email: data.email } });
 
 	if (!user) {
