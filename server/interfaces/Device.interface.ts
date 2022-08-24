@@ -8,7 +8,7 @@ export interface Brand
 	extends Model<InferAttributes<Brand>, InferCreationAttributes<Brand>> {
 	brandId: number;
 	brandName: string;
-	key: string;
+	brandKey: string;
 }
 
 export interface Device
@@ -17,5 +17,5 @@ export interface Device
 	deviceName: string;
 	deviceType: string;
 	deviceImage: string;
-	key: string;
+	deviceKey: string;
 }

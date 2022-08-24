@@ -33,7 +33,11 @@ export class BrowseComponent implements OnInit {
 			)
 			.subscribe({
 				next: (value) => console.log(value),
-				error: (err) => console.log(err.message)
+				error: (err) => console.log(err.message),
 			});
+		this.http.get(`${server}/data/brands`).subscribe({
+			next: (value) => console.log(value),
+			error: (err) => console.log(err.message),
+		});
 	}
 }

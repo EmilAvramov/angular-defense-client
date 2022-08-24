@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const endpoint =
-	'https://script.google.com/macros/s/AKfycbxNu27V2Y2LuKUIQMK8lX1y0joB6YmG6hUwB1fNeVbgzEh22TcDGrOak03Fk3uBHmz-/exec';
+import { apiHost, headers } from '../config/settings';
 
 export const compileSearch = (type: string, query: string) => {
 	let body = {};
@@ -17,12 +15,8 @@ export const compileSearch = (type: string, query: string) => {
 		};
 	}
 
-	const headers = {
-		'content-type': 'application/json',
-	};
-
 	try {
-		return axios.post(endpoint, body, { headers: headers });
+		return axios.post(apiHost, body, { headers });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

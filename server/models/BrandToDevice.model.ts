@@ -1,5 +1,5 @@
 import database from '../config/database';
-import { DataType, PrimaryKey } from 'sequelize-typescript';
+import { DataType } from 'sequelize-typescript';
 import { Brand, Device } from '../interfaces/Device.interface';
 
 export const BrandModel = database.sequelize.define<Brand>('Brand', {
@@ -8,13 +8,14 @@ export const BrandModel = database.sequelize.define<Brand>('Brand', {
 		type: DataType.INTEGER,
 		allowNull: false,
 		autoIncrement: false,
+		unique: true
 	},
 	brandName: {
 		type: DataType.TEXT,
 		allowNull: false,
 	},
-	key: {
-		type: DataType.INTEGER,
+	brandKey: {
+		type: DataType.TEXT,
 		allowNull: false,
 		unique: true,
 	},
@@ -26,6 +27,7 @@ export const DeviceModel = database.sequelize.define<Device>('Device', {
 		type: DataType.INTEGER,
 		allowNull: false,
 		autoIncrement: false,
+		unique: true
 	},
 	deviceName: {
 		type: DataType.TEXT,
@@ -39,8 +41,8 @@ export const DeviceModel = database.sequelize.define<Device>('Device', {
 		type: DataType.TEXT,
 		allowNull: false,
 	},
-	key: {
-		type: DataType.INTEGER,
+	deviceKey: {
+		type: DataType.TEXT,
 		allowNull: false,
 		unique: true,
 	},
