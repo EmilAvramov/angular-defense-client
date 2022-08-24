@@ -8,7 +8,7 @@ export const BrandModel = database.sequelize.define<Brand>('Brand', {
 		type: DataType.INTEGER,
 		allowNull: false,
 		autoIncrement: false,
-		unique: true
+		unique: true,
 	},
 	brandName: {
 		type: DataType.TEXT,
@@ -27,7 +27,7 @@ export const DeviceModel = database.sequelize.define<Device>('Device', {
 		type: DataType.INTEGER,
 		allowNull: false,
 		autoIncrement: false,
-		unique: true
+		unique: true,
 	},
 	deviceName: {
 		type: DataType.TEXT,
@@ -46,9 +46,14 @@ export const DeviceModel = database.sequelize.define<Device>('Device', {
 		allowNull: false,
 		unique: true,
 	},
+	fkBrand: {
+		type: DataType.INTEGER,
+		allowNull: false,
+		references: {
+			model: BrandModel,
+			key: 'brandId'
+		}
+	},
 });
-
-BrandModel.hasMany(DeviceModel);
-DeviceModel.belongsTo(BrandModel);
 
 (async () => await database.sequelize.sync())();

@@ -18,4 +18,5 @@ export interface Device
 	deviceType: string;
 	deviceImage: string;
 	deviceKey: string;
+	fkBrand: number,
 }

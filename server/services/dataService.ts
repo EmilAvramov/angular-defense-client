@@ -23,18 +23,10 @@ export const getBrands = async () => {
 	}
 };
 
-//
-// deviceId: number;
-// deviceName: string;
-// deviceType: string;
-// deviceImage: string;
-// deviceKey: string;
-// //
-
 export const getDevices = async () => {
 	try {
 		const response = await axios.get(`${apiHost}?route=device-list`);
-		const normalized:any[] = [];
+		const normalized: any[] = [];
 		response.data.data.map((item: any) => {
 			item.device_list.map((device: any) => {
 				normalized.push({
@@ -43,11 +35,19 @@ export const getDevices = async () => {
 					deviceType: device.device_type,
 					deviceImage: device.device_image,
 					deviceKey: device.key,
+					fkBrand: item.brand_id,
 				});
 			});
 		});
 		await DeviceModel.bulkCreate<Device>(normalized, {
-			fields: ['deviceId', 'deviceName', 'deviceType', 'deviceImage', 'deviceKey'],
+			fields: [
+				'deviceId',
+				'deviceName',
+				'deviceType',
+				'deviceImage',
+				'deviceKey',
+				'fkBrand',
+			],
 			updateOnDuplicate: ['deviceName', 'deviceType', 'deviceImage', 'deviceKey'],
 			returning: true,
 		});
