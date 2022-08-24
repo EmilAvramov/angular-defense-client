@@ -9,16 +9,17 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-	token: string | null;
+	token: string | null | undefined;
 	auth: boolean = !!this.storageService.getToken();
 
 	constructor(private http: HttpClient, public storageService: StorageService) {
-		this.token = this.storageService.getToken();
 		this.storageService.watchStorage().subscribe({
 			next: (value) => {
 				if (value === 'added') {
+					this.token = this.storageService.getToken();
 					this.auth = true;
 				} else {
+					this.token = undefined;
 					this.auth = false;
 				}
 			},
