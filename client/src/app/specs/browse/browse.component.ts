@@ -1,15 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
+import { server } from 'src/app/shared/variables/config';
 
 @Component({
-  selector: 'app-browse',
-  templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.sass']
+	selector: 'app-browse',
+	templateUrl: './browse.component.html',
+	styleUrls: ['./browse.component.sass'],
 })
 export class BrowseComponent implements OnInit {
+	constructor(private http: HttpClient, private fb: FormBuilder) {}
 
-  constructor() { }
+	searchForm = this.fb.group({
+		query: [''],
+	});
 
-  ngOnInit(): void {
-  }
+	get query() {
+		return this.searchForm.get(['query']);
+	}
 
+	ngOnInit(): void {}
+
+	onClick() {
+		const key = this.searchForm.value;
+		const headers = { 'content-type': 'application/json' };
+
+		this.http
+			.post(
+				`${server}/query/phone`,
+				{ type: 'details', query: key },
+				{ headers: headers, responseType: 'json' }
+			)
+			.subscribe({
+				next: (value) => console.log(value),
+			});
+	}
 }
