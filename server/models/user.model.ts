@@ -1,8 +1,8 @@
 import database from '../config/database';
 import { DataType } from 'sequelize-typescript';
-import { UserModel } from '../interfaces/User.interface';
+import { User } from '../interfaces/User.interface';
 
-export const User = database.sequelize.define<UserModel>('User', {
+export const UserModel = database.sequelize.define<User>('User', {
 	id: {
 		primaryKey: true,
 		type: DataType.INTEGER,

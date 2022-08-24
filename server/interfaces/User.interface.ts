@@ -5,10 +5,10 @@ import {
 	Model,
 } from 'sequelize/types';
 
-export interface UserModel
+export interface User
 	extends Model<
-		InferAttributes<UserModel>,
-		InferCreationAttributes<UserModel>
+		InferAttributes<User>,
+		InferCreationAttributes<User>
 	> {
         id: CreationOptional<number>,
         email: string,

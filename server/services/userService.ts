@@ -1,13 +1,13 @@
-import { User } from "../models/user.model";
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { saltRounds } from "../config/settings";
-import { UserModel } from "../interfaces/User.interface";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { saltRounds } from '../config/settings';
+import { User } from '../interfaces/User.interface';
+import { UserModel } from '../models/user.model';
 
 const jwtSecret = process.env['NG_APP_SECRET'];
 const blackList = new Set();
 
-const createSession = (user: UserModel) => {
+const createSession = (user: User) => {
 	const payload = {
 		id: user.id,
 		email: user.email,
@@ -20,24 +20,24 @@ const createSession = (user: UserModel) => {
 	};
 
 	const accessToken = jwt.sign(payload, jwtSecret as string, {
-		expiresIn: '2d'
-	})
+		expiresIn: '2d',
+	});
 
 	return {
 		payload,
-		accessToken
+		accessToken,
 	};
 };
 
-export const register = async (data: UserModel) => {
-	const exists = await User.findOne({ where: { email: data.email } });
+export const register = async (data: User) => {
+	const exists = await UserModel.findOne({ where: { email: data.email } });
 
 	if (exists) {
 		throw new Error('Email is already taken');
 	}
 
 	const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-	const user = await User.create({
+	const user = await UserModel.create({
 		email: data.email,
 		password: hashedPassword,
 		firstName: data.firstName,
@@ -51,7 +51,7 @@ export const register = async (data: UserModel) => {
 };
 
 export const login = async (data: any) => {
-	const user = await User.findOne({ where: { email: data.email } });
+	const user = await UserModel.findOne({ where: { email: data.email } });
 
 	if (!user) {
 		throw new Error('Incorrect credentials');
