@@ -21,18 +21,19 @@ export class BrowseComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	onClick() {
-		const key = this.searchForm.value;
+	onSubmit() {
+		const { query } = this.searchForm.value;
 		const headers = { 'content-type': 'application/json' };
 
 		this.http
 			.post(
 				`${server}/query/phone`,
-				{ type: 'details', query: key },
+				{ type: 'details', query },
 				{ headers: headers, responseType: 'json' }
 			)
 			.subscribe({
 				next: (value) => console.log(value),
+				error: (err) => console.log(err.message)
 			});
 	}
 }

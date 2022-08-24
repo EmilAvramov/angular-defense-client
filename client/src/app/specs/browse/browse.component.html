@@ -1,3 +1,5 @@
-<label for="query">Query: </label>
-<input id="query" type="text" formControlName="query" required />
-<button (click)="onClick()">Click me</button>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+	<label for="query">Query: </label>
+	<input id="query" type="text" formControlName="query" required />
+	<button>Click me</button>
+</form>
