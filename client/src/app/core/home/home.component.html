@@ -1,1 +1,17 @@
-<p>home works!</p>
+<main>
+    <section>
+        <h2>Latest Devices</h2>
+        <div *ngFor="let item of latest">
+            <p>{{item.deviceName}}</p>
+            <img src={{item.deviceImage}} alt="">
+        </div>
+    </section>
+    <section>
+        <h2>Most Popular Devices</h2>
+        <div *ngFor="let item of popular">
+            <p>{{item.rank}}</p>
+            <p>{{item.deviceName}}</p>
+            <p>{{item.dailyHits}}</p>
+        </div>
+    </section>
+</main>

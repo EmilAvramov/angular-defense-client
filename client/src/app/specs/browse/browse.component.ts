@@ -27,7 +27,7 @@ export class BrowseComponent implements OnInit {
 
 		this.http
 			.post(
-				`${server}/device/list/lg_k20_(2019)-9828`,
+				`${server}/device/list/?query=${query}`,
 				{ headers: headers, responseType: 'json' }
 			)
 			.subscribe({
