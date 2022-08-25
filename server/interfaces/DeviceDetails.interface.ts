@@ -5,8 +5,11 @@ import {
 	Model,
 } from 'sequelize/types';
 
-export interface PhoneAd
-	extends Model<InferAttributes<PhoneAd>, InferCreationAttributes<PhoneAd>> {
+export interface DeviceDetails
+	extends Model<
+		InferAttributes<DeviceDetails>,
+		InferCreationAttributes<DeviceDetails>
+	> {
 	id: CreationOptional<number>;
 	key: string;
 	deviceName: string;

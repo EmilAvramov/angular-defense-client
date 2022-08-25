@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getList, getNews } from '../services/phoneService';
+import { getDetails, getList, getNews } from '../services/deviceService';
 
 const router = Router();
 
@@ -28,6 +28,15 @@ router.post('/list', async (req, res) => {
 		} 
 		const response = await getList(query as string)
 		res.status(200).json(response)
+	} catch (err:any) {
+		res.status(400).json({message: err.message})
+	}
+})
+
+router.post('/list/:id', async (req, res) => {
+	try {
+		const response = await getDetails(req.params.id)
+		res.status(200).json(response.data.data)
 	} catch (err:any) {
 		res.status(400).json({message: err.message})
 	}

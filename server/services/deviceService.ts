@@ -26,8 +26,20 @@ export const getList = async (query: string) => {
 	try {
 		return await DeviceModel.findAll({
 			where: { deviceName: { [Op.iLike]: `%${query}%` } },
-			limit: 10
+			limit: 10,
 		});
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
+export const getDetails = async (id: string) => {
+	try {
+		return await axios.post(
+			apiHost,
+			{ route: 'device-detail', key: id },
+			{ headers }
+		);
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

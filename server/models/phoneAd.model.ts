@@ -1,8 +1,8 @@
 import database from '../config/database';
-import { DataType, PrimaryKey } from 'sequelize-typescript';
-import { PhoneAd } from '../interfaces/Phone.interface';
+import { DataType } from 'sequelize-typescript';
+import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 
-export const PhoneAdModel = database.sequelize.define<PhoneAd>('User', {
+export const PhoneAdModel = database.sequelize.define<DeviceDetails>('Device', {
     id: { // db
         primaryKey: true,
         type: DataType.INTEGER,
