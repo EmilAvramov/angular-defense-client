@@ -1,17 +1,21 @@
-<main>
-    <section>
-        <h2>Latest Devices</h2>
-        <div *ngFor="let item of latest">
-            <p>{{item.deviceName}}</p>
-            <img src={{item.deviceImage}} alt="">
-        </div>
-    </section>
-    <section>
-        <h2>Most Popular Devices</h2>
-        <div *ngFor="let item of popular">
-            <p>{{item.rank}}</p>
-            <p>{{item.deviceName}}</p>
-            <p>{{item.dailyHits}}</p>
-        </div>
-    </section>
-</main>
+<div class="home__container">
+	<main class="home__main">
+		<h2>Latest Devices</h2>
+		<div class="home__main_container">
+			<div *ngFor="let item of latest">
+				<p>{{ item.deviceName }}</p>
+				<img src="{{ item.deviceImage }}" alt="" />
+			</div>
+		</div>
+	</main>
+	<aside class="home__aside">
+		<h2>Most Popular Devices</h2>
+		<div class="home__aside_container">
+			<div *ngFor="let item of popular">
+				<p>Rank: {{ item.rank }}</p>
+				<p>Name: {{ item.deviceName }}</p>
+				<p>Daily Hits: {{ item.dailyHits }}</p>
+			</div>
+		</div>
+	</aside>
+</div>
