@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/users', userController);
-app.use('/query', phoneController)
+app.use('/device', phoneController)
 app.use('/data', dataController)
 
 export default app

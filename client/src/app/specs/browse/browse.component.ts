@@ -27,8 +27,7 @@ export class BrowseComponent implements OnInit {
 
 		this.http
 			.post(
-				`${server}/query/phone`,
-				{ type: 'details', query },
+				`${server}/device/news/?query=${query}`,
 				{ headers: headers, responseType: 'json' }
 			)
 			.subscribe({
