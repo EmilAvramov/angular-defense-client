@@ -1,26 +1,7 @@
 import axios from 'axios';
 import { apiHost, headers } from '../config/settings';
-
-// export const compileSearch = (type: string, query: string) => {
-// 	let body = {};
-// 	if (type === 'details') {
-// 		body = {
-// 			route: 'device-detail',
-// 			key: query,
-// 		};
-// 	} else if (type === 'news') {
-// 		body = {
-// 			route: 'search',
-// 			query: query,
-// 		};
-// 	}
-
-// 	try {
-// 		return axios.post(apiHost, body, { headers });
-// 	} catch (err: any) {
-// 		throw new Error(err.message);
-// 	}
-// };
+import { DeviceModel } from '../models/BrandToDevice.model';
+import { Op } from 'sequelize';
 
 export const getNews = async (query: string) => {
 	try {
@@ -34,8 +15,19 @@ export const getNews = async (query: string) => {
 		);
 		const news = response.data.data.news_list;
 		const reviews = response.data.data.review_list;
-		const status = response.data.status
+		const status = response.data.status;
 		return { news, reviews, status };
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
+export const getList = async (query: string) => {
+	try {
+		return await DeviceModel.findAll({
+			where: { deviceName: { [Op.iLike]: `%${query}%` } },
+			limit: 10
+		});
 	} catch (err: any) {
 		throw new Error(err.message);
 	}
