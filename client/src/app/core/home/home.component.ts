@@ -1,6 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { HomeRequest, LatestDevice, PopularDevice } from 'src/app/shared/interfaces/Home.interface';
+import { finalize } from 'rxjs';
+
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import {
+	HomeRequest,
+	LatestDevice,
+	PopularDevice,
+} from 'src/app/shared/interfaces/Home.interface';
 import { server } from 'src/app/shared/variables/config';
 
 @Component({
@@ -9,20 +17,22 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
+	latest: LatestDevice[] | undefined;
+	popular: PopularDevice[] | undefined;
 
-	latest: LatestDevice[] | undefined
-	popular: PopularDevice[] | undefined
-
-	constructor(private http: HttpClient) {
-	}
+	constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
 	ngOnInit(): void {
-		this.http.get<HomeRequest>(`${server}/data/recommended`).subscribe({
-			next: (value) => {
-				this.latest = value.latest
-				this.popular = value.popular
-			},
-			error: (err) => console.log(err.message),
-		});
+		this.spinner.show();
+		this.http
+			.get<HomeRequest>(`${server}/data/recommended`)
+			.pipe(finalize(() => this.spinner.hide()))
+			.subscribe({
+				next: (value) => {
+					this.latest = value.latest;
+					this.popular = value.popular;
+				},
+				error: (err) => console.log(err.message),
+			});
 	}
 }

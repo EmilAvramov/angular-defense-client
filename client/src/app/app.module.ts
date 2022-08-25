@@ -33,7 +33,7 @@ import { StorageService } from './shared/services/storage.service';
     SpecsModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [StorageService],
   bootstrap: [AppComponent],
