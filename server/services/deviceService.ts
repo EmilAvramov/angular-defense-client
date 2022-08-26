@@ -32,6 +32,10 @@ export const getList = async (
 			return await DeviceModel.findAll({
 				where: { deviceName: { [Op.iLike]: `%${query}%` } },
 				limit: 10,
+				include: {
+					model: BrandModel,
+					required: true,
+				},
 			});
 		}
 		return await DeviceModel.findAll({
