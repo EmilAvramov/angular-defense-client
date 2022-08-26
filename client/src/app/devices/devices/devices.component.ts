@@ -27,6 +27,24 @@ export class DevicesComponent implements OnInit {
 		this.requestData();
 	}
 
+	queryData(query: string): void {
+		const headers = { 'content-type': 'application/json' };
+		this.http
+			.post(`${server}/device/list/search/?query=${query}`, {
+				headers: headers,
+				responseType: 'json',
+			})
+			.subscribe({
+				next: (value: any) => {
+					this.data = [];
+					value.forEach((item: Device) => {
+						this.data.push(item);
+					});
+				},
+				error: (err) => console.log(err.message),
+			});
+	}
+
 	requestData(): void {
 		const headers = { 'content-type': 'application/json' };
 
@@ -41,11 +59,9 @@ export class DevicesComponent implements OnInit {
 			)
 			.subscribe({
 				next: (value: any) => {
-					console.log(value);
 					value.forEach((item: Device) => {
 						this.data.push(item);
 					});
-					console.log(this.data);
 				},
 				error: (err) => console.log(err.message),
 			});

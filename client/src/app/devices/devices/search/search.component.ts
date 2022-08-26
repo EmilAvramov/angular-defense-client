@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { server } from 'src/app/shared/variables/config';
 
 @Component({
 	selector: 'app-search',
@@ -9,7 +7,9 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./search.component.sass'],
 })
 export class SearchComponent implements OnInit {
-	constructor(private http: HttpClient, private fb: FormBuilder) {}
+	@Output() search = new EventEmitter<string>();
+
+	constructor(private fb: FormBuilder) {}
 
 	searchForm = this.fb.group({
 		query: [''],
@@ -22,17 +22,6 @@ export class SearchComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onSubmit() {
-		const { query } = this.searchForm.value;
-		const headers = { 'content-type': 'application/json' };
-
-		this.http
-			.post(`${server}/device/list/search/?query=${query}`, {
-				headers: headers,
-				responseType: 'json',
-			})
-			.subscribe({
-				next: (value) => console.log(value),
-				error: (err) => console.log(err.message),
-			});
+		this.search.emit(this.query!.value);
 	}
 }

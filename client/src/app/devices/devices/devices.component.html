@@ -1,2 +1,2 @@
-<app-search></app-search>
+<app-search (search)="this.queryData($event)"></app-search>
 <app-list [data]="this.data" (request)="this.loadMore()"></app-list>
