@@ -9,18 +9,21 @@ import { server } from 'src/app/shared/variables/config';
 	styleUrls: ['./devices.component.sass'],
 })
 export class DevicesComponent implements OnInit {
-	public limit: number = 200;
+	public limit: number = 100;
+	public offset: number = 0;
 	public data: Device[] = [];
 
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(): void {
 		this.limit = 100;
+		this.offset = 0;
 		this.requestData();
 	}
 
 	loadMore(): void {
 		this.limit += 100;
+		this.offset += 100;
 		this.requestData();
 	}
 
@@ -30,7 +33,7 @@ export class DevicesComponent implements OnInit {
 		this.http
 			.post(
 				`${server}/device/list/`,
-				{ limit: this.limit },
+				{ limit: this.limit, offset: this.offset },
 				{
 					headers: headers,
 					responseType: 'json',

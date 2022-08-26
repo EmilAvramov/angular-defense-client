@@ -22,7 +22,7 @@ router.post('/news', async (req, res) => {
 
 router.post('/list', async (req, res) => {
 	try {
-		const response = await getList('', req.body.limit)
+		const response = await getList('', req.body.limit, req.body.offset)
 		res.status(200).json(response)
 	} catch (err:any) {
 		res.status(400).json({message: err.message})
