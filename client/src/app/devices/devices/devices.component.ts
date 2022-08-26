@@ -59,6 +59,7 @@ export class DevicesComponent implements OnInit {
 			)
 			.subscribe({
 				next: (value: any) => {
+					console.log(value)
 					value.forEach((item: Device) => {
 						this.data.push(item);
 					});

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiHost, headers } from '../config/settings';
-import { DeviceModel } from '../models/BrandToDevice.model';
+import { BrandModel, DeviceModel } from '../models/BrandToDevice.model';
 import { Op } from 'sequelize';
 
 export const getNews = async (query: string) => {
@@ -34,7 +34,11 @@ export const getList = async (
 				limit: 10,
 			});
 		}
-		return await DeviceModel.findAll({ limit: limit, offset: offset });
+		return await DeviceModel.findAll({
+			limit: limit,
+			offset: offset,
+			include: { model: BrandModel, foreignKey: 'fkBrand' },
+		});
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

@@ -49,11 +49,10 @@ export const DeviceModel = database.sequelize.define<Device>('Device', {
 	fkBrand: {
 		type: DataType.INTEGER,
 		allowNull: false,
-		references: {
-			model: BrandModel,
-			key: 'brandId'
-		}
+		unique: false,
 	},
 });
 
-(async () => await database.sequelize.sync())();
+BrandModel.hasMany(DeviceModel, {foreignKey: 'fkBrand'});
+
+(async () => await database.sequelize.sync({ force: true }))();
