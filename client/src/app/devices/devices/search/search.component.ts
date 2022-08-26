@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { server } from 'src/app/shared/variables/config';
 
 @Component({
-	selector: 'app-browse',
-	templateUrl: './browse.component.html',
-	styleUrls: ['./browse.component.sass'],
+	selector: 'app-search',
+	templateUrl: './search.component.html',
+	styleUrls: ['./search.component.sass'],
 })
-export class BrowseComponent implements OnInit {
+export class SearchComponent implements OnInit {
 	constructor(private http: HttpClient, private fb: FormBuilder) {}
 
 	searchForm = this.fb.group({
@@ -26,10 +26,10 @@ export class BrowseComponent implements OnInit {
 		const headers = { 'content-type': 'application/json' };
 
 		this.http
-			.post(
-				`${server}/device/list/?query=${query}`,
-				{ headers: headers, responseType: 'json' }
-			)
+			.post(`${server}/device/list/?query=${query}`, {
+				headers: headers,
+				responseType: 'json',
+			})
 			.subscribe({
 				next: (value) => console.log(value),
 				error: (err) => console.log(err.message),

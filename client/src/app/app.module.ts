@@ -12,9 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { MarketplaceModule } from './marketplace/marketplace.module';
-import { SpecsModule } from './specs/specs.module';
 import { SharedModule } from './shared/shared.module';
 import { StorageService } from './shared/services/storage.service';
+import { DevicesModule } from './devices/devices.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +30,7 @@ import { StorageService } from './shared/services/storage.service';
     CoreModule,
     AuthModule,
     MarketplaceModule,
-    SpecsModule,
+    DevicesModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
