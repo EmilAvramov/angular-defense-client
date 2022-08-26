@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
 		const headers = { 'content-type': 'application/json' };
 
 		this.http
-			.post(`${server}/device/list/?query=${query}`, {
+			.post(`${server}/device/list/search/?query=${query}`, {
 				headers: headers,
 				responseType: 'json',
 			})
@@ -34,9 +34,5 @@ export class SearchComponent implements OnInit {
 				next: (value) => console.log(value),
 				error: (err) => console.log(err.message),
 			});
-		this.http.get(`${server}/data/recommended`).subscribe({
-			next: (value) => console.log(value),
-			error: (err) => console.log(err.message),
-		});
 	}
 }

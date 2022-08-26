@@ -22,12 +22,15 @@ export const getNews = async (query: string) => {
 	}
 };
 
-export const getList = async (query: string) => {
+export const getList = async (query: string = '', limit: number = 200) => {
 	try {
-		return await DeviceModel.findAll({
-			where: { deviceName: { [Op.iLike]: `%${query}%` } },
-			limit: 10,
-		});
+		if (query) {
+			return await DeviceModel.findAll({
+				where: { deviceName: { [Op.iLike]: `%${query}%` } },
+				limit: 10,
+			});
+		}
+		return await DeviceModel.findAll({ limit: limit });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

@@ -22,6 +22,15 @@ router.post('/news', async (req, res) => {
 
 router.post('/list', async (req, res) => {
 	try {
+		const response = await getList('', req.body.limit)
+		res.status(200).json(response)
+	} catch (err:any) {
+		res.status(400).json({message: err.message})
+	}
+})
+
+router.post('/list/search', async (req, res) => {
+	try {
 		let query = req.query.query
 		if (!query) {
 			res.status(404).json({message: 'not found'})
