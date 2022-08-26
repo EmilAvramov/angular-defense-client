@@ -1,2 +1,2 @@
 <app-search></app-search>
-<app-list></app-list>
+<app-list [data]="this.data" (request)="this.loadMore()"></app-list>

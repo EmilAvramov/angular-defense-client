@@ -22,7 +22,7 @@ export const getNews = async (query: string) => {
 	}
 };
 
-export const getList = async (query: string = '', limit: number = 200) => {
+export const getList = async (query: string = '', limit: number = 100) => {
 	try {
 		if (query) {
 			return await DeviceModel.findAll({
@@ -30,7 +30,7 @@ export const getList = async (query: string = '', limit: number = 200) => {
 				limit: 10,
 			});
 		}
-		return await DeviceModel.findAll({ limit: limit });
+		return await DeviceModel.findAll({ limit: limit, offset: limit });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

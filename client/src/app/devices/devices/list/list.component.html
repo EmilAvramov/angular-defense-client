@@ -1,8 +1,9 @@
 <main class="device__container">
-    <div class="devices__list">
-        <div *ngFor="let device of this.data" class="devices__list_item">
-            <p>{{device.deviceName}} - {{device.deviceType}}</p>
-            <img src={{device.deviceImage}} alt="">
-        </div>
-    </div>
+	<div class="devices__list">
+		<div *ngFor="let device of this.data" class="devices__list_item">
+			<p>{{ device.deviceName }} - {{ device.deviceType }}</p>
+			<img src="{{ device.deviceImage }}" alt="" />
+		</div>
+	</div>
+	<button (click)="this.loadMore()" class="devices__more">Load More...</button>
 </main>

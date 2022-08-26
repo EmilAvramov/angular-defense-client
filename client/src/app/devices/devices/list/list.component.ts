@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { server } from 'src/app/shared/variables/config';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
 
 @Component({
@@ -9,42 +7,16 @@ import { Device } from 'src/app/shared/interfaces/Devices.interface';
 	styleUrls: ['./list.component.sass'],
 })
 export class ListComponent implements OnInit {
-	public limit: number = 200;
-	public data: Device[] = [];
+	@Input() data: Device[] = [];
+	@Output() request = new EventEmitter<string>();
 
-	constructor(private http: HttpClient) {}
+	loadMore() {
+		this.request.emit('request more data')
+	} 
 
-	ngOnInit(): void {
-    this.limit = 200
-    this.requestData()
-  }
+	constructor() {}
 
-	loadMore(): void {
-		this.limit += 200;
-    this.requestData()
-	}
+	ngOnInit(): void {}
 
-  requestData(): void {
-		const headers = { 'content-type': 'application/json' };
-
-		this.http
-			.post(
-				`${server}/device/list/`,
-				{ limit: this.limit },
-				{
-					headers: headers,
-					responseType: 'json',
-				}
-			)
-			.subscribe({
-				next: (value: any) => {
-					console.log(value);
-					value.forEach((item: Device) => {
-						this.data.push(item);
-					});
-					console.log(this.data);
-				},
-				error: (err) => console.log(err.message),
-			});
-	}
+	
 }

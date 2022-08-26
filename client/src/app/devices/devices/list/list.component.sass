@@ -1,6 +1,18 @@
-.devices__list
-    display: grid
-    grid-template-columns: auto(6, 1fr)
+.device__container
+    .devices__list
+        display: grid
+        grid-template-columns: repeat(6, 1fr)
 
     .devices__list_item
         border: 1px solid black
+        padding: 20px
+
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 10px
+
+    .devices__more
+        width: 100%
+        margin: 10px auto
