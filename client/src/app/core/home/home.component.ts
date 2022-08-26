@@ -19,10 +19,16 @@ import { server } from 'src/app/shared/variables/config';
 export class HomeComponent implements OnInit {
 	latest: LatestDevice[] | undefined;
 	popular: PopularDevice[] | undefined;
+	refreshed: boolean = false;
 
 	constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
 	ngOnInit(): void {
+		if (!this.refreshed) {
+			this.http.get(`${server}/data/brands`).subscribe();
+			this.http.get(`${server}/data/devices`).subscribe();
+			this.refreshed = true;
+		}
 		this.spinner.show();
 		this.http
 			.get<HomeRequest>(`${server}/data/recommended`)

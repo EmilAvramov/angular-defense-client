@@ -37,7 +37,10 @@ export const getList = async (
 		return await DeviceModel.findAll({
 			limit: limit,
 			offset: offset,
-			include: { model: BrandModel, foreignKey: 'fkBrand' },
+			include: {
+				model: BrandModel,
+				required: true,
+			},
 		});
 	} catch (err: any) {
 		throw new Error(err.message);
