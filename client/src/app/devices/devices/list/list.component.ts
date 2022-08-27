@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
 	selector: 'app-list',
@@ -11,12 +12,14 @@ export class ListComponent implements OnInit {
 	@Output() request = new EventEmitter<string>();
 
 	loadMore() {
-		this.request.emit('request more data')
-	} 
+		this.request.emit('request more data');
+	}
 
-	constructor() {}
+	constructor(public modal: ModalService) {}
 
 	ngOnInit(): void {}
 
-	
+	open() {
+		this.modal.open();
+	}
 }

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserAuth } from '../interfaces/User.interface';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+  })
 export class StorageService {
 	private storage = new Subject<string>();
 

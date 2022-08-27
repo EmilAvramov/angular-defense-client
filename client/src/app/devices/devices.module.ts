@@ -8,6 +8,7 @@ import { DevicesRoutingModule } from './devices.routing.module';
 import { DataService } from './services/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
 	declarations: [DevicesComponent, SearchComponent, ListComponent],
@@ -17,6 +18,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		ReactiveFormsModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
+		CoreModule
 	],
 	providers: [DataService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
