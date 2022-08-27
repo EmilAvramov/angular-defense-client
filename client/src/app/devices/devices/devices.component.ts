@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Device } from 'src/app/shared/interfaces/Devices.interface';
+import {
+	Device,
+	DeviceDetails,
+} from 'src/app/shared/interfaces/Devices.interface';
 import { DataService } from '../services/data.service';
-import { finalize, first } from 'rxjs';
+import { finalize, first, catchError } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -14,7 +17,7 @@ export class DevicesComponent implements OnInit {
 	public limit: number = 100;
 	public offset: number = 0;
 	public data: Device[] = [];
-	public details: Device | undefined;
+	public details: DeviceDetails | undefined;
 	public requested: boolean = false;
 
 	constructor(
@@ -92,11 +95,14 @@ export class DevicesComponent implements OnInit {
 					this.spinner.hide();
 					this.modal.open();
 				},
-				error: (err) => console.log(err.message),
+				error: (err) => {
+					console.log(err.stack);
+					this.spinner.hide();
+				},
 			});
 	}
 
 	clearDetails() {
-		this.details = undefined
+		this.details = undefined;
 	}
 }

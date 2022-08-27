@@ -11,7 +11,7 @@ export interface DeviceDetails
 		InferCreationAttributes<DeviceDetails>
 	> {
 	id: CreationOptional<number>;
-	key: string;
+	deviceKey: string;
 	deviceName: string;
 	deviceImage: string;
 	connectivity: string;
