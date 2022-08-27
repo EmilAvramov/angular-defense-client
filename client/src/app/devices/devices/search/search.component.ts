@@ -23,5 +23,6 @@ export class SearchComponent implements OnInit {
 
 	onSubmit() {
 		this.search.emit(this.query!.value);
+		this.query?.reset();
 	}
 }

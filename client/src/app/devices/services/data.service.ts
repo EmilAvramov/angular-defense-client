@@ -1,16 +1,16 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Device } from 'src/app/shared/interfaces/Devices.interface';
+import { Subject } from 'rxjs';
 import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
 export class DataService {
 	public headers = { 'content-type': 'application/json' };
+	public request = new Subject();
 
 	constructor(private http: HttpClient) {}
 
-	requestData(data: Device[], limit: number, offset: number): void {
+	requestData(limit: number, offset: number): Subject<any> {
 		this.http
 			.post(
 				`${server}/device/list/`,
@@ -20,29 +20,17 @@ export class DataService {
 					responseType: 'json',
 				}
 			)
-			.subscribe({
-				next: (value: any) => {
-					value.forEach((item: Device) => {
-						data.push(item);
-					});
-				},
-				error: (err) => console.log(err.message),
-			});
+			.subscribe((res) => this.request.next(res));
+		return this.request;
 	}
 
-	queryData(data: Device[], query: string): void {
+	queryData(query: string): Subject<any> {
 		this.http
 			.post(`${server}/device/list/search/?query=${query}`, {
 				headers: this.headers,
 				responseType: 'json',
 			})
-			.subscribe({
-				next: (value: any) => {
-					value.forEach((item: Device) => {
-						data.push(item);
-					});
-				},
-				error: (err) => console.log(err.message),
-			});
+			.subscribe((res) => this.request.next(res));
+		return this.request;
 	}
 }
