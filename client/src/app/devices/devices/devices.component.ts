@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
 import { DataService } from '../services/data.service';
+import { finalize, Subject } from 'rxjs';
 
 @Component({
 	selector: 'devices-page',
@@ -19,25 +20,17 @@ export class DevicesComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.limit = 100;
 		this.offset = 0;
-		this.spinner.show();
-		console.log(this.spinner)
-		this.dataService.requestData(this.data, this.limit, this.offset);
-		this.spinner.hide()
+		this.dataService.requestData(this.data, this.limit, this.offset)
 	}
 
 	loadMore(): void {
-		this.limit += 100;
 		this.offset += 100;
-		this.spinner.show();
-		this.dataService.requestData(this.data, this.limit, this.offset);
-		this.spinner.hide()
+		this.dataService.requestData(this.data, this.limit, this.offset)
 	}
 
 	query(query: string): void {
-		this.spinner.show();
+		this.data = [];
 		this.dataService.queryData(this.data, query);
-		this.spinner.hide()
 	}
 }

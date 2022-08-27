@@ -1,16 +1,16 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Device } from "src/app/shared/interfaces/Devices.interface";
-import { server } from "src/app/shared/variables/config";
+import { HttpClient, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Device } from 'src/app/shared/interfaces/Devices.interface';
+import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
 export class DataService {
-    public headers = { 'content-type': 'application/json' }
+	public headers = { 'content-type': 'application/json' };
 
-    constructor(private http: HttpClient){}
+	constructor(private http: HttpClient) {}
 
-    requestData(data: Device[], limit: number, offset:number): void {
-
+	requestData(data: Device[], limit: number, offset: number): void {
 		this.http
 			.post(
 				`${server}/device/list/`,
@@ -30,7 +30,7 @@ export class DataService {
 			});
 	}
 
-    queryData(data: Device[], query: string): void {
+	queryData(data: Device[], query: string): void {
 		this.http
 			.post(`${server}/device/list/search/?query=${query}`, {
 				headers: this.headers,
@@ -38,7 +38,6 @@ export class DataService {
 			})
 			.subscribe({
 				next: (value: any) => {
-					data = [];
 					value.forEach((item: Device) => {
 						data.push(item);
 					});

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DevicesComponent } from './devices/devices.component';
 import { SearchComponent } from './devices/search/search.component';
@@ -19,5 +19,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		BrowserAnimationsModule,
 	],
 	providers: [DataService],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DevicesModule {}
