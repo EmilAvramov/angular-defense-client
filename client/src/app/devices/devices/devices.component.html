@@ -1,2 +1,6 @@
-<app-search (search)="this.queryData($event)"></app-search>
+<app-search (search)="this.query($event)"></app-search>
 <app-list [data]="this.data" (request)="this.loadMore()"></app-list>
+
+<ngx-spinner [fullScreen]="false" type="ball-spin">
+	<p style="color: white">Loading...</p>
+</ngx-spinner>

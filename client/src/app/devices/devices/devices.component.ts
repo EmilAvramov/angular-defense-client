@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
-import { server } from 'src/app/shared/variables/config';
+import { DataService } from '../services/data.service';
 
 @Component({
 	selector: 'devices-page',
@@ -13,58 +13,31 @@ export class DevicesComponent implements OnInit {
 	public offset: number = 0;
 	public data: Device[] = [];
 
-	constructor(private http: HttpClient) {}
+	constructor(
+		private spinner: NgxSpinnerService,
+		private dataService: DataService
+	) {}
 
 	ngOnInit(): void {
 		this.limit = 100;
 		this.offset = 0;
-		this.requestData();
+		this.spinner.show();
+		console.log(this.spinner)
+		this.dataService.requestData(this.data, this.limit, this.offset);
+		this.spinner.hide()
 	}
 
 	loadMore(): void {
 		this.limit += 100;
 		this.offset += 100;
-		this.requestData();
+		this.spinner.show();
+		this.dataService.requestData(this.data, this.limit, this.offset);
+		this.spinner.hide()
 	}
 
-	queryData(query: string): void {
-		const headers = { 'content-type': 'application/json' };
-		this.http
-			.post(`${server}/device/list/search/?query=${query}`, {
-				headers: headers,
-				responseType: 'json',
-			})
-			.subscribe({
-				next: (value: any) => {
-					this.data = [];
-					value.forEach((item: Device) => {
-						this.data.push(item);
-					});
-				},
-				error: (err) => console.log(err.message),
-			});
-	}
-
-	requestData(): void {
-		const headers = { 'content-type': 'application/json' };
-
-		this.http
-			.post(
-				`${server}/device/list/`,
-				{ limit: this.limit, offset: this.offset },
-				{
-					headers: headers,
-					responseType: 'json',
-				}
-			)
-			.subscribe({
-				next: (value: any) => {
-					console.log(value)
-					value.forEach((item: Device) => {
-						this.data.push(item);
-					});
-				},
-				error: (err) => console.log(err.message),
-			});
+	query(query: string): void {
+		this.spinner.show();
+		this.dataService.queryData(this.data, query);
+		this.spinner.hide()
 	}
 }

@@ -31,7 +31,7 @@ export const getList = async (
 		if (query) {
 			return await DeviceModel.findAll({
 				where: { deviceName: { [Op.iLike]: `%${query}%` } },
-				limit: 10,
+				limit,
 				include: {
 					model: BrandModel,
 					required: true,
@@ -39,8 +39,8 @@ export const getList = async (
 			});
 		}
 		return await DeviceModel.findAll({
-			limit: limit,
-			offset: offset,
+			limit,
+			offset,
 			include: {
 				model: BrandModel,
 				required: true,
