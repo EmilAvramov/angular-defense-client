@@ -33,4 +33,14 @@ export class DataService {
 			.subscribe((res) => this.request.next(res));
 		return this.request;
 	}
+
+	getSpecs(key: string): Subject<any> {
+		this.http
+			.post(`${server}/device/list/${key}`, {
+				headers: this.headers,
+				responseType: 'json',
+			})
+			.subscribe((res) => this.request.next(res));
+		return this.request;
+	}
 }

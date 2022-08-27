@@ -1,7 +1,11 @@
 <app-search (search)="this.query($event)"></app-search>
-<app-list [data]="this.data" (request)="this.loadMore()"></app-list>
+<app-list
+	[data]="this.data"
+	(request)="this.loadMore()"
+	(details)="this.getDetails($event)"
+></app-list>
 
-<ngx-spinner [fullScreen]="false" type="ball-spin">
+<ngx-spinner [fullScreen]="true" type="ball-spin">
 	<p style="color: white">Loading...</p>
 </ngx-spinner>
-<app-modal></app-modal>
+<app-modal [details]="this.details" (closed)="clearDetails()"></app-modal>

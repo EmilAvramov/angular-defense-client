@@ -44,6 +44,7 @@ router.post('/list/search', async (req, res) => {
 
 router.post('/list/:id', async (req, res) => {
 	try {
+		console.log(req.params.id)
 		const response = await getDetails(req.params.id)
 		res.status(200).json(response.data.data)
 	} catch (err:any) {

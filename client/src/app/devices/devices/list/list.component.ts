@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
-import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
 	selector: 'app-list',
@@ -10,16 +9,21 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class ListComponent implements OnInit {
 	@Input() data: Device[] = [];
 	@Output() request = new EventEmitter<string>();
+	@Output() details = new EventEmitter<string>();
 
 	loadMore() {
 		this.request.emit('request more data');
 	}
 
-	constructor(public modal: ModalService) {}
+	showDetails(deviceKey: string) {
+		this.details.emit(deviceKey);
+	}
+
+	constructor() {}
 
 	ngOnInit(): void {}
 
-	open() {
-		this.modal.open();
+	open(deviceKey: string) {
+		this.showDetails(deviceKey);
 	}
 }

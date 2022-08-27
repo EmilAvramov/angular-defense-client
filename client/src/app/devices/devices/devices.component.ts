@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Device } from 'src/app/shared/interfaces/Devices.interface';
 import { DataService } from '../services/data.service';
 import { finalize, first } from 'rxjs';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
 	selector: 'devices-page',
@@ -13,11 +14,13 @@ export class DevicesComponent implements OnInit {
 	public limit: number = 100;
 	public offset: number = 0;
 	public data: Device[] = [];
+	public details: Device | undefined;
 	public requested: boolean = false;
 
 	constructor(
 		private spinner: NgxSpinnerService,
-		private dataService: DataService
+		private dataService: DataService,
+		public modal: ModalService
 	) {}
 
 	ngOnInit(): void {
@@ -75,5 +78,25 @@ export class DevicesComponent implements OnInit {
 					error: (err) => console.log(err.message),
 				});
 		}
+	}
+
+	getDetails(key: string) {
+		this.spinner.show();
+		this.dataService
+			.getSpecs(key)
+			.pipe(first())
+			.subscribe({
+				next: (value) => {
+					console.log(value);
+					this.details = value;
+					this.spinner.hide();
+					this.modal.open();
+				},
+				error: (err) => console.log(err.message),
+			});
+	}
+
+	clearDetails() {
+		this.details = undefined
 	}
 }
