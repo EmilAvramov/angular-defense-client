@@ -1,24 +1,30 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { DevicesComponent } from './devices/devices.component';
 import { SearchComponent } from './devices/search/search.component';
 import { ListComponent } from './devices/list/list.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { DevicesRoutingModule } from './devices.routing.module';
 import { DataService } from './services/data.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalComponent } from './devices/modal/modal.component';
+
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CoreModule } from '../core/core.module';
 
 @NgModule({
-	declarations: [DevicesComponent, SearchComponent, ListComponent],
+	declarations: [
+		DevicesComponent,
+		SearchComponent,
+		ListComponent,
+		ModalComponent,
+	],
 	imports: [
 		CommonModule,
 		DevicesRoutingModule,
 		ReactiveFormsModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
-		CoreModule
 	],
 	providers: [DataService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],

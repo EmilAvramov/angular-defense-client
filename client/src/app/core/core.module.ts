@@ -11,7 +11,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { SessionStorage } from '../shared/tokens/injection-tokens';
-import { ModalComponent } from './modal/modal.component';
 import { ModalService } from '../shared/services/modal.service';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { ModalService } from '../shared/services/modal.service';
 		HomeComponent,
 		AboutComponent,
 		NotFoundComponent,
-		ModalComponent,
 	],
 	imports: [
 		CommonModule,
@@ -29,7 +27,7 @@ import { ModalService } from '../shared/services/modal.service';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	exports: [HeaderComponent, FooterComponent, NotFoundComponent, ModalComponent],
+	exports: [HeaderComponent, FooterComponent, NotFoundComponent],
 	providers: [
 		{
 			provide: SessionStorage,

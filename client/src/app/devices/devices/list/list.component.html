@@ -2,8 +2,7 @@
 	<div class="devices__list">
 		<div *ngFor="let device of data" class="devices__list_item">
 			<p>{{ device.Brand.brandName }} - {{ device.deviceName }}</p>
-			<img src="{{ device.deviceImage }}" alt="" />
-			<button (click)="open()">Open Me</button>
+			<img (click)="open()" src="{{ device.deviceImage }}" alt="" />
 		</div>
 	</div>
 	<button (click)="loadMore()" class="devices__more">Load More...</button>
