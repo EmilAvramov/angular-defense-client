@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getBrands, getDevices, getRecommended } from '../services/dataService';
+import { getBrands, getDevices, getRecommended, readyData } from '../services/dataService';
 
 const router = Router();
 
@@ -20,6 +20,15 @@ router.get('/devices', async (req, res) => {
 		res.status(400).json({ message: err.message });
 	}
 });
+
+router.get('/loadData', async (req, res) => {
+	try {
+		await readyData();
+		res.status(200).json({message: 'Data loaded'})
+	} catch (err: any) {
+		res.status(400).json({message: err.message})
+	}
+})
 
 router.get('/recommended', async (req, res) => {
 	try {

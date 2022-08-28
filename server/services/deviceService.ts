@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiHost, headers } from '../config/settings';
-import { BrandModel, DeviceModel } from '../models/BrandToDevice.model';
+import { BrandModel, DeviceModel } from '../models/database.model';
 import { Op } from 'sequelize';
 
 export const getNews = async (query: string) => {
