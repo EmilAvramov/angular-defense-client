@@ -17,6 +17,7 @@ export class DevicesComponent implements OnInit {
 	public limit: number = 100;
 	public offset: number = 0;
 	public data: Device[] = [];
+	public detailedData: DeviceDetails[] = [];
 	public details: DeviceDetails | undefined;
 	public requested: boolean = false;
 
@@ -41,6 +42,13 @@ export class DevicesComponent implements OnInit {
 				},
 				error: (err) => console.log(err.message),
 			});
+		this.dataService.requestDetailedData().subscribe({
+			next: (value: any) => {
+				this.detailedData = value;
+				console.log(this.detailedData);
+			},
+			error: (err: any) => console.log(err.message),
+		});
 	}
 
 	loadMore(): void {
@@ -85,21 +93,34 @@ export class DevicesComponent implements OnInit {
 
 	getDetails(key: string) {
 		this.spinner.show();
-		this.dataService
-			.getSpecs(key)
-			.pipe(first())
-			.subscribe({
-				next: (value) => {
-					console.log(value);
-					this.details = value;
-					this.spinner.hide();
-					this.modal.open();
-				},
-				error: (err) => {
-					console.log(err.stack);
-					this.spinner.hide();
-				},
-			});
+		try {
+			this.details = this.detailedData.filter(
+				(x: DeviceDetails) => x.deviceKey === key
+			)[0];
+			console.log(
+				this.detailedData.filter((x: DeviceDetails) => x.deviceKey === key)
+			);
+			console.log(this.details);
+			if (this.details === undefined) {
+				this.dataService
+					.getSpecs(key)
+					.pipe(first())
+					.subscribe({
+						next: (value) => {
+							console.log(value);
+							this.details = value;
+							this.spinner.hide();
+							this.modal.open();
+						},
+						error: (err) => {
+							console.log(err.stack);
+							this.spinner.hide();
+						},
+					});
+			}
+		} catch (err) {
+			console.log('Please try again');
+		}
 	}
 
 	clearDetails() {

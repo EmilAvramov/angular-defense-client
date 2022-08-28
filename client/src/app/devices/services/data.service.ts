@@ -24,6 +24,13 @@ export class DataService {
 		return this.request;
 	}
 
+	requestDetailedData(): Subject<any> {
+		this.http
+			.get(`${server}/device/listData`)
+			.subscribe((res) => this.request.next(res));
+		return this.request;
+	}
+
 	queryData(query: string): Subject<any> {
 		this.http
 			.post(`${server}/device/list/search/?query=${query}`, {

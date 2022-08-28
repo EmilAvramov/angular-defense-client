@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getDetails, getList, getNews } from '../services/deviceService';
+import { getDetails, getList, getListWithDetails, getNews } from '../services/deviceService';
 
 const router = Router();
 
@@ -23,6 +23,15 @@ router.post('/news', async (req, res) => {
 router.post('/list', async (req, res) => {
 	try {
 		const response = await getList('', req.body.limit, req.body.offset)
+		res.status(200).json(response)
+	} catch (err:any) {
+		res.status(400).json({message: err.message})
+	}
+})
+
+router.get('/listData', async (req, res) => {
+	try {
+		const response = await getListWithDetails()
 		res.status(200).json(response)
 	} catch (err:any) {
 		res.status(400).json({message: err.message})
