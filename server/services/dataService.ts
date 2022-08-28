@@ -91,42 +91,51 @@ export const getRecommended = async () => {
 
 export const readyData = async () => {
 	const aggregatedData: any[] = [];
+	const listRequest: Device[] = await DeviceModel.findAll();
+	const dbExisting: string[] = [];
+	listRequest.forEach((item: Device) => dbExisting.push(item.deviceKey));
 	const normalized = (entry: any) => {
 		return {
 			deviceKey: entry.data?.key,
 			deviceName: entry.data?.device_name,
 			deviceImage: entry.data?.device_image,
-			connectivity: entry.data?.more_specification[0].data[0]?.data[0],
+			connectivity: entry.data?.more_specification[0]?.data[0]?.data[0],
 			launchDate: entry.data?.release_date,
-			dimensions: entry.data?.more_specification[2].data[0]?.data[0],
-			weight: entry.data?.more_specification[2].data[1]?.data[0],
-			build: entry.data?.more_specification[2].data[2]?.data[0],
-			sim: entry.data?.more_specification[2].data[3]?.data[0],
-			display: entry.data?.more_specification[3].data[0]?.data[0],
-			size: entry.data?.more_specification[3].data[1]?.data[0],
-			resolution: entry.data?.more_specification[3].data[2]?.data[0],
-			protection: entry.data?.more_specification[3].data[3]?.data[0],
-			os: entry.data?.more_specification[4].data[0]?.data[0],
-			chipset: entry.data?.more_specification[4].data[1]?.data[0],
-			cpu: entry.data?.more_specification[4].data[2]?.data[0],
-			gpu: entry.data?.more_specification[4].data[3]?.data[0],
-			cardSlot: entry.data?.more_specification[5].data[0]?.data[0],
-			internalStorage: entry.data?.more_specification[5].data[1]?.data[0],
-			cameraMain: entry.data?.more_specification[6].data[0]?.data[0],
-			videoMain: entry.data?.more_specification[6].data[2]?.data[0],
-			cameraSelfie: entry.data?.more_specification[7].data[0]?.data[0],
-			videoSelfie: entry.data?.more_specification[7].data[2]?.data[0],
-			speakers: entry.data?.more_specification[8].data[2]?.data[0],
-			jack: entry.data?.more_specification[8].data[1]?.data[0],
-			features: entry.data?.more_specification[10].data[0]?.data[0],
-			batteryCharge: entry.data?.more_specification[11].data[1]?.data[0],
-			batteryType: entry.data?.more_specification[11].data[0]?.data[0],
-			price: entry.data?.more_specification[12].data[4]?.data[0],
+			dimensions: entry.data?.more_specification[2]?.data[0]?.data[0],
+			weight: entry.data?.more_specification[2]?.data[1]?.data[0],
+			build: entry.data?.more_specification[2]?.data[2]?.data[0],
+			sim: entry.data?.more_specification[2]?.data[3]?.data[0],
+			display: entry.data?.more_specification[3]?.data[0]?.data[0],
+			size: entry.data?.more_specification[3]?.data[1]?.data[0],
+			resolution: entry.data?.more_specification[3]?.data[2]?.data[0],
+			protection: entry.data?.more_specification[3]?.data[3]?.data[0],
+			os: entry.data?.more_specification[4]?.data[0]?.data[0],
+			chipset: entry.data?.more_specification[4]?.data[1]?.data[0],
+			cpu: entry.data?.more_specification[4]?.data[2]?.data[0],
+			gpu: entry.data?.more_specification[4]?.data[3]?.data[0],
+			cardSlot: entry.data?.more_specification[5]?.data[0]?.data[0],
+			internalStorage: entry.data?.more_specification[5]?.data[1]?.data[0],
+			cameraMain: entry.data?.more_specification[6]?.data[0]?.data[0],
+			videoMain: entry.data?.more_specification[6]?.data[2]?.data[0],
+			cameraSelfie: entry.data?.more_specification[7]?.data[0]?.data[0],
+			videoSelfie: entry.data?.more_specification[7]?.data[2]?.data[0],
+			speakers: entry.data?.more_specification[8]?.data[2]?.data[0],
+			jack: entry.data?.more_specification[8]?.data[1]?.data[0],
+			features: entry.data?.more_specification[10]?.data[0]?.data[0],
+			batteryCharge: entry.data?.more_specification[11]?.data[1]?.data[0],
+			batteryType: entry.data?.more_specification[11]?.data[0]?.data[0],
+			price: entry.data?.more_specification[12]?.data[4]?.data[0],
 		};
 	};
-	data.forEach((item: any) => aggregatedData.push(normalized(item)));
+	data.forEach((item: any) => {
+		if (item.data?.key !== undefined && dbExisting.includes(item.data?.key)) {
+			aggregatedData.push(normalized(item));
+		}
+	});
 
-	console.log(aggregatedData)
-
-	await DeviceDetailsModel.bulkCreate<DeviceDetails>(aggregatedData);
+	try {
+		await DeviceDetailsModel.bulkCreate<DeviceDetails>(aggregatedData);
+	} catch (err: any) {
+		console.log(err.message);
+	}
 };

@@ -50,7 +50,7 @@ export const DeviceModel = database.sequelize.define<Device>(
 		},
 		deviceKey: {
 			type: DataType.TEXT,
-			allowNull: false,
+			allowNull: true,
 			unique: true,
 		},
 		fkBrand: {
@@ -72,7 +72,7 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 		},
 		deviceKey: {
 			type: DataType.TEXT,
-			allowNull: false,
+			allowNull: true,
 			unique: true
 		},
 		deviceName: {
@@ -187,22 +187,26 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 			type: DataType.TEXT,
 			allowNull: true,
 		},
-	}
+	},
+	{ timestamps: false }
 );
 
 BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
-DeviceModel.belongsTo(BrandModel, {
-	targetKey: 'brandId',
-	foreignKey: 'fkBrand',
-});
 
 DeviceDetailsModel.belongsTo(DeviceModel, {
 	targetKey: 'deviceKey',
 	foreignKey: 'deviceKey',
 });
-DeviceModel.belongsTo(DeviceDetailsModel, {
-	targetKey: 'deviceKey',
+
+DeviceModel.belongsTo(BrandModel, {
+	targetKey: 'brandId',
+	foreignKey: 'fkBrand',
+});
+
+DeviceModel.hasOne(DeviceDetailsModel, {
 	foreignKey: 'deviceKey',
 });
+
+
 
 (async () => await database.sequelize.sync())();
