@@ -7,7 +7,8 @@
 		"build": "npx tsc",
 		"start": "node dist/index.js",
 		"dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.main.js\"",
-		"dev:ts": "nodemon server.main.ts"
+		"dev:ts": "nodemon server.main.ts",
+		"load": "ts-node config/databaseLoad.ts"
 	},
 	"keywords": [],
 	"author": "",

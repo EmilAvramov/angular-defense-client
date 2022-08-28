@@ -23,10 +23,6 @@ export class HomeComponent implements OnInit {
 	constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
 	ngOnInit(): void {
-		this.http.get(`${server}/data/brands`).subscribe();
-		this.http.get(`${server}/data/devices`).subscribe();
-		this.http.get(`${server}/data/loadData`).subscribe()
-
 		this.spinner.show();
 		this.http
 			.get<HomeRequest>(`${server}/data/recommended`)

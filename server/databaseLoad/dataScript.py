@@ -12,7 +12,7 @@ url = "https://script.google.com/macros/s/AKfycbxNu27V2Y2LuKUIQMK8lX1y0joB6YmG6h
 def get_devices():
     results = requests.request("GET", f"{url}?route=device-list")
     with open(
-        "./server/dataScript/device_list.json", "w", encoding="utf-8"
+        "./server/databaseLoad/rawData/device_list.json", "w", encoding="utf-8"
     ) as x:
         json.dump(results.json(), x)
 
@@ -29,7 +29,7 @@ def get_data():
     results, executor = [], ThreadPoolExecutor(max_workers=100)
 
     with open(
-        "./server/dataScript/device_list.json", "r", encoding="utf-8"
+        "./server/databaseLoad/rawData/device_list.json", "r", encoding="utf-8"
     ) as x:
         data = json.load(x)
 
@@ -44,7 +44,7 @@ def get_data():
         except:
             pass
     with open(
-        "./server/dataScript/device_data.json", "w", encoding="utf-8"
+        "./server/databaseLoad/rawData/device_data.json", "w", encoding="utf-8"
     ) as x:
         json.dump(results, x)
 
