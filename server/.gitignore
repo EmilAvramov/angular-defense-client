@@ -3,3 +3,8 @@
 # Node
 /node_modules
 .env
+
+# Initial server data
+data.ts
+device_data.json
+device_list.json
