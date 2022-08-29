@@ -211,6 +211,10 @@ export const DevicePostingModel = database.sequelize.define<DevicePosting>(
 			type: DataType.TEXT,
 			allowNull: true,
 		},
+		price: {
+			type: DataType.DECIMAL,
+			allowNull: false
+		}
 	},
 	{ timestamps: false }
 );

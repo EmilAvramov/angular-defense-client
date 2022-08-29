@@ -51,6 +51,7 @@ export const createPosting = async (payload: DevicePosting) => {
 			userId: payload.userId,
 			deviceId: payload.deviceId,
 			comments: payload.comments,
+            price: payload.price
 		});
 	} catch (err: any) {
 		throw new Error(err.message);
