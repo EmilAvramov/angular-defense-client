@@ -8,9 +8,15 @@ export class DataService {
 	public headers = { 'content-type': 'application/json' };
 	public request = new Subject();
 
-	constructor(
-		private http: HttpClient,
-	) {}
+	constructor(private http: HttpClient) {}
+
+	getPostingData(): Subject<any> {
+		this.http
+			.get(`${server}/postings/list`)
+			.subscribe((res) => this.request.next(res));
+		return this.request;
+	}
+
 
 
 	requestData(limit: number, offset: number): Subject<any> {

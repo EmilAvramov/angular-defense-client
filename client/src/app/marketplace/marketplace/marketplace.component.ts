@@ -21,7 +21,9 @@ export class MarketplaceComponent implements OnInit {
 		public modal: ModalService
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.postingData = this.dataService.getPostingData()
+	}
 
 	setUser(): void {
 		this.user = this.StorageService.getAllData();
@@ -29,7 +31,7 @@ export class MarketplaceComponent implements OnInit {
 	}
 
 	loadPostings(): void {
-
+		this.postingData = this.dataService.getPostingData()
 	}
 
 	loadDevice(): void {
