@@ -8,14 +8,22 @@ import { ListComponent } from './marketplace/list/list.component';
 import { SearchComponent } from './marketplace/search/search.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CreateComponent } from './marketplace/create/create.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
-	declarations: [MarketplaceComponent, ListComponent, SearchComponent],
+	declarations: [
+		MarketplaceComponent,
+		ListComponent,
+		SearchComponent,
+		CreateComponent,
+	],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
+	providers: [DataService]
 })
 export class MarketplaceModule {}
