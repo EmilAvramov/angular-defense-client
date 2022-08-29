@@ -10,7 +10,16 @@ export class DataService {
 
 	constructor(private http: HttpClient) {}
 
-	getPostingData(): Subject<any> {
+	getPostingData(query: string = ''): Subject<any> {
+		if (query) {
+			this.http
+				.post(`${server}/postings/list/search/?query=${query}`, {
+					headers: this.headers,
+					responseType: 'json',
+				})
+				.subscribe((res) => this.request.next(res));
+			return this.request;
+		}
 		this.http
 			.get(`${server}/postings/list`)
 			.subscribe((res) => this.request.next(res));
@@ -18,6 +27,13 @@ export class DataService {
 	}
 
 
+	getDeviceDetails(name: string): Subject<any> {
+		// if (name) {
+		// 	this.http.post(`${server}/postings/`)
+		
+		// }
+		return this.request
+	}
 
 	requestData(limit: number, offset: number): Subject<any> {
 		this.http

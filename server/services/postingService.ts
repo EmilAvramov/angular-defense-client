@@ -1,5 +1,6 @@
 import {
 	DeviceDetailsModel,
+	DeviceModel,
 	DevicePostingModel,
 } from '../models/database.model';
 import { UserModel } from '../models/user.model';
@@ -45,13 +46,24 @@ export const getFilteredPostings = async (query: string) => {
 	}
 };
 
+export const loadDetails = async (query: string, limit: number = 100) => {
+	try {
+		return await DeviceModel.findAll({
+			where: { deviceName: { [Op.iLike]: `%${query}%` } },
+			limit,
+		});
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
 export const createPosting = async (payload: DevicePosting) => {
 	try {
 		return await DevicePostingModel.create({
-			userId: payload.userId,
-			deviceId: payload.deviceId,
+			userEmail: payload.userEmail,
+			deviceKey: payload.deviceKey,
 			comments: payload.comments,
-            price: payload.price
+			price: payload.price,
 		});
 	} catch (err: any) {
 		throw new Error(err.message);

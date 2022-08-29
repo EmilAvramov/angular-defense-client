@@ -3,6 +3,7 @@ import {
 	createPosting,
 	getAllPostings,
 	getFilteredPostings,
+	loadDetails,
 } from '../services/postingService';
 
 const router = Router();
@@ -37,5 +38,14 @@ router.post('/create', async (req, res) => {
 		res.status(400).json({ message: err.message });
 	}
 });
+
+router.post('/create/:deviceName', async (req, res) => {
+	try {
+		const response = await loadDetails(req.body);
+		res.status(200).json(response);
+	} catch (err: any) {
+		res.status(400).json({ message: err.message });
+	}
+})
 
 export default router;

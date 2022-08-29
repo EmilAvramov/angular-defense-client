@@ -1,5 +1,5 @@
 <app-search
-	(search)="this.loadPostings()"
+	(search)="this.loadPostings($event)"
 	(create)="this.setUser()"
 ></app-search>
 <app-list [postingData]="this.postingData"></app-list>

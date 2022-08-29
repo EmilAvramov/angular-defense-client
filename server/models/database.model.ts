@@ -201,11 +201,11 @@ export const DevicePostingModel = database.sequelize.define<DevicePosting>(
 			type: DataType.INTEGER,
 			autoIncrement: true,
 		},
-		userId: {
-			type: DataType.INTEGER,
+		userEmail: {
+			type: DataType.TEXT,
 		},
-		deviceId: {
-			type: DataType.INTEGER,
+		deviceKey: {
+			type: DataType.TEXT,
 		},
 		comments: {
 			type: DataType.TEXT,

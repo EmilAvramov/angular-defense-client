@@ -11,8 +11,8 @@ export interface DevicePosting
 		InferCreationAttributes<DevicePosting>
 	> {
 	id: CreationOptional<number>;
-    userId: number,
-    deviceId: number,
+    userEmail: string,
+    deviceKey: string,
     comments: string,
 	price: number,
 }

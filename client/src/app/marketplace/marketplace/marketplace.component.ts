@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device, DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
+import { DevicePosting } from 'src/app/shared/interfaces/Posting.interface';
 import { UserDetails } from 'src/app/shared/interfaces/User.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
@@ -13,7 +14,7 @@ import { DataService } from '../services/data.service';
 export class MarketplaceComponent implements OnInit {
 	public device: DeviceDetails | undefined;
 	public user: UserDetails | undefined;
-	public postingData: any
+	public postingData: DevicePosting[] | undefined
 
 	constructor(
 		private dataService: DataService,
@@ -22,7 +23,10 @@ export class MarketplaceComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.postingData = this.dataService.getPostingData()
+		this.dataService.getPostingData().subscribe({
+			next: (res) => this.postingData = res,
+			error: (err) => console.log(err.message)
+		})
 	}
 
 	setUser(): void {
@@ -30,8 +34,11 @@ export class MarketplaceComponent implements OnInit {
 		this.modal.open()
 	}
 
-	loadPostings(): void {
-		this.postingData = this.dataService.getPostingData()
+	loadPostings(query:string): void {
+		this.dataService.getPostingData(query).subscribe({
+			next: (res) => this.postingData = res,
+			error: (err) => console.log(err.message)
+		})
 	}
 
 	loadDevice(): void {
