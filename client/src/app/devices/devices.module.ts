@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevicesComponent } from './devices/devices.component';
 import { SearchComponent } from './devices/search/search.component';
 import { ListComponent } from './devices/list/list.component';
-import { DevicesRoutingModule } from './devices.routing.module';
 import { DataService } from './services/data.service';
 import { ModalComponent } from './devices/modal/modal.component';
 
@@ -21,7 +20,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 	],
 	imports: [
 		CommonModule,
-		DevicesRoutingModule,
 		ReactiveFormsModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,

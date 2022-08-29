@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from './search/search.component';
-import { MarketplaceRoutingModule } from './marketplace.routing.module';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { ListComponent } from './marketplace/list/list.component';
+import { SearchComponent } from './marketplace/search/search.component';
 
 @NgModule({
-  declarations: [SearchComponent],
-  imports: [CommonModule, MarketplaceRoutingModule],
+  declarations: [MarketplaceComponent, ListComponent, SearchComponent],
+  imports: [CommonModule],
 })
 export class MarketplaceModule {}
