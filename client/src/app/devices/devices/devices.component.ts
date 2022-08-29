@@ -92,16 +92,39 @@ export class DevicesComponent implements OnInit {
 	}
 
 	getDetails(key: string) {
-		this.spinner.show();
+		console.log(key);
 		try {
 			this.details = this.detailedData.filter(
 				(x: DeviceDetails) => x.deviceKey === key
 			)[0];
-			console.log(
-				this.detailedData.filter((x: DeviceDetails) => x.deviceKey === key)
-			);
+			this.modal.open();
 			console.log(this.details);
 			if (this.details === undefined) {
+				try {
+					this.spinner.show();
+					this.dataService
+						.getSpecs(key)
+						.pipe(first())
+						.subscribe({
+							next: (value) => {
+								console.log(value);
+								this.details = value;
+								this.spinner.hide();
+								this.modal.open();
+							},
+							error: (err) => {
+								console.log(err.stack);
+								this.spinner.hide();
+							},
+						});
+				} catch (err) {
+					console.log(err);
+					this.spinner.hide();
+				}
+			}
+		} catch {
+			try {
+				this.spinner.show();
 				this.dataService
 					.getSpecs(key)
 					.pipe(first())
@@ -117,9 +140,10 @@ export class DevicesComponent implements OnInit {
 							this.spinner.hide();
 						},
 					});
+			} catch (err) {
+				console.log(err);
+				this.spinner.hide();
 			}
-		} catch (err) {
-			console.log('Please try again');
 		}
 	}
 

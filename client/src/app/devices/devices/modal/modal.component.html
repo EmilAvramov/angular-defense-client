@@ -1,17 +1,69 @@
 <ng-container *ngIf="display$ | async as display">
-	<section (click)="close()">
-		<div (click)="$event.stopPropagation()">
+	<section class="details__wrapper" (click)="close()">
+		<div class="details__container">
 			<button class="close" type="button" (click)="close()">X</button>
-
-			<div class="container">
-				<div class="leftSpecs">
-						
+			<div class="details__body" (click)="$event.stopPropagation()">
+				<div class="details__leftSpecs">
+					<div class="details__block">
+						<h6>Display</h6>
+						<p>Display Type: {{ this.details!.display }}</p>
+						<p>Display Size: {{ this.details!.size }}</p>
+						<p>Resolution: {{ this.details!.resolution }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Body</h6>
+						<p>Body Size: {{ this.details!.dimensions }}</p>
+						<p>Weight: {{ this.details!.weight }}</p>
+						<p>Build: {{ this.details!.build }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Cameras</h6>
+						<p>Main Camera: {{ this.details!.cameraMain }}</p>
+						<p>Main Camera Video: {{ this.details!.videoMain }}</p>
+						<p>Front Camera: {{ this.details!.cameraSelfie }}</p>
+						<p>Front Camera Video: {{ this.details!.videoSelfie }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Sound</h6>
+						<p>Jack: {{ this.details!.jack }}</p>
+						<p>Main Camera Video: {{ this.details!.videoMain }}</p>
+						<p>Front Camera: {{ this.details!.cameraSelfie }}</p>
+						<p>Front Camera Video: {{ this.details!.videoSelfie }}</p>
+					</div>
 				</div>
-				<div class="centerSpecs">
-
+				<div class="details__centerSpecs">
+					<img src="{{ this.details!.deviceImage }}" alt="" />
+					<div class="details__buttons">
+						<button>Marketplace</button>
+						<button>Compare</button>
+					</div>
 				</div>
-				<div class="rightSpecs">
-
+				<div class="details__rightSpecs">
+					<div class="details__block">
+						<h6>Hardware</h6>
+						<p>Chipset: {{ this.details!.chipset }}</p>
+						<p>OS: {{ this.details!.os }}</p>
+						<p>CPU: {{ this.details!.cpu }}</p>
+						<p>GPU: {{ this.details!.gpu }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Battery</h6>
+						<p>Battery Type: {{ this.details!.batteryType }}</p>
+						<p>Battery Charge: {{ this.details!.batteryCharge }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Storage & Sim</h6>
+						<p>Card Slot: {{ this.details!.cardSlot }}</p>
+						<p>Internal Storage: {{ this.details!.internalStorage }}</p>
+						<p>Sim: {{ this.details!.sim }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Other Information</h6>
+						<p>Connectivity: {{ this.details!.connectivity }}</p>
+						<p>Features: {{ this.details!.features }}</p>
+						<p>Release Date: {{ this.details!.launchDate }}</p>
+						<p>Retail Price: {{ this.details!.price }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
