@@ -25,6 +25,7 @@ export class MarketplaceComponent implements OnInit {
 
 	setUser(): void {
 		this.user = this.StorageService.getAllData();
+		this.modal.open()
 	}
 
 	loadPostings(): void {
@@ -35,6 +36,10 @@ export class MarketplaceComponent implements OnInit {
 
 	}
 
+	clearDetails(): void {
+		this.user = undefined
+		this.device = undefined
+	}
 
 
 }

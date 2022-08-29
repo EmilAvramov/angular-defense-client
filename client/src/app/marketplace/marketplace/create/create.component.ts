@@ -20,12 +20,17 @@ export class CreateComponent implements OnInit {
 	constructor(private modal: ModalService) {}
 
 	ngOnInit(): void {
-		console.log(this.user);
 		this.display$ = this.modal.watch();
 	}
 
-	close() {
+	getDevice(): void {
+		this.requestDetails.emit('value')
+	}
+
+	close(): void {
 		this.closed.emit(true);
 		this.modal.close();
+		this.user = undefined
+		this.device = undefined
 	}
 }

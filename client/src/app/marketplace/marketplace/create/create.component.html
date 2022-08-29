@@ -1,1 +1,10 @@
-<p>create works!</p>
+<ng-container *ngIf="display$ | async as display">
+	<section class="create__wrapper" (click)="close()">
+		<div class="create__container">
+			<button class="close" type="button" (click)="close()">X</button>
+			<div class="create__body" (click)="$event.stopPropagation()">
+                This works!
+            </div>
+		</div>
+	</section>
+</ng-container>

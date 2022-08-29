@@ -92,13 +92,11 @@ export class DevicesComponent implements OnInit {
 	}
 
 	getDetails(key: string) {
-		console.log(key);
 		try {
 			this.details = this.detailedData.filter(
 				(x: DeviceDetails) => x.deviceKey === key
 			)[0];
 			this.modal.open();
-			console.log(this.details);
 			if (this.details === undefined) {
 				try {
 					this.spinner.show();
@@ -118,7 +116,6 @@ export class DevicesComponent implements OnInit {
 							},
 						});
 				} catch (err) {
-					console.log(err);
 					this.spinner.hide();
 				}
 			}
@@ -141,7 +138,6 @@ export class DevicesComponent implements OnInit {
 						},
 					});
 			} catch (err) {
-				console.log(err);
 				this.spinner.hide();
 			}
 		}
