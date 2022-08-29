@@ -15,6 +15,7 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
 import { SharedModule } from './shared/shared.module';
 import { StorageService } from './shared/services/storage.service';
 import { DevicesModule } from './devices/devices.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { DevicesModule } from './devices/devices.module';
     AuthModule,
     MarketplaceModule,
     DevicesModule,
+    ProfileModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,

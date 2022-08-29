@@ -8,6 +8,9 @@
 			<li><a routerLink="/about"> About</a></li>
 			<li *ngIf="!this.auth"><a routerLink="/login">Login</a></li>
 			<li *ngIf="!this.auth"><a routerLink="/register">Register</a></li>
+			<li *ngIf="this.auth">
+				<a routerLink="/profile">My Profile</a>
+			</li>
 			<li *ngIf="this.auth" (click)="logout()">
 				<a routerLink="/">Logout</a>
 			</li>
