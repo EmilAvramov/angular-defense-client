@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
 	@Output() search = new EventEmitter<string>();
+	@Output() create = new EventEmitter<string>();
 
 	constructor(private fb: FormBuilder) {}
 
@@ -24,5 +25,9 @@ export class SearchComponent implements OnInit {
 	onSubmit() {
 		this.search.emit(this.query!.value);
 		this.query?.reset();
+	}
+
+	onCreate() {
+		this.create.emit('requesting create modal')
 	}
 }

@@ -8,6 +8,15 @@ export interface User {
 	city: string;
 }
 
+export interface UserDetails {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+}
+
 export interface UserAuth {
 	payload: {
 		email: string;

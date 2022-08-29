@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { UserAuth } from '../interfaces/User.interface';
+import { UserAuth, UserDetails } from '../interfaces/User.interface';
 
 @Injectable({
-	providedIn: 'root'
-  })
+	providedIn: 'root',
+})
 export class StorageService {
 	private storage = new Subject<string>();
 
@@ -20,15 +20,30 @@ export class StorageService {
 		sessionStorage.setItem('address', response.payload.address);
 		sessionStorage.setItem('city', response.payload.city);
 		sessionStorage.setItem('token', response.accessToken);
-        this.storage.next('added')
+		this.storage.next('added');
 	}
 
-    getToken() : string | null {
-        return sessionStorage.getItem('token')
-    }
+	get(arg: string): string | null{
+		return sessionStorage.getItem(arg)
+	}
 
-    clearStorage(): void{
-        sessionStorage.clear()
-        this.storage.next('cleared')
-    }
+	clearStorage(): void {
+		sessionStorage.clear();
+		this.storage.next('cleared');
+	}
+
+	getToken(): string | null {
+		return this.get('token');
+	}
+
+	getAllData(): UserDetails {
+		return {
+			email: this.get('email')!,
+			firstName: this.get('firstName')!,
+			lastName: this.get('lastName')!,
+			phone: this.get('phone')!,
+			address: this.get('address')!,
+			city: this.get('city')!,
+		};
+	}
 }

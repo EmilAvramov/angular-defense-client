@@ -8,7 +8,10 @@ export class DataService {
 	public headers = { 'content-type': 'application/json' };
 	public request = new Subject();
 
-	constructor(private http: HttpClient) {}
+	constructor(
+		private http: HttpClient,
+	) {}
+
 
 	requestData(limit: number, offset: number): Subject<any> {
 		this.http

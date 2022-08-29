@@ -1,3 +1,10 @@
-<app-search></app-search>
+<app-search
+	(search)="this.loadPostings()"
+	(create)="(this.setUser)"
+></app-search>
 <app-list></app-list>
-<app-create></app-create>
+<app-create
+	(requestDetails)="this.loadDevice()"
+	[user]="this.user"
+	[device]="this.device"
+></app-create>

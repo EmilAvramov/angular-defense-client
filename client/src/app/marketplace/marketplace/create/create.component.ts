@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
+import { UserDetails } from 'src/app/shared/interfaces/User.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -11,14 +12,15 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class CreateComponent implements OnInit {
 	public display$!: Observable<boolean>;
 
-	@Input() details: DeviceDetails | undefined;
+	@Input() user: UserDetails | undefined;
+	@Input() device: DeviceDetails | undefined
 	@Output() closed = new EventEmitter<boolean>();
-  @Output() requestDetails = new EventEmitter<string>();
+	@Output() requestDetails = new EventEmitter<string>();
 
 	constructor(private modal: ModalService) {}
 
 	ngOnInit(): void {
-		console.log(this.details);
+		console.log(this.user);
 		this.display$ = this.modal.watch();
 	}
 
