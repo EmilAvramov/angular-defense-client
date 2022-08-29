@@ -13,7 +13,7 @@ const routes: Routes = [
 			{
 				path: '',
 				redirectTo: 'postings',
-				pathMatch: 'full'
+				pathMatch: 'full',
 			},
 			{
 				path: 'postings',

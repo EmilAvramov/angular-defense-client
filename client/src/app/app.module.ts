@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -18,26 +18,26 @@ import { DevicesModule } from './devices/devices.module';
 import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    EffectsModule.forRoot([]),
-    CoreModule,
-    AuthModule,
-    MarketplaceModule,
-    DevicesModule,
-    ProfileModule,
-    AppRoutingModule,
-    HttpClientModule,
-    SharedModule,
-  ],
-  providers: [StorageService],
-  bootstrap: [AppComponent],
+		StoreModule.forRoot({}, {}),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production,
+		}),
+		EffectsModule.forRoot([]),
+		SharedModule,
+		HttpClientModule,
+		AuthModule,
+		MarketplaceModule,
+		DevicesModule,
+		ProfileModule,
+		CoreModule,
+		AppRoutingModule,
+	],
+	providers: [StorageService],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}
