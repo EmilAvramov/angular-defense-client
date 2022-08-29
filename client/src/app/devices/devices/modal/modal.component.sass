@@ -11,7 +11,7 @@
 
     .details__container
         position: absolute
-        height: 60vh
+        height: 70vh
         width: 80vw
 
         top: 50%
@@ -51,6 +51,7 @@
                 display: flex
                 flex-direction: column
                 flex-wrap: wrap
+                gap: 30px
 
                 .details__block
                     flex-basis: 100%
@@ -58,6 +59,9 @@
                     display: flex
                     flex-wrap: wrap
                     flex-direction: column
+
+                    h6
+                        font-weight: bold
 
             .details__centerSpecs
                 flex-basis: 20%
@@ -68,7 +72,13 @@
                 flex-wrap: wrap
                 justify-content: center
                 align-items: center
+                gap: 20px
 
                 img
                     width: 100%
                     height: 100%
+
+                .details__buttons
+                    display: grid
+                    grid-template-columns: repeat(2, 1fr)
+                    gap: 30px

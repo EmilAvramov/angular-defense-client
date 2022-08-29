@@ -11,24 +11,24 @@
 						<p>Resolution: {{ this.details!.resolution }}</p>
 					</div>
 					<div class="details__block">
-						<h6>Body</h6>
-						<p>Body Size: {{ this.details!.dimensions }}</p>
-						<p>Weight: {{ this.details!.weight }}</p>
-						<p>Build: {{ this.details!.build }}</p>
-					</div>
-					<div class="details__block">
 						<h6>Cameras</h6>
-						<p>Main Camera: {{ this.details!.cameraMain }}</p>
-						<p>Main Camera Video: {{ this.details!.videoMain }}</p>
+						<p>Rear Camera: {{ this.details!.cameraMain }}</p>
+						<p>Rear Camera Video: {{ this.details!.videoMain }}</p>
 						<p>Front Camera: {{ this.details!.cameraSelfie }}</p>
 						<p>Front Camera Video: {{ this.details!.videoSelfie }}</p>
 					</div>
 					<div class="details__block">
-						<h6>Sound</h6>
-						<p>Jack: {{ this.details!.jack }}</p>
-						<p>Main Camera Video: {{ this.details!.videoMain }}</p>
-						<p>Front Camera: {{ this.details!.cameraSelfie }}</p>
-						<p>Front Camera Video: {{ this.details!.videoSelfie }}</p>
+						<h6>Hardware</h6>
+						<p>Chipset: {{ this.details!.chipset }}</p>
+						<p>OS: {{ this.details!.os }}</p>
+						<p>CPU: {{ this.details!.cpu }}</p>
+						<p>GPU: {{ this.details!.gpu }}</p>
+					</div>
+					<div class="details__block">
+						<h6>Features</h6>
+						<p>Connectivity: {{ this.details!.connectivity }}</p>
+						<p>3.5mm Jack: {{ this.details!.jack }}</p>
+						<p>Others: {{ this.details!.features }}</p>
 					</div>
 				</div>
 				<div class="details__centerSpecs">
@@ -40,11 +40,10 @@
 				</div>
 				<div class="details__rightSpecs">
 					<div class="details__block">
-						<h6>Hardware</h6>
-						<p>Chipset: {{ this.details!.chipset }}</p>
-						<p>OS: {{ this.details!.os }}</p>
-						<p>CPU: {{ this.details!.cpu }}</p>
-						<p>GPU: {{ this.details!.gpu }}</p>
+						<h6>Body</h6>
+						<p>Body Size: {{ this.details!.dimensions }}</p>
+						<p>Weight: {{ this.details!.weight }}</p>
+						<p>Build: {{ this.details!.build }}</p>
 					</div>
 					<div class="details__block">
 						<h6>Battery</h6>
@@ -58,9 +57,7 @@
 						<p>Sim: {{ this.details!.sim }}</p>
 					</div>
 					<div class="details__block">
-						<h6>Other Information</h6>
-						<p>Connectivity: {{ this.details!.connectivity }}</p>
-						<p>Features: {{ this.details!.features }}</p>
+						<h6>Distribution</h6>
 						<p>Release Date: {{ this.details!.launchDate }}</p>
 						<p>Retail Price: {{ this.details!.price }}</p>
 					</div>

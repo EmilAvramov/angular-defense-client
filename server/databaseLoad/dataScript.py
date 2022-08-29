@@ -26,7 +26,7 @@ def read_url(info):
 
 
 def get_data():
-    results, executor = [], ThreadPoolExecutor(max_workers=100)
+    results, executor = [], ThreadPoolExecutor(max_workers=1)
 
     with open(
         "./server/databaseLoad/rawData/device_list.json", "r", encoding="utf-8"
@@ -49,5 +49,5 @@ def get_data():
         json.dump(results, x)
 
 
-get_devices()
-# get_data()
+# get_devices()
+get_data()
