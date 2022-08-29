@@ -2,6 +2,8 @@ import database from '../config/database';
 import { DataType } from 'sequelize-typescript';
 import { Brand, Device } from '../interfaces/Device.interface';
 import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
+import { DevicePosting } from '../interfaces/DevicePosting.interface';
+import { UserModel } from './user.model';
 
 export const BrandModel = database.sequelize.define<Brand>(
 	'Brand',
@@ -73,7 +75,7 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 		deviceKey: {
 			type: DataType.TEXT,
 			allowNull: true,
-			unique: true
+			unique: true,
 		},
 		deviceName: {
 			type: DataType.TEXT,
@@ -191,6 +193,28 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 	{ timestamps: false }
 );
 
+export const DevicePostingModel = database.sequelize.define<DevicePosting>(
+	'Posting',
+	{
+		id: {
+			primaryKey: true,
+			type: DataType.INTEGER,
+			autoIncrement: true,
+		},
+		userId: {
+			type: DataType.INTEGER,
+		},
+		deviceId: {
+			type: DataType.INTEGER,
+		},
+		comments: {
+			type: DataType.TEXT,
+			allowNull: true,
+		},
+	},
+	{ timestamps: false }
+);
+
 BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
 
 DeviceDetailsModel.belongsTo(DeviceModel, {
@@ -207,6 +231,14 @@ DeviceModel.hasOne(DeviceDetailsModel, {
 	foreignKey: 'deviceKey',
 });
 
+DevicePostingModel.belongsTo(UserModel, {
+	targetKey: 'id',
+	foreignKey: 'userId',
+});
 
+DevicePostingModel.belongsTo(DeviceDetailsModel, {
+	targetKey: 'id',
+	foreignKey: 'deviceId',
+});
 
 (async () => await database.sequelize.sync())();
