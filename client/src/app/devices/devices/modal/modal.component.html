@@ -6,29 +6,31 @@
 				<div class="details__leftSpecs">
 					<div class="details__block">
 						<h6>Display</h6>
-						<p>Display Type: {{ this.details!.display }}</p>
-						<p>Display Size: {{ this.details!.size }}</p>
-						<p>Resolution: {{ this.details!.resolution }}</p>
+						<p *ngIf="this.details!.display">
+							Display Type: {{ this.details!.display }}
+						</p>
+						<p *ngIf="this.details!.size">Display Size: {{ this.details!.size }}</p>
+						<p *ngIf="this.details!.resolution">Resolution: {{ this.details!.resolution }}</p>
 					</div>
 					<div class="details__block">
 						<h6>Cameras</h6>
-						<p>Rear Camera: {{ this.details!.cameraMain }}</p>
-						<p>Rear Camera Video: {{ this.details!.videoMain }}</p>
-						<p>Front Camera: {{ this.details!.cameraSelfie }}</p>
-						<p>Front Camera Video: {{ this.details!.videoSelfie }}</p>
+						<p *ngIf="this.details!.cameraMain">Rear Camera: {{ this.details!.cameraMain }}</p>
+						<p *ngIf="this.details!.videoMain">Rear Camera Video: {{ this.details!.videoMain }}</p>
+						<p *ngIf="this.details!.cameraSelfie">Front Camera: {{ this.details!.cameraSelfie }}</p>
+						<p *ngIf="this.details!.videoSelfie"> Front Camera Video: {{ this.details!.videoSelfie }}</p>
 					</div>
 					<div class="details__block">
 						<h6>Hardware</h6>
-						<p>Chipset: {{ this.details!.chipset }}</p>
-						<p>OS: {{ this.details!.os }}</p>
-						<p>CPU: {{ this.details!.cpu }}</p>
-						<p>GPU: {{ this.details!.gpu }}</p>
+						<p *ngIf="this.details!.chipset">Chipset: {{ this.details!.chipset }}</p>
+						<p *ngIf="this.details!.os">OS: {{ this.details!.os }}</p>
+						<p *ngIf="this.details!.cpu">CPU: {{ this.details!.cpu }}</p>
+						<p *ngIf="this.details!.gpu">GPU: {{ this.details!.gpu }}</p>
 					</div>
 					<div class="details__block">
 						<h6>Features</h6>
-						<p>Connectivity: {{ this.details!.connectivity }}</p>
-						<p>3.5mm Jack: {{ this.details!.jack }}</p>
-						<p>Others: {{ this.details!.features }}</p>
+						<p *ngIf="this.details!.connectivity">Connectivity: {{ this.details!.connectivity }}</p>
+						<p *ngIf="this.details!.jack">3.5mm Jack: {{ this.details!.jack }}</p>
+						<p *ngIf="this.details!.features">Others: {{ this.details!.features }}</p>
 					</div>
 				</div>
 				<div class="details__centerSpecs">

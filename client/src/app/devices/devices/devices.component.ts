@@ -5,7 +5,7 @@ import {
 	DeviceDetails,
 } from 'src/app/shared/interfaces/Devices.interface';
 import { DataService } from '../services/data.service';
-import { finalize, first, catchError } from 'rxjs';
+import { first } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
@@ -45,7 +45,6 @@ export class DevicesComponent implements OnInit {
 		this.dataService.requestDetailedData().subscribe({
 			next: (value: any) => {
 				this.detailedData = value;
-				console.log(this.detailedData);
 			},
 			error: (err: any) => console.log(err.message),
 		});
@@ -56,19 +55,26 @@ export class DevicesComponent implements OnInit {
 			this.data = [];
 		}
 		this.offset += 100;
+		this.spinner.show();
 		this.dataService
 			.requestData(this.limit, this.offset)
 			.pipe(first())
 			.subscribe({
 				next: (value: any) => {
-					console.log(value);
 					value.forEach((item: Device) => {
 						this.data.push(item);
 					});
+					this.spinner.hide();
 					this.requested = false;
 				},
 				error: (err) => console.log(err.message),
 			});
+		this.dataService.requestDetailedData().subscribe({
+			next: (value: any) => {
+				this.detailedData = value;
+			},
+			error: (err: any) => console.log(err.message),
+		});
 	}
 
 	query(query: string): void {
@@ -97,49 +103,8 @@ export class DevicesComponent implements OnInit {
 				(x: DeviceDetails) => x.deviceKey === key
 			)[0];
 			this.modal.open();
-			if (this.details === undefined) {
-				try {
-					this.spinner.show();
-					this.dataService
-						.getSpecs(key)
-						.pipe(first())
-						.subscribe({
-							next: (value) => {
-								console.log(value);
-								this.details = value;
-								this.spinner.hide();
-								this.modal.open();
-							},
-							error: (err) => {
-								console.log(err.stack);
-								this.spinner.hide();
-							},
-						});
-				} catch (err) {
-					this.spinner.hide();
-				}
-			}
-		} catch {
-			try {
-				this.spinner.show();
-				this.dataService
-					.getSpecs(key)
-					.pipe(first())
-					.subscribe({
-						next: (value) => {
-							console.log(value);
-							this.details = value;
-							this.spinner.hide();
-							this.modal.open();
-						},
-						error: (err) => {
-							console.log(err.stack);
-							this.spinner.hide();
-						},
-					});
-			} catch (err) {
-				this.spinner.hide();
-			}
+		} catch (err: any) {
+			console.log(err.message);
 		}
 	}
 
