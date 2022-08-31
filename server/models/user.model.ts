@@ -38,5 +38,4 @@ export const UserModel = database.sequelize.define<User>('User', {
 	},
 });
 
-(async () => 
-await database.sequelize.sync())()
+UserModel.sync()

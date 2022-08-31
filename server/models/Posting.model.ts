@@ -40,4 +40,4 @@ PostingModel.belongsTo(DeviceDetailsModel, {
 	foreignKey: 'deviceId',
 });
 
-(async () => await database.sequelize.sync())();
+PostingModel.sync()

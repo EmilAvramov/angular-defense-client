@@ -1,31 +1,26 @@
-import { DataType } from "sequelize-typescript";
-import database from "../config/database";
-import { Brand } from "../interfaces/Brand.interface";
-import { DeviceModel } from "./Device.model";
+import { DataTypes } from 'sequelize/types';
+import sequelize from '../config/database';
+import { Brand } from '../interfaces/Brand.interface';
 
-export const BrandModel = database.sequelize.define<Brand>(
-	'Brand',
+export const BrandModel = Brand.init(
 	{
 		brandId: {
-			primaryKey: true,
-			type: DataType.INTEGER,
-			allowNull: false,
+			type: DataTypes.INTEGER,
 			autoIncrement: false,
+			primaryKey: true,
 			unique: true,
-		},
-		brandName: {
-			type: DataType.TEXT,
 			allowNull: false,
 		},
 		brandKey: {
-			type: DataType.TEXT,
+			type: DataTypes.STRING(128),
 			allowNull: false,
-			unique: true,
+		},
+		brandName: {
+			type: DataTypes.STRING(128),
+			allowNull: false,
 		},
 	},
-	{ timestamps: false }
+	{
+		sequelize,
+	}
 );
-
-BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
-
-(async () => await database.sequelize.sync())();

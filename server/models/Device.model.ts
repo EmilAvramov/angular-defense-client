@@ -45,8 +45,22 @@ DeviceModel.belongsTo(BrandModel, {
 	foreignKey: 'fkBrand',
 });
 
+DeviceModel.sync()
+
 DeviceModel.hasOne(DeviceDetailsModel, {
+	foreignKey: 'deviceKey',
+	sourceKey: 'deviceKey'
+});
+
+DeviceModel.sync()
+
+BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
+
+BrandModel.sync()
+
+DeviceDetailsModel.belongsTo(DeviceModel, {
+	targetKey: 'deviceKey',
 	foreignKey: 'deviceKey',
 });
 
-(async () => await database.sequelize.sync())();
+DeviceDetailsModel.sync()

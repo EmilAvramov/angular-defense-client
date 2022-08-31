@@ -1,7 +1,6 @@
 import { DataType } from "sequelize-typescript";
 import database from "../config/database";
 import { DeviceDetails } from "../interfaces/DeviceDetails.interface";
-import { DeviceModel } from "./Device.model";
 
 export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 	'Details',
@@ -132,9 +131,4 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 	{ timestamps: false }
 );
 
-DeviceDetailsModel.belongsTo(DeviceModel, {
-	targetKey: 'deviceKey',
-	foreignKey: 'deviceKey',
-});
-
-(async () => await database.sequelize.sync())();
+DeviceDetailsModel.sync()
