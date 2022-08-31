@@ -17,12 +17,13 @@ export const BrandModel = Brand.init(
 			allowNull: false,
 		},
 		brandKey: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
+			unique: true
 		},
 		brandName: {
-			type: DataTypes.STRING(256),
-			allowNull: false,
+			type: DataTypes.TEXT,
+			allowNull: true,
 		},
 	},
 	{
@@ -33,32 +34,26 @@ export const BrandModel = Brand.init(
 
 export const DeviceModel = Device.init(
 	{
-		deviceId: {
+		id: {
 			primaryKey: true,
 			type: DataTypes.INTEGER,
-			allowNull: false,
-			autoIncrement: false,
-			unique: true,
+			autoIncrement: true,
 		},
 		deviceName: {
-			type: DataTypes.STRING(256),
-			allowNull: false,
-		},
-		deviceType: {
-			type: DataTypes.STRING(256),
-			allowNull: false,
+			type: DataTypes.TEXT,
+			allowNull: true,
 		},
 		deviceImage: {
-			type: DataTypes.STRING(256),
-			allowNull: false,
+			type: DataTypes.TEXT,
+			allowNull: true,
 		},
 		deviceKey: {
-			type: DataTypes.STRING(256),
-			allowNull: true,
+			type: DataTypes.TEXT,
+			allowNull: false,
 			unique: true,
 		},
 		fkBrand: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.TEXT,
 			allowNull: false,
 			unique: false,
 		},
@@ -74,120 +69,120 @@ export const DeviceDetailsModel = DeviceDetails.init(
 			autoIncrement: true,
 		},
 		deviceKey: {
-			type: DataTypes.STRING(256),
-			allowNull: true,
+			type: DataTypes.TEXT,
+			allowNull: false,
 			unique: true,
 		},
 		deviceName: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		deviceImage: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		connectivity: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		launchDate: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		dimensions: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		weight: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		build: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		sim: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		display: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		size: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		resolution: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		protection: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		os: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		chipset: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		cpu: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		gpu: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		cardSlot: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		internalStorage: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		cameraMain: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		videoMain: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		cameraSelfie: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		videoSelfie: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		speakers: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		jack: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		features: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		batteryType: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		batteryCharge: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		price: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 	},
@@ -202,12 +197,14 @@ export const PostingModel = Posting.init(
 			autoIncrement: true,
 		},
 		userEmail: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			unique: true,
+			allowNull: false
 		},
 		deviceKey: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			unique: true,
+			allowNull: false
 		},
 		comments: {
 			type: DataTypes.TEXT,
@@ -229,32 +226,32 @@ export const UserModel = User.init(
 			autoIncrement: true,
 		},
 		email: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 			unique: true,
 		},
 		password: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		firstName: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		lastName: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		phone: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		address: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		city: {
-			type: DataTypes.STRING(256),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 	},
@@ -262,33 +259,23 @@ export const UserModel = User.init(
 );
 
 BrandModel.hasMany(DeviceModel, {
-	sourceKey: 'brandId',
+	sourceKey: 'brandKey',
 	foreignKey: 'fkBrand',
 });
+
+DeviceModel.belongsTo(DeviceDetailsModel, {
+	targetKey: 'deviceKey',
+	foreignKey: 'deviceKey'
+})
 
 DeviceModel.belongsTo(BrandModel, {
 	foreignKey: 'fkBrand',
-	targetKey: 'brandId',
+	targetKey: 'brandKey',
 });
 
-DeviceModel.hasOne(DeviceDetailsModel, {
+PostingModel.belongsTo(DeviceDetailsModel, {
 	foreignKey: 'deviceKey',
-	sourceKey: 'deviceKey',
-});
-
-DeviceDetailsModel.hasOne(DeviceModel, {
-	sourceKey: 'deviceKey',
-	foreignKey: 'deviceKey',
-});
-
-PostingModel.hasOne(DeviceDetailsModel, {
-	foreignKey: 'deviceKey',
-	sourceKey: 'deviceKey',
-});
-
-DeviceDetailsModel.hasMany(PostingModel, {
-	sourceKey: 'deviceKey',
-	foreignKey: 'deviceKey',
+	targetKey: 'deviceKey',
 });
 
 PostingModel.belongsTo(UserModel, {

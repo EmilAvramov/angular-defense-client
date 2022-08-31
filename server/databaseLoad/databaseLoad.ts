@@ -1,5 +1,4 @@
-import { getBrands, getDevices, readyData } from "./loadService";
+import { cleanData, getBrands } from './loadService';
 
-readyData()
-getBrands()
-// getDevices()
+getBrands();
+cleanData();

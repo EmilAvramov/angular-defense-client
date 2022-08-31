@@ -1,8 +1,6 @@
 import {
 	Association,
 	CreationOptional,
-	HasManyCountAssociationsMixin,
-	HasOneGetAssociationMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
@@ -45,8 +43,6 @@ export class DeviceDetails extends Model<
 	declare batteryCharge: string;
 	declare batteryType: string;
 	declare price: string;
-	declare getDevices: HasOneGetAssociationMixin<Device>;
-	declare countDevices: HasManyCountAssociationsMixin;
 
 	declare devices?: NonAttribute<Device[]>
 	declare postings?: NonAttribute<Posting[]>

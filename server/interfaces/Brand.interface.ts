@@ -1,7 +1,5 @@
 import {
 	Association,
-	HasManyCountAssociationsMixin,
-	HasManyGetAssociationsMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
@@ -16,8 +14,6 @@ export class Brand extends Model<
 	declare brandId: number;
 	declare brandName: string;
 	declare brandKey: string;
-	declare getDevices: HasManyGetAssociationsMixin<Device>;
-	declare countDevices: HasManyCountAssociationsMixin;
 
 	declare devices?: NonAttribute<Device[]>
 

@@ -1,10 +1,12 @@
-import { Device } from '../interfaces/Device.interface';
 import fs from 'fs';
 import path from 'path';
+
 import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 import { Brand } from '../interfaces/Brand.interface';
-import { normalize } from './functions';
+import { Device } from '../interfaces/Device.interface';
 import { BrandModel, DeviceModel, DeviceDetailsModel } from '../models/models';
+
+import { normalize } from './functions';
 
 export const getBrands = async () => {
 	const aggregatedBrands: any[] = [];
@@ -33,40 +35,9 @@ export const getBrands = async () => {
 	);
 };
 
-export const getDevices = async () => {
-	const aggregatedList: any[] = [];
-	let raw: any[] = [];
-
-	fs.readFile(
-		path.resolve(__dirname, './rawData/device_list.json'),
-		async (err, data) => {
-			if (err) {
-				throw new Error('failed to read data');
-			}
-			raw = JSON.parse(data.toString()).data;
-			raw.forEach((item: any) => {
-				item.device_list.forEach((device: any) => {
-					aggregatedList.push({
-						deviceId: device.device_id,
-						deviceName: device.device_name,
-						deviceType: device.device_type,
-						deviceImage: device.device_image,
-						deviceKey: device.key,
-						fkBrand: item.brand_id,
-					});
-				});
-			});
-			try {
-				await DeviceModel.bulkCreate<Device>(aggregatedList);
-			} catch (err: any) {
-				console.log(err.message);
-			}
-		}
-	);
-};
-
-export const readyData = async () => {
-	const aggregatedDetails: any[] = [];
+export const cleanData = async () => {
+	const deviceList: any[] = [];
+	const deviceDetails: any[] = [];
 	let raw: any[] = [];
 
 	fs.readFile(
@@ -77,14 +48,22 @@ export const readyData = async () => {
 			}
 			raw = JSON.parse(data.toString());
 			raw.forEach((item: any) => {
-				if (item.data?.key !== undefined) {
-					aggregatedDetails.push(normalize(item));
+				if (item.status == 200) {
+					deviceDetails.push(normalize(item))
+					deviceList.push({
+						deviceName: item.data?.device_name,
+						deviceImage: item.data?.device_image,
+						deviceKey: item.data?.key,
+						fkBrand: item.data?.key.split('_')[0],
+					});
 				}
 			});
+
 			try {
-				await DeviceDetailsModel.bulkCreate<DeviceDetails>(aggregatedDetails);
+				await DeviceDetailsModel.bulkCreate<DeviceDetails>(deviceDetails);
+				await DeviceModel.bulkCreate<Device>(deviceList);
 			} catch (err: any) {
-				console.log(err.stack);
+				console.log(err.message);
 			}
 		}
 	);

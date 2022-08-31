@@ -2,8 +2,6 @@ import {
 	Association,
 	CreationOptional,
 	ForeignKey,
-	HasManyCountAssociationsMixin,
-	HasOneGetAssociationMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
@@ -21,8 +19,6 @@ export class Posting extends Model<
 	declare deviceKey: ForeignKey<DeviceDetails['deviceKey']>;
 	declare comments: string;
 	declare price: number;
-	declare getUsers: HasOneGetAssociationMixin<User>
-	declare getDetails: HasOneGetAssociationMixin<DeviceDetails>;
 	
 	declare users?: NonAttribute<User[]>;
 	declare details?: NonAttribute<DeviceDetails[]>

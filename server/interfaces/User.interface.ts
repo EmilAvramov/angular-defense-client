@@ -1,8 +1,6 @@
 import {
 	Association,
 	CreationOptional,
-	HasManyCountAssociationsMixin,
-	HasManyGetAssociationsMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
@@ -22,8 +20,6 @@ export class User extends Model<
 	declare phone: string;
 	declare address: string;
 	declare city: string;
-	declare getPostings: HasManyGetAssociationsMixin<Posting>;
-	declare countPostings: HasManyCountAssociationsMixin;
 
 	declare postings?: NonAttribute<Posting[]>;
 

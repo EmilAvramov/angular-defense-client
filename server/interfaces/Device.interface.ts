@@ -1,7 +1,7 @@
 import {
 	Association,
+	CreationOptional,
 	ForeignKey,
-	HasOneGetAssociationMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
@@ -14,14 +14,11 @@ export class Device extends Model<
 	InferAttributes<Device>,
 	InferCreationAttributes<Device>
 > {
-	declare deviceId: number;
+	declare id: CreationOptional<number>;
 	declare deviceName: string;
-	declare deviceType: string;
 	declare deviceImage: string;
 	declare deviceKey: ForeignKey<DeviceDetails['deviceKey']>;
-	declare fkBrand: ForeignKey<Brand['brandId']>;
-	declare getBrands: HasOneGetAssociationMixin<Brand>;
-	declare getDetails: HasOneGetAssociationMixin<DeviceDetails>
+	declare fkBrand: ForeignKey<Brand['brandKey']>;
 
 	declare brands?: NonAttribute<Brand[]>
 	declare details?: NonAttribute<DeviceDetails[]>
