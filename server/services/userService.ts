@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { saltRounds } from '../config/settings';
 import { User } from '../interfaces/User.interface';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../models/User.model';
 
 const jwtSecret = process.env['NG_APP_SECRET'];
 const blackList = new Set();

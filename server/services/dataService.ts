@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiHost } from '../config/settings';
+import { apiHost, headers } from '../config/settings';
 
 export const getRecommended = async () => {
 	try {
@@ -23,6 +23,25 @@ export const getRecommended = async () => {
 			latest,
 			popular,
 		};
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
+export const getNews = async (query: string) => {
+	try {
+		const response = await axios.post(
+			apiHost,
+			{
+				route: 'search',
+				query,
+			},
+			{ headers }
+		);
+		const news = response.data.data.news_list;
+		const reviews = response.data.data.review_list;
+		const status = response.data.status;
+		return { news, reviews, status };
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

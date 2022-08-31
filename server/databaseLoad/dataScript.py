@@ -49,5 +49,5 @@ def get_data():
         json.dump(results, x)
 
 
-# get_devices()
+get_devices()
 get_data()

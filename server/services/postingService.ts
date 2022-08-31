@@ -1,15 +1,13 @@
-import {
-	DeviceDetailsModel,
-	DeviceModel,
-	DevicePostingModel,
-} from '../models/database.model';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../models/User.model';
 import { Op } from 'sequelize';
-import { DevicePosting } from '../interfaces/DevicePosting.interface';
+import { Posting } from '../interfaces/Posting.interface';
+import { DeviceModel } from '../models/Device.model';
+import { DeviceDetailsModel } from '../models/DeviceDetails.model';
+import { PostingModel } from '../models/Posting.model';
 
 export const getAllPostings = async () => {
 	try {
-		return await DevicePostingModel.findAll({
+		return await PostingModel.findAll({
 			include: [
 				{
 					model: UserModel,
@@ -28,7 +26,7 @@ export const getAllPostings = async () => {
 
 export const getFilteredPostings = async (query: string) => {
 	try {
-		return await DevicePostingModel.findAll({
+		return await PostingModel.findAll({
 			include: [
 				{
 					model: DeviceDetailsModel,
@@ -57,9 +55,9 @@ export const loadDetails = async (query: string, limit: number = 100) => {
 	}
 };
 
-export const createPosting = async (payload: DevicePosting) => {
+export const createPosting = async (payload: Posting) => {
 	try {
-		return await DevicePostingModel.create({
+		return await PostingModel.create({
 			userEmail: payload.userEmail,
 			deviceKey: payload.deviceKey,
 			comments: payload.comments,
@@ -70,9 +68,9 @@ export const createPosting = async (payload: DevicePosting) => {
 	}
 };
 
-export const editPosting = async (payload: DevicePosting) => {
+export const editPosting = async (payload: Posting) => {
 	try {
-		return await DevicePostingModel.update(
+		return await PostingModel.update(
 			{ comments: payload.comments },
 			{ where: { id: payload.id } }
 		);
@@ -83,7 +81,7 @@ export const editPosting = async (payload: DevicePosting) => {
 
 export const deletePosting = async (id: number) => {
 	try {
-		return await DevicePostingModel.destroy({ where: { id: id } });
+		return await PostingModel.destroy({ where: { id: id } });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

@@ -1,68 +1,7 @@
-import database from '../config/database';
-import { DataType } from 'sequelize-typescript';
-import { Brand, Device } from '../interfaces/Device.interface';
-import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
-import { DevicePosting } from '../interfaces/DevicePosting.interface';
-import { UserModel } from './user.model';
-
-export const BrandModel = database.sequelize.define<Brand>(
-	'Brand',
-	{
-		brandId: {
-			primaryKey: true,
-			type: DataType.INTEGER,
-			allowNull: false,
-			autoIncrement: false,
-			unique: true,
-		},
-		brandName: {
-			type: DataType.TEXT,
-			allowNull: false,
-		},
-		brandKey: {
-			type: DataType.TEXT,
-			allowNull: false,
-			unique: true,
-		},
-	},
-	{ timestamps: false }
-);
-
-export const DeviceModel = database.sequelize.define<Device>(
-	'Device',
-	{
-		deviceId: {
-			primaryKey: true,
-			type: DataType.INTEGER,
-			allowNull: false,
-			autoIncrement: false,
-			unique: true,
-		},
-		deviceName: {
-			type: DataType.TEXT,
-			allowNull: false,
-		},
-		deviceType: {
-			type: DataType.TEXT,
-			allowNull: false,
-		},
-		deviceImage: {
-			type: DataType.TEXT,
-			allowNull: false,
-		},
-		deviceKey: {
-			type: DataType.TEXT,
-			allowNull: true,
-			unique: true,
-		},
-		fkBrand: {
-			type: DataType.INTEGER,
-			allowNull: false,
-			unique: false,
-		},
-	},
-	{ timestamps: false }
-);
+import { DataType } from "sequelize-typescript";
+import database from "../config/database";
+import { DeviceDetails } from "../interfaces/DeviceDetails.interface";
+import { DeviceModel } from "./Device.model";
 
 export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 	'Details',
@@ -193,56 +132,9 @@ export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
 	{ timestamps: false }
 );
 
-export const DevicePostingModel = database.sequelize.define<DevicePosting>(
-	'Posting',
-	{
-		id: {
-			primaryKey: true,
-			type: DataType.INTEGER,
-			autoIncrement: true,
-		},
-		userEmail: {
-			type: DataType.TEXT,
-		},
-		deviceKey: {
-			type: DataType.TEXT,
-		},
-		comments: {
-			type: DataType.TEXT,
-			allowNull: true,
-		},
-		price: {
-			type: DataType.DECIMAL,
-			allowNull: false
-		}
-	},
-	{ timestamps: false }
-);
-
-BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
-
 DeviceDetailsModel.belongsTo(DeviceModel, {
 	targetKey: 'deviceKey',
 	foreignKey: 'deviceKey',
-});
-
-DeviceModel.belongsTo(BrandModel, {
-	targetKey: 'brandId',
-	foreignKey: 'fkBrand',
-});
-
-DeviceModel.hasOne(DeviceDetailsModel, {
-	foreignKey: 'deviceKey',
-});
-
-DevicePostingModel.belongsTo(UserModel, {
-	targetKey: 'id',
-	foreignKey: 'userId',
-});
-
-DevicePostingModel.belongsTo(DeviceDetailsModel, {
-	targetKey: 'id',
-	foreignKey: 'deviceId',
 });
 
 (async () => await database.sequelize.sync())();

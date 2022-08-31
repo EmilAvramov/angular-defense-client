@@ -5,10 +5,10 @@ import {
 	Model,
 } from 'sequelize/types';
 
-export interface DevicePosting
+export interface Posting
 	extends Model<
-		InferAttributes<DevicePosting>,
-		InferCreationAttributes<DevicePosting>
+		InferAttributes<Posting>,
+		InferCreationAttributes<Posting>
 	> {
 	id: CreationOptional<number>;
     userEmail: string,

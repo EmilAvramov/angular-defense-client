@@ -10,35 +10,6 @@ import fs from 'fs';
 import path from 'path';
 import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 
-export const getRecommended = async () => {
-	try {
-		const response = await axios.get(`${apiHost}?route=recommended`);
-		const latest = response.data.data.recommended_1.data.map((item: any) => {
-			return {
-				deviceName: item.device_name,
-				deviceImage: item.device_image,
-				deviceKey: item.key,
-			};
-		});
-		const popular = response.data.data.recommended_3.data.map((item: any) => {
-			return {
-				rank: item.no,
-				deviceName: item.device_name,
-				dailyHits: item.daily_hits,
-				deviceKey: item.key,
-			};
-		});
-		return {
-			latest,
-			popular,
-		};
-	} catch (err: any) {
-		throw new Error(err.message);
-	}
-};
-
-// Functions below are meant to be used only once when database is being loaded
-
 export const getBrands = async () => {
 	try {
 		const response = await axios.get(`${apiHost}?route=device-list`);
