@@ -1,15 +1,33 @@
 import {
+	Association,
+	HasOneGetAssociationMixin,
 	InferAttributes,
 	InferCreationAttributes,
 	Model,
+	NonAttribute,
 } from 'sequelize/types';
+import { Brand } from './Brand.interface';
+import { DeviceDetails } from './DeviceDetails.interface';
 
-export interface Device
-	extends Model<InferAttributes<Device>, InferCreationAttributes<Device>> {
-	deviceId: number;
-	deviceName: string;
-	deviceType: string;
-	deviceImage: string;
-	deviceKey: string;
-	fkBrand: number,
+export class Device extends Model<
+	InferAttributes<Device>,
+	InferCreationAttributes<Device>
+> {
+	declare deviceId: number;
+	declare deviceName: string;
+	declare deviceType: string;
+	declare deviceImage: string;
+	declare deviceKey: string;
+	declare fkBrand: number;
+	declare getBrands: HasOneGetAssociationMixin<Brand>;
+	declare getDetails: HasOneGetAssociationMixin<DeviceDetails>
+
+	declare brands?: NonAttribute<Brand[]>
+	declare details?: NonAttribute<DeviceDetails[]>
+
+	declare static associations: {
+		brands: Association<Device, Brand>
+		details: Association<Device, DeviceDetails>
+
+	}
 }
