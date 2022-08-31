@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { apiHost } from '../config/settings';
 import { Device } from '../interfaces/Device.interface';
 import fs from 'fs';
 import path from 'path';
@@ -11,19 +9,30 @@ import { DeviceDetailsModel } from '../models/DeviceDetails.model';
 import { normalize } from './functions';
 
 export const getBrands = async () => {
-	try {
-		const response = await axios.get(`${apiHost}?route=device-list`);
-		const normalized = response.data.data.map((item: any) => {
-			return {
-				brandId: item.brand_id,
-				brandName: item.brand_name,
-				brandKey: item.key,
-			};
-		});
-		await BrandModel.bulkCreate<Brand>(normalized);
-	} catch (err: any) {
-		throw new Error(err.message);
-	}
+	const aggregatedBrands: any[] = [];
+	let raw: any[] = [];
+
+	fs.readFile(
+		path.resolve(__dirname, './rawData/device_list.json'),
+		async (err, data) => {
+			if (err) {
+				throw new Error('failed to read data');
+			}
+			raw = JSON.parse(data.toString()).data;
+			raw.forEach((item: any) => {
+				aggregatedBrands.push({
+					brandId: item.brand_id,
+					brandName: item.brand_name,
+					brandKey: item.key,
+				});
+			});
+			try {
+				await BrandModel.bulkCreate<Brand>(aggregatedBrands);
+			} catch (err: any) {
+				console.log(err.message);
+			}
+		}
+	);
 };
 
 export const getDevices = async () => {

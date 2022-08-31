@@ -1,4 +1,4 @@
-import { DataType } from 'sequelize-typescript';
+import { DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 import { Posting } from '../interfaces/Posting.interface';
 
@@ -6,23 +6,25 @@ export const PostingModel = Posting.init(
 	{
 		id: {
 			primaryKey: true,
-			type: DataType.INTEGER.UNSIGNED,
+			type: DataTypes.INTEGER,
 			autoIncrement: true,
 		},
 		userEmail: {
-			type: DataType.STRING(128),
+			type: DataTypes.STRING(128),
 		},
 		deviceKey: {
-			type: DataType.STRING(128),
+			type: DataTypes.STRING(128),
 		},
 		comments: {
-			type: DataType.TEXT,
+			type: DataTypes.TEXT,
 			allowNull: true,
 		},
 		price: {
-			type: DataType.DECIMAL,
+			type: DataTypes.DECIMAL,
 			allowNull: false,
 		},
 	},
 	{ sequelize, timestamps: false,  }
 );
+
+PostingModel.sync()

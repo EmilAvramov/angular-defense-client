@@ -7,7 +7,7 @@ import {
 	InferCreationAttributes,
 	Model,
 	NonAttribute,
-} from 'sequelize/types';
+} from 'sequelize';
 import { Posting } from './Posting.interface';
 
 export class User extends Model<

@@ -7,7 +7,7 @@ import {
 	InferCreationAttributes,
 	Model,
 	NonAttribute,
-} from 'sequelize/types';
+} from 'sequelize';
 import { DeviceDetails } from './DeviceDetails.interface';
 import { User } from './User.interface';
 

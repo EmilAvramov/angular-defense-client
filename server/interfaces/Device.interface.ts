@@ -5,7 +5,7 @@ import {
 	InferCreationAttributes,
 	Model,
 	NonAttribute,
-} from 'sequelize/types';
+} from 'sequelize';
 import { Brand } from './Brand.interface';
 import { DeviceDetails } from './DeviceDetails.interface';
 

@@ -6,7 +6,7 @@ import {
 	InferCreationAttributes,
 	Model,
 	NonAttribute,
-} from 'sequelize/types';
+} from 'sequelize';
 import { Device } from './Device.interface';
 
 export class Brand extends Model<
