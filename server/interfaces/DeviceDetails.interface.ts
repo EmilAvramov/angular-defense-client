@@ -9,6 +9,7 @@ import {
 	NonAttribute,
 } from 'sequelize';
 import { Device } from './Device.interface';
+import { Posting } from './Posting.interface';
 
 export class DeviceDetails extends Model<
 	InferAttributes<DeviceDetails>,
@@ -48,8 +49,10 @@ export class DeviceDetails extends Model<
 	declare countDevices: HasManyCountAssociationsMixin;
 
 	declare devices?: NonAttribute<Device[]>
+	declare postings?: NonAttribute<Posting[]>
 
 	declare static associations: {
-		devices: Association<DeviceDetails, Device>
+		devices: Association<DeviceDetails, Device>,
+		postings: Association<DeviceDetails, Posting>
 	}
 }

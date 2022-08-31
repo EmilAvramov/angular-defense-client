@@ -3,10 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 import { Brand } from '../interfaces/Brand.interface';
-import { BrandModel } from '../models/Brand.model';
-import { DeviceModel } from '../models/Device.model';
-import { DeviceDetailsModel } from '../models/DeviceDetails.model';
 import { normalize } from './functions';
+import { BrandModel, DeviceModel, DeviceDetailsModel } from '../models/models';
 
 export const getBrands = async () => {
 	const aggregatedBrands: any[] = [];

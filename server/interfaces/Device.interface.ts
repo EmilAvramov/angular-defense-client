@@ -1,5 +1,6 @@
 import {
 	Association,
+	ForeignKey,
 	HasOneGetAssociationMixin,
 	InferAttributes,
 	InferCreationAttributes,
@@ -17,8 +18,8 @@ export class Device extends Model<
 	declare deviceName: string;
 	declare deviceType: string;
 	declare deviceImage: string;
-	declare deviceKey: string;
-	declare fkBrand: number;
+	declare deviceKey: ForeignKey<DeviceDetails['deviceKey']>;
+	declare fkBrand: ForeignKey<Brand['brandId']>;
 	declare getBrands: HasOneGetAssociationMixin<Brand>;
 	declare getDetails: HasOneGetAssociationMixin<DeviceDetails>
 

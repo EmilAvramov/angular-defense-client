@@ -1,6 +1,7 @@
 import {
 	Association,
 	CreationOptional,
+	ForeignKey,
 	HasManyCountAssociationsMixin,
 	HasOneGetAssociationMixin,
 	InferAttributes,
@@ -16,8 +17,8 @@ export class Posting extends Model<
 	InferCreationAttributes<Posting>
 > {
 	declare id: CreationOptional<number>;
-	declare userEmail: string;
-	declare deviceKey: string;
+	declare userEmail: ForeignKey<User['email']>;
+	declare deviceKey: ForeignKey<DeviceDetails['deviceKey']>;
 	declare comments: string;
 	declare price: number;
 	declare getUsers: HasOneGetAssociationMixin<User>

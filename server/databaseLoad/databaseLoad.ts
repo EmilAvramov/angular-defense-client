@@ -1,5 +1,5 @@
 import { getBrands, getDevices, readyData } from "./loadService";
 
-getBrands()
-getDevices()
 readyData()
+getBrands()
+// getDevices()

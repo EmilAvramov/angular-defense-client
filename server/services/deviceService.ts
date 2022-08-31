@@ -1,9 +1,5 @@
-import axios from 'axios';
-import { apiHost, headers } from '../config/settings';
 import { Op } from 'sequelize';
-import { BrandModel } from '../models/Brand.model';
-import { DeviceModel } from '../models/Device.model';
-import { DeviceDetailsModel } from '../models/DeviceDetails.model';
+import { DeviceModel, BrandModel, DeviceDetailsModel } from '../models/models';
 
 export const getList = async (
 	query: string = '',

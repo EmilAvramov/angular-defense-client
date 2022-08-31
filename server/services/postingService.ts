@@ -1,9 +1,11 @@
-import { UserModel } from '../models/User.model';
 import { Op } from 'sequelize';
 import { Posting } from '../interfaces/Posting.interface';
-import { DeviceModel } from '../models/Device.model';
-import { DeviceDetailsModel } from '../models/DeviceDetails.model';
-import { PostingModel } from '../models/Posting.model';
+import {
+	PostingModel,
+	UserModel,
+	DeviceDetailsModel,
+	DeviceModel,
+} from '../models/models';
 
 export const getAllPostings = async () => {
 	try {
