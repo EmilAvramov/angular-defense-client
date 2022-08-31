@@ -1,22 +1,19 @@
-import { DataType } from "sequelize-typescript";
-import database from "../config/database";
-import { Posting } from "../interfaces/Posting.interface";
-import { DeviceDetailsModel } from "./DeviceDetails.model";
-import { UserModel } from "./User.model";
+import { DataType } from 'sequelize-typescript';
+import sequelize from '../config/database';
+import { Posting } from '../interfaces/Posting.interface';
 
-export const PostingModel = database.sequelize.define<Posting>(
-	'Posting',
+export const PostingModel = Posting.init(
 	{
 		id: {
 			primaryKey: true,
-			type: DataType.INTEGER,
+			type: DataType.INTEGER.UNSIGNED,
 			autoIncrement: true,
 		},
 		userEmail: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 		},
 		deviceKey: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 		},
 		comments: {
 			type: DataType.TEXT,
@@ -24,20 +21,8 @@ export const PostingModel = database.sequelize.define<Posting>(
 		},
 		price: {
 			type: DataType.DECIMAL,
-			allowNull: false
-		}
+			allowNull: false,
+		},
 	},
-	{ timestamps: false }
+	{ sequelize, timestamps: false,  }
 );
-
-PostingModel.belongsTo(UserModel, {
-	targetKey: 'id',
-	foreignKey: 'userId',
-});
-
-PostingModel.belongsTo(DeviceDetailsModel, {
-	targetKey: 'id',
-	foreignKey: 'deviceId',
-});
-
-PostingModel.sync()

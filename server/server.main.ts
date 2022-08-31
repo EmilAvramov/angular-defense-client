@@ -1,9 +1,9 @@
-import database from './config/database';
+import sequelize from './config/database';
 import app from './config/express';
 import { port } from './config/settings';
 
 try {
-	database.sequelize
+	sequelize
 		.authenticate()
 		.then(() => console.log('Database connected...'))
 		.then(() => {

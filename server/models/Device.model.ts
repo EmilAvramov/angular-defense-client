@@ -1,11 +1,8 @@
-import { DataType } from "sequelize-typescript";
-import database from "../config/database";
-import { Device } from "../interfaces/Device.interface";
-import { BrandModel } from "./Brand.model";
-import { DeviceDetailsModel } from "./DeviceDetails.model";
+import { DataType } from 'sequelize-typescript';
+import sequelize from '../config/database';
+import { Device } from '../interfaces/Device.interface';
 
-export const DeviceModel = database.sequelize.define<Device>(
-	'Device',
+export const DeviceModel = Device.init(
 	{
 		deviceId: {
 			primaryKey: true,
@@ -15,19 +12,19 @@ export const DeviceModel = database.sequelize.define<Device>(
 			unique: true,
 		},
 		deviceName: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: false,
 		},
 		deviceType: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: false,
 		},
 		deviceImage: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: false,
 		},
 		deviceKey: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 			unique: true,
 		},
@@ -37,30 +34,5 @@ export const DeviceModel = database.sequelize.define<Device>(
 			unique: false,
 		},
 	},
-	{ timestamps: false }
+	{ sequelize, timestamps: false }
 );
-
-DeviceModel.belongsTo(BrandModel, {
-	targetKey: 'brandId',
-	foreignKey: 'fkBrand',
-});
-
-DeviceModel.sync()
-
-DeviceModel.hasOne(DeviceDetailsModel, {
-	foreignKey: 'deviceKey',
-	sourceKey: 'deviceKey'
-});
-
-DeviceModel.sync()
-
-BrandModel.hasMany(DeviceModel, { foreignKey: 'fkBrand' });
-
-BrandModel.sync()
-
-DeviceDetailsModel.belongsTo(DeviceModel, {
-	targetKey: 'deviceKey',
-	foreignKey: 'deviceKey',
-});
-
-DeviceDetailsModel.sync()

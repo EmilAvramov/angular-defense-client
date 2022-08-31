@@ -1,41 +1,44 @@
-import database from '../config/database';
+import sequelize from '../config/database';
 import { DataType } from 'sequelize-typescript';
 import { User } from '../interfaces/User.interface';
 
-export const UserModel = database.sequelize.define<User>('User', {
-	id: {
-		primaryKey: true,
-		type: DataType.INTEGER,
-		autoIncrement: true
+export const UserModel = User.init(
+	{
+		id: {
+			primaryKey: true,
+			type: DataType.INTEGER.UNSIGNED,
+			autoIncrement: true,
+		},
+		email: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		password: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		firstName: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		lastName: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		phone: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		address: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
+		city: {
+			type: DataType.STRING(128),
+			allowNull: false,
+		},
 	},
-	email: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	password: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	firstName: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	lastName: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	phone: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	address: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-	city: {
-		type: DataType.TEXT,
-		allowNull: false,
-	},
-});
+	{ sequelize, timestamps: false }
+);
 
-UserModel.sync()
+UserModel.sync();

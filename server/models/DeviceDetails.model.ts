@@ -1,134 +1,131 @@
-import { DataType } from "sequelize-typescript";
-import database from "../config/database";
-import { DeviceDetails } from "../interfaces/DeviceDetails.interface";
+import { DataType } from 'sequelize-typescript';
+import sequelize from '../config/database';
+import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 
-export const DeviceDetailsModel = database.sequelize.define<DeviceDetails>(
-	'Details',
+export const DeviceDetailsModel = DeviceDetails.init(
 	{
 		id: {
 			primaryKey: true,
-			type: DataType.INTEGER,
+			type: DataType.INTEGER.UNSIGNED,
 			autoIncrement: true,
 		},
 		deviceKey: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 			unique: true,
 		},
 		deviceName: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		deviceImage: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		connectivity: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		launchDate: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		dimensions: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		weight: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		build: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		sim: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		display: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		size: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		resolution: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		protection: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		os: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		chipset: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		cpu: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		gpu: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		cardSlot: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		internalStorage: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		cameraMain: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		videoMain: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		cameraSelfie: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		videoSelfie: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		speakers: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		jack: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		features: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		batteryType: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		batteryCharge: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 		price: {
-			type: DataType.TEXT,
+			type: DataType.STRING(128),
 			allowNull: true,
 		},
 	},
-	{ timestamps: false }
+	{ sequelize, timestamps: false }
 );
-
-DeviceDetailsModel.sync()

@@ -1,26 +1,26 @@
-import { DataTypes } from 'sequelize/types';
+import { DataType } from 'sequelize-typescript';
 import sequelize from '../config/database';
 import { Brand } from '../interfaces/Brand.interface';
 
 export const BrandModel = Brand.init(
 	{
 		brandId: {
-			type: DataTypes.INTEGER,
+			type: DataType.INTEGER,
 			autoIncrement: false,
 			primaryKey: true,
 			unique: true,
 			allowNull: false,
 		},
 		brandKey: {
-			type: DataTypes.STRING(128),
+			type: DataType.STRING(128),
 			allowNull: false,
 		},
 		brandName: {
-			type: DataTypes.STRING(128),
+			type: DataType.STRING(128),
 			allowNull: false,
 		},
 	},
 	{
-		sequelize,
+		sequelize, timestamps: false
 	}
 );
