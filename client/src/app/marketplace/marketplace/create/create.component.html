@@ -9,7 +9,12 @@
 			<div class="create__body" (click)="$event.stopPropagation()">
 				<div class="create__search">
 					<label for="deviceSearch">Search for Device</label>
-					<input #searchInput class="search__input" id="deviceSearch" type="text" />
+					<input
+						#searchInput
+						class="search__input"
+						name="deviceSearch"
+						type="text"
+					/>
 				</div>
 				<div *ngIf="!this.detailedView" class="create__list">
 					<div
@@ -22,11 +27,20 @@
 					</div>
 				</div>
 				<div *ngIf="this.detailedView" class="create__details">
-					<div class="details__image">
-						<img src="{{ detailedInfo!.deviceImage }}" alt="" />
-					</div>
-					<div class="details__specs">
+					<div class="details__leftBlock">
 						<p>{{ detailedInfo!.deviceName }}</p>
+						<div class="details__image">
+							<img src="{{ detailedInfo!.deviceImage }}" alt="" />
+						</div>
+						<div class="details__user">
+							<h6>Personal and Contact Details</h6>
+							<p>Full Name: {{ user!.firstName }} {{ user!.lastName }}</p>
+							<p>Email: {{ user!.email }}</p>
+							<p>Phone: {{ user!.phone }}</p>
+						</div>
+					</div>
+
+					<div class="details__middleBlock">
 						<h6>Display</h6>
 						<p *ngIf="this.detailedInfo!.display">
 							Display Type: {{ this.detailedInfo!.display }}
@@ -68,13 +82,45 @@
 						<p *ngIf="this.detailedInfo!.features">
 							Others: {{ this.detailedInfo!.features }}
 						</p>
+						<h6>Body</h6>
+						<p *ngIf="this.detailedInfo!.dimensions">
+							Body Size: {{ this.detailedInfo!.dimensions }}
+						</p>
+						<p *ngIf="this.detailedInfo!.weight">
+							Weight: {{ this.detailedInfo!.weight }}
+						</p>
+						<p *ngIf="this.detailedInfo!.build">
+							Build: {{ this.detailedInfo!.build }}
+						</p>
+						<h6>Battery</h6>
+						<p *ngIf="this.detailedInfo!.batteryType">
+							Battery Type: {{ this.detailedInfo!.batteryType }}
+						</p>
+						<p *ngIf="this.detailedInfo!.batteryCharge">
+							Battery Charge: {{ this.detailedInfo!.batteryCharge }}
+						</p>
+						<h6>Storage & Sim</h6>
+						<p *ngIf="this.detailedInfo!.cardSlot">
+							Card Slot: {{ this.detailedInfo!.cardSlot }}
+						</p>
+						<p *ngIf="this.detailedInfo!.internalStorage">
+							Internal Storage: {{ this.detailedInfo!.internalStorage }}
+						</p>
+						<p *ngIf="this.detailedInfo!.sim">
+							Sim: {{ this.detailedInfo!.sim }}
+						</p>
+						<h6>Distribution</h6>
+						<p *ngIf="this.detailedInfo!.launchDate">
+							Release Date: {{ this.detailedInfo!.launchDate }}
+						</p>
 					</div>
-					<div class="details__user">
-						<p>Poster: {{user!.firstName}} {{user!.lastName}}</p>
-						<p>Email: {{user!.email}}</p>
-						<p>Phone: {{user!.phone}}</p>
+
+					<div class="details__rightBlock">
+						<label for="comments">Comments about your device</label>
+						<textarea name="comments" id="" cols="30" rows="10"></textarea>
+						<label for="price">Selling Price</label>
+						<input type="number" name="price" />
 					</div>
-					<div class="details__commentsPrice"></div>
 				</div>
 			</div>
 		</div>
