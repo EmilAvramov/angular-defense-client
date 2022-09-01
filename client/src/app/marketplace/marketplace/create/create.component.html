@@ -41,85 +41,153 @@
 					</div>
 
 					<div class="details__middleBlock">
-						<h6>Display</h6>
-						<p *ngIf="this.detailedInfo!.display">
-							Display Type: {{ this.detailedInfo!.display }}
-						</p>
-						<p *ngIf="this.detailedInfo!.size">
-							Display Size: {{ this.detailedInfo!.size }}
-						</p>
-						<p *ngIf="this.detailedInfo!.resolution">
-							Resolution: {{ this.detailedInfo!.resolution }}
-						</p>
+						<table class="details__table">
+							<tbody class="table__body">
+								<tr class="table__row">
+									<td class="table__leadRow">Display</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.display">
+											<span style="font-weight: bold">Display:</span>
+											{{ this.detailedInfo!.display }}
+										</p>
+										<p *ngIf="this.detailedInfo!.size">
+											<span style="font-weight: bold">Size:</span>
+											{{ this.detailedInfo!.size }}
+										</p>
+										<p *ngIf="this.detailedInfo!.resolution">
+											<span style="font-weight: bold">Resolution:</span>
+											{{ this.detailedInfo!.resolution }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Cameras</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.cameraMain">
+											<span style="font-weight: bold">Rear Camera:</span>
+											{{ this.detailedInfo!.cameraMain }}
+										</p>
+										<p *ngIf="this.detailedInfo!.videoMain">
+											<span style="font-weight: bold">Rear Camera Video:</span>
+											{{ this.detailedInfo!.videoMain }}
+										</p>
+										<p *ngIf="this.detailedInfo!.cameraSelfie">
+											<span style="font-weight: bold">Front Camera:</span>
+											{{ this.detailedInfo!.cameraSelfie }}
+										</p>
+										<p *ngIf="this.detailedInfo!.videoSelfie">
+											<span style="font-weight: bold">Front Camera Video:</span>
+											{{ this.detailedInfo!.videoSelfie }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Hardware</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.chipset">
+											<span style="font-weight: bold">Chipset:</span>
+											{{ this.detailedInfo!.chipset }}
+										</p>
+										<p *ngIf="this.detailedInfo!.os">
+											<span style="font-weight: bold">OS:</span>
+											{{ this.detailedInfo!.os }}
+										</p>
+										<p *ngIf="this.detailedInfo!.cpu">
+											<span style="font-weight: bold">CPU:</span>
+											{{ this.detailedInfo!.cpu }}
+										</p>
+										<p *ngIf="this.detailedInfo!.gpu">
+											<span style="font-weight: bold">GPU:</span>
+											{{ this.detailedInfo!.gpu }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Body</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.dimensions">
+											<span style="font-weight: bold">Size:</span>
+											{{ this.detailedInfo!.dimensions }}
+										</p>
+										<p *ngIf="this.detailedInfo!.weight">
+											<span style="font-weight: bold">Weight:</span>
+											{{ this.detailedInfo!.weight }}
+										</p>
+										<p *ngIf="this.detailedInfo!.build">
+											<span style="font-weight: bold">Build:</span>
+											{{ this.detailedInfo!.build }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Battery</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.batteryType">
+											<span style="font-weight: bold">Type:</span>
+											{{ this.detailedInfo!.batteryType }}
+										</p>
+										<p *ngIf="this.detailedInfo!.batteryCharge">
+											<span style="font-weight: bold">Charge:</span>
+											{{ this.detailedInfo!.batteryCharge }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Storage & Sim</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.cardSlot">
+											<span style="font-weight: bold">Card Slot:</span>
+											{{ this.detailedInfo!.cardSlot }}
+										</p>
+										<p *ngIf="this.detailedInfo!.internalStorage">
+											<span style="font-weight: bold">Internal Storage:</span>
+											{{ this.detailedInfo!.internalStorage }}
+										</p>
+										<p *ngIf="this.detailedInfo!.sim">
+											<span style="font-weight: bold">Sim:</span>
+											{{ this.detailedInfo!.sim }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Features</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.connectivity">
+											<span style="font-weight: bold">Connectivity:</span>
+											{{ this.detailedInfo!.connectivity }}
+										</p>
+										<p *ngIf="this.detailedInfo!.jack">
+											<span style="font-weight: bold">3.5mm Jack:</span>
+											{{ this.detailedInfo!.jack }}
+										</p>
+										<p *ngIf="this.detailedInfo!.features">
+											<span style="font-weight: bold">Others:</span>
+											{{ this.detailedInfo!.features }}
+										</p>
+									</td>
+								</tr>
+								<tr class="table__row">
+									<td class="table__leadRow">Distribution</td>
+									<td class="table__data">
+										<p *ngIf="this.detailedInfo!.launchDate">
+											<span style="font-weight: bold">Release Date:</span>
+											{{ this.detailedInfo!.launchDate }}
+										</p>
+									</td>
+								</tr>
+							</tbody>
 
-						<h6>Cameras</h6>
-						<p *ngIf="this.detailedInfo!.cameraMain">
-							Rear Camera: {{ this.detailedInfo!.cameraMain }}
-						</p>
-						<p *ngIf="this.detailedInfo!.videoMain">
-							Rear Camera Video: {{ this.detailedInfo!.videoMain }}
-						</p>
-						<p *ngIf="this.detailedInfo!.cameraSelfie">
-							Front Camera: {{ this.detailedInfo!.cameraSelfie }}
-						</p>
-						<p *ngIf="this.detailedInfo!.videoSelfie">
-							Front Camera Video: {{ this.detailedInfo!.videoSelfie }}
-						</p>
-						<h6>Hardware</h6>
-						<p *ngIf="this.detailedInfo!.chipset">
-							Chipset: {{ this.detailedInfo!.chipset }}
-						</p>
-						<p *ngIf="this.detailedInfo!.os">OS: {{ this.detailedInfo!.os }}</p>
-						<p *ngIf="this.detailedInfo!.cpu">CPU: {{ this.detailedInfo!.cpu }}</p>
-						<p *ngIf="this.detailedInfo!.gpu">GPU: {{ this.detailedInfo!.gpu }}</p>
-						<h6>Features</h6>
-						<p *ngIf="this.detailedInfo!.connectivity">
-							Connectivity: {{ this.detailedInfo!.connectivity }}
-						</p>
-						<p *ngIf="this.detailedInfo!.jack">
-							3.5mm Jack: {{ this.detailedInfo!.jack }}
-						</p>
-						<p *ngIf="this.detailedInfo!.features">
-							Others: {{ this.detailedInfo!.features }}
-						</p>
-						<h6>Body</h6>
-						<p *ngIf="this.detailedInfo!.dimensions">
-							Body Size: {{ this.detailedInfo!.dimensions }}
-						</p>
-						<p *ngIf="this.detailedInfo!.weight">
-							Weight: {{ this.detailedInfo!.weight }}
-						</p>
-						<p *ngIf="this.detailedInfo!.build">
-							Build: {{ this.detailedInfo!.build }}
-						</p>
-						<h6>Battery</h6>
-						<p *ngIf="this.detailedInfo!.batteryType">
-							Battery Type: {{ this.detailedInfo!.batteryType }}
-						</p>
-						<p *ngIf="this.detailedInfo!.batteryCharge">
-							Battery Charge: {{ this.detailedInfo!.batteryCharge }}
-						</p>
-						<h6>Storage & Sim</h6>
-						<p *ngIf="this.detailedInfo!.cardSlot">
-							Card Slot: {{ this.detailedInfo!.cardSlot }}
-						</p>
-						<p *ngIf="this.detailedInfo!.internalStorage">
-							Internal Storage: {{ this.detailedInfo!.internalStorage }}
-						</p>
-						<p *ngIf="this.detailedInfo!.sim">
-							Sim: {{ this.detailedInfo!.sim }}
-						</p>
-						<h6>Distribution</h6>
-						<p *ngIf="this.detailedInfo!.launchDate">
-							Release Date: {{ this.detailedInfo!.launchDate }}
-						</p>
+							<tbody></tbody>
+						</table>
 					</div>
 
 					<div class="details__rightBlock">
 						<label for="comments">Comments about your device</label>
 						<textarea name="comments" id="" cols="30" rows="10"></textarea>
-						<label for="price">Selling Price</label>
+						<label for="price">Sell Price</label>
 						<input type="number" name="price" />
+						<button>Create Posting</button>
+						<button>Clear Form</button>
 					</div>
 				</div>
 			</div>

@@ -58,13 +58,15 @@ export class CreateComponent implements OnInit, AfterViewInit {
 				map((e: Event) => (e.target as HTMLInputElement).value)
 			)
 			.subscribe({
-				next: (res) => this.requestDetails.emit(res),
+				next: (res) => {
+					this.detailedView = false
+					this.requestDetails.emit(res);
+				},
 				error: (err) => console.log(err),
 			});
 	}
 
 	showDetails(key: string) {
-		console.log(this.user)
 		this.detailedView = true;
 		this.detailedInfo = this.devices!.filter((x) => x.deviceKey == key)[0];
 	}
@@ -79,6 +81,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this.devices = undefined;
 		this.detailedView = false;
 		this.detailedInfo = undefined;
-		this.searchDevice.nativeElement.value = ''
+		this.searchDevice.nativeElement.value = '';
 	}
 }
