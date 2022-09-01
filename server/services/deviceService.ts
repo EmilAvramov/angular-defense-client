@@ -39,12 +39,18 @@ export const getListWithDetails = async (
 		if (query) {
 			return await DeviceDetailsModel.findAll({
 				where: { deviceName: { [Op.iLike]: `%${query}%` } },
-				limit,
+				limit: 10,
+				include: {
+					all: true,
+				},
 			});
 		}
 		return await DeviceDetailsModel.findAll({
 			limit,
 			offset,
+			include: {
+				all: true,
+			},
 		});
 	} catch (err: any) {
 		throw new Error(err.message);

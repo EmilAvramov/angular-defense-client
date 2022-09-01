@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
 	Device,
@@ -13,7 +13,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 	templateUrl: './devices.component.html',
 	styleUrls: ['./devices.component.sass'],
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent implements OnInit, OnDestroy {
 	public limit: number = 100;
 	public offset: number = 0;
 	public data: Device[] = [];
@@ -48,6 +48,12 @@ export class DevicesComponent implements OnInit {
 			},
 			error: (err: any) => console.log(err.message),
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.detailedData = []
+		this.details = undefined
+		this.data = []
 	}
 
 	loadMore(): void {
@@ -111,4 +117,6 @@ export class DevicesComponent implements OnInit {
 	clearDetails() {
 		this.details = undefined;
 	}
+
+
 }
