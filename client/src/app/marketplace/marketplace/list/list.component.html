@@ -1,1 +1,13 @@
-<p>list works!</p>
+<main class="postings__container">
+	<div class="postings__list">
+		<div *ngFor="let posting of postingData" class="postings__list_item">
+			<p>{{ posting.DeviceDetail.deviceName }}</p>
+			<img
+				(click)="open(posting.id)"
+				src="{{ posting.DeviceDetail.deviceImage }}"
+				alt=""
+			/>
+		</div>
+	</div>
+	<button (click)="loadMore()" class="postings__more">Load More...</button>
+</main>

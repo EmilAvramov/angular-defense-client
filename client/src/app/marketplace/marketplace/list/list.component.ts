@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DevicePostingDetails } from 'src/app/shared/interfaces/Posting.interface';
 
 @Component({
   selector: 'app-list',
@@ -7,11 +8,23 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  @Input() postingData: any
+  @Input() postingData!: DevicePostingDetails[];
+	@Output() request = new EventEmitter<string>();
+	@Output() details = new EventEmitter<number>();
 
-  constructor() { }
+	loadMore() {
+		this.request.emit('request more data');
+	}
 
-  ngOnInit(): void {
-  }
+	showDetails(id: number) {
+		this.details.emit(id);
+	}
 
+	constructor() {}
+
+	ngOnInit(): void {}
+
+	open(id: number) {
+		this.showDetails(id);
+	}
 }

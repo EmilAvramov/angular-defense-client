@@ -17,7 +17,7 @@ import {
 	Observable,
 } from 'rxjs';
 import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
-import { DevicePosting } from 'src/app/shared/interfaces/Posting.interface';
+import { DevicePostingPayload } from 'src/app/shared/interfaces/Posting.interface';
 import { UserDetails } from 'src/app/shared/interfaces/User.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
@@ -28,7 +28,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 })
 export class CreateComponent implements OnInit, AfterViewInit {
 	public display$!: Observable<boolean>;
-	public posting: DevicePosting | undefined;
+	public posting: DevicePostingPayload | undefined;
 	public detailedView: boolean = false;
 	public detailedInfo: DeviceDetails | undefined;
 
@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	@Input() devices: DeviceDetails[] | undefined;
 	@Output() modalState = new EventEmitter<boolean>();
 	@Output() requestDetails = new EventEmitter<string>();
-	@Output() createPosting = new EventEmitter<DevicePosting>();
+	@Output() createPosting = new EventEmitter<DevicePostingPayload>();
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
