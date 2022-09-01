@@ -1,6 +1,7 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DevicePosting } from 'src/app/shared/interfaces/Posting.interface';
 import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
@@ -36,11 +37,11 @@ export class DataService {
 		return this.request;
 	}
 
-	requestData(limit: number, offset: number): Subject<any> {
+	createPosting(payload: DevicePosting): Subject<any> {
 		this.http
 			.post(
-				`${server}/device/list/`,
-				{ limit: limit, offset: offset },
+				`${server}/postings/create`,
+				{ body: payload },
 				{
 					headers: this.headers,
 					responseType: 'json',

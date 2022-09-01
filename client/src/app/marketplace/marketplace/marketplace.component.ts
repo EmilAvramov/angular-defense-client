@@ -50,6 +50,13 @@ export class MarketplaceComponent implements OnInit {
 		});
 	}
 
+	addPosting(data: DevicePosting) {
+		this.dataService.createPosting(data).subscribe({
+			next: (res) => console.log(res),
+			error: (err) => console.log(err),
+		});
+	}
+
 	clearDetails(): void {
 		this.user = undefined;
 	}

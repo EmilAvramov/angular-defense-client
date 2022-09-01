@@ -198,12 +198,12 @@ export const PostingModel = Posting.init(
 		},
 		userEmail: {
 			type: DataTypes.TEXT,
-			unique: true,
+			unique: false,
 			allowNull: false
 		},
 		deviceKey: {
 			type: DataTypes.TEXT,
-			unique: true,
+			unique: false,
 			allowNull: false
 		},
 		comments: {

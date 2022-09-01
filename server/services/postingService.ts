@@ -59,12 +59,7 @@ export const loadDetails = async (query: string, limit: number = 100) => {
 
 export const createPosting = async (payload: Posting) => {
 	try {
-		return await PostingModel.create({
-			userEmail: payload.userEmail,
-			deviceKey: payload.deviceKey,
-			comments: payload.comments,
-			price: payload.price,
-		});
+		return await PostingModel.create(payload);
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

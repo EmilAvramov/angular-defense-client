@@ -1,6 +1,6 @@
 export interface DevicePosting {
-	userId: number;
-	deviceId: number;
+	userEmail: string;
+	deviceKey: string;
 	comments: string;
     price: number;
 }

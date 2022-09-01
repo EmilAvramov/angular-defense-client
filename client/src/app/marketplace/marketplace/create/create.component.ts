@@ -42,6 +42,19 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	constructor(private modal: ModalService, private fb: FormBuilder) {}
 
+	postingForm = this.fb.group({
+		comments: [''],
+		price: [''],
+	});
+
+	get comments() {
+		return this.postingForm.get(['comments']);
+	}
+
+	get price() {
+		return this.postingForm.get(['price']);
+	}
+
 	ngOnInit(): void {
 		this.display$ = this.modal.watch();
 		this.display$.subscribe({
@@ -59,7 +72,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			)
 			.subscribe({
 				next: (res) => {
-					this.detailedView = false
+					this.detailedView = false;
 					this.requestDetails.emit(res);
 				},
 				error: (err) => console.log(err),
@@ -72,14 +85,25 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	}
 
 	sendPosting(): void {
+		this.posting = {
+			userEmail: this.user!.email as string,
+			deviceKey: this.detailedInfo!.deviceKey as string,
+			comments: this.comments!.value,
+			price: this.price!.value
+		}
 		this.createPosting.emit(this.posting);
+		this.close()
+	}
+
+	resetForm() {
+		this.postingForm.reset();
 	}
 
 	close(): void {
 		this.modal.close();
 		this.user = undefined;
-		this.devices = undefined;
 		this.detailedView = false;
+		this.devices = undefined;
 		this.detailedInfo = undefined;
 		this.searchDevice.nativeElement.value = '';
 	}

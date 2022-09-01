@@ -182,12 +182,20 @@
 					</div>
 
 					<div class="details__rightBlock">
-						<label for="comments">Comments about your device</label>
-						<textarea name="comments" id="" cols="30" rows="10"></textarea>
-						<label for="price">Sell Price</label>
-						<input type="number" name="price" />
-						<button>Create Posting</button>
-						<button>Clear Form</button>
+						<form [formGroup]="postingForm" (ngSubmit)="sendPosting()">
+							<label for="comments">Comments about your device</label>
+							<textarea
+								name="comments"
+								id=""
+								cols="30"
+								rows="10"
+								formControlName="comments"
+							></textarea>
+							<label for="price">Sell Price</label>
+							<input type="number" name="price" formControlName="price" />
+							<button>Create Posting</button>
+							<button (click)="this.resetForm()">Clear Form</button>
+						</form>
 					</div>
 				</div>
 			</div>
