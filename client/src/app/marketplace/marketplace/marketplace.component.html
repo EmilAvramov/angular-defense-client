@@ -1,6 +1,6 @@
 <app-search
 	(search)="this.loadPostings($event)"
-	(create)="this.setUser()"
+	(create)="this.openModal()"
 ></app-search>
 <app-list [postingData]="this.postingData"></app-list>
 <app-create

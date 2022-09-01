@@ -11,11 +11,70 @@
 					<label for="deviceSearch">Search for Device</label>
 					<input #searchInput class="search__input" id="deviceSearch" type="text" />
 				</div>
-				<div class="create__list">
-					<div *ngFor="let device of devices" class="create__block">
+				<div *ngIf="!this.detailedView" class="create__list">
+					<div
+						*ngFor="let device of devices"
+						class="create__block"
+						(click)="showDetails(device.deviceKey)"
+					>
 						<p>{{ device.deviceName }}</p>
 						<img src="{{ device.deviceImage }}" alt="" />
 					</div>
+				</div>
+				<div *ngIf="this.detailedView" class="create__details">
+					<div class="details__image">
+						<img src="{{ detailedInfo!.deviceImage }}" alt="" />
+					</div>
+					<div class="details__specs">
+						<p>{{ detailedInfo!.deviceName }}</p>
+						<h6>Display</h6>
+						<p *ngIf="this.detailedInfo!.display">
+							Display Type: {{ this.detailedInfo!.display }}
+						</p>
+						<p *ngIf="this.detailedInfo!.size">
+							Display Size: {{ this.detailedInfo!.size }}
+						</p>
+						<p *ngIf="this.detailedInfo!.resolution">
+							Resolution: {{ this.detailedInfo!.resolution }}
+						</p>
+
+						<h6>Cameras</h6>
+						<p *ngIf="this.detailedInfo!.cameraMain">
+							Rear Camera: {{ this.detailedInfo!.cameraMain }}
+						</p>
+						<p *ngIf="this.detailedInfo!.videoMain">
+							Rear Camera Video: {{ this.detailedInfo!.videoMain }}
+						</p>
+						<p *ngIf="this.detailedInfo!.cameraSelfie">
+							Front Camera: {{ this.detailedInfo!.cameraSelfie }}
+						</p>
+						<p *ngIf="this.detailedInfo!.videoSelfie">
+							Front Camera Video: {{ this.detailedInfo!.videoSelfie }}
+						</p>
+						<h6>Hardware</h6>
+						<p *ngIf="this.detailedInfo!.chipset">
+							Chipset: {{ this.detailedInfo!.chipset }}
+						</p>
+						<p *ngIf="this.detailedInfo!.os">OS: {{ this.detailedInfo!.os }}</p>
+						<p *ngIf="this.detailedInfo!.cpu">CPU: {{ this.detailedInfo!.cpu }}</p>
+						<p *ngIf="this.detailedInfo!.gpu">GPU: {{ this.detailedInfo!.gpu }}</p>
+						<h6>Features</h6>
+						<p *ngIf="this.detailedInfo!.connectivity">
+							Connectivity: {{ this.detailedInfo!.connectivity }}
+						</p>
+						<p *ngIf="this.detailedInfo!.jack">
+							3.5mm Jack: {{ this.detailedInfo!.jack }}
+						</p>
+						<p *ngIf="this.detailedInfo!.features">
+							Others: {{ this.detailedInfo!.features }}
+						</p>
+					</div>
+					<div class="details__user">
+						<p>Poster: {{user!.firstName}} {{user!.lastName}}</p>
+						<p>Email: {{user!.email}}</p>
+						<p>Phone: {{user!.phone}}</p>
+					</div>
+					<div class="details__commentsPrice"></div>
 				</div>
 			</div>
 		</div>

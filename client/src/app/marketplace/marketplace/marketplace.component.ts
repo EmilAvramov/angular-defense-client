@@ -14,7 +14,7 @@ import { DataService } from '../services/data.service';
 export class MarketplaceComponent implements OnInit {
 	public details: DeviceDetails[] | undefined;
 	public user: UserDetails | undefined;
-	public postingData: DevicePosting[] | undefined
+	public postingData: DevicePosting[] | undefined;
 
 	constructor(
 		private dataService: DataService,
@@ -24,34 +24,33 @@ export class MarketplaceComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dataService.getPostingData().subscribe({
-			next: (res) => this.postingData = res,
-			error: (err) => console.log(err.message)
-		})
+			next: (res) => (this.postingData = res),
+			error: (err) => console.log(err.message),
+		});
 	}
 
-	setUser(): void {
-		this.user = this.StorageService.getAllData();
-		this.modal.open()
+	openModal(): void {
+		this.modal.open();
 	}
 
-	loadPostings(query:string): void {
+	loadPostings(query: string): void {
 		this.dataService.getPostingData(query).subscribe({
-			next: (res) => this.postingData = res,
-			error: (err) => console.log(err.message)
-		})
+			next: (res) => (this.postingData = res),
+			error: (err) => console.log(err.message),
+		});
 	}
 
-	loadDevice(query:string): void {
+	loadDevice(query: string): void {
 		this.dataService.getDeviceDetails(query).subscribe({
-			next: (res) => this.details = res,
-			error: (err) => console.log(err.message)
-		})
+			next: (res) => {
+				this.details = res;
+				this.user = this.StorageService.getAllData();
+			},
+			error: (err) => console.log(err.message),
+		});
 	}
 
 	clearDetails(): void {
-		this.user = undefined
-		this.details = undefined
+		this.user = undefined;
 	}
-
-
 }

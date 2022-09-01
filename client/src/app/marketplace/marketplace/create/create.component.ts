@@ -29,6 +29,8 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class CreateComponent implements OnInit, AfterViewInit {
 	public display$!: Observable<boolean>;
 	public posting: DevicePosting | undefined;
+	public detailedView: boolean = false;
+	public detailedInfo: DeviceDetails | undefined;
 
 	@Input() user: UserDetails | undefined;
 	@Input() devices: DeviceDetails[] | undefined;
@@ -61,6 +63,12 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			});
 	}
 
+	showDetails(key: string) {
+		console.log(this.user)
+		this.detailedView = true;
+		this.detailedInfo = this.devices!.filter((x) => x.deviceKey == key)[0];
+	}
+
 	sendPosting(): void {
 		this.createPosting.emit(this.posting);
 	}
@@ -69,5 +77,8 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this.modal.close();
 		this.user = undefined;
 		this.devices = undefined;
+		this.detailedView = false;
+		this.detailedInfo = undefined;
+		this.searchDevice.nativeElement.value = ''
 	}
 }

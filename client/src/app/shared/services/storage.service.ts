@@ -37,13 +37,14 @@ export class StorageService {
 	}
 
 	getAllData(): UserDetails {
-		return {
+		const user = {
 			email: this.get('email')!,
 			firstName: this.get('firstName')!,
 			lastName: this.get('lastName')!,
 			phone: this.get('phone')!,
 			address: this.get('address')!,
 			city: this.get('city')!,
-		};
+		}
+		return user
 	}
 }
