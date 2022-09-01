@@ -34,7 +34,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	@Input() user: UserDetails | undefined;
 	@Input() devices: DeviceDetails[] | undefined;
-	@Output() modalState = new EventEmitter<boolean>();
 	@Output() requestDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<DevicePostingPayload>();
 
@@ -57,10 +56,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
 		this.display$ = this.modal.watch();
-		this.display$.subscribe({
-			next: (state) => this.modalState.emit(state),
-			error: (err) => console.log(err),
-		});
 	}
 
 	ngAfterViewInit() {

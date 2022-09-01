@@ -38,7 +38,6 @@ export class MarketplaceComponent implements OnInit {
 			next: (res) => (this.postingData = res),
 			error: (err) => console.log(err.message),
 		});
-		console.log(this.postingData)
 	}
 
 	loadDevice(query: string): void {
@@ -56,9 +55,5 @@ export class MarketplaceComponent implements OnInit {
 			next: (res) => console.log(res),
 			error: (err) => console.log(err),
 		});
-	}
-
-	clearDetails(): void {
-		this.user = undefined;
 	}
 }
