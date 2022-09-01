@@ -1,33 +1,43 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { fromEvent, debounceTime, distinctUntilChanged, map } from 'rxjs';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.sass']
+	selector: 'app-search',
+	templateUrl: './search.component.html',
+	styleUrls: ['./search.component.sass'],
 })
 export class SearchComponent implements OnInit {
 	@Output() search = new EventEmitter<string>();
 	@Output() create = new EventEmitter<string>();
 
-	constructor(private fb: FormBuilder) {}
+	@ViewChild('searchInput')
+	searchDevice!: ElementRef<HTMLInputElement>;
 
-	searchForm = this.fb.group({
-		query: [''],
-	});
-
-	get query() {
-		return this.searchForm.get(['query']);
-	}
+	constructor() {}
 
 	ngOnInit(): void {}
 
-	onSubmit() {
-		this.search.emit(this.query!.value);
-		this.query?.reset();
+	ngAfterViewInit() {
+		fromEvent(this.searchDevice?.nativeElement, 'input')
+			.pipe(
+				debounceTime(1000),
+				distinctUntilChanged(),
+				map((e: Event) => (e.target as HTMLInputElement).value)
+			)
+			.subscribe({
+				next: (res) => this.search.emit(res),
+				error: (err) => console.log(err),
+			});
 	}
 
 	onCreate() {
-		this.create.emit('requesting create modal')
+		this.create.emit('requesting create modal');
 	}
 }

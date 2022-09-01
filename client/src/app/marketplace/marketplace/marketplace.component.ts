@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 import { DevicePosting } from 'src/app/shared/interfaces/Posting.interface';
 import { UserDetails } from 'src/app/shared/interfaces/User.interface';

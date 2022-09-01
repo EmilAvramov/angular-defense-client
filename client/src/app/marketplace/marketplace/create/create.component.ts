@@ -36,28 +36,23 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	@Output() requestDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<DevicePosting>();
 
-	@ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+	@ViewChild('searchInput')
+	searchDevice!: ElementRef<HTMLInputElement>;
 
 	constructor(private modal: ModalService, private fb: FormBuilder) {}
 
 	ngOnInit(): void {
 		this.display$ = this.modal.watch();
+		this.display$.subscribe(console.log);
 	}
 
 	ngAfterViewInit() {
-		fromEvent(this.searchInput.nativeElement, 'input')
+		fromEvent(this.searchDevice?.nativeElement, 'input')
 			.pipe(
-				(map((e) => (e as HTMLInputElement).value), debounceTime(1000)),
+				debounceTime(1000),
 				distinctUntilChanged()
 			)
-			.subscribe({
-				next: () => console.log,
-				error: (err) => console.log(err)
-			});
-	}
-
-	getDevices(): void {
-		this.requestDetails.emit();
+			.subscribe(console.log);
 	}
 
 	sendPosting(): void {
