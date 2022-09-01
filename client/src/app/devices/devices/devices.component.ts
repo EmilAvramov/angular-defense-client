@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {
-	Device,
-	DeviceDetails,
-} from 'src/app/shared/interfaces/Devices.interface';
+import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 import { DataService } from '../services/data.service';
 import { first } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -16,8 +13,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class DevicesComponent implements OnInit, OnDestroy {
 	public limit: number = 100;
 	public offset: number = 0;
-	public data: Device[] = [];
-	public detailedData: DeviceDetails[] = [];
+	public data: DeviceDetails[] = [];
 	public details: DeviceDetails | undefined;
 	public requested: boolean = false;
 
@@ -31,29 +27,22 @@ export class DevicesComponent implements OnInit, OnDestroy {
 		this.offset = 0;
 		this.spinner.show();
 		this.dataService
-			.requestData(this.limit, this.offset)
+			.requestDetailedData(this.limit, this.offset)
 			.pipe(first())
 			.subscribe({
 				next: (value: any) => {
-					value.forEach((item: Device) => {
+					value.forEach((item: DeviceDetails) => {
 						this.data.push(item);
 					});
 					this.spinner.hide();
 				},
 				error: (err) => console.log(err.message),
 			});
-		this.dataService.requestDetailedData().subscribe({
-			next: (value: any) => {
-				this.detailedData = value;
-			},
-			error: (err: any) => console.log(err.message),
-		});
 	}
 
 	ngOnDestroy(): void {
-		this.detailedData = []
-		this.details = undefined
-		this.data = []
+		this.details = undefined;
+		this.data = [];
 	}
 
 	loadMore(): void {
@@ -63,11 +52,11 @@ export class DevicesComponent implements OnInit, OnDestroy {
 		this.offset += 100;
 		this.spinner.show();
 		this.dataService
-			.requestData(this.limit, this.offset)
+			.requestDetailedData(this.limit, this.offset)
 			.pipe(first())
 			.subscribe({
 				next: (value: any) => {
-					value.forEach((item: Device) => {
+					value.forEach((item: DeviceDetails) => {
 						this.data.push(item);
 					});
 					this.spinner.hide();
@@ -75,12 +64,6 @@ export class DevicesComponent implements OnInit, OnDestroy {
 				},
 				error: (err) => console.log(err.message),
 			});
-		this.dataService.requestDetailedData().subscribe({
-			next: (value: any) => {
-				this.detailedData = value;
-			},
-			error: (err: any) => console.log(err.message),
-		});
 	}
 
 	query(query: string): void {
@@ -93,7 +76,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
 				.pipe(first())
 				.subscribe({
 					next: (value: any) => {
-						value.forEach((item: Device) => {
+						value.forEach((item: DeviceDetails) => {
 							this.data.push(item);
 						});
 						this.spinner.hide();
@@ -105,7 +88,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
 
 	getDetails(key: string) {
 		try {
-			this.details = this.detailedData.filter(
+			this.details = this.data.filter(
 				(x: DeviceDetails) => x.deviceKey === key
 			)[0];
 			this.modal.open();
@@ -117,6 +100,4 @@ export class DevicesComponent implements OnInit, OnDestroy {
 	clearDetails() {
 		this.details = undefined;
 	}
-
-
 }

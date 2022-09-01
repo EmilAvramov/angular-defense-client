@@ -1,7 +1,7 @@
 import express from 'express';
 import { cors } from '../middelwares/cors';
 import userController from '../controllers/userController'
-import phoneController from '../controllers/phoneController';
+import phoneController from '../controllers/deviceController';
 import dataController from '../controllers/dataController'
 import postingsController from '../controllers/postingsController';
 

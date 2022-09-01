@@ -10,10 +10,10 @@ export class DataService {
 
 	constructor(private http: HttpClient) {}
 
-	requestData(limit: number, offset: number): Subject<any> {
+	requestDetailedData(limit: number, offset: number): Subject<any> {
 		this.http
 			.post(
-				`${server}/device/list/`,
+				`${server}/device/listData`,
 				{ limit: limit, offset: offset },
 				{
 					headers: this.headers,
@@ -24,16 +24,9 @@ export class DataService {
 		return this.request;
 	}
 
-	requestDetailedData(): Subject<any> {
-		this.http
-			.get(`${server}/device/listData`)
-			.subscribe((res) => this.request.next(res));
-		return this.request;
-	}
-
 	queryData(query: string): Subject<any> {
 		this.http
-			.post(`${server}/device/list/search/?query=${query}`, {
+			.post(`${server}/device/listData/search/?query=${query}`, {
 				headers: this.headers,
 				responseType: 'json',
 			})
