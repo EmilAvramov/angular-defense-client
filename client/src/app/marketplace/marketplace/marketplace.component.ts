@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Device, DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
+import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 import { DevicePosting } from 'src/app/shared/interfaces/Posting.interface';
 import { UserDetails } from 'src/app/shared/interfaces/User.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -12,7 +12,7 @@ import { DataService } from '../services/data.service';
 	styleUrls: ['./marketplace.component.sass'],
 })
 export class MarketplaceComponent implements OnInit {
-	public device: DeviceDetails | undefined;
+	public details: DeviceDetails[] | undefined;
 	public user: UserDetails | undefined;
 	public postingData: DevicePosting[] | undefined
 
@@ -41,13 +41,16 @@ export class MarketplaceComponent implements OnInit {
 		})
 	}
 
-	loadDevice(): void {
-
+	loadDevice(query:string): void {
+		this.dataService.getDeviceDetails(query).subscribe({
+			next: (res) => this.details = res,
+			error: (err) => console.log(err.message)
+		})
 	}
 
 	clearDetails(): void {
 		this.user = undefined
-		this.device = undefined
+		this.details = undefined
 	}
 
 

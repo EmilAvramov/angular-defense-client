@@ -26,13 +26,14 @@ export class DataService {
 		return this.request;
 	}
 
-
-	getDeviceDetails(name: string): Subject<any> {
-		// if (name) {
-		// 	this.http.post(`${server}/postings/`)
-		
-		// }
-		return this.request
+	getDeviceDetails(query: string): Subject<any> {
+		this.http
+			.post(`${server}/device/listData/search/?query=${query}`, {
+				headers: this.headers,
+				responseType: 'json',
+			})
+			.subscribe((res) => this.request.next(res));
+		return this.request;
 	}
 
 	requestData(limit: number, offset: number): Subject<any> {

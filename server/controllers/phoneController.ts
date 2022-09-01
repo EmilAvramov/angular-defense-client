@@ -34,4 +34,17 @@ router.get('/listData', async (req, res) => {
 	}
 })
 
+router.post('/listData/search', async (req, res) => {
+	try {
+		let query = req.query.query
+		if (!query) {
+			res.status(404).json({message: 'not found'})
+		} 
+		const response = await getListWithDetails(query as string)
+		res.status(200).json(response)
+	} catch (err:any) {
+		res.status(400).json({message: err.message})
+	}
+})
+
 export default router;

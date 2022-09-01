@@ -3,8 +3,8 @@
 		<div class="create__container">
 			<button class="close" type="button" (click)="close()">X</button>
 			<div class="create__body" (click)="$event.stopPropagation()">
-                This works!
-            </div>
+				<input #searchInput class="search__input" type="text" />
+			</div>
 		</div>
 	</section>
 </ng-container>

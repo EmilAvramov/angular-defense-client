@@ -5,7 +5,7 @@
 <app-list [postingData]="this.postingData"></app-list>
 <app-create
 	[user]="this.user"
-	[device]="this.device"
-	(requestDetails)="this.loadDevice()"
+	[devices]="this.details"
+	(requestDetails)="this.loadDevice($event)"
 	(closed)="clearDetails()"
 ></app-create>

@@ -30,10 +30,23 @@ export const getList = async (
 	}
 };
 
-export const getListWithDetails = async () => {
+export const getListWithDetails = async (
+	query: string = '',
+	limit: number = 100,
+	offset: number = 0
+) => {
 	try {
-		return await DeviceDetailsModel.findAll()
-	} catch (err:any) {
-		throw new Error(err.message)
+		if (query) {
+			return await DeviceDetailsModel.findAll({
+				where: { deviceName: { [Op.iLike]: `%${query}%` } },
+				limit,
+			});
+		}
+		return await DeviceDetailsModel.findAll({
+			limit,
+			offset,
+		});
+	} catch (err: any) {
+		throw new Error(err.message);
 	}
-}
+};
