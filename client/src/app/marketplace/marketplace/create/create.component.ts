@@ -32,27 +32,33 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	@Input() user: UserDetails | undefined;
 	@Input() devices: DeviceDetails[] | undefined;
-	@Output() closed = new EventEmitter<boolean>();
+	@Output() modalState = new EventEmitter<boolean>();
 	@Output() requestDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<DevicePosting>();
 
-	@ViewChild('searchInput')
-	searchDevice!: ElementRef<HTMLInputElement>;
+	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
 	constructor(private modal: ModalService, private fb: FormBuilder) {}
 
 	ngOnInit(): void {
 		this.display$ = this.modal.watch();
-		this.display$.subscribe(console.log);
+		this.display$.subscribe({
+			next: (state) => this.modalState.emit(state),
+			error: (err) => console.log(err),
+		});
 	}
 
 	ngAfterViewInit() {
-		fromEvent(this.searchDevice?.nativeElement, 'input')
+		fromEvent(this.searchDevice.nativeElement, 'input')
 			.pipe(
 				debounceTime(1000),
-				distinctUntilChanged()
+				distinctUntilChanged(),
+				map((e: Event) => (e.target as HTMLInputElement).value)
 			)
-			.subscribe(console.log);
+			.subscribe({
+				next: (res) => this.requestDetails.emit(res),
+				error: (err) => console.log(err),
+			});
 	}
 
 	sendPosting(): void {
@@ -60,7 +66,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	}
 
 	close(): void {
-		this.closed.emit(true);
 		this.modal.close();
 		this.user = undefined;
 		this.devices = undefined;

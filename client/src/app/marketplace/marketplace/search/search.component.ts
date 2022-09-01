@@ -17,15 +17,14 @@ export class SearchComponent implements OnInit {
 	@Output() search = new EventEmitter<string>();
 	@Output() create = new EventEmitter<string>();
 
-	@ViewChild('searchInput')
-	searchDevice!: ElementRef<HTMLInputElement>;
+	@ViewChild('searchInput') searchPosting!: ElementRef<HTMLInputElement>;
 
 	constructor() {}
 
 	ngOnInit(): void {}
 
 	ngAfterViewInit() {
-		fromEvent(this.searchDevice?.nativeElement, 'input')
+		fromEvent(this.searchPosting.nativeElement, 'input')
 			.pipe(
 				debounceTime(1000),
 				distinctUntilChanged(),
