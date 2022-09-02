@@ -1,4 +1,7 @@
-import { UserState, UserSession, StorageState } from './user.models'
+import { UserState, StorageState } from './user.models'
+
+export const USER_FEATURE_KEY = 'user'
+export const STORAGE_FEATURE_KEY = 'storage'
 
 export const initialUserState: UserState = {
     email: '',
@@ -8,7 +11,7 @@ export const initialUserState: UserState = {
     phone: '',
     address: '',
     city: '',
-    accessToken: '',
+    token: '',
     loaded: false,
     error: null
 }

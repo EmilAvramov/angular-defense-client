@@ -3,7 +3,7 @@ import * as userActions from './user.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { StorageState, UserState } from './user.models';
 
-export const user = createReducer(
+export const _userReducer = createReducer(
 	initialUserState,
 	on(userActions.UserInit, (state) => ({
 		...state,
@@ -54,7 +54,7 @@ export const user = createReducer(
 	}))
 );
 
-const storage = createReducer(
+const _storageReducer = createReducer(
 	initialStorageState,
 	on(userActions.SessionStorageInit, (state) => ({
 		...state,
@@ -77,16 +77,13 @@ const storage = createReducer(
 	}))
 );
 
-export function userReducer(
-    state: UserState | undefined, 
-    action: Action
-) {
-	return user(state, action);
+export function userReducer(state: UserState | undefined, action: Action) {
+	return _userReducer(state, action);
 }
 
 export function storageReducer(
 	state: StorageState | undefined,
 	action: Action
 ) {
-	return storage(state, action);
+	return _storageReducer(state, action);
 }

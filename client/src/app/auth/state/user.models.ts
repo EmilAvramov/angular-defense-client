@@ -6,7 +6,7 @@ export interface UserState {
 	phone: string;
 	address: string;
 	city: string;
-	accessToken: string;
+	token: string;
 	loaded: boolean,
     error: string | null
 }
