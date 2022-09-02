@@ -1,17 +1,17 @@
-import * as userActions from './user.actions';
-import { UserActionsNames } from './user.actions';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of } from 'rxjs';
-import { AuthService, StorageService } from './user.service';
-import { UserState, StorageState, UserAuth, UserSession } from './user.models';
+
+import * as userActions from './user.actions';
+import { UserActionsNames } from './user.actions';
+import { AuthService } from './user.service';
+import { UserState } from './user.state';
 
 @Injectable()
 export class UserEffects {
 	constructor(
 		private readonly actions$: Actions,
-		private readonly authService: AuthService,
-		private readonly storageService: StorageService
+		private readonly authService: AuthService
 	) {}
 
 	public readonly loginUser$: Observable<any> = createEffect(() =>
@@ -19,21 +19,9 @@ export class UserEffects {
 			ofType(UserActionsNames.UserLogin),
 			map(({ email, password }) => userActions.UserLogin({ email, password })),
 			switchMap(({ email, password }) =>
-				this.authService.loginUser(email, password).pipe(
-					map((data: UserAuth) => {
-						this.storageService.setStorage(data);
-						let user: UserSession = {
-							email: data.payload.email,
-							firstName: data.payload.firstName,
-							lastName: data.payload.lastName,
-							phone: data.payload.phone,
-							address: data.payload.address,
-							city: data.payload.city,
-							token: data.accessToken,
-						};
-						return userActions.UserLoginSuccess({ user });
-					})
-				)
+				this.authService
+					.loginUser(email, password)
+					.pipe(map((user: UserState) => userActions.UserLoginSuccess({ user })))
 			),
 			catchError((error: string | null) =>
 				of(userActions.UserLoginFailure({ error }))
@@ -45,7 +33,7 @@ export class UserEffects {
 		return this.actions$.pipe(
 			ofType(UserActionsNames.UserRegister),
 			map(({ email, password, firstName, lastName, phone, address, city }) =>
-				userActions.RegisterUser({
+				userActions.UserRegister({
 					email,
 					password,
 					firstName,
@@ -58,21 +46,7 @@ export class UserEffects {
 			switchMap(({ email, password, firstName, lastName, phone, address, city }) =>
 				this.authService
 					.registerUser(email, password, firstName, lastName, phone, address, city)
-					.pipe(
-						map((data: UserAuth) => {
-							this.storageService.setStorage(data);
-							let user: UserSession = {
-								email: data.payload.email,
-								firstName: data.payload.firstName,
-								lastName: data.payload.lastName,
-								phone: data.payload.phone,
-								address: data.payload.address,
-								city: data.payload.city,
-								token: data.accessToken,
-							};
-							return userActions.UserLoginSuccess({ user });
-						})
-					)
+					.pipe(map((user: UserState) => userActions.UserRegisterSuccess({ user })))
 			),
 			catchError((error: string | null) =>
 				of(userActions.UserRegisterFailure({ error }))
@@ -82,35 +56,17 @@ export class UserEffects {
 
 	public readonly logoutUser$: Observable<any> = createEffect(() => {
 		return this.actions$.pipe(
-			ofType(UserActionsNames.LogoutUser),
-			map(({ token }) => userActions.LogoutUser({ token })),
+			ofType(UserActionsNames.UserLogout),
+			map(({ token }) => userActions.UserLogout({ token })),
 			switchMap(({ token }) =>
-				this.authService.logoutUser(token).pipe(
-					map((res) => {
-						this.storageService.clearStorage();
-						return userActions.LogoutUserSuccess({ message: res.message });
-					})
-				)
+				this.authService
+					.logoutUser(token)
+					.pipe(
+						map((res) => userActions.UserLogoutSuccess({ message: res.message }))
+					)
 			),
 			catchError((error: string | null) =>
-				of(userActions.LogoutUserFailure({ error }))
-			)
-		);
-	});
-
-	public readonly getUserSession$: Observable<any> = createEffect(() => {
-		return this.actions$.pipe(
-			ofType(UserActionsNames.AccessUserSession),
-			switchMap(() =>
-				this.storageService.getStorage().pipe(
-					map((data: StorageState) => {
-						console.log(data)
-						return userActions.AccessUserSessionSuccess({ data });
-					})
-				)
-			),
-			catchError((error: string | null) =>
-				of(userActions.AccessUserSessionFailure({ error }))
+				of(userActions.UserLogoutFailure({ error }))
 			)
 		);
 	});

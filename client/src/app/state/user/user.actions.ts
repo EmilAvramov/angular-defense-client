@@ -1,28 +1,20 @@
 import { createAction, props } from '@ngrx/store';
-import { UserState, StorageState, UserSession } from './user.models';
+import { UserState } from './user.state';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
-	SessionStorageInit = '[Storage] Init',
 	UserLogin = '[User] Login User',
 	UserLoginSuccess = '[User] Login User Success',
 	UserLoginFailure = '[User] Login User Failure',
 	UserRegister = '[User] Register User',
 	UserRegisterSuccess = '[User] Register User Success',
 	UserRegisterFailure = '[User] Register User Failure',
-	LogoutUser = '[User] Logout User',
-	LogoutUserSuccess = '[User] Logout User Success',
-	LogoutUserFailure = '[User] Logout User Failure',
-	AccessUserSession = '[Storage] Access User Session',
-	AccessUserSessionSuccess = '[Storage] Get Details Success',
-	AccessUserSessionFailure = '[Storage] Get Details Failure',
+	UserLogout = '[User] Logout User',
+	UserLogoutSuccess = '[User] Logout User Success',
+	UserLogoutFailure = '[User] Logout User Failure',
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
-
-export const SessionStorageInit = createAction(
-	UserActionsNames.SessionStorageInit
-);
 
 export const UserLogin = createAction(
 	UserActionsNames.UserLogin,
@@ -31,7 +23,7 @@ export const UserLogin = createAction(
 
 export const UserLoginSuccess = createAction(
 	UserActionsNames.UserLoginSuccess,
-	props<{ user: UserSession }>()
+	props<{ user: UserState }>()
 );
 
 export const UserLoginFailure = createAction(
@@ -39,7 +31,7 @@ export const UserLoginFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const RegisterUser = createAction(
+export const UserRegister = createAction(
 	UserActionsNames.UserRegister,
 	props<{
 		email: string;
@@ -54,7 +46,7 @@ export const RegisterUser = createAction(
 
 export const UserRegisterSuccess = createAction(
 	UserActionsNames.UserRegisterSuccess,
-	props<{ user: UserSession }>()
+	props<{ user: UserState }>()
 );
 
 export const UserRegisterFailure = createAction(
@@ -62,31 +54,17 @@ export const UserRegisterFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const LogoutUser = createAction(
-	UserActionsNames.LogoutUser,
+export const UserLogout = createAction(
+	UserActionsNames.UserLogout,
 	props<{ token: string }>()
 );
 
-export const LogoutUserSuccess = createAction(
-	UserActionsNames.LogoutUserSuccess,
+export const UserLogoutSuccess = createAction(
+	UserActionsNames.UserLogoutSuccess,
 	props<{ message: string }>()
 );
 
-export const LogoutUserFailure = createAction(
-	UserActionsNames.LogoutUserFailure,
-	props<{ error: string | null }>()
-);
-
-export const AccessUserSession = createAction(
-	UserActionsNames.AccessUserSession
-);
-
-export const AccessUserSessionSuccess = createAction(
-	UserActionsNames.AccessUserSessionSuccess,
-	props<{ data: StorageState }>()
-);
-
-export const AccessUserSessionFailure = createAction(
-	UserActionsNames.AccessUserSessionFailure,
+export const UserLogoutFailure = createAction(
+	UserActionsNames.UserLogoutFailure,
 	props<{ error: string | null }>()
 );

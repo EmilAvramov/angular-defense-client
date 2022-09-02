@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 
 import * as userSelectors from './user.selectors';
 import * as userActions from './user.actions';
-import { StorageState, UserState } from './user.models';
+import { UserState } from './user.state';
 
 @Injectable()
 export class UserFacade {
@@ -16,14 +16,6 @@ export class UserFacade {
 
 	public readonly userData$: Observable<UserState> = this.store.pipe(
 		select(userSelectors.getUserState)
-	);
-
-	public readonly storageLoaded$: Observable<boolean> = this.store.pipe(
-		select(userSelectors.getStorageLoaded)
-	);
-
-	public readonly storageData$: Observable<StorageState> = this.store.pipe(
-		select(userSelectors.getStorageState)
 	);
 
 	public userInit(): void {
@@ -44,7 +36,7 @@ export class UserFacade {
 		city: string
 	): void {
 		this.store.dispatch(
-			userActions.RegisterUser({
+			userActions.UserRegister({
 				email,
 				password,
 				firstName,
@@ -57,14 +49,6 @@ export class UserFacade {
 	}
 
 	public userLogout(token: string): void {
-		this.store.dispatch(userActions.LogoutUser({ token }));
-	}
-
-	public storageInit(): void {
-		this.store.dispatch(userActions.SessionStorageInit());
-	}
-
-	public accessStorage(): void {
-		this.store.dispatch(userActions.AccessUserSession());
+		this.store.dispatch(userActions.UserLogout({ token }));
 	}
 }

@@ -16,7 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { StorageService } from './shared/services/storage.service';
 import { DevicesModule } from './devices/devices.module';
 import { ProfileModule } from './profile/profile.module';
-import { storageReducer, userReducer } from './state/user/user.reducers';
+import { userReducer } from './state/user/user.reducers';
 import { UserFacade } from './state/user/user.facade';
 import { UserEffects } from './state/user/user.effects';
 
@@ -24,7 +24,7 @@ import { UserEffects } from './state/user/user.effects';
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
-		StoreModule.forRoot({user: userReducer, storage: storageReducer}, {}),
+		StoreModule.forRoot({user: userReducer}, {}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,

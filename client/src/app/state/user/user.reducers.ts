@@ -1,7 +1,6 @@
-import { initialStorageState, initialUserState } from './user.state';
+import { initialUserState, UserState } from './user.state';
 import * as userActions from './user.actions';
 import { Action, createReducer, on } from '@ngrx/store';
-import { StorageState, UserState } from './user.models';
 
 export const _userReducer = createReducer(
 	initialUserState,
@@ -24,7 +23,7 @@ export const _userReducer = createReducer(
 		...state,
 		error,
 	})),
-	on(userActions.RegisterUser, (state) => ({
+	on(userActions.UserRegister, (state) => ({
 		...state,
 		loading: false,
 		error: null,
@@ -38,40 +37,17 @@ export const _userReducer = createReducer(
 		...state,
 		error,
 	})),
-	on(userActions.LogoutUser, (state) => ({
+	on(userActions.UserLogout, (state) => ({
 		...state,
 		loading: false,
 		error: null,
 	})),
-	on(userActions.LogoutUserSuccess, (state) => ({
+	on(userActions.UserLogoutSuccess, (state) => ({
 		...state,
 		loading: false,
 		error: null,
 	})),
-	on(userActions.LogoutUserFailure, (state, { error }) => ({
-		...state,
-		error,
-	}))
-);
-
-const _storageReducer = createReducer(
-	initialStorageState,
-	on(userActions.SessionStorageInit, (state) => ({
-		...state,
-		loading: false,
-		error: null,
-	})),
-	on(userActions.AccessUserSession, (state) => ({
-		...state,
-		loading: false,
-		error: null,
-	})),
-	on(userActions.AccessUserSessionSuccess, (state) => ({
-		...state,
-		loading: true,
-		error: null,
-	})),
-	on(userActions.AccessUserSessionFailure, (state, { error }) => ({
+	on(userActions.UserLogoutFailure, (state, { error }) => ({
 		...state,
 		error,
 	}))
@@ -79,11 +55,4 @@ const _storageReducer = createReducer(
 
 export function userReducer(state: UserState | undefined, action: Action) {
 	return _userReducer(state, action);
-}
-
-export function storageReducer(
-	state: StorageState | undefined,
-	action: Action
-) {
-	return _storageReducer(state, action);
 }

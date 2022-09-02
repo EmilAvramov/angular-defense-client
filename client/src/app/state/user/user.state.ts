@@ -9,7 +9,7 @@ export interface UserState {
 	address: string;
 	city: string;
 	token: string;
-	loading: boolean,
+	loaded: boolean,
     error: string | null
 }
 
@@ -22,6 +22,6 @@ export const initialUserState: UserState = {
     address: '',
     city: '',
     token: '',
-    loading: false,
+    loaded: false,
     error: null
 }

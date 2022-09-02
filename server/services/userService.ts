@@ -26,6 +26,8 @@ const createSession = (user: User) => {
 	return {
 		...payload,
 		token,
+		loaded:true,
+		error: null
 	};
 };
 
