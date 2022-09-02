@@ -24,7 +24,10 @@ export const SessionStorageInit = createAction(
 	UserActionsNames.SessionStorageInit
 );
 
-export const UserLogin = createAction(UserActionsNames.UserLogin);
+export const UserLogin = createAction(
+	UserActionsNames.UserLogin,
+	props<{ email: string; password: string }>
+);
 
 export const UserLoginSuccess = createAction(
 	UserActionsNames.UserLoginSuccess,

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -6,10 +5,8 @@ import {
 	emailPattern,
 	passwordPattern,
 } from 'src/app/shared/variables/validationPatterns';
-import { UserAuth } from 'src/app/shared/interfaces/User.interface';
-import { server } from 'src/app/shared/variables/config';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/shared/services/storage.service';
+import { UserFacade } from '../../state/user/user.facade';
 
 @Component({
 	selector: 'app-login',
@@ -17,12 +14,10 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 	styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-
 	constructor(
 		private fb: FormBuilder,
-		private http: HttpClient,
 		private router: Router,
-		private storageService: StorageService
+		private readonly userFacade: UserFacade
 	) {}
 
 	profileForm = this.fb.group({
@@ -53,21 +48,9 @@ export class LoginComponent implements OnInit {
 
 	onSubmit(): void {
 		const { email, password } = this.profileForm.value;
-		const headers = { 'content-type': 'application/json' };
 
-		this.http
-			.post<UserAuth>(
-				`${server}/users/login`,
-				{ email, password },
-				{ headers: headers, responseType: 'json' }
-			)
-			.subscribe({
-				next: (response) => {
-					this.storageService.setStorage(response)
-					this.router.navigate(['/'])
-				},
-				error: (error) => console.log(error),
-			});
+		this.userFacade.userLogin(email as string, password as string)
+		this.router.navigate(['/']);
 
 		this.profileForm.reset();
 	}

@@ -30,8 +30,8 @@ export class UserFacade {
 		this.store.dispatch(userActions.UserInit());
 	}
 
-	public userLogin(): void {
-		this.store.dispatch(userActions.UserLogin());
+	public userLogin(email: string, password: string): void {
+		this.store.dispatch(userActions.UserLogin(email, password));
 	}
 
 	public userRegister(): void {

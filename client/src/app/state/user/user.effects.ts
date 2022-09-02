@@ -1,7 +1,7 @@
 import * as userActions from './user.actions';
 import { UserActionsNames } from './user.actions';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import {
 	asyncScheduler,
 	catchError,
@@ -26,9 +26,10 @@ export class BooksEffects {
 		return this.actions$.pipe(
 			ofType(UserActionsNames.UserLogin),
 			switchMap(({ email, password }) =>
-				scheduled(this.authService.loginUser(email, password), asyncScheduler)
+				this.authService
+					.loginUser(email, password)
+					.pipe(map((data: UserState) => userActions.UserLoginSuccess({ data })))
 			),
-			map((data: UserState) => userActions.UserLoginSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.UserLoginFailure({ error }))
 			)
@@ -62,9 +63,7 @@ export class BooksEffects {
 	public readonly getUserSession$: Observable<any> = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(UserActionsNames.AccessUserSession),
-			switchMap(() =>
-				scheduled(this.storageService.getStorage(), asyncScheduler)
-			),
+			switchMap(() => scheduled(this.storageService.getStorage(), asyncScheduler)),
 			map((data: StorageState) => userActions.AccessUserSessionSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.AccessUserSessionFailure({ error }))

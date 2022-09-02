@@ -6,13 +6,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AuthRoutingModule } from './auth.routing.module';
-import { BooksEffects } from './state/user.effects';
-import { UserFacade } from './state/user.facade';
-import { storageReducer, userReducer } from './state/user.reducers';
+import { BooksEffects } from '../state/user/user.effects';
+import { UserFacade } from '../state/user/user.facade';
+import { storageReducer, userReducer } from '../state/user/user.reducers';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-import { STORAGE_FEATURE_KEY, USER_FEATURE_KEY } from './state/user.state';
+import { STORAGE_FEATURE_KEY, USER_FEATURE_KEY } from '../state/user/user.state';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
