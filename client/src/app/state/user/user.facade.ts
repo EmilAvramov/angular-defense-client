@@ -10,12 +10,16 @@ import { UserState } from './user.state';
 export class UserFacade {
 	constructor(private readonly store: Store<UserState>) {}
 
+	public readonly userData$: Observable<UserState> = this.store.pipe(
+		select(userSelectors.getUserState)
+	);
+
 	public readonly userLoaded$: Observable<boolean> = this.store.pipe(
 		select(userSelectors.getUserLoaded)
 	);
 
-	public readonly userData$: Observable<UserState> = this.store.pipe(
-		select(userSelectors.getUserState)
+	public readonly userError$: Observable<any> = this.store.pipe(
+		select(userSelectors.getUserError)
 	);
 
 	public userInit(): void {

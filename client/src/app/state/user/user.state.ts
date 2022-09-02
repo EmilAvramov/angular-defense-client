@@ -2,7 +2,6 @@ export const USER_FEATURE_KEY = 'user'
 
 export interface UserState {
 	email: string;
-	password: string;
 	firstName: string;
 	lastName: string;
 	phone: string;
@@ -15,7 +14,6 @@ export interface UserState {
 
 export const initialUserState: UserState = {
     email: '',
-    password: '',
     firstName: '',
     lastName: '',
     phone: '',
@@ -24,4 +22,14 @@ export const initialUserState: UserState = {
     token: '',
     loaded: false,
     error: null
+}
+
+export interface UserAuth {
+    email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	token: string;
 }

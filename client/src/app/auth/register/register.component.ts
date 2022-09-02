@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import {
@@ -7,10 +6,8 @@ import {
 	passwordPattern,
 	phonePattern,
 } from 'src/app/shared/variables/validationPatterns';
-import { UserAuth } from 'src/app/shared/interfaces/User.interface';
-import { server } from 'src/app/shared/variables/config';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/shared/services/storage.service';
+import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
 	selector: 'app-register',
@@ -18,12 +15,10 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 	styleUrls: ['./register.component.sass'],
 })
 export class RegisterComponent implements OnInit {
-
 	constructor(
 		private fb: FormBuilder,
-		private http: HttpClient,
 		private router: Router,
-		private storageService: StorageService
+		private readonly userFacade: UserFacade
 	) {}
 
 	profileForm = this.fb.group({
@@ -108,29 +103,17 @@ export class RegisterComponent implements OnInit {
 		const { email, password } = this.profileForm.value.credentials!;
 		const { firstName, lastName, phone, address, city } =
 			this.profileForm.value.personalDetails!;
-		const headers = { 'content-type': 'application/json' };
 
-		this.http
-			.post<UserAuth>(
-				`${server}/users/register`,
-				{
-					email,
-					password,
-					firstName,
-					lastName,
-					phone,
-					address,
-					city,
-				},
-				{ headers: headers, responseType: 'json' }
-			)
-			.subscribe({
-				next: (response) => {
-					this.storageService.setStorage(response)
-					this.router.navigate(['/']);
-				},
-				error: (error: any) => console.log(error),
-			});
+		this.userFacade.userRegister(
+			email as string,
+			password as string,
+			firstName as string,
+			lastName as string,
+			phone as string,
+			address as string,
+			city as string
+		);
+		this.router.navigate(['/']);
 		this.profileForm.reset();
 	}
 

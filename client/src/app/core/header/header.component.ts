@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { server } from 'src/app/shared/variables/config';
 import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
@@ -10,36 +7,23 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 	styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-	token: string | null | undefined;
-	auth: boolean = !!this.storageService.getToken();
+	token: string | undefined;
+	auth: boolean | undefined;
 
-	constructor(
-		public storageService: StorageService,
-		private readonly userFacade: UserFacade
-	) {
-		this.storageService.watchStorage().subscribe({
-			next: (value) => {
-				if (value === 'added') {
-					this.token = this.storageService.getToken();
-					this.auth = true;
-				} else {
-					this.token = undefined;
-					this.auth = false;
-				}
-			},
+	constructor(private readonly userFacade: UserFacade) {
+		this.userFacade.userLoaded$.subscribe({
+			next: (res) => (this.auth = res),
+			error: (err) => console.log(err),
 		});
+		this.userFacade.userData$.subscribe({
+			next: (res) => this.token = res.token,
+			error: (err) => console.log(err)
+		})
 	}
 
 	logout(): void {
-		this.userFacade.accessStorage();
-		this.userFacade.userLoaded$.subscribe(console.log)
-		this.userFacade.userData$.subscribe(console.log)
-		// this.userFacade.userLogout(
-		// 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlX2F2cmFtb3ZAem9oby5ldSIsInBhc3N3b3JkIjoiJDJiJDEwJERLcUZmTFZvZVRwMHZIWUttOG4xei5OSjJIcGJBNEUyczl6aU1pR2tvMmhvb1BRRElyb1pLIiwiZmlyc3ROYW1lIjoiRW1pbCIsImxhc3ROYW1lIjoiQXZyYW1vdiIsInBob25lIjoiMDg4MzQxMjA3MiIsImFkZHJlc3MiOiJTb2ZpYSIsImNpdHkiOiJTb2ZpYSBDaXR5IiwiaWF0IjoxNjYyMTIxNTU1LCJleHAiOjE2NjIyOTQzNTV9.HgLATRGNZgZQJxhCL4_P953EROKkJScb3xkR_aMfvAg'
-		// );
+		this.userFacade.userLogout(this.token!)
 	}
 
-	ngOnInit(): void {
-		this.userFacade.storageInit()
-	}
+	ngOnInit(): void {}
 }

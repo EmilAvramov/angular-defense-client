@@ -24,10 +24,14 @@ const createSession = (user: User) => {
 	});
 
 	return {
-		...payload,
+		id: user.id,
+		email: user.email,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		phone: user.phone,
+		address: user.address,
+		city: user.city,
 		token,
-		loaded:true,
-		error: null
 	};
 };
 

@@ -6,7 +6,6 @@ export const getUserState = createFeatureSelector<UserState>(USER_FEATURE_KEY);
 export const getUser = createSelector(getUserState, (state: UserState) => {
 	return {
 		email: state.email,
-		password: state.password,
 		firstName: state.firstName,
 		lastName: state.lastName,
 		address: state.address,
