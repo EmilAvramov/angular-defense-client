@@ -6,7 +6,7 @@ import { UserAuth, UserSession } from './user.models';
 
 @Injectable()
 export class AuthService {
-	public headers = { 'content-type': 'application/json', responseType: 'json' };
+	public headers = { 'content-type': 'application/json' };
 	public request = new Subject();
 
 	constructor(private http: HttpClient, public storageService: StorageService) {}

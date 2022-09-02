@@ -21,7 +21,6 @@ import { ProfileModule } from './profile/profile.module';
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
-
 		StoreModule.forRoot({}, {}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
