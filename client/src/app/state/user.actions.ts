@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from './user.models';
+import { User, UserSession } from './user.models';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
@@ -9,15 +9,12 @@ export enum UserActionsNames {
 	UserRegister = '[User] Register User',
 	UserRegisterSuccess = '[User] Register User Success',
 	UserRegisterFailure = '[User] Register User Failure',
-	ClearUser = '[User] Clear User',
-	ClearUserSuccess = '[User] Clear User Success',
-	ClearUserFailure = '[User] Clear User Failure',
-	GetUserDetails = '[User] Get Details',
-	GetUserDetailsSuccess = '[User] Get Details Success',
-	GetUserDetailsFailure = '[User] Get Details Failure',
-	GetUserToken = '[User] Get Token',
-	GetUserTokenSuccess = '[User] Get Token Success',
-	GetUserTokenFailure = '[User] Get Token Failure'
+	LogoutUser = '[User] Clear User',
+	LogoutUserSuccess = '[User] Clear User Success',
+	LogoutUserFailure = '[User] Clear User Failure',
+	AccessUserSession = '[User] Access User Session',
+	AccessUserSessionSuccess = '[User] Get Details Success',
+	AccessUserSessionFailure = '[User] Get Details Failure',
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
@@ -46,14 +43,26 @@ export const UserRegisterFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const ClearUser = createAction(UserActionsNames.ClearUser);
+export const LogoutUser = createAction(UserActionsNames.LogoutUser);
 
-export const ClearUserSuccess = createAction(
-	UserActionsNames.ClearUserSuccess,
-	props<{ data: '' }>()
+export const LogoutUserSuccess = createAction(
+	UserActionsNames.LogoutUserSuccess,
+	props<{ data: string }>()
 );
 
-export const ClearUserFailure = createAction(
-	UserActionsNames.ClearUserFailure,
+export const LogoutUserFailure = createAction(
+	UserActionsNames.LogoutUserFailure,
+	props<{ error: string | null }>()
+);
+
+export const AccessUserSession = createAction(UserActionsNames.AccessUserSession);
+
+export const AccessUserSessionSuccess = createAction(
+	UserActionsNames.AccessUserSessionSuccess,
+	props<{ data: UserSession }>()
+);
+
+export const AccessUserSessionFailure = createAction(
+	UserActionsNames.AccessUserSessionFailure,
 	props<{ error: string | null }>()
 );

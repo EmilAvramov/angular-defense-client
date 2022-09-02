@@ -10,3 +10,13 @@ export interface User {
 	loaded: boolean,
     error: string | null
 }
+
+export interface UserSession {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	accessToken: string;
+}

@@ -7,12 +7,17 @@ import { UserAuth, UserDetails } from '../interfaces/User.interface';
 })
 export class StorageService {
 	private storage = new Subject<string>();
+	private session: any = {}
+
+	get(arg: string): string | null{
+		return sessionStorage.getItem(arg)
+	}
 
 	watchStorage(): Observable<any> {
 		return this.storage.asObservable();
 	}
 
-	setStorage(response: UserAuth) {
+	setStorage(response: UserAuth):Observable<any> {
 		sessionStorage.setItem('email', response.payload.email);
 		sessionStorage.setItem('firstName', response.payload.firstName);
 		sessionStorage.setItem('lastName', response.payload.lastName);
@@ -20,16 +25,25 @@ export class StorageService {
 		sessionStorage.setItem('address', response.payload.address);
 		sessionStorage.setItem('city', response.payload.city);
 		sessionStorage.setItem('token', response.accessToken);
-		this.storage.next('added');
+		return this.storage
 	}
 
-	get(arg: string): string | null{
-		return sessionStorage.getItem(arg)
-	}
-
-	clearStorage(): void {
+	clearStorage(): Observable<any> {
 		sessionStorage.clear();
-		this.storage.next('cleared');
+		return this.storage
+	}
+
+	getStorage(): Observable<any> {
+		this.session = {
+			email: this.get('email'),
+			firstName: this.get('firstName'),
+			lastName: this.get('lastName'),
+			phone: this.get('phone'),
+			address: this.get('address'),
+			city: this.get('city'),
+			token: this.get('token')
+		}
+		return this.storage
 	}
 
 	getToken(): string | null {
@@ -37,7 +51,7 @@ export class StorageService {
 	}
 
 	getAllData(): UserDetails {
-		const user = {
+		return {
 			email: this.get('email')!,
 			firstName: this.get('firstName')!,
 			lastName: this.get('lastName')!,
@@ -45,6 +59,5 @@ export class StorageService {
 			address: this.get('address')!,
 			city: this.get('city')!,
 		}
-		return user
 	}
 }
