@@ -13,12 +13,12 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { SharedModule } from './shared/shared.module';
-import { StorageService } from './shared/services/storage.service';
 import { DevicesModule } from './devices/devices.module';
 import { ProfileModule } from './profile/profile.module';
 import { userReducer } from './state/user/user.reducers';
 import { UserFacade } from './state/user/user.facade';
 import { UserEffects } from './state/user/user.effects';
+import { StorageService } from './state/user/user.service';
 
 @NgModule({
 	declarations: [AppComponent],

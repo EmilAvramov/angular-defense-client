@@ -9,6 +9,23 @@ export const _userReducer = createReducer(
 		loaded: false,
 		error: null,
 	})),
+	on(userActions.UserInitSuccess, (state, { user }) => ({
+		...state,
+		email: user.email,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		phone: user.phone,
+		address: user.address,
+		city: user.address,
+		token: user.token,
+		loaded: true,
+		error: null,
+	})),
+	on(userActions.UserInitFailure, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
 	on(userActions.UserLogin, (state) => ({
 		...state,
 		loaded: false,

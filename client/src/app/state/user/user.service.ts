@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { server } from '../../shared/variables/config';
+import { UserAuth } from './user.state';
 
 @Injectable()
 export class AuthService {
@@ -62,5 +63,37 @@ export class AuthService {
 			)
 			.subscribe((res) => this.request.next(res));
 		return this.request;
+	}
+}
+
+@Injectable()
+export class StorageService {
+	public session: UserAuth | undefined;
+
+	setStorage(response: UserAuth): void {
+		sessionStorage.setItem('email', response.email);
+		sessionStorage.setItem('firstName', response.firstName);
+		sessionStorage.setItem('lastName', response.lastName);
+		sessionStorage.setItem('phone', response.phone);
+		sessionStorage.setItem('address', response.address);
+		sessionStorage.setItem('city', response.city);
+		sessionStorage.setItem('token', response.token);
+	}
+
+	clearStorage(): void {
+		sessionStorage.clear();
+	}
+
+	getStorage(): UserAuth {
+		this.session = {
+			email: sessionStorage.getItem('email')!,
+			firstName: sessionStorage.getItem('firstName')!,
+			lastName: sessionStorage.getItem('lastName')!,
+			phone: sessionStorage.getItem('phone')!,
+			address: sessionStorage.getItem('address')!,
+			city: sessionStorage.getItem('city')!,
+			token: sessionStorage.getItem('token')!,
+		};
+		return this.session
 	}
 }

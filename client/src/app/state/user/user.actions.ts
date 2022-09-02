@@ -3,6 +3,8 @@ import { UserAuth } from './user.state';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
+	UserInitSuccess = '[User] Init Success',
+	UserInitFailure = '[User] Init Failure',
 	UserLogin = '[User] Login User',
 	UserLoginSuccess = '[User] Login User Success',
 	UserLoginFailure = '[User] Login User Failure',
@@ -15,6 +17,16 @@ export enum UserActionsNames {
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
+
+export const UserInitSuccess = createAction(
+	UserActionsNames.UserInitSuccess,
+	props<{ user: UserAuth }>()
+);
+
+export const UserInitFailure = createAction(
+	UserActionsNames.UserInitFailure,
+	props<{ user: undefined }>()
+);
 
 export const UserLogin = createAction(
 	UserActionsNames.UserLogin,
