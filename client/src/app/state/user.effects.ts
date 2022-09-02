@@ -11,9 +11,8 @@ import {
 	switchMap,
 	of,
 } from 'rxjs';
-import { AuthService } from './user.service';
+import { AuthService, StorageService } from './user.service';
 import { User, UserSession } from './user.models';
-import { StorageService } from '../shared/services/storage.service';
 
 @Injectable()
 export class BooksEffects {
@@ -60,6 +59,19 @@ export class BooksEffects {
 		);
 	});
 
+	public readonly getUserSession$: Observable<any> = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(UserActionsNames.AccessUserSession),
+			switchMap(() =>
+				scheduled(this.storageService.getStorage(), asyncScheduler)
+			),
+			map((data: UserSession) => userActions.AccessUserSessionSuccess({ data })),
+			catchError((error: string | null) =>
+				of(userActions.AccessUserSessionFailure({ error }))
+			)
+		);
+	});
+
 	public readonly logoutUser$: Observable<any> = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(UserActionsNames.LogoutUser),
@@ -72,19 +84,6 @@ export class BooksEffects {
 			map((data: string) => userActions.LogoutUserSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.LogoutUserFailure({ error }))
-			)
-		);
-	});
-
-	public readonly getUserSession$: Observable<any> = createEffect(() => {
-		return this.actions$.pipe(
-			ofType(UserActionsNames.AccessUserSession),
-			switchMap(() =>
-				scheduled(this.storageService.getStorage(), asyncScheduler)
-			),
-			map((data: UserSession) => userActions.AccessUserSessionSuccess({ data })),
-			catchError((error: string | null) =>
-				of(userActions.AccessUserSessionFailure({ error }))
 			)
 		);
 	});

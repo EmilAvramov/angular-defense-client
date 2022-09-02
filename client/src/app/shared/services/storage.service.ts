@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { UserAuth, UserDetails } from '../interfaces/User.interface';
+import { UserAuth, UserDetails, UserSession } from '../interfaces/User.interface';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class StorageService {
 	private storage = new Subject<string>();
-	private session: any = {}
+	public session: UserSession | undefined;
 
 	get(arg: string): string | null{
 		return sessionStorage.getItem(arg)
@@ -35,13 +35,13 @@ export class StorageService {
 
 	getStorage(): Observable<any> {
 		this.session = {
-			email: this.get('email'),
-			firstName: this.get('firstName'),
-			lastName: this.get('lastName'),
-			phone: this.get('phone'),
-			address: this.get('address'),
-			city: this.get('city'),
-			token: this.get('token')
+			email: this.get('email')!,
+			firstName: this.get('firstName')!,
+			lastName: this.get('lastName')!,
+			phone: this.get('phone')!,
+			address: this.get('address')!,
+			city: this.get('city')!,
+			token: this.get('token')!
 		}
 		return this.storage
 	}

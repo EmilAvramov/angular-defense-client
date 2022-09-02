@@ -28,3 +28,13 @@ export interface UserAuth {
 	};
 	accessToken: string;
 }
+
+export interface UserSession {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	token: string;
+}
