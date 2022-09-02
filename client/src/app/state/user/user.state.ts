@@ -1,7 +1,17 @@
-import { UserState, StorageState } from './user.models'
-
 export const USER_FEATURE_KEY = 'user'
-export const STORAGE_FEATURE_KEY = 'storage'
+
+export interface UserState {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	token: string;
+	loading: boolean,
+    error: string | null
+}
 
 export const initialUserState: UserState = {
     email: '',
@@ -12,18 +22,6 @@ export const initialUserState: UserState = {
     address: '',
     city: '',
     token: '',
-    loaded: false,
-    error: null
-}
-
-export const initialStorageState: StorageState = {
-    email: "",
-	firstName: "",
-	lastName: "",
-	phone: "",
-	address: "",
-	city: "",
-	token: "",
-    loaded: false,
+    loading: false,
     error: null
 }

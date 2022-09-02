@@ -31,15 +31,33 @@ export class UserFacade {
 	}
 
 	public userLogin(email: string, password: string): void {
-		this.store.dispatch(userActions.UserLogin({email, password}));
+		this.store.dispatch(userActions.UserLogin({ email, password }));
 	}
 
-	public userRegister(): void {
-		this.store.dispatch(userActions.RegisterUser());
+	public userRegister(
+		email: string,
+		password: string,
+		firstName: string,
+		lastName: string,
+		phone: string,
+		address: string,
+		city: string
+	): void {
+		this.store.dispatch(
+			userActions.RegisterUser({
+				email,
+				password,
+				firstName,
+				lastName,
+				phone,
+				address,
+				city,
+			})
+		);
 	}
 
-	public userLogout(): void {
-		this.store.dispatch(userActions.LogoutUser());
+	public userLogout(token: string): void {
+		this.store.dispatch(userActions.LogoutUser({ token }));
 	}
 
 	public storageInit(): void {

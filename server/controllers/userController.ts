@@ -22,8 +22,12 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-	logout(req.body.accessToken)
-	res.status(204).end();
-})
+	try {
+		logout(req.body.accessToken);
+		res.status(200).json({ message: 'Successfully logged out' });
+	} catch (err: any) {
+		res.status(400).json({ message: err.message });
+	}
+});
 
 export default router;

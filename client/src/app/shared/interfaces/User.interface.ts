@@ -17,6 +17,18 @@ export interface UserDetails {
 	city: string;
 }
 
+// New below
+
+export interface UserSession {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	token: string;
+}
+
 export interface UserAuth {
 	payload: {
 		email: string;
@@ -27,14 +39,4 @@ export interface UserAuth {
 		city: string;
 	};
 	accessToken: string;
-}
-
-export interface UserSession {
-	email: string;
-	firstName: string;
-	lastName: string;
-	phone: string;
-	address: string;
-	city: string;
-	token: string;
 }

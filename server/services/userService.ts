@@ -19,13 +19,13 @@ const createSession = (user: User) => {
 		city: user.city,
 	};
 
-	const accessToken = jwt.sign(payload, jwtSecret as string, {
+	const token = jwt.sign(payload, jwtSecret as string, {
 		expiresIn: '2d',
 	});
 
 	return {
-		payload,
-		accessToken,
+		...payload,
+		token,
 	};
 };
 
@@ -50,7 +50,7 @@ export const register = async (data: User) => {
 	return createSession(user);
 };
 
-export const login = async (data: any) => {
+export const login = async (data: { email: string; password: string }) => {
 	const user = await UserModel.findOne({ where: { email: data.email } });
 
 	if (!user) {
@@ -66,13 +66,13 @@ export const login = async (data: any) => {
 	return createSession(user);
 };
 
-export const validateToken = (token: any) => {
+export const validateToken = (token: string) => {
 	if (blackList.has(token)) {
 		throw new Error('Token is blacklisted');
 	}
 	return jwt.verify(token, jwtSecret!);
 };
 
-export const logout = (token: any) => {
+export const logout = (token: string) => {
 	blackList.add(token);
 };

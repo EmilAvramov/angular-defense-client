@@ -21,7 +21,7 @@ export const getUser = createSelector(getUserState, (state: UserState) => {
 
 export const getUserLoaded = createSelector(
 	getUserState,
-	(state: UserState) => state.loaded
+	(state: UserState) => state.loading
 );
 
 export const getUserError = createSelector(
@@ -45,7 +45,7 @@ export const getStorage = createSelector(
 
 export const getStorageLoaded = createSelector(
 	getStorageState,
-	(state: StorageState) => state.loaded
+	(state: StorageState) => state.loading
 );
 
 export const getStorageError = createSelector(

@@ -3,6 +3,7 @@ import { UserState, StorageState, UserSession } from './user.models';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
+	SessionStorageInit = '[Storage] Init',
 	UserLogin = '[User] Login User',
 	UserLoginSuccess = '[User] Login User Success',
 	UserLoginFailure = '[User] Login User Failure',
@@ -12,7 +13,6 @@ export enum UserActionsNames {
 	LogoutUser = '[User] Logout User',
 	LogoutUserSuccess = '[User] Logout User Success',
 	LogoutUserFailure = '[User] Logout User Failure',
-	SessionStorageInit = '[Storage] Init',
 	AccessUserSession = '[Storage] Access User Session',
 	AccessUserSessionSuccess = '[Storage] Get Details Success',
 	AccessUserSessionFailure = '[Storage] Get Details Failure',
@@ -26,7 +26,7 @@ export const SessionStorageInit = createAction(
 
 export const UserLogin = createAction(
 	UserActionsNames.UserLogin,
-	props<{ email: string, password: string }>()
+	props<{ email: string; password: string }>()
 );
 
 export const UserLoginSuccess = createAction(
@@ -39,11 +39,22 @@ export const UserLoginFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const RegisterUser = createAction(UserActionsNames.UserRegister);
+export const RegisterUser = createAction(
+	UserActionsNames.UserRegister,
+	props<{
+		email: string;
+		password: string;
+		firstName: string;
+		lastName: string;
+		phone: string;
+		address: string;
+		city: string;
+	}>()
+);
 
 export const UserRegisterSuccess = createAction(
 	UserActionsNames.UserRegisterSuccess,
-	props<{ data: UserState }>()
+	props<{ user: UserSession }>()
 );
 
 export const UserRegisterFailure = createAction(
@@ -51,11 +62,14 @@ export const UserRegisterFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const LogoutUser = createAction(UserActionsNames.LogoutUser);
+export const LogoutUser = createAction(
+	UserActionsNames.LogoutUser,
+	props<{ token: string }>()
+);
 
 export const LogoutUserSuccess = createAction(
 	UserActionsNames.LogoutUserSuccess,
-	props<{ data: string }>()
+	props<{ message: string }>()
 );
 
 export const LogoutUserFailure = createAction(

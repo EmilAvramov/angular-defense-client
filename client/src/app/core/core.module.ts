@@ -33,7 +33,7 @@ import { ModalService } from '../shared/services/modal.service';
 			provide: SessionStorage,
 			useValue: window.sessionStorage,
 		},
-		ModalService
+		ModalService,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

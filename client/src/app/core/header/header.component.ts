@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { server } from 'src/app/shared/variables/config';
+import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
 	selector: 'app-header',
@@ -12,7 +13,10 @@ export class HeaderComponent implements OnInit {
 	token: string | null | undefined;
 	auth: boolean = !!this.storageService.getToken();
 
-	constructor(private http: HttpClient, public storageService: StorageService) {
+	constructor(
+		public storageService: StorageService,
+		private readonly userFacade: UserFacade
+	) {
 		this.storageService.watchStorage().subscribe({
 			next: (value) => {
 				if (value === 'added') {
@@ -27,22 +31,15 @@ export class HeaderComponent implements OnInit {
 	}
 
 	logout(): void {
-		this.http
-			.post(
-				`${server}/users/logout`,
-				{ token: this.token },
-				{
-					headers: {
-						'content-type': 'application/json',
-						'x-authorization': this.token as string,
-					},
-				}
-			)
-			.subscribe({
-				next: () => this.storageService.clearStorage(),
-				error: (error) => console.log(error),
-			});
+		this.userFacade.accessStorage();
+		this.userFacade.userLoaded$.subscribe(console.log)
+		this.userFacade.userData$.subscribe(console.log)
+		// this.userFacade.userLogout(
+		// 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlX2F2cmFtb3ZAem9oby5ldSIsInBhc3N3b3JkIjoiJDJiJDEwJERLcUZmTFZvZVRwMHZIWUttOG4xei5OSjJIcGJBNEUyczl6aU1pR2tvMmhvb1BRRElyb1pLIiwiZmlyc3ROYW1lIjoiRW1pbCIsImxhc3ROYW1lIjoiQXZyYW1vdiIsInBob25lIjoiMDg4MzQxMjA3MiIsImFkZHJlc3MiOiJTb2ZpYSIsImNpdHkiOiJTb2ZpYSBDaXR5IiwiaWF0IjoxNjYyMTIxNTU1LCJleHAiOjE2NjIyOTQzNTV9.HgLATRGNZgZQJxhCL4_P953EROKkJScb3xkR_aMfvAg'
+		// );
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.userFacade.storageInit()
+	}
 }
