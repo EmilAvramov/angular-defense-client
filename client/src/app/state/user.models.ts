@@ -1,4 +1,4 @@
-export interface User {
+export interface UserState {
 	email: string;
 	password: string;
 	firstName: string;
@@ -7,6 +7,18 @@ export interface User {
 	address: string;
 	city: string;
 	accessToken: string;
+	loaded: boolean,
+    error: string | null
+}
+
+export interface StorageState {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	address: string;
+	city: string;
+	token: string;
 	loaded: boolean,
     error: string | null
 }

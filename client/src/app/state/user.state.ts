@@ -1,6 +1,6 @@
-import { User } from './user.models'
+import { UserState, UserSession, StorageState } from './user.models'
 
-export const initialUserState: User = {
+export const initialUserState: UserState = {
     email: '',
     password: '',
     firstName: '',
@@ -9,6 +9,18 @@ export const initialUserState: User = {
     address: '',
     city: '',
     accessToken: '',
+    loaded: false,
+    error: null
+}
+
+export const initialStorageState: StorageState = {
+    email: "",
+	firstName: "",
+	lastName: "",
+	phone: "",
+	address: "",
+	city: "",
+	token: "",
     loaded: false,
     error: null
 }

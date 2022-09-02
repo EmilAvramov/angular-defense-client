@@ -12,7 +12,7 @@ import {
 	of,
 } from 'rxjs';
 import { AuthService, StorageService } from './user.service';
-import { User, UserSession } from './user.models';
+import { UserState, StorageState } from './user.models';
 
 @Injectable()
 export class BooksEffects {
@@ -28,7 +28,7 @@ export class BooksEffects {
 			switchMap(({ email, password }) =>
 				scheduled(this.authService.loginUser(email, password), asyncScheduler)
 			),
-			map((data: User) => userActions.UserLoginSuccess({ data })),
+			map((data: UserState) => userActions.UserLoginSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.UserLoginFailure({ error }))
 			)
@@ -52,7 +52,7 @@ export class BooksEffects {
 					asyncScheduler
 				)
 			),
-			map((data: User) => userActions.UserRegisterSuccess({ data })),
+			map((data: UserState) => userActions.UserRegisterSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.UserRegisterFailure({ error }))
 			)
@@ -65,7 +65,7 @@ export class BooksEffects {
 			switchMap(() =>
 				scheduled(this.storageService.getStorage(), asyncScheduler)
 			),
-			map((data: UserSession) => userActions.AccessUserSessionSuccess({ data })),
+			map((data: StorageState) => userActions.AccessUserSessionSuccess({ data })),
 			catchError((error: string | null) =>
 				of(userActions.AccessUserSessionFailure({ error }))
 			)

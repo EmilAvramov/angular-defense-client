@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User, UserSession } from './user.models';
+import { UserState, StorageState } from './user.models';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
@@ -12,18 +12,23 @@ export enum UserActionsNames {
 	LogoutUser = '[User] Clear User',
 	LogoutUserSuccess = '[User] Clear User Success',
 	LogoutUserFailure = '[User] Clear User Failure',
-	AccessUserSession = '[User] Access User Session',
-	AccessUserSessionSuccess = '[User] Get Details Success',
-	AccessUserSessionFailure = '[User] Get Details Failure',
+	SessionStorageInit = '[Storage] Init',
+	AccessUserSession = '[Storage] Access User Session',
+	AccessUserSessionSuccess = '[Storage] Get Details Success',
+	AccessUserSessionFailure = '[Storage] Get Details Failure',
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
+
+export const SessionStorageInit = createAction(
+	UserActionsNames.SessionStorageInit
+);
 
 export const UserLogin = createAction(UserActionsNames.UserLogin);
 
 export const UserLoginSuccess = createAction(
 	UserActionsNames.UserLoginSuccess,
-	props<{ data: User }>()
+	props<{ data: UserState }>()
 );
 
 export const UserLoginFailure = createAction(
@@ -35,7 +40,7 @@ export const RegisterUser = createAction(UserActionsNames.UserRegister);
 
 export const UserRegisterSuccess = createAction(
 	UserActionsNames.UserRegisterSuccess,
-	props<{ data: User }>()
+	props<{ data: UserState }>()
 );
 
 export const UserRegisterFailure = createAction(
@@ -55,11 +60,13 @@ export const LogoutUserFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const AccessUserSession = createAction(UserActionsNames.AccessUserSession);
+export const AccessUserSession = createAction(
+	UserActionsNames.AccessUserSession
+);
 
 export const AccessUserSessionSuccess = createAction(
 	UserActionsNames.AccessUserSessionSuccess,
-	props<{ data: UserSession }>()
+	props<{ data: StorageState }>()
 );
 
 export const AccessUserSessionFailure = createAction(
