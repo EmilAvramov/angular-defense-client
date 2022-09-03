@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { Device } from 'src/app/state/device/device.state';
 
 @Component({
 	selector: 'app-modal',
@@ -11,7 +11,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class ModalComponent implements OnInit {
 	public display$!: Observable<boolean>;
 
-	@Input() details: DeviceDetails | undefined;
+	@Input() details!: Device | null;
 	@Output() closed = new EventEmitter<boolean>();
 
 	constructor(private modal: ModalService) {}

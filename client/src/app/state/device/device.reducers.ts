@@ -30,7 +30,7 @@ export const _deviceReducer = createReducer(
 		loaded: false,
 		error: null,
 	})),
-	on(deviceActions.DeviceLoadMoreSuccess, (state, { data }) => ({
+	on(deviceActions.DeviceSearchSuccess, (state, { data }) => ({
 		...state,
 		devices: data,
 		query: '',
@@ -50,7 +50,7 @@ export const _deviceReducer = createReducer(
 	})),
 	on(deviceActions.DeviceLoadMoreSuccess, (state, { data }) => ({
 		...state,
-		devices: { ...state.devices, data },
+		devices: data,
 		loaded: true,
 		error: null,
 	})),

@@ -19,7 +19,14 @@ export const getDevicesError = createSelector(
 	(state: DeviceState) => state.error
 );
 
+export const getActiveDetails = createSelector(
+	getDeviceState,
+	(state: DeviceState) => state.details
+);
+
 export const getDeviceDetails = (key: string) =>
-	createSelector(getDeviceState, (state: DeviceState) =>
-		state.devices.filter((x: Device) => x.deviceKey === key)[0]
+	createSelector(
+		getDeviceState,
+		(state: DeviceState) =>
+			state.devices!.filter((x: Device) => x.deviceKey === key)[0]
 	);

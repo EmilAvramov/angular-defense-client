@@ -10,7 +10,7 @@ import { Device, DeviceState } from './device.state';
 export class DeviceFacade {
 	constructor(private readonly store: Store<DeviceState>) {}
 
-	public readonly deviceData$: Observable<Device[]> = this.store.pipe(
+	public readonly deviceData$: Observable<Device[] | null> = this.store.pipe(
 		select(deviceSelectors.getDevices)
 	);
 
@@ -20,6 +20,10 @@ export class DeviceFacade {
 
 	public readonly dataError$: Observable<any> = this.store.pipe(
 		select(deviceSelectors.getDevicesError)
+	);
+
+	public readonly deviceDetails$: Observable<Device | null> = this.store.pipe(
+		select(deviceSelectors.getActiveDetails)
 	);
 
 	public loadInitialData(): void {

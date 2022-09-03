@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, Observable, switchMap, of } from 'rxjs';
+import {
+	catchError,
+	map,
+	Observable,
+	switchMap,
+	of,
+	mergeMap,
+	combineLatest,
+	merge,
+	forkJoin,
+	combineLatestAll,
+} from 'rxjs';
 
 import { DataService } from './device.service';
 import * as DeviceActions from './device.actions';
@@ -41,9 +52,7 @@ export class DeviceEffects {
 			switchMap(({ query, limit, offset }) =>
 				this.dataService
 					.queryDevices(query, limit, offset)
-					.pipe(
-						map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
-					)
+					.pipe(map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })))
 			),
 			catchError((error: null | string) =>
 				of(DeviceActions.DeviceSearchFailure({ error }))
@@ -51,16 +60,35 @@ export class DeviceEffects {
 		)
 	);
 
+	// public readonly loadMore$: Observable<any> = createEffect(() =>
+	// 	this.actions$.pipe(
+	// 		ofType(DeviceActionsNames.DeviceLoadMore),
+	// 		map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
+	// 		switchMap(({ limit, offset }) =>
+	// 			combineLatest([
+	// 				this.dataService.requestDevices(limit, offset),
+	// 				this.store.select(DeviceSelectors.getDevices),
+	// 			]).pipe(
+	// 				map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
+	// 			)
+	// 		),
+	// 		catchError((error: string | null) =>
+	// 			of(DeviceActions.DeviceLoadMoreFailure({ error }))
+	// 		)
+	// 	)
+	// );
+
 	public readonly loadMore$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DeviceActionsNames.DeviceLoadMore),
 			map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
 			switchMap(({ limit, offset }) =>
-				this.dataService
-					.requestDevices(limit, offset)
-					.pipe(
-						map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
-					)
+				combineLatest([
+					this.dataService.requestDevices(limit, offset),
+					this.store.select(DeviceSelectors.getDevices),
+				]).pipe(
+					map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
+				)
 			),
 			catchError((error: string | null) =>
 				of(DeviceActions.DeviceLoadMoreFailure({ error }))

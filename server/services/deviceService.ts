@@ -39,7 +39,8 @@ export const getListWithDetails = async (
 		if (query) {
 			return await DeviceDetailsModel.findAll({
 				where: { deviceName: { [Op.iLike]: `%${query}%` } },
-				limit: 10,
+				limit,
+				offset,
 				include: {
 					all: true,
 				},

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
+import { Device } from 'src/app/state/device/device.state';
 
 @Component({
 	selector: 'app-list',
@@ -7,7 +7,7 @@ import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 	styleUrls: ['./list.component.sass'],
 })
 export class ListComponent implements OnInit {
-	@Input() data: DeviceDetails[] = [];
+	@Input() data!: Device[] | null;
 	@Output() request = new EventEmitter<string>();
 	@Output() details = new EventEmitter<string>();
 

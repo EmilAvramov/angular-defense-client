@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { DeviceFacade } from '../state/device/device.facade';
+import { Device } from '../state/device/device.state';
 
 @Component({
 	selector: 'devices-page',
@@ -12,8 +12,8 @@ import { DeviceFacade } from '../state/device/device.facade';
 export class DevicesComponent implements OnInit {
 	public limit: number = 100;
 	public offset: number = 0;
-	public data: DeviceDetails[] = [];
-	public details: DeviceDetails | undefined;
+	public data!: Device[] | null;
+	public details!: Device | null;
 	public requested: boolean = false;
 
 	constructor(
@@ -23,15 +23,15 @@ export class DevicesComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.spinner.show()
-		this.deviceFacade.loadInitialData()
+		this.spinner.show();
+		this.deviceFacade.loadInitialData();
 		this.deviceFacade.deviceData$.subscribe({
 			next: (response) => {
-				this.data = response
-				this.spinner.hide()
+				this.data = response;
+				this.spinner.hide();
 			},
-			error: (err) => console.log(err)
-		})
+			error: (err) => console.log(err),
+		});
 	}
 
 	loadMore(): void {
@@ -40,48 +40,44 @@ export class DevicesComponent implements OnInit {
 		}
 		this.offset += 100;
 		this.spinner.show();
-		this.deviceFacade.loadMoreData(this.limit, this.offset)
+		this.deviceFacade.loadMoreData(this.limit, this.offset);
 		this.deviceFacade.deviceData$.subscribe({
 			next: (response) => {
-				this.data = response
-				this.spinner.hide()
-			}, 
-			error: (err) => console.log(err)
-		})
+				console.log(response)
+				this.data = response;
+				this.spinner.hide();
+			},
+			error: (err) => console.log(err),
+		});
 	}
 
 	query(query: string): void {
-		// if (query) {
-		// 	this.requested = true;
-		// 	this.spinner.show();
-		// 	this.data = [];
-		// 	this.dataService
-		// 		.queryData(query)
-		// 		.pipe(first())
-		// 		.subscribe({
-		// 			next: (value: any) => {
-		// 				value.forEach((item: DeviceDetails) => {
-		// 					this.data.push(item);
-		// 				});
-		// 				this.spinner.hide();
-		// 			},
-		// 			error: (err) => console.log(err.message),
-		// 		});
-		// }
+		this.spinner.show();
+		this.offset = 0;
+		this.requested = true;
+		this.deviceFacade.queryData(query, this.limit, this.offset);
+		this.deviceFacade.deviceData$.subscribe({
+			next: (response) => {
+				console.log(response)
+				this.data = response;
+				this.spinner.hide();
+			},
+			error: (err) => console.log(err.stack),
+		});
 	}
 
 	getDetails(key: string) {
-		try {
-			this.details = this.data.filter(
-				(x: DeviceDetails) => x.deviceKey === key
-			)[0];
-			this.modal.open();
-		} catch (err: any) {
-			console.log(err.message);
-		}
+		this.deviceFacade.getDetails(key);
+		this.deviceFacade.deviceDetails$.subscribe({
+			next: (response) => {
+				this.details = response;
+				this.modal.open()
+			},
+			error: (err) => console.log(err),
+		});
 	}
 
 	clearDetails() {
-		this.details = undefined;
+		this.details = null;
 	}
 }
