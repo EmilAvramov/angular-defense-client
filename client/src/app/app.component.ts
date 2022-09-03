@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DeviceFacade } from './state/device/device.facade';
 import { UserFacade } from './state/user/user.facade';
 
 @Component({
@@ -9,9 +10,13 @@ import { UserFacade } from './state/user/user.facade';
 export class AppComponent implements OnInit {
 	title = 'angular-defense-project';
 
-	constructor(private userFacade: UserFacade) {}
+	constructor(
+		private userFacade: UserFacade,
+		private deviceFacade: DeviceFacade
+	) {}
 
 	ngOnInit(): void {
 		this.userFacade.userInit();
+		this.deviceFacade.loadInitialData();
 	}
 }

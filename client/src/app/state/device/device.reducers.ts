@@ -1,4 +1,4 @@
-import { initialDeviceState, DeviceState } from './device.state';
+import { initialDeviceState, DeviceState, Device } from './device.state';
 import * as deviceActions from './device.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
@@ -46,7 +46,7 @@ export const _deviceReducer = createReducer(
 	})),
 	on(deviceActions.DeviceLoadMoreSuccess, (state, { data }) => ({
 		...state,
-		devices: [...state.devices!, ...data],
+		devices: data,
 		loaded: true,
 		error: null,
 	})),
