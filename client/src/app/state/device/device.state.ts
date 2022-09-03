@@ -5,8 +5,6 @@ export const initialDeviceState: DeviceState = {
 	query: '',
 	details: null,
 	detailsFilter: '',
-	limit: 100,
-	offset: 0,
 	loaded: false,
 	error: null,
 };
@@ -16,8 +14,6 @@ export interface DeviceState {
 	query: string | null,
 	details: Device | null,
 	detailsFilter: string | null,
-	limit: number;
-	offset: number;
 	loaded: boolean;
 	error: string | null;
 }

@@ -17,7 +17,6 @@ export class ModalComponent implements OnInit {
 	constructor(private modal: ModalService) {}
 
 	ngOnInit(): void {
-		console.log(this.details)
 		this.display$ = this.modal.watch();
 	}
 

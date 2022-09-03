@@ -1,4 +1,4 @@
-import { initialDeviceState, DeviceState, Device } from './device.state';
+import { initialDeviceState, DeviceState } from './device.state';
 import * as deviceActions from './device.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
@@ -12,8 +12,6 @@ export const _deviceReducer = createReducer(
 	on(deviceActions.DeviceInitSuccess, (state, { data }) => ({
 		...state,
 		devices: data,
-		limit: 100,
-		offset: 0,
 		loaded: true,
 		error: null,
 	})),
@@ -22,11 +20,10 @@ export const _deviceReducer = createReducer(
 		loaded: false,
 		error,
 	})),
-	on(deviceActions.DeviceSearch, (state, { query, limit, offset }) => ({
+
+	on(deviceActions.DeviceSearch, (state, { query }) => ({
 		...state,
 		query,
-		limit,
-		offset,
 		loaded: false,
 		error: null,
 	})),
@@ -42,15 +39,14 @@ export const _deviceReducer = createReducer(
 		loaded: false,
 		error,
 	})),
-	on(deviceActions.DeviceLoadMore, (state, { limit, offset }) => ({
+
+	on(deviceActions.DeviceLoadMore, (state) => ({
 		...state,
-		limit,
-		offset,
 		error: null,
 	})),
 	on(deviceActions.DeviceLoadMoreSuccess, (state, { data }) => ({
 		...state,
-		devices: data,
+		devices: [...state.devices!, ...data],
 		loaded: true,
 		error: null,
 	})),
@@ -59,6 +55,7 @@ export const _deviceReducer = createReducer(
 		loaded: false,
 		error,
 	})),
+
 	on(deviceActions.DeviceGetDetails, (state, { key }) => ({
 		...state,
 		detailsFilter: key,

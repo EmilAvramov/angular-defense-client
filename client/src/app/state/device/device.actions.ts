@@ -53,7 +53,7 @@ export const DeviceLoadMore = createAction(
 
 export const DeviceLoadMoreSuccess = createAction(
 	DeviceActionsNames.DeviceLoadMoreSuccess,
-	props<{ data: Device[] }>()
+	props<{ data: Device[]}>()
 );
 
 export const DeviceLoadMoreFailure = createAction(

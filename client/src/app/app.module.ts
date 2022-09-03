@@ -15,13 +15,16 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
 import { SharedModule } from './shared/shared.module';
 import { DevicesModule } from './devices/devices.module';
 import { ProfileModule } from './profile/profile.module';
+
 import { userReducer } from './state/user/user.reducers';
 import { UserFacade } from './state/user/user.facade';
 import { UserEffects } from './state/user/user.effects';
-import { AuthService, StorageService } from './state/user/user.service';
+
+import { deviceReducer } from './state/device/device.reducers';
 import { DeviceFacade } from './state/device/device.facade';
 import { DeviceEffects } from './state/device/device.effects';
-import { deviceReducer } from './state/device/device.reducers';
+
+import { AuthService, StorageService } from './state/user/user.service';
 import { DataService } from './state/device/device.service';
 
 @NgModule({
