@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { DeviceState, DEVICE_FEATURE_KEY } from './device.state';
+import { Device, DeviceState, DEVICE_FEATURE_KEY } from './device.state';
 
 export const getDeviceState =
 	createFeatureSelector<DeviceState>(DEVICE_FEATURE_KEY);
@@ -18,3 +18,8 @@ export const getDevicesError = createSelector(
 	getDeviceState,
 	(state: DeviceState) => state.error
 );
+
+export const getDeviceDetails = (key: string) =>
+	createSelector(getDeviceState, (state: DeviceState) =>
+		state.devices.filter((x: Device) => x.deviceKey === key)[0]
+	);

@@ -4,9 +4,10 @@ import { catchError, map, Observable, switchMap, of } from 'rxjs';
 
 import { DataService } from './device.service';
 import * as DeviceActions from './device.actions';
+import * as DeviceSelectors from './device.selectors';
 import { DeviceActionsNames } from './device.actions';
 import { Device, DeviceState } from './device.state';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 @Injectable()
 export class UserEffects {
@@ -52,7 +53,7 @@ export class UserEffects {
 
 	public readonly loadMore$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
-			ofType(DeviceActions.DeviceLoadMore),
+			ofType(DeviceActionsNames.DeviceLoadMore),
 			map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
 			switchMap(({ limit, offset }) =>
 				this.dataService
@@ -69,11 +70,16 @@ export class UserEffects {
 
 	public readonly getDetails$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
-			of(DeviceActions.DeviceGetDetails),
+			ofType(DeviceActionsNames.DeviceGetDetails),
 			map(({ key }) => DeviceActions.DeviceGetDetails({ key })),
-			switchMap(({ key }) => DeviceActions.DeviceGetDetailsSuccess({ data })),
+			switchMap(({ key }) =>
+				this.store.pipe(
+					select(DeviceSelectors.getDeviceDetails(key)),
+					map((data: Device) => DeviceActions.DeviceGetDetailsSuccess({ data }))
+				)
+			),
 			catchError((error: string | null) =>
-				DeviceActions.DeviceGetDetailsFailure({ error })
+				of(DeviceActions.DeviceGetDetailsFailure({ error }))
 			)
 		)
 	);
