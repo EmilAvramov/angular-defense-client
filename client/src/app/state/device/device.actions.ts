@@ -33,7 +33,7 @@ export const DeviceInitFailure = createAction(
 
 export const DeviceSearch = createAction(
 	DeviceActionsNames.DeviceSearch,
-	props<{ query: string | null; limit: number; offset: number }>()
+	props<{ query: string; limit: number; offset: number }>()
 );
 
 export const DeviceSearchSuccess = createAction(

@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
 export class DataService {
-	public headers = { 'content-type': 'application/json' };
-	public request = new Subject();
+	private headers = { 'content-type': 'application/json' };
+	private request = new Subject();
 
 	constructor(private http: HttpClient) {}
 
-	requestDevices(limit: number, offset: number): Subject<any> {
+	requestDevices(limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/device/listData`,
@@ -23,7 +23,7 @@ export class DataService {
 		return this.request;
 	}
 
-	queryDevices(query: string, limit: number, offset: number): Subject<any> {
+	queryDevices(query: string, limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/device/listData/search/?query=${query}`,
