@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DevicesComponent } from './devices/devices.component';
-import { SearchComponent } from './devices/search/search.component';
-import { ListComponent } from './devices/list/list.component';
-import { DataService } from './services/data.service';
-import { ModalComponent } from './devices/modal/modal.component';
+import { DevicesComponent } from './devices.component';
+import { SearchComponent } from './search/search.component';
+import { ListComponent } from './list/list.component';
+import { ModalComponent } from './modal/modal.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -24,7 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	providers: [DataService],
+	providers: [],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DevicesModule {}

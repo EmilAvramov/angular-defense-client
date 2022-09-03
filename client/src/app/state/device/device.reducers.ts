@@ -62,19 +62,14 @@ export const _deviceReducer = createReducer(
 	on(deviceActions.DeviceGetDetails, (state, { key }) => ({
 		...state,
 		detailsFilter: key,
-		loaded: false,
-		error: null,
 	})),
 	on(deviceActions.DeviceGetDetailsSuccess, (state, { data }) => ({
 		...state,
 		details: data,
 		detailsFilter: '',
-		loaded: true,
-		error: null,
 	})),
 	on(deviceActions.DeviceGetDetailsFailure, (state, { error }) => ({
 		...state,
-		loaded: false,
 		error,
 	}))
 );
