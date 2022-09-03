@@ -74,6 +74,6 @@ export const _deviceReducer = createReducer(
 	}))
 );
 
-export function userReducer(state: DeviceState | undefined, action: Action) {
+export function deviceReducer(state: DeviceState | undefined, action: Action) {
 	return _deviceReducer(state, action);
 }

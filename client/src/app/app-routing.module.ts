@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './core/about/about.component';
-import { HomeComponent } from './core/home/home.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { DevicesComponent } from './devices/devices/devices.component';
+import { DevicesComponent } from './devices/devices.component';
 import { MarketplaceComponent } from './marketplace/marketplace/marketplace.component';
 
 const routes: Routes = [

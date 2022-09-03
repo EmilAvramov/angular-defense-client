@@ -18,18 +18,22 @@ import { ProfileModule } from './profile/profile.module';
 import { userReducer } from './state/user/user.reducers';
 import { UserFacade } from './state/user/user.facade';
 import { UserEffects } from './state/user/user.effects';
-import { StorageService } from './state/user/user.service';
+import { AuthService, StorageService } from './state/user/user.service';
+import { DeviceFacade } from './state/device/device.facade';
+import { DeviceEffects } from './state/device/device.effects';
+import { deviceReducer } from './state/device/device.reducers';
+import { DataService } from './state/device/device.service';
 
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
-		StoreModule.forRoot({user: userReducer}, {}),
+		StoreModule.forRoot({ user: userReducer, device: deviceReducer }, {}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
 		}),
-		EffectsModule.forRoot([UserEffects]),
+		EffectsModule.forRoot([UserEffects, DeviceEffects]),
 		SharedModule,
 		HttpClientModule,
 		AuthModule,
@@ -39,7 +43,13 @@ import { StorageService } from './state/user/user.service';
 		CoreModule,
 		AppRoutingModule,
 	],
-	providers: [StorageService, UserFacade],
+	providers: [
+		StorageService,
+		AuthService,
+		DataService,
+		UserFacade,
+		DeviceFacade,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

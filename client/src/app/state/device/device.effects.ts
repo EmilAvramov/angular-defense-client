@@ -10,7 +10,7 @@ import { Device, DeviceState } from './device.state';
 import { select, Store } from '@ngrx/store';
 
 @Injectable()
-export class UserEffects {
+export class DeviceEffects {
 	constructor(
 		private readonly actions$: Actions,
 		private readonly dataService: DataService,
