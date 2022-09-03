@@ -1,23 +1,29 @@
-export const DEVICE_FEATURE_KEY = 'device'
+export const DEVICE_FEATURE_KEY = 'device';
 
-export const initialDeviceState = {
-    devices: [],
-    limit: 100,
-    offset: 0,
-    loaded: false,
-    error: null
-}
+export const initialDeviceState: DeviceState = {
+	devices: [],
+	query: '',
+	details: null,
+	detailsFilter: '',
+	limit: 100,
+	offset: 0,
+	loaded: false,
+	error: null,
+};
 
 export interface DeviceState {
-    devices: Device[],
-    limit: number,
-    offset: number,
-    loaded: boolean,
-    error: string | null
+	devices: Device[];
+	query: string,
+	details: Device | null,
+	detailsFilter: string,
+	limit: number;
+	offset: number;
+	loaded: boolean;
+	error: string | null;
 }
 
 export interface Device {
-    deviceKey: string;
+	deviceKey: string;
 	deviceName: string;
 	deviceImage: string;
 	connectivity: string;
