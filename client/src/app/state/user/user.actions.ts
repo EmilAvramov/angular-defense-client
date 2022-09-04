@@ -20,7 +20,15 @@ export const UserInit = createAction(UserActionsNames.UserInit);
 
 export const UserInitSuccess = createAction(
 	UserActionsNames.UserInitSuccess,
-	props<{ user: UserAuth }>()
+	props<{
+		email: string;
+		firstName: string;
+		lastName: string;
+		phone: string;
+		address: string;
+		city: string;
+		token: string;
+	}>()
 );
 
 export const UserInitFailure = createAction(

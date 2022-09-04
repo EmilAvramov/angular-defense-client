@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
@@ -6,9 +6,9 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.sass'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 	token: string | undefined;
-	auth: boolean | undefined;
+	auth: boolean = false;
 
 	constructor(private readonly userFacade: UserFacade) {
 		this.userFacade.userLoaded$.subscribe({
@@ -16,14 +16,12 @@ export class HeaderComponent implements OnInit {
 			error: (err) => console.log(err),
 		});
 		this.userFacade.userData$.subscribe({
-			next: (res) => this.token = res.token,
-			error: (err) => console.log(err)
-		})
+			next: (res) => (this.token = res.token),
+			error: (err) => console.log(err),
+		});
 	}
 
 	logout(): void {
-		this.userFacade.userLogout(this.token!)
+		this.userFacade.userLogout(this.token!);
 	}
-
-	ngOnInit(): void {}
 }

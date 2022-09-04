@@ -68,8 +68,6 @@ export class AuthService {
 
 @Injectable()
 export class StorageService {
-	public session: UserAuth | undefined;
-
 	setStorage(response: UserAuth): void {
 		sessionStorage.setItem('email', response.email);
 		sessionStorage.setItem('firstName', response.firstName);
@@ -85,7 +83,7 @@ export class StorageService {
 	}
 
 	getStorage(): UserAuth {
-		this.session = {
+		return {
 			email: sessionStorage.getItem('email')!,
 			firstName: sessionStorage.getItem('firstName')!,
 			lastName: sessionStorage.getItem('lastName')!,
@@ -94,6 +92,5 @@ export class StorageService {
 			city: sessionStorage.getItem('city')!,
 			token: sessionStorage.getItem('token')!,
 		};
-		return this.session
 	}
 }

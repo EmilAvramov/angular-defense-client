@@ -8,6 +8,7 @@ export const getUser = createSelector(getUserState, (state: UserState) => {
 		email: state.email,
 		firstName: state.firstName,
 		lastName: state.lastName,
+		phone: state.phone,
 		address: state.address,
 		city: state.city,
 		token: state.token,

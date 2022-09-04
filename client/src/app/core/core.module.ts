@@ -10,7 +10,6 @@ import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CoreRoutingModule } from './core.routing.module';
-import { SessionStorage } from '../shared/tokens/injection-tokens';
 import { ModalService } from '../shared/services/modal.service';
 
 @NgModule({
@@ -28,13 +27,7 @@ import { ModalService } from '../shared/services/modal.service';
 		BrowserAnimationsModule,
 	],
 	exports: [HeaderComponent, FooterComponent, NotFoundComponent],
-	providers: [
-		{
-			provide: SessionStorage,
-			useValue: window.sessionStorage,
-		},
-		ModalService,
-	],
+	providers: [ModalService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoreModule {}

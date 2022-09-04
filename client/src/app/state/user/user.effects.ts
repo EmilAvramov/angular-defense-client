@@ -9,24 +9,29 @@ import { UserAuth } from './user.state';
 
 @Injectable()
 export class UserEffects {
-	public storage: UserAuth | undefined;
-
 	constructor(
 		private readonly actions$: Actions,
 		private readonly authService: AuthService,
 		private readonly storageService: StorageService
-	) {
-		this.storage = this.storageService.getStorage();
-	}
+	) {}
 
 	public readonly checkUser$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(UserActionsNames.UserInit),
-			map(() =>
-				this.storage
-					? userActions.UserInitSuccess({ user: this.storage })
-					: userActions.UserInitFailure({ user: undefined })
-			)
+			map(() => this.storageService.getStorage()),
+			switchMap(
+				async ({ email, firstName, lastName, phone, address, city, token }) =>
+					userActions.UserInitSuccess({
+						email,
+						firstName,
+						lastName,
+						phone,
+						address,
+						city,
+						token,
+					})
+			),
+			catchError(() => of(userActions.UserInitFailure({ user: undefined })))
 		)
 	);
 
