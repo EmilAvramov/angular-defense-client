@@ -1,7 +1,9 @@
 import { Device } from '../device/device.state';
 import { UserAuth } from '../user/user.state';
 
-export const initialDeviceState: PostingState = {
+export const POSTING_FEATURE_KEY = 'user'
+
+export const initialPostingState: PostingState = {
     postings: null,
 
     query: '',
