@@ -145,7 +145,7 @@ export const PostingDeleteFailure = createAction(
 
 export const PostingCheckOwner = createAction(
 	PostingActionNames.PostingCheckOwner,
-	props<{ userEmail: string; postingEmail: string }>()
+	props<{ token: string; postingEmail: string }>()
 );
 
 export const PostingCheckOwnerSuccess = createAction(

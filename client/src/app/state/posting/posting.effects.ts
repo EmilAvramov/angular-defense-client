@@ -8,13 +8,15 @@ import * as PostingActions from './posting.actions';
 import { PostingActionNames } from './posting.actions';
 import { Posting, PostingState } from './posting.state';
 import { Store } from '@ngrx/store';
+import { UserFacade } from '../user/user.facade';
 
 @Injectable()
 export class DeviceEffects {
 	constructor(
 		private readonly store: Store<PostingState>,
 		private readonly actions$: Actions,
-		private readonly postingService: PostingService
+		private readonly postingService: PostingService,
+		private readonly userFacade: UserFacade
 	) {}
 
 	public readonly getPostings$: Observable<any> = createEffect(() =>
@@ -89,7 +91,31 @@ export class DeviceEffects {
 		)
 	);
 
-	// This needs some sort of validation
+
+	public readonly checkOwner$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingCheckOwner),
+			map(({ token, postingEmail }) =>
+				PostingActions.PostingCheckOwner({ token, postingEmail })
+			),
+			switchMap(async ({ token, postingEmail }) => {
+				let validatedDetails = await this.userFacade.validateUser(token);
+				if (validatedDetails.email === postingEmail) {
+					return PostingActions.PostingCheckOwnerSuccess({ check: true });
+				} else {
+					return PostingActions.PostingCheckOwnerSuccess({ check: false });
+				}
+			}),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingCheckOwnerFailure({ error }))
+			)
+		)
+	);
+
+	// TODO load devices, load user, get details, decide how to handle the below 2 
+	// Either call the above in component through facade or integrate below
+
+	// This needs validation
 	public readonly editPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingEdit),
@@ -107,6 +133,7 @@ export class DeviceEffects {
 		)
 	);
 
+	// This needs validation
 	public readonly deletePosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingDelete),
@@ -124,10 +151,4 @@ export class DeviceEffects {
 		)
 	);
 
-	// Need a validation selector and endpoint for this
-	// public readonly checkOwner$: Observable<any> = createEffect(() => this.actions$.pipe(
-	// 	ofType(PostingActionNames.PostingCheckOwner),
-	// 	map(({userEmail, postingEmail}) => PostingActions.PostingCheckOwner({userEmail, postingEmail})),
-	// 	switchMap(({userEmail, postingEmail}) => )
-	// ))
 }
