@@ -160,7 +160,7 @@ export const PostingCheckOwnerFailure = createAction(
 
 export const PostingLoadDevices = createAction(
 	PostingActionNames.PostingLoadDevices,
-	props<{ query: string; limit: number; offset: number }>()
+	props<{ query: string; limit: number }>()
 );
 
 export const PostingLoadDevicesSuccess = createAction(

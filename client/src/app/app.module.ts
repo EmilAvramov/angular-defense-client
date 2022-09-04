@@ -25,7 +25,7 @@ import { DeviceFacade } from './state/device/device.facade';
 import { DeviceEffects } from './state/device/device.effects';
 
 import { AuthService, StorageService } from './state/user/user.service';
-import { DataService } from './state/device/device.service';
+import { DeviceService } from './state/device/device.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -49,7 +49,7 @@ import { DataService } from './state/device/device.service';
 	providers: [
 		StorageService,
 		AuthService,
-		DataService,
+		DeviceService,
 		UserFacade,
 		DeviceFacade,
 	],

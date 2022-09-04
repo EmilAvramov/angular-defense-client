@@ -68,7 +68,7 @@ export const createPosting = async (payload: Posting) => {
 export const editPosting = async (payload: Posting) => {
 	try {
 		return await PostingModel.update(
-			{ comments: payload.comments },
+			{ comments: payload.comments, price: payload.price },
 			{ where: { id: payload.id } }
 		);
 	} catch (err: any) {

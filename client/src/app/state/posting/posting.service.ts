@@ -5,7 +5,7 @@ import { DevicePostingPayload } from 'src/app/shared/interfaces/Posting.interfac
 import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
-export class DataService {
+export class PostingService {
 	public headers = { 'content-type': 'application/json' };
 	public request = new Subject();
 

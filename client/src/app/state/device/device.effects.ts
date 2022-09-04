@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of } from 'rxjs';
 
-import { DataService } from './device.service';
+import { DeviceService } from './device.service';
 import * as DeviceActions from './device.actions';
 import * as DeviceSelectors from './device.selectors';
 import { DeviceActionsNames } from './device.actions';
@@ -13,7 +13,7 @@ import { select, Store } from '@ngrx/store';
 export class DeviceEffects {
 	constructor(
 		private readonly actions$: Actions,
-		private readonly dataService: DataService,
+		private readonly deviceService: DeviceService,
 		private readonly store: Store<DeviceState>
 	) {}
 
@@ -22,7 +22,7 @@ export class DeviceEffects {
 			ofType(DeviceActionsNames.DeviceInit),
 			map(({ limit, offset }) => DeviceActions.DeviceInit({ limit, offset })),
 			switchMap(({ limit, offset }) =>
-				this.dataService
+				this.deviceService
 					.requestDevices(limit, offset)
 					.pipe(map((data: Device[]) => DeviceActions.DeviceInitSuccess({ data })))
 			),
@@ -39,7 +39,7 @@ export class DeviceEffects {
 				DeviceActions.DeviceSearch({ query, limit, offset })
 			),
 			switchMap(({ query, limit, offset }) =>
-				this.dataService
+				this.deviceService
 					.queryDevices(query, limit, offset)
 					.pipe(map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })))
 			),
@@ -54,7 +54,7 @@ export class DeviceEffects {
 			ofType(DeviceActionsNames.DeviceLoadMore),
 			map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
 			switchMap(({ limit, offset }) =>
-				this.dataService
+				this.deviceService
 					.requestDevices(limit, offset)
 					.pipe(
 						map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))

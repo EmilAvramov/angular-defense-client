@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { server } from 'src/app/shared/variables/config';
 
 @Injectable()
-export class DataService {
+export class DeviceService {
 	private headers = { 'content-type': 'application/json' };
 	private request = new Subject();
 
