@@ -1,3 +1,4 @@
+import e from 'express';
 import { Op } from 'sequelize';
 import { Posting } from '../interfaces/Posting.interface';
 import { PostingModel, UserModel, DeviceDetailsModel } from '../models/models';
@@ -52,12 +53,21 @@ export const createPosting = async (payload: Posting) => {
 	}
 };
 
-export const editPosting = async (payload: Posting) => {
+export const editPosting = async (
+	id: number,
+	comments: string | undefined,
+	price: number | undefined
+) => {
 	try {
-		return await PostingModel.update(
-			{ comments: payload.comments, price: payload.price },
-			{ where: { id: payload.id } }
-		);
+		if (comments && price) {
+			return await PostingModel.update({ comments, price }, { where: { id } });
+		} else if (comments && !price) {
+			return await PostingModel.update({ comments }, { where: { id } });
+		} else if (!comments && price) {
+			return await PostingModel.update({ price }, { where: { id } });
+		} else {
+			throw new Error('No values provided');
+		}
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { DeviceModel, BrandModel, DeviceDetailsModel } from '../models/models';
+import { DeviceDetailsModel } from '../models/models';
 
 export const getDevices = async (
 	query: string = '',
