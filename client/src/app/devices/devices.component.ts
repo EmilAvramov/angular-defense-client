@@ -21,7 +21,7 @@ export class DevicesComponent {
 		public modal: ModalService
 	) {
 		this.deviceFacade.dataLoaded$.subscribe({
-			next: (loading) => {
+			next: (loading: boolean) => {
 				if (!loading) {
 					this.spinner.show();
 				} else {
@@ -31,22 +31,22 @@ export class DevicesComponent {
 			error: (err) => console.log(err),
 		});
 		this.deviceFacade.deviceData$.subscribe({
-			next: (data) => (this.data = data),
+			next: (data: Device[] | null) => (this.data = data),
 			error: (err) => console.log(err),
 		});
 		this.deviceFacade.deviceDetails$.subscribe({
-			next: (data) => (this.details = data),
+			next: (data: Device | null) => (this.details = data),
 			error: (err) => console.log(err),
 		});
 	}
 
 	loadMore(): void {
-		this.offset += 100;
+		this.limit += 100
 		this.deviceFacade.loadMoreData(this.limit, this.offset);
 	}
 
 	query(query: string): void {
-		this.offset = -100;
+		this.limit = 100
 		this.deviceFacade.queryData(query, this.limit, this.offset);
 	}
 

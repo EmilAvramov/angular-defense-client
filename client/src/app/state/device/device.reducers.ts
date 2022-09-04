@@ -42,6 +42,7 @@ export const _deviceReducer = createReducer(
 
 	on(deviceActions.DeviceLoadMore, (state) => ({
 		...state,
+		loaded: false,
 		error: null,
 	})),
 	on(deviceActions.DeviceLoadMoreSuccess, (state, { data }) => ({
