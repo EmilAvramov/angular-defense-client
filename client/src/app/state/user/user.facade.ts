@@ -14,6 +14,10 @@ export class UserFacade {
 		select(userSelectors.getUserState)
 	);
 
+	public readonly userToken$: Observable<string> = this.store.pipe(
+		select(userSelectors.getUserToken)
+	);
+
 	public readonly userLoaded$: Observable<boolean> = this.store.pipe(
 		select(userSelectors.getUserLoaded)
 	);
@@ -54,5 +58,9 @@ export class UserFacade {
 
 	public userLogout(token: string): void {
 		this.store.dispatch(userActions.UserLogout({ token }));
+	}
+
+	public validateUser(token: string): void {
+		this.store.dispatch(userActions.UserValidate({ token }));
 	}
 }

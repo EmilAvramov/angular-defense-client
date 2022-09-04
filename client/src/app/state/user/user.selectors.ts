@@ -15,6 +15,11 @@ export const getUser = createSelector(getUserState, (state: UserState) => {
 	};
 });
 
+export const getUserToken = createSelector(
+	getUserState,
+	(state: UserState) => state.token
+);
+
 export const getUserLoaded = createSelector(
 	getUserState,
 	(state: UserState) => state.loaded

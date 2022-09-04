@@ -64,6 +64,13 @@ export class AuthService {
 			.subscribe((res) => this.request.next(res));
 		return this.request;
 	}
+
+	validateUser(token: string): Observable<any> {
+		this.http
+			.post(`${server}/users/validate`, { token }, { headers: this.headers })
+			.subscribe((res) => this.request.next(res));
+		return this.request;
+	}
 }
 
 @Injectable()

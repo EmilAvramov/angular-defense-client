@@ -14,6 +14,9 @@ export enum UserActionsNames {
 	UserLogout = '[User] Logout User',
 	UserLogoutSuccess = '[User] Logout User Success',
 	UserLogoutFailure = '[User] Logout User Failure',
+	UserValidate = '[User] Validate',
+	UserValidateSuccess = '[User] Validate Success',
+	UserValidateFailure = '[User] Validate Failure',
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
@@ -86,5 +89,20 @@ export const UserLogoutSuccess = createAction(
 
 export const UserLogoutFailure = createAction(
 	UserActionsNames.UserLogoutFailure,
+	props<{ error: string | null }>()
+);
+
+export const UserValidate = createAction(
+	UserActionsNames.UserValidate,
+	props<{ token: string }>()
+);
+
+export const UserValidateSuccess = createAction(
+	UserActionsNames.UserValidateSuccess,
+	props<{ user: UserAuth }>()
+);
+
+export const UserValidateFailure = createAction(
+	UserActionsNames.UserValidateFailure,
 	props<{ error: string | null }>()
 );

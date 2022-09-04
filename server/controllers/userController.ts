@@ -32,8 +32,7 @@ router.post('/logout', (req, res) => {
 
 router.post('/validate', (req, res) => {
 	try {
-		validateToken(req.body.token)
-		res.status(200).json({message: 'Token valid'})
+		res.status(200).json(validateToken(req.body.token))
 	} catch (err: any) {
 		res.status(400).json({error: err.message})
 	}

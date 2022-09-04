@@ -100,4 +100,22 @@ export class UserEffects {
 			)
 		);
 	});
+
+	public readonly validateUser$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActionsNames.UserValidate),
+			map(({ token }) => userActions.UserValidate({ token })),
+			switchMap(({ token }) =>
+				this.authService.validateUser(token).pipe(
+					map((user) => {
+						console.log(user);
+						return userActions.UserValidateSuccess({ user });
+					})
+				)
+			),
+			catchError((error: string | null) =>
+				of(userActions.UserValidateFailure({ error }))
+			)
+		)
+	);
 }

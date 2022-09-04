@@ -7,7 +7,7 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 	styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent {
-	token: string | undefined;
+	token!: string;
 	auth: boolean = false;
 
 	constructor(private readonly userFacade: UserFacade) {
