@@ -1,14 +1,30 @@
 import { Op } from 'sequelize';
 import { Posting } from '../interfaces/Posting.interface';
-import {
-	PostingModel,
-	UserModel,
-	DeviceDetailsModel,
-	DeviceModel,
-} from '../models/models';
+import { PostingModel, UserModel, DeviceDetailsModel } from '../models/models';
 
-export const getAllPostings = async () => {
+export const getPostings = async (
+	query: string = '',
+	limit: number = 100,
+	offset: number = 0
+) => {
 	try {
+		if (query) {
+			return await PostingModel.findAll({
+				include: [
+					{
+						model: DeviceDetailsModel,
+						where: { deviceName: { [Op.iLike]: `%${query}%` } },
+						required: true,
+					},
+					{
+						model: UserModel,
+						required: true,
+					},
+				],
+				limit,
+				offset,
+			});
+		}
 		return await PostingModel.findAll({
 			include: [
 				{
@@ -20,37 +36,8 @@ export const getAllPostings = async () => {
 					required: true,
 				},
 			],
-		});
-	} catch (err: any) {
-		throw new Error(err.message);
-	}
-};
-
-export const getFilteredPostings = async (query: string) => {
-	try {
-		return await PostingModel.findAll({
-			include: [
-				{
-					model: DeviceDetailsModel,
-					where: { deviceName: { [Op.iLike]: `%${query}%` } },
-					required: true,
-				},
-				{
-					model: UserModel,
-					required: true,
-				},
-			],
-		});
-	} catch (err: any) {
-		throw new Error(err.message);
-	}
-};
-
-export const loadDetails = async (query: string, limit: number = 100) => {
-	try {
-		return await DeviceModel.findAll({
-			where: { deviceName: { [Op.iLike]: `%${query}%` } },
 			limit,
+			offset,
 		});
 	} catch (err: any) {
 		throw new Error(err.message);

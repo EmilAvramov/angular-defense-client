@@ -13,7 +13,7 @@ export class DeviceService {
 	requestDevices(limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
-				`${server}/device/listData`,
+				`${server}/device/list`,
 				{ limit: limit, offset: offset },
 				{
 					headers: this.headers,
@@ -26,7 +26,7 @@ export class DeviceService {
 	queryDevices(query: string, limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
-				`${server}/device/listData/search/?query=${query}`,
+				`${server}/device/list/search/?query=${query}`,
 				{ limit: limit, offset: offset },
 				{
 					headers: this.headers,
