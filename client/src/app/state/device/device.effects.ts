@@ -23,7 +23,7 @@ export class DeviceEffects {
 			map(({ limit, offset }) => DeviceActions.DeviceInit({ limit, offset })),
 			switchMap(({ limit, offset }) =>
 				this.deviceService
-					.requestDevices(limit, offset)
+					.getDevices(limit, offset)
 					.pipe(map((data: Device[]) => DeviceActions.DeviceInitSuccess({ data })))
 			),
 			catchError((error: string | null) =>
@@ -40,7 +40,7 @@ export class DeviceEffects {
 			),
 			switchMap(({ query, limit, offset }) =>
 				this.deviceService
-					.queryDevices(query, limit, offset)
+					.searchDevices(query, limit, offset)
 					.pipe(map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })))
 			),
 			catchError((error: null | string) =>
@@ -55,7 +55,7 @@ export class DeviceEffects {
 			map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
 			switchMap(({ limit, offset }) =>
 				this.deviceService
-					.requestDevices(limit, offset)
+					.getDevices(limit, offset)
 					.pipe(
 						map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
 					)

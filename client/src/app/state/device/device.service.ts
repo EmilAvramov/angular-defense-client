@@ -10,11 +10,11 @@ export class DeviceService {
 
 	constructor(private http: HttpClient) {}
 
-	requestDevices(limit: number, offset: number): Observable<any> {
+	getDevices(limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/device/list`,
-				{ limit: limit, offset: offset },
+				{ limit, offset },
 				{
 					headers: this.headers,
 				}
@@ -23,11 +23,11 @@ export class DeviceService {
 		return this.request;
 	}
 
-	queryDevices(query: string, limit: number, offset: number): Observable<any> {
+	searchDevices(query: string, limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/device/list/search/?query=${query}`,
-				{ limit: limit, offset: offset },
+				{ limit, offset },
 				{
 					headers: this.headers,
 				}

@@ -115,7 +115,7 @@ export const PostingCreateFailure = createAction(
 
 export const PostingEdit = createAction(
 	PostingActionNames.PostingEdit,
-	props<{ payload: PostingPayload }>()
+	props<{ id: number; comments: string | null; price: number | null }>()
 );
 
 export const PostingEditSuccess = createAction(
