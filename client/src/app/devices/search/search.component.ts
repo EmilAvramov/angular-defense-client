@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder } from '@angular/forms';
 	templateUrl: './search.component.html',
 	styleUrls: ['./search.component.sass'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent{
 	@Output() search = new EventEmitter<string>();
 
 	constructor(private fb: FormBuilder) {}
@@ -18,8 +18,6 @@ export class SearchComponent implements OnInit {
 	get query() {
 		return this.searchForm.get(['query']);
 	}
-
-	ngOnInit(): void {}
 
 	onSubmit() {
 		this.search.emit(this.query!.value);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
@@ -8,20 +8,16 @@ import { Device } from 'src/app/state/device/device.state';
 	templateUrl: './modal.component.html',
 	styleUrls: ['./modal.component.sass'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
 	public display$!: Observable<boolean>;
 
 	@Input() details!: Device | null;
-	@Output() closed = new EventEmitter<boolean>();
 
-	constructor(private modal: ModalService) {}
-
-	ngOnInit(): void {
+	constructor(private modal: ModalService) {
 		this.display$ = this.modal.watch();
 	}
 
 	close() {
-		this.closed.emit(true);
 		this.modal.close();
 	}
 }

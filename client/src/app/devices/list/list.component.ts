@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Device } from 'src/app/state/device/device.state';
 
 @Component({
@@ -6,7 +6,7 @@ import { Device } from 'src/app/state/device/device.state';
 	templateUrl: './list.component.html',
 	styleUrls: ['./list.component.sass'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 	@Input() data!: Device[] | null;
 	@Output() request = new EventEmitter<string>();
 	@Output() details = new EventEmitter<string>();
@@ -20,8 +20,6 @@ export class ListComponent implements OnInit {
 	}
 
 	constructor() {}
-
-	ngOnInit(): void {}
 
 	open(deviceKey: string) {
 		this.showDetails(deviceKey);
