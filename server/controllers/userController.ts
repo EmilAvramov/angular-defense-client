@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, logout } from '../services/userService';
+import { register, login, logout, validateToken } from '../services/userService';
 
 const router = Router();
 
@@ -29,5 +29,14 @@ router.post('/logout', (req, res) => {
 		res.status(400).json({ message: err.message });
 	}
 });
+
+router.post('/validate', (req, res) => {
+	try {
+		validateToken(req.body.token)
+		res.status(200).json({message: 'Token valid'})
+	} catch (err: any) {
+		res.status(400).json({error: err.message})
+	}
+})
 
 export default router;
