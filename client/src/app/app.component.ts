@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.userFacade.userInit();
-		this.deviceFacade.loadInitialData();
+		this.userFacade.initUser();
+		this.deviceFacade.initDeviceData();
 	}
 }

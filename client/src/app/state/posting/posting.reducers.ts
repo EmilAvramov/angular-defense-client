@@ -1,6 +1,7 @@
+import { Action, createReducer, on } from '@ngrx/store';
+
 import { initialPostingState, PostingState } from './posting.state';
 import * as postingActions from './posting.actions';
-import { Action, createReducer, on } from '@ngrx/store';
 
 export const _userReducer = createReducer(
 	initialPostingState,
@@ -144,18 +145,18 @@ export const _userReducer = createReducer(
 		loaded: false,
 		error,
 	})),
-	on(postingActions.PostingGetSelectedDevice, (state) => ({
+	on(postingActions.PostingLoadDeviceDetails, (state) => ({
 		...state,
 		loaded: false,
 		error: null,
 	})),
-	on(postingActions.PostingGetSelectedDeviceSuccess, (state, { data }) => ({
+	on(postingActions.PostingLoadDeviceDetailsSuccess, (state, { data }) => ({
 		...state,
 		devicesDetails: data,
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingGetSelectedDeviceFailure, (state, { error }) => ({
+	on(postingActions.PostingLoadDeviceDetailsFailure, (state, { error }) => ({
 		...state,
 		loaded: false,
 		error,

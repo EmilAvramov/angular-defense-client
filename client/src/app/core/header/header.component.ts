@@ -22,6 +22,6 @@ export class HeaderComponent {
 	}
 
 	logout(): void {
-		this.userFacade.userLogout(this.token!);
+		this.userFacade.logoutUser(this.token!);
 	}
 }

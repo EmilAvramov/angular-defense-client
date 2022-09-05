@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { Device } from '../device/device.state';
 import { UserAuth } from '../user/user.state';
 import { Posting, PostingPayload } from './posting.state';
@@ -34,9 +35,9 @@ export enum PostingActionNames {
 	PostingLoadDevices = '[Posting] Load Devices',
 	PostingLoadDevicesSuccess = '[Posting] Load Devices Success',
 	PostingLoadDevicesFailure = '[Posting] Load Devices Failure',
-	PostingGetSelectedDevice = '[Posting] Get Selected Device',
-	PostingGetSelectedDeviceSuccess = '[Posting] Get Selected Device Success',
-	PostingGetSelectedDeviceFailure = '[Posting] Get Selected Device Failure',
+	PostingLoadDeviceDetails = '[Posting] Load Device Details',
+	PostingLoadDeviceDetailsSuccess = '[Posting] Load Device Details Success',
+	PostingLoadDeviceDetailsFailure = '[Posting] Load Device Details Failure',
 	PostingLoadUser = '[Posting] Load User',
 	PostingLoadUserSuccess = '[Posting] Load User Success',
 	PostingLoadUserFailure = '[Posting] Load User Failure',
@@ -177,17 +178,17 @@ export const PostingLoadDevicesFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const PostingGetSelectedDevice = createAction(
-	PostingActionNames.PostingGetSelectedDevice,
+export const PostingLoadDeviceDetails = createAction(
+	PostingActionNames.PostingLoadDeviceDetails,
 	props<{ key: string }>()
 );
 
-export const PostingGetSelectedDeviceSuccess = createAction(
-	PostingActionNames.PostingGetSelectedDeviceSuccess,
+export const PostingLoadDeviceDetailsSuccess = createAction(
+	PostingActionNames.PostingLoadDeviceDetailsSuccess,
 	props<{ data: Device }>()
 );
-export const PostingGetSelectedDeviceFailure = createAction(
-	PostingActionNames.PostingGetSelectedDeviceFailure,
+export const PostingLoadDeviceDetailsFailure = createAction(
+	PostingActionNames.PostingLoadDeviceDetailsFailure,
 	props<{ error: string | null }>()
 );
 

@@ -26,15 +26,15 @@ export class UserFacade {
 		select(userSelectors.getUserError)
 	);
 
-	public userInit(): void {
+	public initUser(): void {
 		this.store.dispatch(userActions.UserInit());
 	}
 
-	public userLogin(email: string, password: string): void {
+	public loginUser(email: string, password: string): void {
 		this.store.dispatch(userActions.UserLogin({ email, password }));
 	}
 
-	public userRegister(
+	public registerUser(
 		email: string,
 		password: string,
 		firstName: string,
@@ -56,7 +56,7 @@ export class UserFacade {
 		);
 	}
 
-	public userLogout(token: string): void {
+	public logoutUser(token: string): void {
 		this.store.dispatch(userActions.UserLogout({ token }));
 	}
 

@@ -1,6 +1,7 @@
-import { initialDeviceState, DeviceState, Device } from './device.state';
-import * as deviceActions from './device.actions';
 import { Action, createReducer, on } from '@ngrx/store';
+
+import { initialDeviceState, DeviceState } from './device.state';
+import * as deviceActions from './device.actions';
 
 export const _deviceReducer = createReducer(
 	initialDeviceState,

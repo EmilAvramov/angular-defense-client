@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import { Device } from '../device/device.state';
 import { Posting, PostingState, POSTING_FEATURE_KEY } from './posting.state';
 

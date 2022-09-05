@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 	onSubmit(): void {
 		const { email, password } = this.profileForm.value;
 
-		this.userFacade.userLogin(email as string, password as string)
+		this.userFacade.loginUser(email as string, password as string)
 		this.router.navigate(['/']);
 
 		this.profileForm.reset();

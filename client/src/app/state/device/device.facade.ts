@@ -26,19 +26,19 @@ export class DeviceFacade {
 		select(deviceSelectors.getActiveDetails)
 	);
 
-	public loadInitialData(): void {
+	public initDeviceData(): void {
 		this.store.dispatch(deviceActions.DeviceInit({ limit: 100, offset: 0 }));
 	}
 
-	public loadMoreData(limit: number, offset: number): void {
+	public loadMoreDevices(limit: number, offset: number): void {
 		this.store.dispatch(deviceActions.DeviceLoadMore({ limit, offset }));
 	}
 
-	public queryData(query: string, limit: number, offset: number): void {
+	public searchDevices(query: string, limit: number, offset: number): void {
 		this.store.dispatch(deviceActions.DeviceSearch({ query, limit, offset }));
 	}
 
-	public getDetails(key: string): void {
+	public getDeviceDetails(key: string): void {
 		this.store.dispatch(deviceActions.DeviceGetDetails({ key }));
 	}
 }

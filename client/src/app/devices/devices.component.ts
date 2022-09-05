@@ -42,16 +42,16 @@ export class DevicesComponent {
 
 	loadMore(): void {
 		this.limit += 100
-		this.deviceFacade.loadMoreData(this.limit, this.offset);
+		this.deviceFacade.loadMoreDevices(this.limit, this.offset);
 	}
 
 	query(query: string): void {
 		this.limit = 100
-		this.deviceFacade.queryData(query, this.limit, this.offset);
+		this.deviceFacade.searchDevices(query, this.limit, this.offset);
 	}
 
 	getDetails(key: string) {
-		this.deviceFacade.getDetails(key);
+		this.deviceFacade.getDeviceDetails(key);
 		this.modal.open();
 	}
 }

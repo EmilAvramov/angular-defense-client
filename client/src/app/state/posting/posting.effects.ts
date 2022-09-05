@@ -58,7 +58,7 @@ export class DeviceEffects {
 		)
 	);
 
-	public readonly runQuery$: Observable<any> = createEffect(() =>
+	public readonly searchPostings$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingSearch),
 			map(({ query, limit, offset }) =>
@@ -146,7 +146,7 @@ export class DeviceEffects {
 		)
 	);
 
-	public readonly loadDevices$: Observable<any> = createEffect(() =>
+	public readonly searchDevices$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingLoadDevices),
 			map(({ query, limit }) =>
@@ -167,25 +167,25 @@ export class DeviceEffects {
 		)
 	);
 
-	public readonly selectedDeviceDetails$: Observable<any> = createEffect(() =>
+	public readonly deviceDetails$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
-			ofType(PostingActionNames.PostingGetSelectedDevice),
-			map(({ key }) => PostingActions.PostingGetSelectedDevice({ key })),
+			ofType(PostingActionNames.PostingLoadDeviceDetails),
+			map(({ key }) => PostingActions.PostingLoadDeviceDetails({ key })),
 			switchMap(({ key }) =>
 				this.postingStore.pipe(
 					select(PostingSelectors.filterDevices(key)),
 					map((data: Device) =>
-						PostingActions.PostingGetSelectedDeviceSuccess({ data })
+						PostingActions.PostingLoadDeviceDetailsSuccess({ data })
 					)
 				)
 			),
 			catchError((error: string | null) =>
-				of(PostingActions.PostingGetSelectedDeviceFailure({ error }))
+				of(PostingActions.PostingLoadDeviceDetailsFailure({ error }))
 			)
 		)
 	);
 
-	public readonly loadUser$: Observable<any> = createEffect(() =>
+	public readonly getUser$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingLoadUser),
 			switchMap(() =>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of } from 'rxjs';
 
@@ -7,7 +8,6 @@ import * as DeviceActions from './device.actions';
 import * as DeviceSelectors from './device.selectors';
 import { DeviceActionsNames } from './device.actions';
 import { Device, DeviceState } from './device.state';
-import { select, Store } from '@ngrx/store';
 
 @Injectable()
 export class DeviceEffects {
@@ -32,7 +32,7 @@ export class DeviceEffects {
 		)
 	);
 
-	public readonly runQuery$: Observable<any> = createEffect(() =>
+	public readonly searchDevices$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DeviceActionsNames.DeviceSearch),
 			map(({ query, limit, offset }) =>
@@ -66,7 +66,7 @@ export class DeviceEffects {
 		)
 	);
 
-	public readonly getDetails$: Observable<any> = createEffect(() =>
+	public readonly deviceDetails$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DeviceActionsNames.DeviceGetDetails),
 			map(({ key }) => DeviceActions.DeviceGetDetails({ key })),

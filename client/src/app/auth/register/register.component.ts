@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit {
 		const { firstName, lastName, phone, address, city } =
 			this.profileForm.value.personalDetails!;
 
-		this.userFacade.userRegister(
+		this.userFacade.registerUser(
 			email as string,
 			password as string,
 			firstName as string,

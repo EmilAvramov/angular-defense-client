@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 
 import * as postingSelectors from './posting.selectors';
 import * as postingActions from './posting.actions';
+
 import { Posting, PostingState } from './posting.state';
 import { Device } from '../device/device.state';
 import { UserAuth } from '../user/user.state';
@@ -65,6 +66,6 @@ export class DeviceFacade {
 	}
 
 	public getDeviceDetails(key: string): void {
-		this.store.dispatch(postingActions.PostingGetSelectedDevice({ key }));
+		this.store.dispatch(postingActions.PostingLoadDeviceDetails({ key }));
 	}
 }
