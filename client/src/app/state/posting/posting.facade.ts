@@ -46,7 +46,7 @@ export class PostingFacade {
 	);
 
 	public initPostingsData(): void {
-		this.store.dispatch(postingActions.PostingInit({ limit: 100, offset: 0 }));
+		this.store.dispatch(postingActions.PostingInit({ limit: 18, offset: 0 }));
 	}
 
 	public loadMorePostings(limit: number, offset: number): void {

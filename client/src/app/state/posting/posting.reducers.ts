@@ -74,6 +74,7 @@ export const _postingReducer = createReducer(
 	})),
 	on(postingActions.PostingCreate, (state) => ({
 		...state,
+		create: null,
 		loaded: false,
 		error: null,
 	})),
@@ -85,6 +86,7 @@ export const _postingReducer = createReducer(
 	})),
 	on(postingActions.PostingCreateFailure, (state, { error }) => ({
 		...state,
+		create: null,
 		loaded: false,
 		error,
 	})),
