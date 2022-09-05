@@ -4,18 +4,20 @@ import { UserAuth } from '../user/user.state';
 export const POSTING_FEATURE_KEY = 'user'
 
 export const initialPostingState: PostingState = {
-    postings: null,
+	postings: null,
 
-    query: '',
-    details: null,
+	query: '',
+	details: null,
 	detailsFilter: '',
 
-    create: null,
-    devices: null,
-    user: null,
-    
+	create: null,
+	devices: null,
+	selected: null,
+	user: null,
+
 	loaded: false,
 	error: null,
+	
 };
 
 export interface PostingState {
@@ -25,8 +27,9 @@ export interface PostingState {
     details: Posting | null,
 	detailsFilter: string | null,
 
+	devices: Device[] | null,
     create: Posting | null,
-    devices: Device[] | null,
+	selected: Device | null,
     user: UserAuth | null,
 
 	loaded: boolean,

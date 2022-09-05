@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Device } from '../device/device.state';
 import { Posting, PostingState, POSTING_FEATURE_KEY } from './posting.state';
 
 export const getPostingState =
@@ -49,4 +50,11 @@ export const getPostingDetails = (id: number) =>
 		getPostingState,
 		(state: PostingState) =>
 			state.postings!.filter((x: Posting) => x.id === id)[0]
+	);
+
+export const getDeviceDetails = (key: string) =>
+	createSelector(
+		getPostingState,
+		(state: PostingState) =>
+			state.devices!.filter((x: Device) => x.deviceKey === key)[0]
 	);

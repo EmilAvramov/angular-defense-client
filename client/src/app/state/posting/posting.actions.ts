@@ -27,12 +27,16 @@ export enum PostingActionNames {
 	PostingDelete = '[Posting] Delete',
 	PostingDeleteSuccess = '[Posting] Delete Success',
 	PostingDeleteFailure = '[Posting] Delete Failure',
+	// Operations for checking user, and handling in-post data
 	PostingCheckOwner = '[Posting] Check Owner',
 	PostingCheckOwnerSuccess = '[Posting] Check Owner Success',
 	PostingCheckOwnerFailure = '[Posting] Check Owner Failure',
 	PostingLoadDevices = '[Posting] Load Devices',
 	PostingLoadDevicesSuccess = '[Posting] Load Devices Success',
 	PostingLoadDevicesFailure = '[Posting] Load Devices Failure',
+	PostingGetSelectedDevice = '[Posting] Get Selected Device',
+	PostingGetSelectedDeviceSuccess = '[Posting] Get Selected Device Success',
+	PostingGetSelectedDeviceFailure = '[Posting] Get Selected Device Failure',
 	PostingLoadUser = '[Posting] Load User',
 	PostingLoadUserSuccess = '[Posting] Load User Success',
 	PostingLoadUserFailure = '[Posting] Load User Failure',
@@ -170,6 +174,20 @@ export const PostingLoadDevicesSuccess = createAction(
 
 export const PostingLoadDevicesFailure = createAction(
 	PostingActionNames.PostingLoadDevicesFailure,
+	props<{ error: string | null }>()
+);
+
+export const PostingGetSelectedDevice = createAction(
+	PostingActionNames.PostingGetSelectedDevice,
+	props<{ key: string }>()
+);
+
+export const PostingGetSelectedDeviceSuccess = createAction(
+	PostingActionNames.PostingGetSelectedDeviceSuccess,
+	props<{ data: Device }>()
+);
+export const PostingGetSelectedDeviceFailure = createAction(
+	PostingActionNames.PostingGetSelectedDeviceFailure,
 	props<{ error: string | null }>()
 );
 

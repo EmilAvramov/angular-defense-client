@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { server } from 'src/app/shared/variables/config';
 import { PostingPayload } from './posting.state';
 
@@ -11,7 +11,7 @@ export class PostingService {
 
 	constructor(private http: HttpClient) {}
 
-	getPostings(limit: number, offset: number): Subject<any> {
+	getPostings(limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/postings/list`,
@@ -24,7 +24,7 @@ export class PostingService {
 		return this.request;
 	}
 
-	searchPostings(query: string, limit: number, offset: number): Subject<any> {
+	searchPostings(query: string, limit: number, offset: number): Observable<any> {
 		this.http
 			.post(
 				`${server}/postings/list/search/?query=${query}`,
@@ -35,7 +35,7 @@ export class PostingService {
 		return this.request;
 	}
 
-	createPosting(payload: PostingPayload): Subject<any> {
+	createPosting(payload: PostingPayload): Observable<any> {
 		this.http
 			.post(`${server}/postings/create`, { payload }, { headers: this.headers })
 			.subscribe((res) => this.request.next(res));
@@ -46,7 +46,7 @@ export class PostingService {
 		id: number,
 		comments: string | null,
 		price: number | null
-	): Subject<any> {
+	): Observable<any> {
 		this.http
 			.post(
 				`${server}/postings/edit/${id}`,
@@ -57,9 +57,22 @@ export class PostingService {
 		return this.request;
 	}
 
-	deletePosting(id: number): Subject<any> {
+	deletePosting(id: number): Observable<any> {
 		this.http
 			.post(`${server}/postings/delete/${id}`, { headers: this.headers })
+			.subscribe((res) => this.request.next(res));
+		return this.request;
+	}
+
+	searchDevices(query: string, limit: number): Observable<any> {
+		this.http
+			.post(
+				`${server}/device/list/search/?query=${query}`,
+				{ limit },
+				{
+					headers: this.headers,
+				}
+			)
 			.subscribe((res) => this.request.next(res));
 		return this.request;
 	}

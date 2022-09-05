@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of } from 'rxjs';
 
 import { PostingService } from './posting.service';
 import * as PostingActions from './posting.actions';
-// import * as PostingSelectors from './posting.selectors';
+import * as PostingSelectors from './posting.selectors';
 import { PostingActionNames } from './posting.actions';
 import { Posting, PostingState } from './posting.state';
-import { Store } from '@ngrx/store';
+
 import { UserFacade } from '../user/user.facade';
+import { UserAuth } from '../user/user.state';
+import { Device } from '../device/device.state';
 
 @Injectable()
 export class DeviceEffects {
 	constructor(
-		private readonly store: Store<PostingState>,
+		private readonly postingStore: Store<PostingState>,
 		private readonly actions$: Actions,
 		private readonly postingService: PostingService,
 		private readonly userFacade: UserFacade
@@ -74,6 +77,24 @@ export class DeviceEffects {
 		)
 	);
 
+	public readonly postingDetails$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingGetDetails),
+			map(({ id }) => PostingActions.PostingGetDetails({ id })),
+			switchMap(({ id }) =>
+				this.postingStore.pipe(
+					select(PostingSelectors.getPostingDetails(id)),
+					map((posting: Posting) =>
+						PostingActions.PostingGetDetailsSuccess({ data: posting })
+					)
+				)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingGetDetailsFailure({ error }))
+			)
+		)
+	);
+
 	public readonly createPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingCreate),
@@ -91,6 +112,92 @@ export class DeviceEffects {
 		)
 	);
 
+	public readonly editPosting$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingEdit),
+			map(({ id, comments, price }) =>
+				PostingActions.PostingEdit({ id, comments, price })
+			),
+			switchMap(({ id, comments, price }) =>
+				this.postingService
+					.editPosting(id, comments, price)
+					.pipe(map((data: Posting) => PostingActions.PostingEditSuccess({ data })))
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingEditFailure({ error }))
+			)
+		)
+	);
+
+	public readonly deletePosting$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingDelete),
+			map(({ id }) => PostingActions.PostingDelete({ id })),
+			switchMap(({ id }) =>
+				this.postingService
+					.deletePosting(id)
+					.pipe(
+						map((message: string) => PostingActions.PostingDeleteSuccess({ message }))
+					)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingDeleteFailure({ error }))
+			)
+		)
+	);
+
+	public readonly loadDevices$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingLoadDevices),
+			map(({ query, limit }) =>
+				PostingActions.PostingLoadDevices({ query, limit })
+			),
+			switchMap(({ query, limit }) =>
+				this.postingService
+					.searchDevices(query, limit)
+					.pipe(
+						map((data: Device[]) =>
+							PostingActions.PostingLoadDevicesSuccess({ data })
+						)
+					)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingLoadDevicesFailure({ error }))
+			)
+		)
+	);
+
+	public readonly selectedDeviceDetails$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingGetSelectedDevice),
+			map(({ key }) => PostingActions.PostingGetSelectedDevice({ key })),
+			switchMap(({ key }) =>
+				this.postingStore.pipe(
+					select(PostingSelectors.getDeviceDetails(key)),
+					map((data: Device) =>
+						PostingActions.PostingGetSelectedDeviceSuccess({ data })
+					)
+				)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingGetSelectedDeviceFailure({ error }))
+			)
+		)
+	);
+
+	public readonly loadUser$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingLoadUser),
+			switchMap(() =>
+				this.userFacade.userData$.pipe(
+					map((user: UserAuth) => PostingActions.PostingLoadUserSuccess({ user }))
+				)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingLoadUserFailure({ error }))
+			)
+		)
+	);
 
 	public readonly checkOwner$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
@@ -111,44 +218,4 @@ export class DeviceEffects {
 			)
 		)
 	);
-
-	// TODO load devices, load user, get details, decide how to handle the below 2 
-	// Either call the above in component through facade or integrate below
-
-	// This needs validation
-	public readonly editPosting$: Observable<any> = createEffect(() =>
-		this.actions$.pipe(
-			ofType(PostingActionNames.PostingEdit),
-			map(({ id, comments, price }) =>
-				PostingActions.PostingEdit({ id, comments, price })
-			),
-			switchMap(({ id, comments, price }) =>
-				this.postingService
-					.editPosting(id, comments, price)
-					.pipe(map((data: Posting) => PostingActions.PostingEditSuccess({ data })))
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingEditFailure({ error }))
-			)
-		)
-	);
-
-	// This needs validation
-	public readonly deletePosting$: Observable<any> = createEffect(() =>
-		this.actions$.pipe(
-			ofType(PostingActionNames.PostingDelete),
-			map(({ id }) => PostingActions.PostingDelete({ id })),
-			switchMap(({ id }) =>
-				this.postingService
-					.deletePosting(id)
-					.pipe(
-						map((message: string) => PostingActions.PostingDeleteSuccess({ message }))
-					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingDeleteFailure({ error }))
-			)
-		)
-	);
-
 }
