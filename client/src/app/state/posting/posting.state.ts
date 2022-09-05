@@ -6,13 +6,16 @@ export const POSTING_FEATURE_KEY = 'user'
 export const initialPostingState: PostingState = {
 	postings: null,
 
-	query: '',
-	details: null,
-	detailsFilter: '',
+	postingsQuery: '',
+	postingsFilter: '',
+	postingsDetails: null,
+
+	devices: null,
+	devicesQuery: '',
+	devicesFilter: '',
 
 	create: null,
-	devices: null,
-	selected: null,
+	devicesDetails: null,
 	user: null,
 
 	loaded: false,
@@ -23,13 +26,16 @@ export const initialPostingState: PostingState = {
 export interface PostingState {
     postings: Posting[] | null,
 
-    query: string | null,
-    details: Posting | null,
-	detailsFilter: string | null,
+    postingsQuery: string | null,
+	postingsFilter: string | null,
+    postingsDetails: Posting | null,
 
 	devices: Device[] | null,
-    create: Posting | null,
-	selected: Device | null,
+	devicesQuery: string | null,
+	devicesFilter: string | null,
+
+	create: Posting | null,
+    devicesDetails: Device | null,
     user: UserAuth | null,
 
 	loaded: boolean,

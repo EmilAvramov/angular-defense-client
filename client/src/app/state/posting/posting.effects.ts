@@ -83,7 +83,7 @@ export class DeviceEffects {
 			map(({ id }) => PostingActions.PostingGetDetails({ id })),
 			switchMap(({ id }) =>
 				this.postingStore.pipe(
-					select(PostingSelectors.getPostingDetails(id)),
+					select(PostingSelectors.filterPostings(id)),
 					map((posting: Posting) =>
 						PostingActions.PostingGetDetailsSuccess({ data: posting })
 					)
@@ -112,6 +112,7 @@ export class DeviceEffects {
 		)
 	);
 
+	// This needs 
 	public readonly editPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingEdit),
@@ -173,7 +174,7 @@ export class DeviceEffects {
 			map(({ key }) => PostingActions.PostingGetSelectedDevice({ key })),
 			switchMap(({ key }) =>
 				this.postingStore.pipe(
-					select(PostingSelectors.getDeviceDetails(key)),
+					select(PostingSelectors.filterDevices(key)),
 					map((data: Device) =>
 						PostingActions.PostingGetSelectedDeviceSuccess({ data })
 					)

@@ -27,7 +27,7 @@ export enum PostingActionNames {
 	PostingDelete = '[Posting] Delete',
 	PostingDeleteSuccess = '[Posting] Delete Success',
 	PostingDeleteFailure = '[Posting] Delete Failure',
-	// Operations for checking user, and handling in-post data
+	// Actions for checking user, and handling in-post data
 	PostingCheckOwner = '[Posting] Check Owner',
 	PostingCheckOwnerSuccess = '[Posting] Check Owner Success',
 	PostingCheckOwnerFailure = '[Posting] Check Owner Failure',

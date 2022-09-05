@@ -10,19 +10,30 @@ export const getPosting = createSelector(
 	(state: PostingState) => {
 		return {
 			postings: state.postings,
-			query: state.query,
-			details: state.details,
-			detailsFilter: state.detailsFilter,
-			create: state.create,
+
+			postingsQuery: state.postingsQuery,
+			postingsFilter: state.postingsFilter,
+			postingsDetails: state.postingsDetails,
+
 			devices: state.devices,
+			devicesQuery: state.devicesQuery,
+			devicesFilter: state.devicesFilter,
+
+			create: state.create,
+			devicesDetails: state.devicesDetails,
 			user: state.user,
 		};
 	}
 );
 
-export const getPostingUser = createSelector(
+export const getPostings = createSelector(
 	getPostingState,
-	(state: PostingState) => state.user
+	(state: PostingState) => state.postings
+)
+
+export const getPostingDetails = createSelector(
+	getPostingState,
+	(state: PostingState) => state.postingsDetails
 );
 
 export const getPostingDevices = createSelector(
@@ -30,9 +41,14 @@ export const getPostingDevices = createSelector(
 	(state: PostingState) => state.devices
 );
 
-export const getActiveDetails = createSelector(
+export const getDeviceDetails =createSelector(
 	getPostingState,
-	(state: PostingState) => state.details
+	(state: PostingState) => state.devicesDetails
+)
+
+export const getPostingUser = createSelector(
+	getPostingState,
+	(state: PostingState) => state.user
 );
 
 export const getPostingLoaded = createSelector(
@@ -45,14 +61,14 @@ export const getPostingError = createSelector(
 	(state: PostingState) => state.error
 );
 
-export const getPostingDetails = (id: number) =>
+export const filterPostings = (id: number) =>
 	createSelector(
 		getPostingState,
 		(state: PostingState) =>
 			state.postings!.filter((x: Posting) => x.id === id)[0]
 	);
 
-export const getDeviceDetails = (key: string) =>
+export const filterDevices = (key: string) =>
 	createSelector(
 		getPostingState,
 		(state: PostingState) =>
