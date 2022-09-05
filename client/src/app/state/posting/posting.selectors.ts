@@ -5,31 +5,10 @@ import { Posting, PostingState, POSTING_FEATURE_KEY } from './posting.state';
 export const getPostingState =
 	createFeatureSelector<PostingState>(POSTING_FEATURE_KEY);
 
-export const getPosting = createSelector(
-	getPostingState,
-	(state: PostingState) => {
-		return {
-			postings: state.postings,
-
-			postingsQuery: state.postingsQuery,
-			postingsFilter: state.postingsFilter,
-			postingsDetails: state.postingsDetails,
-
-			devices: state.devices,
-			devicesQuery: state.devicesQuery,
-			devicesFilter: state.devicesFilter,
-
-			create: state.create,
-			devicesDetails: state.devicesDetails,
-			user: state.user,
-		};
-	}
-);
-
 export const getPostings = createSelector(
 	getPostingState,
 	(state: PostingState) => state.postings
-)
+);
 
 export const getPostingDetails = createSelector(
 	getPostingState,
@@ -41,14 +20,19 @@ export const getPostingDevices = createSelector(
 	(state: PostingState) => state.devices
 );
 
-export const getDeviceDetails =createSelector(
+export const getDeviceDetails = createSelector(
 	getPostingState,
 	(state: PostingState) => state.devicesDetails
-)
+);
 
 export const getPostingUser = createSelector(
 	getPostingState,
 	(state: PostingState) => state.user
+);
+
+export const getCreatedPosting = createSelector(
+	getPostingState,
+	(state: PostingState) => state.create
 );
 
 export const getPostingLoaded = createSelector(

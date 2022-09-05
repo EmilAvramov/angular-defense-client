@@ -112,7 +112,6 @@ export class DeviceEffects {
 		)
 	);
 
-	// This needs 
 	public readonly editPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingEdit),

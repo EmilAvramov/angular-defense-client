@@ -2,17 +2,6 @@ import { initialPostingState, PostingState } from './posting.state';
 import * as postingActions from './posting.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
-// 	// Actions for checking user, and handling in-post data
-// 	PostingLoadDevices = '[Posting] Load Devices',
-// 	PostingLoadDevicesSuccess = '[Posting] Load Devices Success',
-// 	PostingLoadDevicesFailure = '[Posting] Load Devices Failure',
-// 	PostingGetSelectedDevice = '[Posting] Get Selected Device',
-// 	PostingGetSelectedDeviceSuccess = '[Posting] Get Selected Device Success',
-// 	PostingGetSelectedDeviceFailure = '[Posting] Get Selected Device Failure',
-// 	PostingLoadUser = '[Posting] Load User',
-// 	PostingLoadUserSuccess = '[Posting] Load User Success',
-// 	PostingLoadUserFailure = '[Posting] Load User Failure',
-
 export const _userReducer = createReducer(
 	initialPostingState,
 	on(postingActions.PostingInit, (state) => ({
@@ -73,7 +62,7 @@ export const _userReducer = createReducer(
 	})),
 	on(postingActions.PostingGetDetailsSuccess, (state, { data }) => ({
 		...state,
-		details: data,
+		postingsDetails: data,
 		loaded: true,
 		error: null,
 	})),
@@ -139,22 +128,55 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-    on(postingActions.PostingLoadDevices, (state) => ({
-        ...state,
-        loaded: false,
-        error: null
-    })),
-    on(postingActions.PostingLoadDevicesSuccess, (state, {data}) => ({
-        ...state,
-        devices: data,
-        loaded: true,
-        error: null
-    })),
-    on(postingActions.PostingLoadDevicesFailure, (state, {error}) => ({
-        ...state,
-        loaded: false,
-        error
-    }))
+	on(postingActions.PostingLoadDevices, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(postingActions.PostingLoadDevicesSuccess, (state, { data }) => ({
+		...state,
+		devices: data,
+		loaded: true,
+		error: null,
+	})),
+	on(postingActions.PostingLoadDevicesFailure, (state, { error }) => ({
+		...state,
+		loaded: false,
+		error,
+	})),
+	on(postingActions.PostingGetSelectedDevice, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(postingActions.PostingGetSelectedDeviceSuccess, (state, { data }) => ({
+		...state,
+		devicesDetails: data,
+		loaded: true,
+		error: null,
+	})),
+	on(postingActions.PostingGetSelectedDeviceFailure, (state, { error }) => ({
+		...state,
+		loaded: false,
+		error,
+	})),
+	on(postingActions.PostingLoadUser, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(postingActions.PostingLoadUserSuccess, (state, { user }) => ({
+		...state,
+		user,
+		loaded: true,
+		error: null,
+	})),
+	on(postingActions.PostingLoadUserFailure, (state, { error }) => ({
+		...state,
+		user: null,
+		loaded: false,
+		error,
+	}))
 );
 
 export function postingReducer(
