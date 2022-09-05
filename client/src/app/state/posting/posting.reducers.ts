@@ -161,6 +161,25 @@ export const _postingReducer = createReducer(
 		loaded: false,
 		error,
 	})),
+	on(postingActions.PostingClearDeviceDetails, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(postingActions.PostingClearDeviceDetailsSuccess, (state) => ({
+		...state,
+		devices: null,
+		devicesDetails: null,
+		loaded: true,
+		error: null,
+	})),
+	on(postingActions.PostingClearDeviceDetailsFailure, (state, { error }) => ({
+		...state,
+		devices: null,
+		devicesDetails: null,
+		loaded: false,
+		error,
+	})),
 	on(postingActions.PostingLoadUser, (state) => ({
 		...state,
 		loaded: false,

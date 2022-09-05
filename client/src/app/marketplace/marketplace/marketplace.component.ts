@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
+import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
 
 @Component({
@@ -20,25 +21,16 @@ export class MarketplaceComponent {
 	public deviceDetails!: Device | null;
 	public user!: User | null;
 
-	constructor(public modal: ModalService, private postingFacade: PostingFacade) {
+	constructor(
+		public modal: ModalService,
+		private postingFacade: PostingFacade,
+		private userFacade: UserFacade
+	) {
 		this.postingFacade.postingData$.subscribe({
-			next: (data: Posting[] | null) => (this.postings = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.postingDetails$.subscribe({
-			next: (data: Posting | null) => (this.postingDetails = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.devicesData$.subscribe({
-			next: (data: Device[] | null) => (this.devices = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.deviceDetails$.subscribe({
-			next: (data: Device | null) => (this.deviceDetails = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.userData$.subscribe({
-			next: (data: User | null) => (this.user = data),
+			next: (data: Posting[] | null) => {
+				this.postings = data;
+				console.log(data);
+			},
 			error: (err: string | null) => console.log(err),
 		});
 	}
@@ -53,19 +45,46 @@ export class MarketplaceComponent {
 		this.postingFacade.loadMorePostings(this.limit, this.offset);
 	}
 
+	fetchPostingDetails(id: number): void {
+		this.postingFacade.postingDetails$.subscribe({
+			next: (data: Posting | null) => (this.postingDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.getPostingDetails(id);
+	}
+
 	openModal(): void {
 		this.modal.open();
 	}
 
-	searchDevices(query: string): void {
+	fetchDeviceList(query: string): void {
+		this.postingFacade.devicesData$.subscribe({
+			next: (data: Device[] | null) => {
+				console.log(data);
+				this.devices = data;
+			},
+			error: (err: string | null) => console.log(err),
+		});
 		this.postingFacade.queryDevices(query, 10);
 	}
 
-	fetchDetails(key:string): void {
-		this.postingFacade.getDeviceDetails(key)
+	fetchDeviceDetails(key: string): void {
+		this.postingFacade.deviceDetails$.subscribe({
+			next: (data: Device | null) => (this.deviceDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.userFacade.userData$.subscribe({
+			next: (data: User | null) => (this.user = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.getDeviceDetails(key);
+	}
+
+	clearDetails(): void {
+		this.postingFacade.clearDeviceDetails();
 	}
 
 	createPosting(data: PostingPayload) {
-		this.postingFacade.createPosting(data)
+		this.postingFacade.createPosting(data);
 	}
 }

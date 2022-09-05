@@ -32,7 +32,7 @@ router.post('/list/search', async (req, res) => {
 
 router.post('/create', async (req, res) => {
 	try {
-		const response = await createPosting(req.body.body);
+		const response = await createPosting(req.body.payload);
 		res.status(200).json(response);
 	} catch (err: any) {
 		res.status(400).json({ message: err.message });

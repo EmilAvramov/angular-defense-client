@@ -33,9 +33,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	@Input() user!: User | null;
 	@Input() devices!: Device[] | null;
 	@Input() deviceDetails!: Device | null;
-	@Output() requestDevices = new EventEmitter<string>();
-	@Output() requestDetails = new EventEmitter<string>();
+	@Output() requestDeviceList = new EventEmitter<string>();
+	@Output() requestDeviceDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<PostingPayload>();
+	@Output() clearDetails = new EventEmitter<null>();
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
@@ -53,7 +54,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 				map((e: Event) => (e.target as HTMLInputElement).value)
 			)
 			.subscribe({
-				next: (res) => this.requestDevices.emit(res),
+				next: (res) => {
+					this.deviceDetails = null;
+					this.requestDeviceList.emit(res);
+				},
 				error: (err) => console.log(err),
 			});
 	}
@@ -82,16 +86,13 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this.close();
 	}
 
-	resetForm() {
-		this.postingForm.reset();
-	}
-
 	close(): void {
 		this.modal.close();
 		this.searchDevice.nativeElement.value = '';
+		this.clearDetails.emit()
 	}
 
 	openCreate(key: string): void {
-		this.requestDetails.emit(key);
+		this.requestDeviceDetails.emit(key);
 	}
 }

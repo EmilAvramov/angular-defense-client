@@ -17,7 +17,11 @@
 					/>
 				</div>
 				<div *ngIf="!this.deviceDetails" class="create__list">
-					<div *ngFor="let device of devices" class="create__block" (click)="openCreate(device.deviceKey)">
+					<div
+						*ngFor="let device of devices"
+						class="create__block"
+						(click)="openCreate(device.deviceKey)"
+					>
 						<p>{{ device.deviceName }}</p>
 						<img src="{{ device.deviceImage }}" alt="" />
 					</div>
@@ -190,7 +194,6 @@
 							<label for="price">Sell Price</label>
 							<input type="number" name="price" formControlName="price" />
 							<button>Create Posting</button>
-							<button (click)="this.resetForm()">Clear Form</button>
 						</form>
 					</div>
 				</div>

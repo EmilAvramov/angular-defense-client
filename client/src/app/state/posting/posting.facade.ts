@@ -69,6 +69,10 @@ export class PostingFacade {
 		this.store.dispatch(postingActions.PostingLoadDeviceDetails({ key }));
 	}
 
+	public clearDeviceDetails(): void {
+		this.store.dispatch(postingActions.PostingClearDeviceDetails());
+	}
+
 	public createPosting(payload: PostingPayload): void {
 		this.store.dispatch(postingActions.PostingCreate({ payload }));
 	}

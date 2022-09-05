@@ -38,6 +38,9 @@ export enum PostingActionNames {
 	PostingLoadDeviceDetails = '[Posting] Load Device Details',
 	PostingLoadDeviceDetailsSuccess = '[Posting] Load Device Details Success',
 	PostingLoadDeviceDetailsFailure = '[Posting] Load Device Details Failure',
+	PostingClearDeviceDetails = '[Posting] Clear Device Details',
+	PostingClearDeviceDetailsSuccess = '[Posting] Clear Device Details Success',
+	PostingClearDeviceDetailsFailure = '[Posting] Clear Device Details Failure',
 	PostingLoadUser = '[Posting] Load User',
 	PostingLoadUserSuccess = '[Posting] Load User Success',
 	PostingLoadUserFailure = '[Posting] Load User Failure',
@@ -189,6 +192,20 @@ export const PostingLoadDeviceDetailsSuccess = createAction(
 );
 export const PostingLoadDeviceDetailsFailure = createAction(
 	PostingActionNames.PostingLoadDeviceDetailsFailure,
+	props<{ error: string | null }>()
+);
+
+export const PostingClearDeviceDetails = createAction(
+	PostingActionNames.PostingClearDeviceDetails
+);
+
+export const PostingClearDeviceDetailsSuccess = createAction(
+	PostingActionNames.PostingClearDeviceDetails,
+	props<{ message: string | null }>()
+);
+
+export const PostingClearDeviceDetailsFailure = createAction(
+	PostingActionNames.PostingClearDeviceDetailsFailure,
 	props<{ error: string | null }>()
 );
 

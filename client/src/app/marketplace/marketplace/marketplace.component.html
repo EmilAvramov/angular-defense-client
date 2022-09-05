@@ -5,13 +5,14 @@
 <app-list
 	[postings]="this.postings"
 	(requestMore)="this.loadMorePostings()"
-	(requestDetails)="this.deviceDetails"
+	(requestDetails)="this.fetchPostingDetails($event)"
 ></app-list>
 <app-create
 	[user]="this.user"
 	[devices]="this.devices"
 	[deviceDetails]="this.deviceDetails"
-	(requestDevices)="this.searchDevices($event)"
-	(requestDetails)="this.fetchDetails($event)"
+	(requestDeviceList)="this.fetchDeviceList($event)"
+	(requestDeviceDetails)="this.fetchDeviceDetails($event)"
+	(clearDetails)="this.clearDetails()"
 	(createPosting)="this.createPosting($event)"
 ></app-create>
