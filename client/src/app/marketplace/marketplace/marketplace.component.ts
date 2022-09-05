@@ -41,11 +41,6 @@ export class MarketplaceComponent {
 			next: (data: User | null) => (this.user = data),
 			error: (err: string | null) => console.log(err),
 		});
-		console.log(this.postings)
-	}
-
-	openModal(): void {
-		this.modal.open();
 	}
 
 	searchPostings(query: string): void {
@@ -58,9 +53,19 @@ export class MarketplaceComponent {
 		this.postingFacade.loadMorePostings(this.limit, this.offset);
 	}
 
+	openModal(): void {
+		this.modal.open();
+	}
+
 	searchDevices(query: string): void {
 		this.postingFacade.queryDevices(query, 10);
 	}
 
-	createPosting(data: PostingPayload) {}
+	fetchDetails(key:string): void {
+		this.postingFacade.getDeviceDetails(key)
+	}
+
+	createPosting(data: PostingPayload) {
+		this.postingFacade.createPosting(data)
+	}
 }

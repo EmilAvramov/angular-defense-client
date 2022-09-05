@@ -11,6 +11,7 @@
 	[user]="this.user"
 	[devices]="this.devices"
 	[deviceDetails]="this.deviceDetails"
-	(requestDetails)="this.searchDevices($event)"
+	(requestDevices)="this.searchDevices($event)"
+	(requestDetails)="this.fetchDetails($event)"
 	(createPosting)="this.createPosting($event)"
 ></app-create>

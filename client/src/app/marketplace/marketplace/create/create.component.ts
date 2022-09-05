@@ -1,13 +1,21 @@
 import {
+	AfterViewInit,
 	Component,
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
+import {
+	debounceTime,
+	distinctUntilChanged,
+	fromEvent,
+	map,
+	Observable,
+} from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingPayload } from 'src/app/state/posting/posting.state';
@@ -18,13 +26,14 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.sass'],
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit, AfterViewInit {
 	public display$!: Observable<boolean>;
 	public posting!: PostingPayload | null;
 
 	@Input() user!: User | null;
 	@Input() devices!: Device[] | null;
 	@Input() deviceDetails!: Device | null;
+	@Output() requestDevices = new EventEmitter<string>();
 	@Output() requestDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<PostingPayload>();
 
@@ -32,6 +41,21 @@ export class CreateComponent {
 
 	constructor(private modal: ModalService, private fb: FormBuilder) {
 		this.display$ = this.modal.watch();
+	}
+
+	ngOnInit(): void {}
+
+	ngAfterViewInit() {
+		fromEvent(this.searchDevice.nativeElement, 'input')
+			.pipe(
+				debounceTime(1000),
+				distinctUntilChanged(),
+				map((e: Event) => (e.target as HTMLInputElement).value)
+			)
+			.subscribe({
+				next: (res) => this.requestDevices.emit(res),
+				error: (err) => console.log(err),
+			});
 	}
 
 	postingForm = this.fb.group({
@@ -65,5 +89,9 @@ export class CreateComponent {
 	close(): void {
 		this.modal.close();
 		this.searchDevice.nativeElement.value = '';
+	}
+
+	openCreate(key: string): void {
+		this.requestDetails.emit(key);
 	}
 }

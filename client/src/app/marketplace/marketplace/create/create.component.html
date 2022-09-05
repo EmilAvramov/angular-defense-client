@@ -16,8 +16,8 @@
 						type="text"
 					/>
 				</div>
-				<div class="create__list">
-					<div *ngFor="let device of devices" class="create__block">
+				<div *ngIf="!this.deviceDetails" class="create__list">
+					<div *ngFor="let device of devices" class="create__block" (click)="openCreate(device.deviceKey)">
 						<p>{{ device.deviceName }}</p>
 						<img src="{{ device.deviceImage }}" alt="" />
 					</div>

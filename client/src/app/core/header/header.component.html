@@ -6,12 +6,12 @@
 			<li><a routerLink="/marketplace">Marketplace</a></li>
 			<li><a routerLink="/devices">Devices</a></li>
 			<li><a routerLink="/about"> About</a></li>
-			<li *ngIf="!this.auth"><a routerLink="/login">Login</a></li>
-			<li *ngIf="!this.auth"><a routerLink="/register">Register</a></li>
-			<li *ngIf="this.auth">
+			<li *ngIf="!this.token"><a routerLink="/login">Login</a></li>
+			<li *ngIf="!this.token"><a routerLink="/register">Register</a></li>
+			<li *ngIf="this.token">
 				<a routerLink="/profile">My Profile</a>
 			</li>
-			<li *ngIf="this.auth" (click)="logout()">
+			<li *ngIf="this.token" (click)="logout()">
 				<a routerLink="/">Logout</a>
 			</li>
 		</ul>

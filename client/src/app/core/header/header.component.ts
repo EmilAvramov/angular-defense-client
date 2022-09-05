@@ -8,13 +8,8 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 })
 export class HeaderComponent {
 	token!: string;
-	auth: boolean = false;
 
 	constructor(private readonly userFacade: UserFacade) {
-		this.userFacade.userLoaded$.subscribe({
-			next: (res) => (this.auth = res),
-			error: (err) => console.log(err),
-		});
 		this.userFacade.userData$.subscribe({
 			next: (res) => (this.token = res.token),
 			error: (err) => console.log(err),
