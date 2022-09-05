@@ -1,31 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
-import { DevicePostingDetails, DevicePostingPayload } from 'src/app/shared/interfaces/Posting.interface';
-import { UserDetails } from 'src/app/shared/interfaces/User.interface';
+import { Component } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modal.service';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { DataService } from '../services/data.service';
+import { Device } from 'src/app/state/device/device.state';
+import { PostingFacade } from 'src/app/state/posting/posting.facade';
+import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
+import { UserAuth } from 'src/app/state/user/user.state';
 
 @Component({
 	selector: 'app-marketplace',
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent implements OnInit {
-	public details: DeviceDetails[] | undefined;
-	public user: UserDetails | undefined;
-	public postingData!: DevicePostingDetails[];
+export class MarketplaceComponent {
+	public limit: number = 100;
+	public offset: number = 0;
 
-	constructor(
-		private dataService: DataService,
-		private StorageService: StorageService,
-		public modal: ModalService
-	) {}
+	public postings!: Posting[] | null;
+	public postingDetails!: Posting | null;
+	public devices!: Device[] | null;
+	public deviceDetails!: Device | null;
+	public user!: UserAuth | null;
 
-	ngOnInit(): void {
-		this.dataService.getPostingData().subscribe({
-			next: (res) => (this.postingData = res),
-			error: (err) => console.log(err.message),
+	constructor(public modal: ModalService, private postingFacade: PostingFacade) {
+		this.postingFacade.postingData$.subscribe({
+			next: (data: Posting[] | null) => (this.postings = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.postingDetails$.subscribe({
+			next: (data: Posting | null) => (this.postingDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.devicesData$.subscribe({
+			next: (data: Device[] | null) => (this.devices = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.deviceDetails$.subscribe({
+			next: (data: Device | null) => (this.deviceDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.userData$.subscribe({
+			next: (data: UserAuth | null) => (this.user = data),
+			error: (err: string | null) => console.log(err),
 		});
 	}
 
@@ -33,27 +47,19 @@ export class MarketplaceComponent implements OnInit {
 		this.modal.open();
 	}
 
-	loadPostings(query: string): void {
-		this.dataService.getPostingData(query).subscribe({
-			next: (res) => (this.postingData = res),
-			error: (err) => console.log(err.message),
-		});
+	searchPostings(query: string): void {
+		this.limit = 100;
+		this.postingFacade.queryPostings(query, this.limit, this.offset);
 	}
 
-	loadDevice(query: string): void {
-		this.dataService.getDeviceDetails(query).subscribe({
-			next: (res) => {
-				this.details = res;
-				this.user = this.StorageService.getAllData();
-			},
-			error: (err) => console.log(err.message),
-		});
+	loadMorePostings(): void {
+		this.limit += 100;
+		this.postingFacade.loadMorePostings(this.limit, this.offset);
 	}
 
-	addPosting(data: DevicePostingPayload) {
-		this.dataService.createPosting(data).subscribe({
-			next: (res) => console.log(res),
-			error: (err) => console.log(err),
-		});
+	searchDevices(query: string): void {
+		this.postingFacade.queryDevices(query, 10);
 	}
+
+	createPosting(data: PostingPayload) {}
 }

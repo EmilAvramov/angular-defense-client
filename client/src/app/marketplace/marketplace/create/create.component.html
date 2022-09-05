@@ -16,21 +16,17 @@
 						type="text"
 					/>
 				</div>
-				<div *ngIf="!this.detailedView" class="create__list">
-					<div
-						*ngFor="let device of devices"
-						class="create__block"
-						(click)="showDetails(device.deviceKey)"
-					>
+				<div class="create__list">
+					<div *ngFor="let device of devices" class="create__block">
 						<p>{{ device.deviceName }}</p>
 						<img src="{{ device.deviceImage }}" alt="" />
 					</div>
 				</div>
-				<div *ngIf="this.detailedView" class="create__details">
+				<div *ngIf="this.deviceDetails" class="create__details">
 					<div class="details__leftBlock">
-						<p>{{ detailedInfo!.deviceName }}</p>
+						<p>{{ deviceDetails!.deviceName }}</p>
 						<div class="details__image">
-							<img src="{{ detailedInfo!.deviceImage }}" alt="" />
+							<img src="{{ deviceDetails!.deviceImage }}" alt="" />
 						</div>
 						<div class="details__user">
 							<h6>Personal and Contact Details</h6>
@@ -46,132 +42,132 @@
 								<tr class="table__row">
 									<td class="table__leadRow">Display</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.display">
+										<p *ngIf="this.deviceDetails!.display">
 											<span style="font-weight: bold">Display:</span>
-											{{ this.detailedInfo!.display }}
+											{{ this.deviceDetails!.display }}
 										</p>
-										<p *ngIf="this.detailedInfo!.size">
+										<p *ngIf="this.deviceDetails!.size">
 											<span style="font-weight: bold">Size:</span>
-											{{ this.detailedInfo!.size }}
+											{{ this.deviceDetails!.size }}
 										</p>
-										<p *ngIf="this.detailedInfo!.resolution">
+										<p *ngIf="this.deviceDetails!.resolution">
 											<span style="font-weight: bold">Resolution:</span>
-											{{ this.detailedInfo!.resolution }}
+											{{ this.deviceDetails!.resolution }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Cameras</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.cameraMain">
+										<p *ngIf="this.deviceDetails!.cameraMain">
 											<span style="font-weight: bold">Rear Camera:</span>
-											{{ this.detailedInfo!.cameraMain }}
+											{{ this.deviceDetails!.cameraMain }}
 										</p>
-										<p *ngIf="this.detailedInfo!.videoMain">
+										<p *ngIf="this.deviceDetails!.videoMain">
 											<span style="font-weight: bold">Rear Camera Video:</span>
-											{{ this.detailedInfo!.videoMain }}
+											{{ this.deviceDetails!.videoMain }}
 										</p>
-										<p *ngIf="this.detailedInfo!.cameraSelfie">
+										<p *ngIf="this.deviceDetails!.cameraSelfie">
 											<span style="font-weight: bold">Front Camera:</span>
-											{{ this.detailedInfo!.cameraSelfie }}
+											{{ this.deviceDetails!.cameraSelfie }}
 										</p>
-										<p *ngIf="this.detailedInfo!.videoSelfie">
+										<p *ngIf="this.deviceDetails!.videoSelfie">
 											<span style="font-weight: bold">Front Camera Video:</span>
-											{{ this.detailedInfo!.videoSelfie }}
+											{{ this.deviceDetails!.videoSelfie }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Hardware</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.chipset">
+										<p *ngIf="this.deviceDetails!.chipset">
 											<span style="font-weight: bold">Chipset:</span>
-											{{ this.detailedInfo!.chipset }}
+											{{ this.deviceDetails!.chipset }}
 										</p>
-										<p *ngIf="this.detailedInfo!.os">
+										<p *ngIf="this.deviceDetails!.os">
 											<span style="font-weight: bold">OS:</span>
-											{{ this.detailedInfo!.os }}
+											{{ this.deviceDetails!.os }}
 										</p>
-										<p *ngIf="this.detailedInfo!.cpu">
+										<p *ngIf="this.deviceDetails!.cpu">
 											<span style="font-weight: bold">CPU:</span>
-											{{ this.detailedInfo!.cpu }}
+											{{ this.deviceDetails!.cpu }}
 										</p>
-										<p *ngIf="this.detailedInfo!.gpu">
+										<p *ngIf="this.deviceDetails!.gpu">
 											<span style="font-weight: bold">GPU:</span>
-											{{ this.detailedInfo!.gpu }}
+											{{ this.deviceDetails!.gpu }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Body</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.dimensions">
+										<p *ngIf="this.deviceDetails!.dimensions">
 											<span style="font-weight: bold">Size:</span>
-											{{ this.detailedInfo!.dimensions }}
+											{{ this.deviceDetails!.dimensions }}
 										</p>
-										<p *ngIf="this.detailedInfo!.weight">
+										<p *ngIf="this.deviceDetails!.weight">
 											<span style="font-weight: bold">Weight:</span>
-											{{ this.detailedInfo!.weight }}
+											{{ this.deviceDetails!.weight }}
 										</p>
-										<p *ngIf="this.detailedInfo!.build">
+										<p *ngIf="this.deviceDetails!.build">
 											<span style="font-weight: bold">Build:</span>
-											{{ this.detailedInfo!.build }}
+											{{ this.deviceDetails!.build }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Battery</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.batteryType">
+										<p *ngIf="this.deviceDetails!.batteryType">
 											<span style="font-weight: bold">Type:</span>
-											{{ this.detailedInfo!.batteryType }}
+											{{ this.deviceDetails!.batteryType }}
 										</p>
-										<p *ngIf="this.detailedInfo!.batteryCharge">
+										<p *ngIf="this.deviceDetails!.batteryCharge">
 											<span style="font-weight: bold">Charge:</span>
-											{{ this.detailedInfo!.batteryCharge }}
+											{{ this.deviceDetails!.batteryCharge }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Storage & Sim</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.cardSlot">
+										<p *ngIf="this.deviceDetails!.cardSlot">
 											<span style="font-weight: bold">Card Slot:</span>
-											{{ this.detailedInfo!.cardSlot }}
+											{{ this.deviceDetails!.cardSlot }}
 										</p>
-										<p *ngIf="this.detailedInfo!.internalStorage">
+										<p *ngIf="this.deviceDetails!.internalStorage">
 											<span style="font-weight: bold">Internal Storage:</span>
-											{{ this.detailedInfo!.internalStorage }}
+											{{ this.deviceDetails!.internalStorage }}
 										</p>
-										<p *ngIf="this.detailedInfo!.sim">
+										<p *ngIf="this.deviceDetails!.sim">
 											<span style="font-weight: bold">Sim:</span>
-											{{ this.detailedInfo!.sim }}
+											{{ this.deviceDetails!.sim }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Features</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.connectivity">
+										<p *ngIf="this.deviceDetails!.connectivity">
 											<span style="font-weight: bold">Connectivity:</span>
-											{{ this.detailedInfo!.connectivity }}
+											{{ this.deviceDetails!.connectivity }}
 										</p>
-										<p *ngIf="this.detailedInfo!.jack">
+										<p *ngIf="this.deviceDetails!.jack">
 											<span style="font-weight: bold">3.5mm Jack:</span>
-											{{ this.detailedInfo!.jack }}
+											{{ this.deviceDetails!.jack }}
 										</p>
-										<p *ngIf="this.detailedInfo!.features">
+										<p *ngIf="this.deviceDetails!.features">
 											<span style="font-weight: bold">Others:</span>
-											{{ this.detailedInfo!.features }}
+											{{ this.deviceDetails!.features }}
 										</p>
 									</td>
 								</tr>
 								<tr class="table__row">
 									<td class="table__leadRow">Distribution</td>
 									<td class="table__data">
-										<p *ngIf="this.detailedInfo!.launchDate">
+										<p *ngIf="this.deviceDetails!.launchDate">
 											<span style="font-weight: bold">Release Date:</span>
-											{{ this.detailedInfo!.launchDate }}
+											{{ this.deviceDetails!.launchDate }}
 										</p>
 									</td>
 								</tr>

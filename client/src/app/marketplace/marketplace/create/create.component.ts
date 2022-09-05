@@ -1,45 +1,38 @@
 import {
-	AfterViewInit,
 	Component,
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import {
-	debounceTime,
-	distinctUntilChanged,
-	fromEvent,
-	map,
-	Observable,
-} from 'rxjs';
-import { DeviceDetails } from 'src/app/shared/interfaces/Devices.interface';
-import { DevicePostingPayload } from 'src/app/shared/interfaces/Posting.interface';
-import { UserDetails } from 'src/app/shared/interfaces/User.interface';
+import { Observable } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { Device } from 'src/app/state/device/device.state';
+import { PostingPayload } from 'src/app/state/posting/posting.state';
+import { UserAuth } from 'src/app/state/user/user.state';
 
 @Component({
 	selector: 'app-create',
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.sass'],
 })
-export class CreateComponent implements OnInit, AfterViewInit {
+export class CreateComponent {
 	public display$!: Observable<boolean>;
-	public posting: DevicePostingPayload | undefined;
-	public detailedView: boolean = false;
-	public detailedInfo: DeviceDetails | undefined;
+	public posting!: PostingPayload | null;
 
-	@Input() user: UserDetails | undefined;
-	@Input() devices: DeviceDetails[] | undefined;
+	@Input() user!: UserAuth | null;
+	@Input() devices!: Device[] | null;
+	@Input() deviceDetails!: Device | null;
 	@Output() requestDetails = new EventEmitter<string>();
-	@Output() createPosting = new EventEmitter<DevicePostingPayload>();
+	@Output() createPosting = new EventEmitter<PostingPayload>();
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
-	constructor(private modal: ModalService, private fb: FormBuilder) {}
+	constructor(private modal: ModalService, private fb: FormBuilder) {
+		this.display$ = this.modal.watch();
+	}
 
 	postingForm = this.fb.group({
 		comments: [''],
@@ -54,40 +47,15 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		return this.postingForm.get(['price']);
 	}
 
-	ngOnInit(): void {
-		this.display$ = this.modal.watch();
-	}
-
-	ngAfterViewInit() {
-		fromEvent(this.searchDevice.nativeElement, 'input')
-			.pipe(
-				debounceTime(1000),
-				distinctUntilChanged(),
-				map((e: Event) => (e.target as HTMLInputElement).value)
-			)
-			.subscribe({
-				next: (res) => {
-					this.detailedView = false;
-					this.requestDetails.emit(res);
-				},
-				error: (err) => console.log(err),
-			});
-	}
-
-	showDetails(key: string) {
-		this.detailedView = true;
-		this.detailedInfo = this.devices!.filter((x) => x.deviceKey == key)[0];
-	}
-
 	sendPosting(): void {
 		this.posting = {
 			userEmail: this.user!.email as string,
-			deviceKey: this.detailedInfo!.deviceKey as string,
+			deviceKey: this.deviceDetails!.deviceKey as string,
 			comments: this.comments!.value,
-			price: this.price!.value
-		}
+			price: this.price!.value,
+		};
 		this.createPosting.emit(this.posting);
-		this.close()
+		this.close();
 	}
 
 	resetForm() {
@@ -96,10 +64,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	close(): void {
 		this.modal.close();
-		this.user = undefined;
-		this.detailedView = false;
-		this.devices = undefined;
-		this.detailedInfo = undefined;
 		this.searchDevice.nativeElement.value = '';
 	}
 }

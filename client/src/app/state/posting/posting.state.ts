@@ -43,7 +43,7 @@ export interface PostingState {
 }
 
 export interface Posting {
-	id: number | null;
+	id: number;
 	userEmail: string;
 	deviceKey: string;
 	comments: string;

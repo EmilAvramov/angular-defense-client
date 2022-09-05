@@ -1,11 +1,12 @@
 <app-search
-	(search)="this.loadPostings($event)"
+	(search)="this.searchPostings($event)"
 	(create)="this.openModal()"
 ></app-search>
-<app-list [postingData]="this.postingData"></app-list>
+<app-list [postings]="this.postings"></app-list>
 <app-create
 	[user]="this.user"
-	[devices]="this.details"
-	(requestDetails)="this.loadDevice($event)"
-	(createPosting)="this.addPosting($event)"
+	[devices]="this.devices"
+	[deviceDetails]="this.deviceDetails"
+	(requestDetails)="this.searchDevices($event)"
+	(createPosting)="this.createPosting($event)"
 ></app-create>

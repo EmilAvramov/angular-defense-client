@@ -14,7 +14,7 @@ import { UserAuth } from '../user/user.state';
 import { Device } from '../device/device.state';
 
 @Injectable()
-export class DeviceEffects {
+export class PostingEffects {
 	constructor(
 		private readonly postingStore: Store<PostingState>,
 		private readonly actions$: Actions,
