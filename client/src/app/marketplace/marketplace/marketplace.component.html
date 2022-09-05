@@ -2,7 +2,11 @@
 	(search)="this.searchPostings($event)"
 	(create)="this.openModal()"
 ></app-search>
-<app-list [postings]="this.postings"></app-list>
+<app-list
+	[postings]="this.postings"
+	(requestMore)="this.loadMorePostings()"
+	(requestDetails)="this.deviceDetails"
+></app-list>
 <app-create
 	[user]="this.user"
 	[devices]="this.devices"

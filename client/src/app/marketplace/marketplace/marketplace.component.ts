@@ -41,6 +41,7 @@ export class MarketplaceComponent {
 			next: (data: UserAuth | null) => (this.user = data),
 			error: (err: string | null) => console.log(err),
 		});
+		console.log(this.postings)
 	}
 
 	openModal(): void {

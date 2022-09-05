@@ -3,7 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { initialPostingState, PostingState } from './posting.state';
 import * as postingActions from './posting.actions';
 
-export const _userReducer = createReducer(
+export const _postingReducer = createReducer(
 	initialPostingState,
 	on(postingActions.PostingInit, (state) => ({
 		...state,
@@ -184,5 +184,5 @@ export function postingReducer(
 	state: PostingState | undefined,
 	action: Action
 ) {
-	return _userReducer(state, action);
+	return _postingReducer(state, action);
 }

@@ -28,15 +28,15 @@ export class DevicesComponent {
 					this.spinner.hide();
 				}
 			},
-			error: (err) => console.log(err),
+			error: (err: string | null) => console.log(err),
 		});
 		this.deviceFacade.deviceData$.subscribe({
 			next: (data: Device[] | null) => (this.data = data),
-			error: (err) => console.log(err),
+			error: (err: string | null) => console.log(err),
 		});
 		this.deviceFacade.deviceDetails$.subscribe({
 			next: (data: Device | null) => (this.details = data),
-			error: (err) => console.log(err),
+			error: (err: string | null) => console.log(err),
 		});
 	}
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Posting } from 'src/app/state/posting/posting.state';
 
 @Component({
@@ -6,22 +6,20 @@ import { Posting } from 'src/app/state/posting/posting.state';
 	templateUrl: './list.component.html',
 	styleUrls: ['./list.component.sass'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 	@Input() postings!: Posting[] | null;
-	@Output() request = new EventEmitter<string>();
-	@Output() details = new EventEmitter<number>();
+	@Output() requestMore = new EventEmitter<string>();
+	@Output() requestDetails = new EventEmitter<number>();
 
 	loadMore() {
-		this.request.emit('request more data');
+		this.requestMore.emit('request more data');
 	}
 
 	showDetails(id: number) {
-		this.details.emit(id);
+		this.requestDetails.emit(id);
 	}
 
 	constructor() {}
-
-	ngOnInit(): void {}
 
 	open(id: number) {
 		this.showDetails(id);

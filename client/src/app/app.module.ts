@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { DevicesModule } from './devices/devices.module';
 import { ProfileModule } from './profile/profile.module';
 
+import { AuthService, StorageService } from './state/user/user.service';
 import { userReducer } from './state/user/user.reducers';
 import { UserFacade } from './state/user/user.facade';
 import { UserEffects } from './state/user/user.effects';
@@ -23,9 +24,8 @@ import { UserEffects } from './state/user/user.effects';
 import { deviceReducer } from './state/device/device.reducers';
 import { DeviceFacade } from './state/device/device.facade';
 import { DeviceEffects } from './state/device/device.effects';
-
-import { AuthService, StorageService } from './state/user/user.service';
 import { DeviceService } from './state/device/device.service';
+
 import { PostingFacade } from './state/posting/posting.facade';
 import { postingReducer } from './state/posting/posting.reducers';
 import { PostingEffects } from './state/posting/posting.effects';
