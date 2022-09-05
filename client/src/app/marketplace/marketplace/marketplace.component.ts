@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
@@ -11,7 +11,7 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent implements OnInit {
+export class MarketplaceComponent {
 	public limit: number = 18;
 	public offset: number = 0;
 
@@ -25,10 +25,27 @@ export class MarketplaceComponent implements OnInit {
 		public modal: ModalService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade
-	) {}
-
-	ngOnInit(): void {
-		this._streamPostingData();
+	) {
+		this.postingFacade.postingData$.subscribe({
+			next: (data: Posting[] | null) => (this.postings = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.postingDetails$.subscribe({
+			next: (data: Posting | null) => (this.postingDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.devicesData$.subscribe({
+			next: (data: Device[] | null) => (this.devices = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.postingFacade.deviceDetails$.subscribe({
+			next: (data: Device | null) => (this.deviceDetails = data),
+			error: (err: string | null) => console.log(err),
+		});
+		this.userFacade.userData$.subscribe({
+			next: (data: User | null) => (this.user = data),
+			error: (err: string | null) => console.log(err),
+		});
 	}
 
 	searchPostings(query: string): void {
@@ -42,7 +59,7 @@ export class MarketplaceComponent implements OnInit {
 	}
 
 	fetchPostingDetails(id: number): void {
-		this._streamPostingDetails(id);
+		this.postingFacade.getPostingDetails(id);
 	}
 
 	openModal(): void {
@@ -50,11 +67,11 @@ export class MarketplaceComponent implements OnInit {
 	}
 
 	fetchDeviceList(query: string): void {
-		this._streamDeviceData(query);
+		this.postingFacade.queryDevices(query, 10);
 	}
 
 	fetchDeviceDetails(key: string): void {
-		this._streamDeviceDetails(key)
+		this.postingFacade.getDeviceDetails(key);
 	}
 
 	clearDetails(): void {
@@ -63,43 +80,5 @@ export class MarketplaceComponent implements OnInit {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
-	}
-
-
-	// Private methods below to help with component clutter
-
-	_streamPostingData(): void {
-		this.postingFacade.postingData$.subscribe({
-			next: (data: Posting[] | null) => (this.postings = data),
-			error: (err: string | null) => console.log(err),
-		});
-	}
-
-	_streamPostingDetails(id: number): void {
-		this.postingFacade.postingDetails$.subscribe({
-			next: (data: Posting | null) => (this.postingDetails = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.getPostingDetails(id);
-	}
-
-	_streamDeviceData(query: string): void {
-		this.postingFacade.devicesData$.subscribe({
-			next: (data: Device[] | null) => (this.devices = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.queryDevices(query, 10);
-	}
-
-	_streamDeviceDetails(key:string): void {
-		this.postingFacade.deviceDetails$.subscribe({
-			next: (data: Device | null) => (this.deviceDetails = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.userFacade.userData$.subscribe({
-			next: (data: User | null) => (this.user = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.getDeviceDetails(key);
 	}
 }

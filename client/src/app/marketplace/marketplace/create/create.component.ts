@@ -89,7 +89,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	close(): void {
 		this.modal.close();
 		this.searchDevice.nativeElement.value = '';
-		this.clearDetails.emit()
+		this.clearDetails.emit();
 	}
 
 	openCreate(key: string): void {

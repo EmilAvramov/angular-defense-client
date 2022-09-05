@@ -1,45 +1,28 @@
 import { Device } from '../device/device.state';
 import { User } from '../user/user.state';
 
-export const POSTING_FEATURE_KEY = 'posting'
+export const POSTING_FEATURE_KEY = 'posting';
 
 export const initialPostingState: PostingState = {
 	postings: null,
-
-	postingsQuery: '',
-	postingsFilter: '',
 	postingsDetails: null,
-
 	devices: null,
-	devicesQuery: '',
-	devicesFilter: '',
-
-	create: null,
 	devicesDetails: null,
+	create: null,
 	user: null,
-
 	loaded: false,
 	error: null,
-	
 };
 
 export interface PostingState {
-    postings: Posting[] | null,
-
-    postingsQuery: string | null,
-	postingsFilter: string | null,
-    postingsDetails: Posting | null,
-
-	devices: Device[] | null,
-	devicesQuery: string | null,
-	devicesFilter: string | null,
-
-	create: Posting | null,
-    devicesDetails: Device | null,
-    user: User | null,
-
-	loaded: boolean,
-	error: null | string,
+	postings: Posting[] | null;
+	postingsDetails: Posting | null;
+	devices: Device[] | null;
+	devicesDetails: Device | null;
+	create: Posting | null;
+	user: User | null;
+	loaded: boolean;
+	error: null | string;
 }
 
 export interface Posting {

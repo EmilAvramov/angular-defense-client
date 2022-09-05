@@ -2,18 +2,14 @@ export const DEVICE_FEATURE_KEY = 'device';
 
 export const initialDeviceState: DeviceState = {
 	devices: null,
-	query: '',
 	details: null,
-	detailsFilter: '',
 	loaded: false,
 	error: null,
 };
 
 export interface DeviceState {
 	devices: Device[] | null;
-	query: string | null,
 	details: Device | null,
-	detailsFilter: string | null,
 	loaded: boolean;
 	error: string | null;
 }
