@@ -10,7 +10,7 @@ import { PostingActionNames } from './posting.actions';
 import { Posting, PostingState } from './posting.state';
 
 import { UserFacade } from '../user/user.facade';
-import { UserAuth } from '../user/user.state';
+import { User } from '../user/user.state';
 import { Device } from '../device/device.state';
 
 @Injectable()
@@ -190,7 +190,7 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingLoadUser),
 			switchMap(() =>
 				this.userFacade.userData$.pipe(
-					map((user: UserAuth) => PostingActions.PostingLoadUserSuccess({ user }))
+					map((user: User) => PostingActions.PostingLoadUserSuccess({ user }))
 				)
 			),
 			catchError((error: string | null) =>

@@ -3,7 +3,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
-import { UserAuth } from 'src/app/state/user/user.state';
+import { User } from 'src/app/state/user/user.state';
 
 @Component({
 	selector: 'app-marketplace',
@@ -18,7 +18,7 @@ export class MarketplaceComponent {
 	public postingDetails!: Posting | null;
 	public devices!: Device[] | null;
 	public deviceDetails!: Device | null;
-	public user!: UserAuth | null;
+	public user!: User | null;
 
 	constructor(public modal: ModalService, private postingFacade: PostingFacade) {
 		this.postingFacade.postingData$.subscribe({
@@ -38,7 +38,7 @@ export class MarketplaceComponent {
 			error: (err: string | null) => console.log(err),
 		});
 		this.postingFacade.userData$.subscribe({
-			next: (data: UserAuth | null) => (this.user = data),
+			next: (data: User | null) => (this.user = data),
 			error: (err: string | null) => console.log(err),
 		});
 		console.log(this.postings)

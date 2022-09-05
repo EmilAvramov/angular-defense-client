@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { server } from '../../shared/variables/config';
-import { UserAuth } from './user.state';
+import { User } from './user.state';
 
 @Injectable()
 export class AuthService {
@@ -76,7 +76,7 @@ export class AuthService {
 
 @Injectable()
 export class StorageService {
-	setStorage(response: UserAuth): void {
+	setStorage(response: User): void {
 		sessionStorage.setItem('email', response.email);
 		sessionStorage.setItem('firstName', response.firstName);
 		sessionStorage.setItem('lastName', response.lastName);
@@ -90,7 +90,7 @@ export class StorageService {
 		sessionStorage.clear();
 	}
 
-	getStorage(): UserAuth {
+	getStorage(): User {
 		return {
 			email: sessionStorage.getItem('email')!,
 			firstName: sessionStorage.getItem('firstName')!,

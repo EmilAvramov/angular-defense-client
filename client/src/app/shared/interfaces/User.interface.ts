@@ -29,7 +29,7 @@ export interface UserSession {
 	token: string;
 }
 
-export interface UserAuth {
+export interface User {
 	payload: {
 		email: string;
 		firstName: string;

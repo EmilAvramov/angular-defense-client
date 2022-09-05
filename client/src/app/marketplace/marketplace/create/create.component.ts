@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingPayload } from 'src/app/state/posting/posting.state';
-import { UserAuth } from 'src/app/state/user/user.state';
+import { User } from 'src/app/state/user/user.state';
 
 @Component({
 	selector: 'app-create',
@@ -22,7 +22,7 @@ export class CreateComponent {
 	public display$!: Observable<boolean>;
 	public posting!: PostingPayload | null;
 
-	@Input() user!: UserAuth | null;
+	@Input() user!: User | null;
 	@Input() devices!: Device[] | null;
 	@Input() deviceDetails!: Device | null;
 	@Output() requestDetails = new EventEmitter<string>();

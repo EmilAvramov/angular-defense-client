@@ -1,5 +1,5 @@
 import { Device } from '../device/device.state';
-import { UserAuth } from '../user/user.state';
+import { User } from '../user/user.state';
 
 export const POSTING_FEATURE_KEY = 'posting'
 
@@ -36,7 +36,7 @@ export interface PostingState {
 
 	create: Posting | null,
     devicesDetails: Device | null,
-    user: UserAuth | null,
+    user: User | null,
 
 	loaded: boolean,
 	error: null | string,
@@ -48,7 +48,7 @@ export interface Posting {
 	deviceKey: string;
 	comments: string;
 	price: number | null;
-	User: UserAuth | null;
+	User: User | null;
 	Device: Device | null;
 }
 

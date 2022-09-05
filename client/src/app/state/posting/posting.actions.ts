@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { Device } from '../device/device.state';
-import { UserAuth } from '../user/user.state';
+import { User } from '../user/user.state';
 import { Posting, PostingPayload } from './posting.state';
 
 export enum PostingActionNames {
@@ -196,7 +196,7 @@ export const PostingLoadUser = createAction(PostingActionNames.PostingLoadUser);
 
 export const PostingLoadUserSuccess = createAction(
 	PostingActionNames.PostingLoadUserSuccess,
-	props<{ user: UserAuth }>()
+	props<{ user: User }>()
 );
 
 export const PostingLoadUserFailure = createAction(

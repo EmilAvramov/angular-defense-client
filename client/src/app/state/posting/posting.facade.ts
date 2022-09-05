@@ -7,7 +7,7 @@ import * as postingActions from './posting.actions';
 
 import { Posting, PostingPayload, PostingState } from './posting.state';
 import { Device } from '../device/device.state';
-import { UserAuth } from '../user/user.state';
+import { User } from '../user/user.state';
 
 @Injectable()
 export class PostingFacade {
@@ -33,7 +33,7 @@ export class PostingFacade {
 		select(postingSelectors.getCreatedPosting)
 	);
 
-	public readonly userData$: Observable<UserAuth | null> = this.store.pipe(
+	public readonly userData$: Observable<User | null> = this.store.pipe(
 		select(postingSelectors.getPostingUser)
 	);
 

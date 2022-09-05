@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { DeviceDetailsModel } from '../models/models';
+import { DeviceModel } from '../models/models';
 
 export const getDevices = async (
 	query: string = '',
@@ -8,7 +8,7 @@ export const getDevices = async (
 ) => {
 	try {
 		if (query) {
-			return await DeviceDetailsModel.findAll({
+			return await DeviceModel.findAll({
 				where: { deviceName: { [Op.iLike]: `%${query}%` } },
 				limit,
 				offset,
@@ -17,7 +17,7 @@ export const getDevices = async (
 				},
 			});
 		}
-		return await DeviceDetailsModel.findAll({
+		return await DeviceModel.findAll({
 			limit,
 			offset,
 			include: {

@@ -3,7 +3,6 @@ import sequelize from '../config/database';
 
 import { Brand } from '../interfaces/Brand.interface';
 import { Device } from '../interfaces/Device.interface';
-import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 import { Posting } from '../interfaces/Posting.interface';
 import { User } from '../interfaces/User.interface';
 
@@ -33,35 +32,6 @@ export const BrandModel = Brand.init(
 );
 
 export const DeviceModel = Device.init(
-	{
-		id: {
-			primaryKey: true,
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-		},
-		deviceName: {
-			type: DataTypes.TEXT,
-			allowNull: true,
-		},
-		deviceImage: {
-			type: DataTypes.TEXT,
-			allowNull: true,
-		},
-		deviceKey: {
-			type: DataTypes.TEXT,
-			allowNull: false,
-			unique: true,
-		},
-		fkBrand: {
-			type: DataTypes.TEXT,
-			allowNull: false,
-			unique: false,
-		},
-	},
-	{ sequelize, timestamps: false }
-);
-
-export const DeviceDetailsModel = DeviceDetails.init(
 	{
 		id: {
 			primaryKey: true,
@@ -199,12 +169,12 @@ export const PostingModel = Posting.init(
 		userEmail: {
 			type: DataTypes.TEXT,
 			unique: false,
-			allowNull: false
+			allowNull: false,
 		},
 		deviceKey: {
 			type: DataTypes.TEXT,
 			unique: false,
-			allowNull: false
+			allowNull: false,
 		},
 		comments: {
 			type: DataTypes.TEXT,
@@ -258,22 +228,17 @@ export const UserModel = User.init(
 	{ sequelize, timestamps: false }
 );
 
-BrandModel.hasMany(DeviceModel, {
-	sourceKey: 'brandKey',
-	foreignKey: 'fkBrand',
-});
-
-DeviceModel.belongsTo(DeviceDetailsModel, {
-	targetKey: 'deviceKey',
+DeviceModel.hasMany(PostingModel, {
+	sourceKey: 'deviceKey',
 	foreignKey: 'deviceKey'
 })
 
-DeviceModel.belongsTo(BrandModel, {
-	foreignKey: 'fkBrand',
-	targetKey: 'brandKey',
+UserModel.hasMany(PostingModel, {
+	sourceKey: 'email',
+	foreignKey: 'userEmail',
 });
 
-PostingModel.belongsTo(DeviceDetailsModel, {
+PostingModel.belongsTo(DeviceModel, {
 	foreignKey: 'deviceKey',
 	targetKey: 'deviceKey',
 });
@@ -281,11 +246,6 @@ PostingModel.belongsTo(DeviceDetailsModel, {
 PostingModel.belongsTo(UserModel, {
 	foreignKey: 'userEmail',
 	targetKey: 'email',
-});
-
-UserModel.hasMany(PostingModel, {
-	sourceKey: 'email',
-	foreignKey: 'userEmail',
 });
 
 (async () => {

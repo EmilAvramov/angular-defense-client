@@ -7,7 +7,7 @@ import {
 	Model,
 	NonAttribute,
 } from 'sequelize';
-import { DeviceDetails } from './DeviceDetails.interface';
+import { Device } from './Device.interface';
 import { User } from './User.interface';
 
 export class Posting extends Model<
@@ -16,15 +16,15 @@ export class Posting extends Model<
 > {
 	declare id: CreationOptional<number>;
 	declare userEmail: ForeignKey<User['email']>;
-	declare deviceKey: ForeignKey<DeviceDetails['deviceKey']>;
+	declare deviceKey: ForeignKey<Device['deviceKey']>;
 	declare comments: string;
 	declare price: number;
 	
 	declare users?: NonAttribute<User[]>;
-	declare details?: NonAttribute<DeviceDetails[]>
+	declare details?: NonAttribute<Device[]>
 
 	declare static associations: {
 		users: Association<Posting, User>;
-		details: Association<Posting, DeviceDetails>
+		details: Association<Posting, Device>
 	};
 }

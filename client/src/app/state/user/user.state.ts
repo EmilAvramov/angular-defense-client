@@ -24,7 +24,7 @@ export interface UserState {
     error: string | null
 }
 
-export interface UserAuth {
+export interface User {
     email: string;
 	firstName: string;
 	lastName: string;

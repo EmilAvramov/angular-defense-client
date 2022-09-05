@@ -1,7 +1,7 @@
 import e from 'express';
 import { Op } from 'sequelize';
 import { Posting } from '../interfaces/Posting.interface';
-import { PostingModel, UserModel, DeviceDetailsModel } from '../models/models';
+import { PostingModel, UserModel, DeviceModel } from '../models/models';
 
 export const getPostings = async (
 	query: string = '',
@@ -13,7 +13,7 @@ export const getPostings = async (
 			return await PostingModel.findAll({
 				include: [
 					{
-						model: DeviceDetailsModel,
+						model: DeviceModel,
 						where: { deviceName: { [Op.iLike]: `%${query}%` } },
 						required: true,
 					},
@@ -33,7 +33,7 @@ export const getPostings = async (
 					required: true,
 				},
 				{
-					model: DeviceDetailsModel,
+					model: DeviceModel,
 					required: true,
 				},
 			],

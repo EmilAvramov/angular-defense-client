@@ -1,11 +1,4 @@
-import {
-	Association,
-	InferAttributes,
-	InferCreationAttributes,
-	Model,
-	NonAttribute,
-} from 'sequelize';
-import { Device } from './Device.interface';
+import { InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
 export class Brand extends Model<
 	InferAttributes<Brand>,
@@ -14,10 +7,4 @@ export class Brand extends Model<
 	declare brandId: number;
 	declare brandName: string;
 	declare brandKey: string;
-
-	declare devices?: NonAttribute<Device[]>
-
-	declare static associations: {
-		devices: Association<Brand, Device>
-	}
 }

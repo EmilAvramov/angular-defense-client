@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserAuth } from './user.state';
+import { User } from './user.state';
 
 export enum UserActionsNames {
 	UserInit = '[User] Init',
@@ -46,7 +46,7 @@ export const UserLogin = createAction(
 
 export const UserLoginSuccess = createAction(
 	UserActionsNames.UserLoginSuccess,
-	props<{ user: UserAuth }>()
+	props<{ user: User }>()
 );
 
 export const UserLoginFailure = createAction(
@@ -69,7 +69,7 @@ export const UserRegister = createAction(
 
 export const UserRegisterSuccess = createAction(
 	UserActionsNames.UserRegisterSuccess,
-	props<{ user: UserAuth }>()
+	props<{ user: User }>()
 );
 
 export const UserRegisterFailure = createAction(
@@ -99,7 +99,7 @@ export const UserValidate = createAction(
 
 export const UserValidateSuccess = createAction(
 	UserActionsNames.UserValidateSuccess,
-	props<{ user: UserAuth }>()
+	props<{ user: User }>()
 );
 
 export const UserValidateFailure = createAction(

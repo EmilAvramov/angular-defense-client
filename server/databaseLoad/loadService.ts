@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-import { DeviceDetails } from '../interfaces/DeviceDetails.interface';
 import { Brand } from '../interfaces/Brand.interface';
 import { Device } from '../interfaces/Device.interface';
-import { BrandModel, DeviceModel, DeviceDetailsModel } from '../models/models';
+import { BrandModel, DeviceModel } from '../models/models';
 
 import { normalize } from './functions';
 
@@ -36,8 +35,7 @@ export const getBrands = async () => {
 };
 
 export const cleanData = async () => {
-	const deviceList: any[] = [];
-	const deviceDetails: any[] = [];
+	const devices: any[] = [];
 	let raw: any[] = [];
 
 	fs.readFile(
@@ -49,19 +47,12 @@ export const cleanData = async () => {
 			raw = JSON.parse(data.toString());
 			raw.forEach((item: any) => {
 				if (item.status == 200) {
-					deviceDetails.push(normalize(item))
-					deviceList.push({
-						deviceName: item.data?.device_name,
-						deviceImage: item.data?.device_image,
-						deviceKey: item.data?.key,
-						fkBrand: item.data?.key.split('_')[0],
-					});
+					devices.push(normalize(item));
 				}
 			});
 
 			try {
-				await DeviceDetailsModel.bulkCreate<DeviceDetails>(deviceDetails);
-				await DeviceModel.bulkCreate<Device>(deviceList);
+				await DeviceModel.bulkCreate<Device>(devices);
 			} catch (err: any) {
 				console.log(err.message);
 			}

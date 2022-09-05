@@ -5,7 +5,7 @@ import { catchError, map, Observable, switchMap, of } from 'rxjs';
 import * as userActions from './user.actions';
 import { UserActionsNames } from './user.actions';
 import { AuthService, StorageService } from './user.service';
-import { UserAuth } from './user.state';
+import { User } from './user.state';
 
 @Injectable()
 export class UserEffects {
@@ -41,7 +41,7 @@ export class UserEffects {
 			map(({ email, password }) => userActions.UserLogin({ email, password })),
 			switchMap(({ email, password }) =>
 				this.authService.loginUser(email, password).pipe(
-					map((user: UserAuth) => {
+					map((user: User) => {
 						this.storageService.setStorage(user);
 						return userActions.UserLoginSuccess({ user });
 					})
@@ -71,7 +71,7 @@ export class UserEffects {
 				this.authService
 					.registerUser(email, password, firstName, lastName, phone, address, city)
 					.pipe(
-						map((user: UserAuth) => {
+						map((user: User) => {
 							this.storageService.setStorage(user);
 							return userActions.UserRegisterSuccess({ user });
 						})
