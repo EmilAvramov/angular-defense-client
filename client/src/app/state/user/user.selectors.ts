@@ -29,3 +29,8 @@ export const getUserError = createSelector(
 	getUserState,
 	(state: UserState) => state.error
 );
+
+export const getValidatedUser = createSelector(
+	getUserState,
+	(state: UserState) => state.validated
+);

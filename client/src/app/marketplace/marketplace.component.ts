@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
@@ -12,7 +12,7 @@ import { PostingDetailsService } from './services/postingDetails.service';
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent {
+export class MarketplaceComponent implements AfterViewInit {
 	public limit: number = 18;
 	public offset: number = 0;
 
@@ -21,6 +21,7 @@ export class MarketplaceComponent {
 	public devices!: Device[] | null;
 	public deviceDetails!: Device | null;
 	public user!: User | null;
+	public validatedUser!: User | null;
 
 	constructor(
 		public postingModal: PostingDetailsService,
@@ -48,7 +49,20 @@ export class MarketplaceComponent {
 			next: (data: User | null) => (this.user = data),
 			error: (err: string | null) => console.log(err),
 		});
+		this.userFacade.userValidated$.subscribe({
+			next: (data: User | null) => (this.validatedUser = data),
+			error: (err: string | null) => console.log(err),
+		});
 	}
+
+	
+	ngAfterViewInit(): void {
+		if (this.user) {
+			this.userFacade.validateUser(this.user.token);
+		}
+	}
+
+	// Posting modal actions below
 
 	searchPostings(query: string): void {
 		this.limit = 18;
@@ -62,8 +76,10 @@ export class MarketplaceComponent {
 
 	fetchPostingDetails(id: number): void {
 		this.postingFacade.getPostingDetails(id);
-		this.postingModal.open()
+		this.postingModal.open();
 	}
+
+	// Create modal methods below
 
 	openCreateModal(): void {
 		this.createModal.open();

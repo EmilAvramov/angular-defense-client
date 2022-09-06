@@ -2,6 +2,22 @@
 	<section class="details__wrapper" (click)="close()">
 		<div class="details__container">
 			<button class="close" type="button" (click)="close()">X</button>
+			<button
+				*ngIf="this.validatedUser?.email === this.details!.User?.email"
+				class="edit"
+				type="button"
+				(click)="close()"
+			>
+				Edit
+			</button>
+			<button
+				*ngIf="this.validatedUser?.email === this.details!.User?.email"
+				class="delete"
+				type="button"
+				(click)="close()"
+			>
+				Delete
+			</button>
 			<div class="details__body" (click)="$event.stopPropagation()">
 				<div class="details__left">
 					<p>{{ this.details!.Device!.deviceName }}</p>
@@ -108,7 +124,7 @@
 					</div>
 					<div class="details__block">
 						<p>Seller Comments: {{ this.details!.comments }}</p>
-						<p>Price: {{ this.details!.price }} EUR </p>
+						<p>Price: {{ this.details!.price }} EUR</p>
 					</div>
 				</div>
 			</div>

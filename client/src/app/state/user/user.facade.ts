@@ -4,18 +4,22 @@ import { select, Store } from '@ngrx/store';
 
 import * as userSelectors from './user.selectors';
 import * as userActions from './user.actions';
-import { UserState } from './user.state';
+import { User, UserState } from './user.state';
 
 @Injectable()
 export class UserFacade {
 	constructor(private readonly store: Store<UserState>) {}
 
-	public readonly userData$: Observable<UserState> = this.store.pipe(
-		select(userSelectors.getUserState)
+	public readonly userData$: Observable<User> = this.store.pipe(
+		select(userSelectors.getUser)
 	);
 
 	public readonly userToken$: Observable<string> = this.store.pipe(
 		select(userSelectors.getUserToken)
+	);
+
+	public readonly userValidated$: Observable<User | null> = this.store.pipe(
+		select(userSelectors.getValidatedUser)
 	);
 
 	public readonly userLoaded$: Observable<boolean> = this.store.pipe(
@@ -60,7 +64,9 @@ export class UserFacade {
 		this.store.dispatch(userActions.UserLogout({ token }));
 	}
 
-	public validateUser(token: string): any {
-		this.store.dispatch(userActions.UserValidate({ token }));
+	public validateUser(token: string | undefined): any {
+		if (token) {
+			this.store.dispatch(userActions.UserValidate({ token }));
+		}
 	}
 }

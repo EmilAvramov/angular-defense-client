@@ -8,6 +8,7 @@ export const initialUserState: UserState = {
     address: '',
     city: '',
     token: '',
+	validated: null,
     loaded: false,
     error: null
 }
@@ -20,6 +21,7 @@ export interface UserState {
 	address: string;
 	city: string;
 	token: string;
+	validated: User | null,
 	loaded: boolean,
     error: string | null
 }

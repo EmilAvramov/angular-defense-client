@@ -106,12 +106,9 @@ export class UserEffects {
 			ofType(UserActionsNames.UserValidate),
 			map(({ token }) => userActions.UserValidate({ token })),
 			switchMap(({ token }) =>
-				this.authService.validateUser(token).pipe(
-					map((user) => {
-						console.log(user);
-						return userActions.UserValidateSuccess({ user });
-					})
-				)
+				this.authService
+					.validateUser(token)
+					.pipe(map((user: User) => userActions.UserValidateSuccess({ user })))
 			),
 			catchError((error: string | null) =>
 				of(userActions.UserValidateFailure({ error }))
