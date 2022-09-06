@@ -59,15 +59,7 @@ export const editPosting = async (
 	price: number | undefined
 ) => {
 	try {
-		if (comments && price) {
-			return await PostingModel.update({ comments, price }, { where: { id } });
-		} else if (comments && !price) {
-			return await PostingModel.update({ comments }, { where: { id } });
-		} else if (!comments && price) {
-			return await PostingModel.update({ price }, { where: { id } });
-		} else {
-			throw new Error('No values provided');
-		}
+		return await PostingModel.update({ comments, price }, { where: { id } });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

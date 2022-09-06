@@ -107,6 +107,7 @@ export const _userReducer = createReducer(
 		address: '',
 		city: '',
 		token: '',
+		validated: null,
 		loaded: false,
 		error: null,
 	})),

@@ -78,6 +78,10 @@ export class MarketplaceComponent implements AfterViewInit {
 		this.postingModal.open();
 	}
 
+	editPosting(data: any): void {
+		this.postingFacade.editPosting(data.id, data.comments, data.price);
+	}
+
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
 	}

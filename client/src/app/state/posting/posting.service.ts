@@ -47,7 +47,7 @@ export class PostingService {
 		comments: string | null,
 		price: number | null
 	): Observable<Posting> {
-		return this.http.patch<Posting>(
+		return this.http.put<Posting>(
 			`${server}/postings/edit/${id}`,
 			{ comments, price },
 			{ headers: this.headers }

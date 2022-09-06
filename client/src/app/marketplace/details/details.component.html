@@ -6,7 +6,7 @@
 				*ngIf="this.validatedUser?.email === this.details!.User?.email"
 				class="edit"
 				type="button"
-				(click)="edit()"
+				(click)="emitEdit()"
 			>
 				Edit
 			</button>
@@ -14,7 +14,7 @@
 				*ngIf="this.validatedUser?.email === this.details!.User?.email"
 				class="delete"
 				type="button"
-				(click)="delete()"
+				(click)="emitDelete()"
 			>
 				Delete
 			</button>
@@ -122,9 +122,29 @@
 							Battery Charge: {{ this.details!.Device!.batteryCharge }}
 						</p>
 					</div>
-					<div class="details__block">
+					<div
+						*ngIf="this.validatedUser?.email !== this.details!.User?.email"
+						class="details__block"
+					>
 						<p>Seller Comments: {{ this.details!.comments }}</p>
 						<p>Price: {{ this.details!.price }} EUR</p>
+					</div>
+					<div
+						*ngIf="this.validatedUser?.email === this.details!.User?.email"
+						class="details__input"
+					>
+						<input
+							#comments
+							type="text"
+							name="comments"
+							[defaultValue]="this.details!.comments"
+						/>
+						<input
+							#price
+							type="text"
+							name="price"
+							[defaultValue]="this.details!.price"
+						/>
 					</div>
 				</div>
 			</div>

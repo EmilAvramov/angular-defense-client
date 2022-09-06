@@ -39,11 +39,11 @@ router.post('/create', async (req, res) => {
 	}
 });
 
-router.patch('/edit/:id', async (req, res) => {
+router.put('/edit/:id', async (req, res) => {
 	try {
 		const id = Number(req.params.id)
 		const comments = req.body.comments
-		const price = Number(req.body.price)
+		const price = req.body.price
 		const response = await editPosting(id, comments, price)
 		res.status(200).json(response);
 	} catch (err: any) {

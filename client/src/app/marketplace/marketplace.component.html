@@ -19,5 +19,6 @@
 <app-details
 	[details]="this.postingDetails"
 	[validatedUser]="this.validatedUser"
+	(editPosting)="this.editPosting($event)"
 	(deletePosting)="this.deletePosting($event)"
 ></app-details>

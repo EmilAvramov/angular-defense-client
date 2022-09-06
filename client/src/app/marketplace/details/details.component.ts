@@ -1,5 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { Observable } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
@@ -15,7 +22,15 @@ export class DetailsComponent {
 
 	@Input() details!: Posting | null;
 	@Input() validatedUser!: User | null;
-	@Output() deletePosting = new EventEmitter<number>()
+	@Output() editPosting = new EventEmitter<{
+		id: number;
+		comments: string;
+		price: number;
+	}>();
+	@Output() deletePosting = new EventEmitter<number>();
+
+	@ViewChild('comments') comments!: ElementRef<HTMLInputElement>;
+	@ViewChild('price') price!: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private postingModal: PostingDetailsService,
@@ -24,12 +39,16 @@ export class DetailsComponent {
 		this.display$ = this.postingModal.watch();
 	}
 
-	edit() {
-
+	emitEdit() {
+		this.editPosting.emit({
+			id: this.details!.id,
+			comments: this.comments.nativeElement.value,
+			price: Number(this.price.nativeElement.value),
+		});
 	}
 
-	delete() {
-		this.deletePosting.emit(this.details!.id)
+	emitDelete() {
+		this.deletePosting.emit(this.details!.id);
 	}
 
 	close() {
