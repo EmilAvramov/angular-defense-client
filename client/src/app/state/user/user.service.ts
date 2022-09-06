@@ -12,15 +12,12 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
-	loginUser(email: string, password: string): Observable<any> {
-		this.http
-			.post(
-				`${server}/users/login`,
-				{ email, password },
-				{ headers: this.headers }
-			)
-			.subscribe((res) => this.request.next(res));
-		return this.request;
+	loginUser(email: string, password: string): Observable<User> {
+		return this.http.post<User>(
+			`${server}/users/login`,
+			{ email, password },
+			{ headers: this.headers }
+		);
 	}
 
 	registerUser(
@@ -31,46 +28,41 @@ export class AuthService {
 		phone: string,
 		address: string,
 		city: string
-	): Observable<any> {
-		this.http
-			.post(
-				`${server}/users/register`,
-				{
-					email,
-					password,
-					firstName,
-					lastName,
-					phone,
-					address,
-					city,
-				},
-				{ headers: this.headers }
-			)
-			.subscribe((res) => this.request.next(res));
-		return this.request;
+	): Observable<User> {
+		return this.http.post<User>(
+			`${server}/users/register`,
+			{
+				email,
+				password,
+				firstName,
+				lastName,
+				phone,
+				address,
+				city,
+			},
+			{ headers: this.headers }
+		);
 	}
 
 	logoutUser(token: string): Observable<any> {
-		this.http
-			.post(
-				`${server}/users/logout`,
-				{ token },
-				{
-					headers: {
-						'content-type': 'application/json',
-						'x-authorization': token as string,
-					},
-				}
-			)
-			.subscribe((res) => this.request.next(res));
-		return this.request;
+		return this.http.post(
+			`${server}/users/logout`,
+			{ token },
+			{
+				headers: {
+					'content-type': 'application/json',
+					'x-authorization': token as string,
+				},
+			}
+		);
 	}
 
-	validateUser(token: string): Observable<any> {
-		this.http
-			.post(`${server}/users/validate`, { token }, { headers: this.headers })
-			.subscribe((res) => this.request.next(res));
-		return this.request;
+	validateUser(token: string): Observable<User> {
+		return this.http.post<User>(
+			`${server}/users/validate`,
+			{ token },
+			{ headers: this.headers }
+		);
 	}
 }
 
