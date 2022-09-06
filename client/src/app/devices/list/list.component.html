@@ -1,9 +1,18 @@
 <main class="device__container">
-	<div class="devices__list">
+	<div *ngIf="this.data" class="devices__list">
 		<div *ngFor="let device of data" class="devices__list_item">
-			<p >{{ device.deviceName }}</p>
-			<img (click)="open(device.deviceKey)" src="{{ device.deviceImage }}" alt="" />
+			<p>{{ device.deviceName }}</p>
+			<img
+				(click)="open(device.deviceKey)"
+				src="{{ device.deviceImage }}"
+				alt=""
+			/>
 		</div>
 	</div>
-	<button (click)="loadMore()" class="devices__more">Load More...</button>
+	<div *ngIf="this.data?.length === 0" class="devices__list">
+		<p>Your search brought back no results</p>
+	</div>
+	<button *ngIf="this.data?.length !== 0" (click)="loadMore()" class="devices__more">
+		Load More...
+	</button>
 </main>

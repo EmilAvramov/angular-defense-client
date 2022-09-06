@@ -41,13 +41,17 @@ export class DevicesComponent {
 	}
 
 	loadMore(): void {
-		this.limit += 100
+		this.limit += 100;
 		this.deviceFacade.loadMoreDevices(this.limit, this.offset);
 	}
 
 	query(query: string): void {
-		this.limit = 100
-		this.deviceFacade.searchDevices(query, this.limit, this.offset);
+		this.limit = 100;
+		if (query) {
+			this.deviceFacade.searchDevices(query, this.limit, this.offset);
+		} else {
+			this.deviceFacade.initDeviceData();
+		}
 	}
 
 	getDetails(key: string) {

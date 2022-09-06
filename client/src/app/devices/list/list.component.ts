@@ -7,7 +7,7 @@ import { Device } from 'src/app/state/device/device.state';
 	styleUrls: ['./list.component.sass'],
 })
 export class ListComponent {
-	@Input() data!: Device[] | null;
+	@Input() data!: Device[] | null | undefined;
 	@Output() request = new EventEmitter<string>();
 	@Output() details = new EventEmitter<string>();
 
