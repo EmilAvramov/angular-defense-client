@@ -55,7 +55,6 @@ export class MarketplaceComponent implements AfterViewInit {
 		});
 	}
 
-	
 	ngAfterViewInit(): void {
 		if (this.user) {
 			this.userFacade.validateUser(this.user.token);
@@ -77,6 +76,10 @@ export class MarketplaceComponent implements AfterViewInit {
 	fetchPostingDetails(id: number): void {
 		this.postingFacade.getPostingDetails(id);
 		this.postingModal.open();
+	}
+
+	deletePosting(id: number): void {
+		this.postingFacade.deletePosting(id);
 	}
 
 	// Create modal methods below

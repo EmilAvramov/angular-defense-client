@@ -47,7 +47,7 @@ export class PostingService {
 		comments: string | null,
 		price: number | null
 	): Observable<Posting> {
-		return this.http.post<Posting>(
+		return this.http.patch<Posting>(
 			`${server}/postings/edit/${id}`,
 			{ comments, price },
 			{ headers: this.headers }
@@ -55,7 +55,7 @@ export class PostingService {
 	}
 
 	deletePosting(id: number): Observable<any> {
-		return this.http.post(`${server}/postings/delete/${id}`, {
+		return this.http.delete(`${server}/postings/delete/${id}`, {
 			headers: this.headers,
 		});
 	}

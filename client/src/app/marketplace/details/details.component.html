@@ -6,7 +6,7 @@
 				*ngIf="this.validatedUser?.email === this.details!.User?.email"
 				class="edit"
 				type="button"
-				(click)="close()"
+				(click)="edit()"
 			>
 				Edit
 			</button>
@@ -14,7 +14,7 @@
 				*ngIf="this.validatedUser?.email === this.details!.User?.email"
 				class="delete"
 				type="button"
-				(click)="close()"
+				(click)="delete()"
 			>
 				Delete
 			</button>

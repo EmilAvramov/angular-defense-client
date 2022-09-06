@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -15,12 +15,21 @@ export class DetailsComponent {
 
 	@Input() details!: Posting | null;
 	@Input() validatedUser!: User | null;
+	@Output() deletePosting = new EventEmitter<number>()
 
 	constructor(
 		private postingModal: PostingDetailsService,
 		public userFacade: UserFacade
 	) {
 		this.display$ = this.postingModal.watch();
+	}
+
+	edit() {
+
+	}
+
+	delete() {
+		this.deletePosting.emit(this.details!.id)
 	}
 
 	close() {

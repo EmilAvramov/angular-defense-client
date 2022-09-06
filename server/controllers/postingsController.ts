@@ -54,8 +54,8 @@ router.patch('/edit/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
 	try {
 		const id = Number(req.params.id)
-		const response = await deletePosting(id)
-		res.status(200).json(response)
+		await deletePosting(id)
+		res.status(200).json({message: 'Success'})
 	} catch (err: any) {
 		res.status(400).json({message: err.message})
 	}
