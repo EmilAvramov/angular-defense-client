@@ -1,4 +1,11 @@
 <div class="search__wrapper">
-	<input #searchInput class="search__input" type="text" />
-	<button (click)="onCreate()" class="search__create">Post New Ad</button>
+	<input
+		#searchInput
+		class="search__input"
+		type="text"
+		placeholder="Start typing here..."
+	/>
+	<button *ngIf="this.user?.token" (click)="onCreate()" class="search__create">
+		Post New Ad
+	</button>
 </div>

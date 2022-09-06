@@ -1,4 +1,5 @@
 <app-search
+	[user]="this.user"
 	(search)="this.searchPostings($event)"
 	(create)="this.openCreateModal()"
 ></app-search>

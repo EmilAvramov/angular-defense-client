@@ -4,7 +4,6 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
@@ -26,7 +25,7 @@ import { PostingCreateService } from '../services/postingCreate.service';
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.sass'],
 })
-export class CreateComponent implements OnInit, AfterViewInit {
+export class CreateComponent implements AfterViewInit {
 	public display$!: Observable<boolean>;
 	public posting!: PostingPayload | null;
 
@@ -46,8 +45,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	) {
 		this.display$ = this.createModal.watch();
 	}
-
-	ngOnInit(): void {}
 
 	ngAfterViewInit() {
 		fromEvent(this.searchDevice.nativeElement, 'input')

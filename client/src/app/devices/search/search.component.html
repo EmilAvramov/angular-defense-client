@@ -1,4 +1,9 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-	<input id="query" type="text" formControlName="query" />
+	<input
+		id="query"
+		type="text"
+		formControlName="query"
+		placeholder="Start typing here..."
+	/>
 	<button>Search</button>
 </form>

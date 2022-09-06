@@ -2,26 +2,26 @@ import {
 	Component,
 	ElementRef,
 	EventEmitter,
-	OnInit,
+	Input,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { fromEvent, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { User } from 'src/app/state/user/user.state';
 
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
 	styleUrls: ['./search.component.sass'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
+	@Input() user!: User | null;
 	@Output() search = new EventEmitter<string>();
-	@Output() create = new EventEmitter<string>();
+	@Output() create = new EventEmitter<null>();
 
 	@ViewChild('searchInput') searchPosting!: ElementRef<HTMLInputElement>;
 
 	constructor() {}
-
-	ngOnInit(): void {}
 
 	ngAfterViewInit() {
 		fromEvent(this.searchPosting.nativeElement, 'input')
@@ -37,6 +37,6 @@ export class SearchComponent implements OnInit {
 	}
 
 	onCreate() {
-		this.create.emit('requesting create modal');
+		this.create.emit();
 	}
 }

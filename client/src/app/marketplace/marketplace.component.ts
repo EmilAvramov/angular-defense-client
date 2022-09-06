@@ -80,10 +80,12 @@ export class MarketplaceComponent implements AfterViewInit {
 
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
+		this.postingFacade.initPostingsData();
 	}
 
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
+		this.postingFacade.initPostingsData();
 	}
 
 	// Create modal methods below
@@ -106,5 +108,6 @@ export class MarketplaceComponent implements AfterViewInit {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
+		this.postingFacade.initPostingsData();
 	}
 }

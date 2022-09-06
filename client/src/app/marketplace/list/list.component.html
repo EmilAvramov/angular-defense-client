@@ -9,5 +9,11 @@
 			/>
 		</div>
 	</div>
-	<button (click)="loadMore()" class="postings__more">Load More...</button>
+	<button
+		*ngIf="this.postings!.length > 18"
+		(click)="loadMore()"
+		class="postings__more"
+	>
+		Load More...
+	</button>
 </main>
