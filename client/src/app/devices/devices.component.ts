@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from 'src/app/shared/services/modal.service';
+import { ModalService } from 'src/app/devices/services/modal.service';
 import { DeviceFacade } from '../state/device/device.facade';
 import { Device } from '../state/device/device.state';
 

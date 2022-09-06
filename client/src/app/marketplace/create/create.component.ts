@@ -16,7 +16,7 @@ import {
 	map,
 	Observable,
 } from 'rxjs';
-import { ModalService } from 'src/app/shared/services/modal.service';
+import { ModalService } from 'src/app/devices/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingPayload } from 'src/app/state/posting/posting.state';
 import { User } from 'src/app/state/user/user.state';

@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModalService } from 'src/app/shared/services/modal.service';
+import { ModalService } from 'src/app/devices/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 
 @Component({
 	selector: 'app-modal',
-	templateUrl: './modal.component.html',
-	styleUrls: ['./modal.component.sass'],
+	templateUrl: './details.component.html',
+	styleUrls: ['./details.component.sass'],
 })
-export class ModalComponent {
+export class DetailsComponent {
 	public display$!: Observable<boolean>;
 
 	@Input() details!: Device | null;

@@ -3,7 +3,7 @@
 		<div *ngFor="let posting of postings" class="postings__list_item">
 			<p>{{ posting.Device?.deviceName }}</p>
 			<img
-				(click)="open(posting.id)"
+				(click)="showDetails(posting.id)"
 				src="{{ posting.Device?.deviceImage }}"
 				alt=""
 			/>

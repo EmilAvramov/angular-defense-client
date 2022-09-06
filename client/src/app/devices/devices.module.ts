@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevicesComponent } from './devices.component';
 import { SearchComponent } from './search/search.component';
 import { ListComponent } from './list/list.component';
-import { ModalComponent } from './modal/modal.component';
+import { DetailsComponent } from './details/details.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -15,7 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		DevicesComponent,
 		SearchComponent,
 		ListComponent,
-		ModalComponent,
+		DetailsComponent,
 	],
 	imports: [
 		CommonModule,

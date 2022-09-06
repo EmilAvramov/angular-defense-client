@@ -1,0 +1,162 @@
+<ng-container *ngIf="display$ | async as display">
+	<section class="details__wrapper" (click)="close()">
+		<div class="details__container">
+			<button class="close" type="button" (click)="close()">X</button>
+			<div class="details__body" (click)="$event.stopPropagation()">
+				<div class="details__leftSpecs">
+					<div
+						*ngIf="
+							this.details!.Device!.display ||
+							this.details!.Device!.size ||
+							this.details!.Device!.resolution
+						"
+						class="details__block"
+					>
+						<h6>Display</h6>
+						<p *ngIf="this.details!.Device!.display">
+							Display Type: {{ this.details!.Device!.display }}
+						</p>
+						<p *ngIf="this.details!.Device!.size">
+							Display Size: {{ this.details!.Device!.size }}
+						</p>
+						<p *ngIf="this.details!.Device!.resolution">
+							Resolution: {{ this.details!.Device!.resolution }}
+						</p>
+					</div>
+					<div
+						*ngIf="
+							this.details!.Device!.cameraMain ||
+							this.details!.Device!.videoMain ||
+							this.details!.Device!.cameraSelfie ||
+							this.details!.Device!.videoSelfie
+						"
+						class="details__block"
+					>
+						<h6>Cameras</h6>
+						<p *ngIf="this.details!.Device!.cameraMain">
+							Rear Camera: {{ this.details!.Device!.cameraMain }}
+						</p>
+						<p *ngIf="this.details!.Device!.videoMain">
+							Rear Camera Video: {{ this.details!.Device!.videoMain }}
+						</p>
+						<p *ngIf="this.details!.Device!.cameraSelfie">
+							Front Camera: {{ this.details!.Device!.cameraSelfie }}
+						</p>
+						<p *ngIf="this.details!.Device!.videoSelfie">
+							Front Camera Video: {{ this.details!.Device!.videoSelfie }}
+						</p>
+					</div>
+					<div
+						*ngIf="
+							this.details!.Device!.chipset ||
+							this.details!.Device!.os ||
+							this.details!.Device!.cpu ||
+							this.details!.Device!.gpu
+						"
+						class="details__block"
+					>
+						<h6>Hardware</h6>
+						<p *ngIf="this.details!.Device!.chipset">
+							Chipset: {{ this.details!.Device!.chipset }}
+						</p>
+						<p *ngIf="this.details!.Device!.os">OS: {{ this.details!.Device!.os }}</p>
+						<p *ngIf="this.details!.Device!.cpu">
+							CPU: {{ this.details!.Device!.cpu }}
+						</p>
+						<p *ngIf="this.details!.Device!.gpu">
+							GPU: {{ this.details!.Device!.gpu }}
+						</p>
+					</div>
+					<div
+						*ngIf="
+							this.details!.Device!.jack ||
+							this.details!.Device!.features ||
+							this.details!.Device!.connectivity
+						"
+						class="details__block"
+					>
+						<h6>Features</h6>
+						<p *ngIf="this.details!.Device!.connectivity">
+							Connectivity: {{ this.details!.Device!.connectivity }}
+						</p>
+						<p *ngIf="this.details!.Device!.jack">
+							3.5mm Jack: {{ this.details!.Device!.jack }}
+						</p>
+						<p *ngIf="this.details!.Device!.features">
+							Others: {{ this.details!.Device!.features }}
+						</p>
+					</div>
+				</div>
+				<div class="details__centerSpecs">
+					<img src="{{ this.details!.Device!.deviceImage }}" alt="" />
+				</div>
+				<div class="details__rightSpecs">
+					<div
+						*ngIf="
+							this.details!.Device!.dimensions ||
+							this.details!.Device!.weight ||
+							this.details!.Device!.build
+						"
+						class="details__block"
+					>
+						<h6>Body</h6>
+						<p *ngIf="this.details!.Device!.dimensions">
+							Body Size: {{ this.details!.Device!.dimensions }}
+						</p>
+						<p *ngIf="this.details!.Device!.weight">
+							Weight: {{ this.details!.Device!.weight }}
+						</p>
+						<p *ngIf="this.details!.Device!.build">
+							Build: {{ this.details!.Device!.build }}
+						</p>
+					</div>
+					<div
+						*ngIf="
+							this.details!.Device!.batteryType || this.details!.Device!.batteryCharge
+						"
+						class="details__block"
+					>
+						<h6>Battery</h6>
+						<p *ngIf="this.details!.Device!.batteryType">
+							Battery Type: {{ this.details!.Device!.batteryType }}
+						</p>
+						<p *ngIf="this.details!.Device!.batteryCharge">
+							Battery Charge: {{ this.details!.Device!.batteryCharge }}
+						</p>
+					</div>
+					<div
+						*ngIf="
+							this.details!.Device!.cardSlot ||
+							this.details!.Device!.internalStorage ||
+							this.details!.Device!.sim
+						"
+						class="details__block"
+					>
+						<h6>Storage & Sim</h6>
+						<p *ngIf="this.details!.Device!.cardSlot">
+							Card Slot: {{ this.details!.Device!.cardSlot }}
+						</p>
+						<p *ngIf="this.details!.Device!.internalStorage">
+							Internal Storage: {{ this.details!.Device!.internalStorage }}
+						</p>
+						<p *ngIf="this.details!.Device!.sim">
+							Sim: {{ this.details!.Device!.sim }}
+						</p>
+					</div>
+					<div
+						*ngIf="this.details!.Device!.launchDate || this.details!.Device!.price"
+						class="details__block"
+					>
+						<h6>Distribution</h6>
+						<p *ngIf="this.details!.Device!.launchDate">
+							Release Date: {{ this.details!.Device!.launchDate }}
+						</p>
+						<p *ngIf="this.details!.Device!.price">
+							Retail Price: {{ this.details!.Device!.price }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</ng-container>

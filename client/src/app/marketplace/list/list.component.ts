@@ -8,11 +8,11 @@ import { Posting } from 'src/app/state/posting/posting.state';
 })
 export class ListComponent {
 	@Input() postings!: Posting[] | null;
-	@Output() requestMore = new EventEmitter<string>();
+	@Output() requestMore = new EventEmitter<null>();
 	@Output() requestDetails = new EventEmitter<number>();
 
 	loadMore() {
-		this.requestMore.emit('request more data');
+		this.requestMore.emit();
 	}
 
 	showDetails(id: number) {
@@ -20,8 +20,4 @@ export class ListComponent {
 	}
 
 	constructor() {}
-
-	open(id: number) {
-		this.showDetails(id);
-	}
 }
