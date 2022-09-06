@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ModalService } from 'src/app/devices/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
