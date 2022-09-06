@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
 	providedIn: 'root',
 })
-export class DeviceDetailsService {
+export class PostingCreateService {
 	private display: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	watch(): Observable<boolean> {

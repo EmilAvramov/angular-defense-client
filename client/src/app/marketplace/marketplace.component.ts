@@ -5,6 +5,8 @@ import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
+import { PostingCreateService } from './services/postingCreate.service';
+import { PostingDetailsService } from './services/postingDetails.service';
 
 @Component({
 	selector: 'app-marketplace',
@@ -22,7 +24,8 @@ export class MarketplaceComponent {
 	public user!: User | null;
 
 	constructor(
-		public modal: ModalService,
+		public postingModal: PostingDetailsService,
+		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade
 	) {
@@ -60,10 +63,11 @@ export class MarketplaceComponent {
 
 	fetchPostingDetails(id: number): void {
 		this.postingFacade.getPostingDetails(id);
+		this.postingModal.open()
 	}
 
-	openModal(): void {
-		this.modal.open();
+	openCreateModal(): void {
+		this.createModal.open();
 	}
 
 	fetchDeviceList(query: string): void {

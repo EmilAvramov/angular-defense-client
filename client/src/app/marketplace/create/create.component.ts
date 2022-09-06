@@ -16,10 +16,10 @@ import {
 	map,
 	Observable,
 } from 'rxjs';
-import { ModalService } from 'src/app/devices/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingPayload } from 'src/app/state/posting/posting.state';
 import { User } from 'src/app/state/user/user.state';
+import { PostingCreateService } from '../services/postingCreate.service';
 
 @Component({
 	selector: 'app-create',
@@ -40,8 +40,11 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
-	constructor(private modal: ModalService, private fb: FormBuilder) {
-		this.display$ = this.modal.watch();
+	constructor(
+		private createModal: PostingCreateService,
+		private fb: FormBuilder
+	) {
+		this.display$ = this.createModal.watch();
 	}
 
 	ngOnInit(): void {}
@@ -87,7 +90,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	}
 
 	close(): void {
-		this.modal.close();
+		this.createModal.close();
 		this.searchDevice.nativeElement.value = '';
 		this.clearDetails.emit();
 	}
