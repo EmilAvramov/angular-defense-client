@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostingsComponent } from './profile/postings/postings.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './profile/settings/settings.component';
+import { PostingsComponent } from './postings/postings.component';
+import { ProfileComponent } from './profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
 	{

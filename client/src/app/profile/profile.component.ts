@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { map, Observable, switchMap, take } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -10,7 +9,7 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.sass'],
 })
-export class ProfileComponent implements OnInit, AfterViewInit {
+export class ProfileComponent implements OnInit {
 	public userDetails!: User | null;
 	public userPostings!: Posting[] | null;
 
@@ -26,15 +25,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 			error: (err) => console.log(err),
 		});
 		this.postingFacade.getUserPostings$.subscribe({
-			next: (data) => {
-				this.userPostings = data;
-				console.log(data);
-			},
+			next: (data) => (this.userPostings = data),
 			error: (err) => console.log(err),
 		});
-	}
-	ngAfterViewInit(): void {
-		console.log(this.userPostings);
 	}
 
 	ngOnInit(): void {}
