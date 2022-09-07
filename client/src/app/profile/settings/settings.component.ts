@@ -12,17 +12,10 @@ export class SettingsComponent implements OnInit {
 
 	constructor(private sharedService: SharedService) {
 		this.sharedService.userData$.subscribe({
-			next: (data) => {
-				this.userData = data;
-				console.log(data);
-			},
+			next: (data) => (this.userData = data),
 			error: (err) => console.log(err),
 		});
 	}
 
 	ngOnInit(): void {}
-
-	logDetails(): void {
-		console.log(this.userData);
-	}
 }

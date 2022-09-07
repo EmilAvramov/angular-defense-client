@@ -8,8 +8,22 @@
 			<li><a routerLink="/about"> About</a></li>
 			<li *ngIf="!this.token"><a routerLink="/login">Login</a></li>
 			<li *ngIf="!this.token"><a routerLink="/register">Register</a></li>
-			<li *ngIf="this.token">
-				<a routerLink="/profile">My Profile</a>
+			<li
+				
+				class="header__dropdown"
+				(mouseover)="openDropDown()"
+				(mouseleave)="closeDropDown()"
+				*ngIf="this.token"
+			>
+				<a href="javascript:void(0)">My Profile</a>
+				<ul #dropdown class="dropdown dropdown__hide">
+					<li>
+						<a routerLink="/profile/postings">My Postings</a>
+					</li>
+					<li>
+						<a routerLink="/profile/settings">My Settings</a>
+					</li>
+				</ul>
 			</li>
 			<li *ngIf="this.token" (click)="logout()">
 				<a routerLink="/">Logout</a>

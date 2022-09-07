@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
@@ -9,6 +9,8 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 export class HeaderComponent {
 	token!: string;
 
+	@ViewChild('dropdown') private dropdown!: ElementRef<HTMLElement>;
+
 	constructor(private readonly userFacade: UserFacade) {
 		this.userFacade.userData$.subscribe({
 			next: (res) => (this.token = res.token),
@@ -18,5 +20,12 @@ export class HeaderComponent {
 
 	logout(): void {
 		this.userFacade.logoutUser(this.token!);
+	}
+
+	openDropDown() {
+		this.dropdown.nativeElement.classList.remove('dropdown__hide');
+	}
+	closeDropDown() {
+		this.dropdown.nativeElement.classList.add('dropdown__hide');
 	}
 }
