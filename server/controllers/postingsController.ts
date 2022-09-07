@@ -4,6 +4,7 @@ import {
 	deletePosting,
 	editPosting,
 	getPostings,
+	getUserPostings,
 } from '../services/postingService';
 
 const router = Router();
@@ -30,6 +31,14 @@ router.post('/list/search', async (req, res) => {
 	}
 });
 
+router.post('/user/:id', (req, res) => {
+	try {
+		res.status(200).json(getUserPostings(Number(req.params.id)));
+	} catch (err: any) {
+		res.status(400).json({ message: err.message });
+	}
+});
+
 router.post('/create', async (req, res) => {
 	try {
 		const response = await createPosting(req.body.payload);
@@ -41,10 +50,10 @@ router.post('/create', async (req, res) => {
 
 router.put('/edit/:id', async (req, res) => {
 	try {
-		const id = Number(req.params.id)
-		const comments = req.body.comments
-		const price = req.body.price
-		const response = await editPosting(id, comments, price)
+		const id = Number(req.params.id);
+		const comments = req.body.comments;
+		const price = req.body.price;
+		const response = await editPosting(id, comments, price);
 		res.status(200).json(response);
 	} catch (err: any) {
 		res.status(400).json({ message: err.message });
@@ -53,12 +62,12 @@ router.put('/edit/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
 	try {
-		const id = Number(req.params.id)
-		await deletePosting(id)
-		res.status(200).json({message: 'Success'})
+		const id = Number(req.params.id);
+		await deletePosting(id);
+		res.status(200).json({ message: 'Success' });
 	} catch (err: any) {
-		res.status(400).json({message: err.message})
+		res.status(400).json({ message: err.message });
 	}
-})
+});
 
 export default router;

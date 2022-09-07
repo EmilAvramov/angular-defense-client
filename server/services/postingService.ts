@@ -45,14 +45,14 @@ export const getPostings = async (
 	}
 };
 
-export const getUserPostings = async (email: string) => {
+export const getUserPostings = async (id: number) => {
 	try {
 		return await PostingModel.findAll({
 			include: [
 				{
 					model: UserModel,
 					required: true,
-					where: { email },
+					where: { id },
 				},
 				{
 					model: DeviceModel,
