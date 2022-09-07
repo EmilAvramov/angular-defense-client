@@ -10,6 +10,7 @@ export const initialPostingState: PostingState = {
 	devicesDetails: null,
 	create: null,
 	user: null,
+	userPostings: null,
 	loaded: false,
 	error: null,
 };
@@ -21,6 +22,7 @@ export interface PostingState {
 	devicesDetails: Device | null;
 	create: Posting | null;
 	user: User | null;
+	userPostings: Posting[] | null,
 	loaded: boolean;
 	error: null | string;
 }

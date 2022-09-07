@@ -31,7 +31,7 @@ router.post('/list/search', async (req, res) => {
 	}
 });
 
-router.post('/user/:id', (req, res) => {
+router.get('/user/:id', (req, res) => {
 	try {
 		res.status(200).json(getUserPostings(Number(req.params.id)));
 	} catch (err: any) {

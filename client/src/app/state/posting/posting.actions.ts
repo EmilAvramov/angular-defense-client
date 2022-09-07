@@ -19,6 +19,9 @@ export enum PostingActionNames {
 	PostingGetDetailsSuccess = '[Posting] Get Details Success',
 	PostingGetDetailsFailure = '[Posting] Get Details Failure',
 	// Actions for Posting CRUD
+	PostingUserGet = '[Posting] Get User Postings',
+	PostingUserGetSuccess = '[Posting] Get User Postings Success',
+	PostingUserGetFailure = '[Posting] Get User Postings Failure',
 	PostingCreate = '[Posting] Create',
 	PostingCreateSuccess = '[Posting] Create Success',
 	PostingCreateFailure = '[Posting] Create Failure',
@@ -103,6 +106,21 @@ export const PostingGetDetailsSuccess = createAction(
 
 export const PostingGetDetailsFailure = createAction(
 	PostingActionNames.PostingGetDetailsFailure,
+	props<{ error: string | null }>()
+);
+
+export const PostingUserGet = createAction(
+	PostingActionNames.PostingUserGet,
+	props<{ id: number }>()
+);
+
+export const PostingUserGetSuccess = createAction(
+	PostingActionNames.PostingUserGetSuccess,
+	props<{ data: Posting[] }>()
+);
+
+export const PostingUserGetFailure = createAction(
+	PostingActionNames.PostingUserGetFailure,
 	props<{ error: string | null }>()
 );
 

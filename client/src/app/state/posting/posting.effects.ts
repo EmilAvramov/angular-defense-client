@@ -95,6 +95,23 @@ export class PostingEffects {
 		)
 	);
 
+	public readonly getUserPostings$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PostingActionNames.PostingUserGet),
+			map(({ id }) => PostingActions.PostingUserGet({ id })),
+			switchMap(({ id }) =>
+				this.postingService
+					.getUserPostings(id)
+					.pipe(
+						map((data: Posting[]) => PostingActions.PostingUserGetSuccess({ data }))
+					)
+			),
+			catchError((error: string | null) =>
+				of(PostingActions.PostingUserGetFailure({ error }))
+			)
+		)
+	);
+
 	public readonly createPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingCreate),

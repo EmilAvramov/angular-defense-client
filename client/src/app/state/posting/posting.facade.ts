@@ -29,6 +29,9 @@ export class PostingFacade {
 		select(postingSelectors.getDeviceDetails)
 	);
 
+	public readonly getUserPostings$: Observable<Posting[] | null> =
+		this.store.pipe(select(postingSelectors.getUserPostings));
+
 	public readonly createdPosting$: Observable<Posting | null> = this.store.pipe(
 		select(postingSelectors.getCreatedPosting)
 	);
@@ -59,6 +62,10 @@ export class PostingFacade {
 
 	public getPostingDetails(id: number): void {
 		this.store.dispatch(postingActions.PostingGetDetails({ id }));
+	}
+
+	public loadUserPostings(id: number): void {
+		this.store.dispatch(postingActions.PostingUserGet({ id }));
 	}
 
 	public queryDevices(query: string, limit: number): void {

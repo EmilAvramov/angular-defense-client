@@ -11,6 +11,11 @@ export const getPostings = createSelector(
 	(state: PostingState) => state.postings
 );
 
+export const getUserPostings = createSelector(
+	getPostingState,
+	(state: PostingState) => state.userPostings
+);
+
 export const getPostingDetails = createSelector(
 	getPostingState,
 	(state: PostingState) => state.postingsDetails
