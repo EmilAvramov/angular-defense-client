@@ -18,6 +18,10 @@ export class UserFacade {
 		select(userSelectors.getUserToken)
 	);
 
+	public readonly userId$: Observable<number> = this.store.pipe(
+		select(userSelectors.getUserId)
+	);
+
 	public readonly userValidated$: Observable<User | null> = this.store.pipe(
 		select(userSelectors.getValidatedUser)
 	);

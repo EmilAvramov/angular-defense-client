@@ -12,8 +12,9 @@ export const _userReducer = createReducer(
 	})),
 	on(
 		userActions.UserInitSuccess,
-		(state, { email, firstName, lastName, phone, address, city, token }) => ({
+		(state, { id, email, firstName, lastName, phone, address, city, token }) => ({
 			...state,
+			id,
 			email,
 			firstName,
 			lastName,
@@ -27,6 +28,7 @@ export const _userReducer = createReducer(
 	),
 	on(userActions.UserInitFailure, (state) => ({
 		...state,
+		id: 0,
 		email: '',
 		firstName: '',
 		lastName: '',
@@ -44,6 +46,7 @@ export const _userReducer = createReducer(
 	})),
 	on(userActions.UserLoginSuccess, (state, { user }) => ({
 		...state,
+		id: user.id,
 		email: user.email,
 		firstName: user.firstName,
 		lastName: user.lastName,
@@ -56,6 +59,7 @@ export const _userReducer = createReducer(
 	})),
 	on(userActions.UserLoginFailure, (state, { error }) => ({
 		...state,
+		id: 0,
 		email: '',
 		firstName: '',
 		lastName: '',
@@ -72,6 +76,7 @@ export const _userReducer = createReducer(
 	})),
 	on(userActions.UserRegisterSuccess, (state, { user }) => ({
 		...state,
+		id: user.id,
 		email: user.email,
 		firstName: user.firstName,
 		lastName: user.lastName,
@@ -84,6 +89,7 @@ export const _userReducer = createReducer(
 	})),
 	on(userActions.UserRegisterFailure, (state, { error }) => ({
 		...state,
+		id: 0,
 		email: '',
 		firstName: '',
 		lastName: '',
@@ -100,6 +106,7 @@ export const _userReducer = createReducer(
 	})),
 	on(userActions.UserLogoutSuccess, (state) => ({
 		...state,
+		id: 0,
 		email: '',
 		firstName: '',
 		lastName: '',

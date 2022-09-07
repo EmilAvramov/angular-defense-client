@@ -1,4 +1,3 @@
-import e from 'express';
 import { Op } from 'sequelize';
 import { Posting } from '../interfaces/Posting.interface';
 import { PostingModel, UserModel, DeviceModel } from '../models/models';

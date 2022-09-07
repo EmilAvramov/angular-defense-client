@@ -1,19 +1,21 @@
-export const USER_FEATURE_KEY = 'user'
+export const USER_FEATURE_KEY = 'user';
 
 export const initialUserState: UserState = {
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    address: '',
-    city: '',
-    token: '',
+	id: 0,
+	email: '',
+	firstName: '',
+	lastName: '',
+	phone: '',
+	address: '',
+	city: '',
+	token: '',
 	validated: null,
-    loaded: false,
-    error: null
-}
+	loaded: false,
+	error: null,
+};
 
 export interface UserState {
+	id: number;
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -21,13 +23,14 @@ export interface UserState {
 	address: string;
 	city: string;
 	token: string;
-	validated: User | null,
-	loaded: boolean,
-    error: string | null
+	validated: User | null;
+	loaded: boolean;
+	error: string | null;
 }
 
 export interface User {
-    email: string;
+	id: number;
+	email: string;
 	firstName: string;
 	lastName: string;
 	phone: string;

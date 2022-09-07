@@ -20,8 +20,9 @@ export class UserEffects {
 			ofType(UserActionsNames.UserInit),
 			map(() => this.storageService.getStorage()),
 			switchMap(
-				async ({ email, firstName, lastName, phone, address, city, token }) =>
+				async ({ id, email, firstName, lastName, phone, address, city, token }) =>
 					userActions.UserInitSuccess({
+						id,
 						email,
 						firstName,
 						lastName,
