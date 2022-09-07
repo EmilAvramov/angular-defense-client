@@ -45,6 +45,26 @@ export const getPostings = async (
 	}
 };
 
+export const getUserPostings = async (email: string) => {
+	try {
+		return await PostingModel.findAll({
+			include: [
+				{
+					model: UserModel,
+					required: true,
+					where: { email },
+				},
+				{
+					model: DeviceModel,
+					required: true,
+				},
+			],
+		});
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
 export const createPosting = async (payload: Posting) => {
 	try {
 		return await PostingModel.create(payload);
@@ -67,7 +87,7 @@ export const editPosting = async (
 
 export const deletePosting = async (id: number) => {
 	try {
-		return await PostingModel.destroy({ where: { id: id } });
+		return await PostingModel.destroy({ where: { id } });
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

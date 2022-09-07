@@ -82,3 +82,40 @@ export const validateToken = (token: string) => {
 export const logout = (token: string) => {
 	blackList.add(token);
 };
+
+export const editUserDetails = async (id: number, data: User) => {
+	try {
+		let firstName = data.firstName;
+		let lastName = data.lastName;
+		let email = data.email;
+		let phone = data.email;
+		let address = data.address;
+		let city = data.city;
+		return await UserModel.update(
+			{ firstName, lastName, email, phone, address, city },
+			{ where: { id } }
+		);
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
+export const editUserPassword = async (id: number, password: string) => {
+	try {
+		const hashedPassword = await bcrypt.hash(password, saltRounds);
+		return await UserModel.update(
+			{ password: hashedPassword },
+			{ where: { id } }
+		);
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
+
+export const deleteUser = async (id: number) => {
+	try {
+		return await UserModel.destroy({ where: { id } });
+	} catch (err: any) {
+		throw new Error(err.message);
+	}
+};
