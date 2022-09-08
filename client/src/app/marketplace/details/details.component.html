@@ -4,7 +4,7 @@
 			<button class="close" type="button" (click)="close()">X</button>
 			<button
 				*ngIf="
-					(this.validatedUser$ | async)!.email ===
+					(this.validatedUser$ | async)?.email ===
 					(this.details$ | async)!.User?.email
 				"
 				class="edit"
@@ -15,7 +15,7 @@
 			</button>
 			<button
 				*ngIf="
-					(this.validatedUser$ | async)!.email ===
+					(this.validatedUser$ | async)?.email ===
 					(this.details$ | async)!.User?.email
 				"
 				class="delete"
@@ -131,7 +131,7 @@
 					</div>
 					<div
 						*ngIf="
-							(this.validatedUser$ | async)!.email !==
+							(this.validatedUser$ | async)?.email !==
 							(this.details$ | async)!.User?.email
 						"
 						class="details__block"
@@ -141,7 +141,7 @@
 					</div>
 					<div
 						*ngIf="
-							(this.validatedUser$ | async)!.email ===
+							(this.validatedUser$ | async)?.email ===
 							(this.details$ | async)!.User?.email
 						"
 						class="details__input"

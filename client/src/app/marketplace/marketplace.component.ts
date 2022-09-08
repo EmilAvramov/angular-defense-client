@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { AfterViewInit, Component } from '@angular/core';
+import { map, Observable, take } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
@@ -13,7 +13,7 @@ import { PostingDetailsService } from './services/postingDetails.service';
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent implements AfterViewInit, OnDestroy {
+export class MarketplaceComponent implements AfterViewInit {
 	public limit: number = 18;
 	public offset: number = 0;
 
@@ -23,8 +23,6 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	public deviceDetails$: Observable<Device | null>;
 	public user$: Observable<User | null>;
 	public validatedUser$: Observable<User | null>;
-
-	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(
 		public postingModal: PostingDetailsService,
@@ -42,13 +40,13 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit(): void {
 		this.user$.pipe(
-			takeUntil(this.completer$),
+			take(1),
 			map((data: User | null) => {
 				if (data) {
 					this.userFacade.validateUser(data.token);
 				}
 			})
-		);
+		).subscribe()
 	}
 
 	// Posting modal actions below
@@ -98,10 +96,5 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }
