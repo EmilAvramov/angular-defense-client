@@ -154,7 +154,7 @@ export class PostingEffects {
 				this.postingService
 					.deletePosting(id)
 					.pipe(
-						map((message: string) => PostingActions.PostingDeleteSuccess({ message }))
+						map((data: Posting) => PostingActions.PostingDeleteSuccess({ data }))
 					)
 			),
 			catchError((error: string | null) =>

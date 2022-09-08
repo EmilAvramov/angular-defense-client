@@ -5,7 +5,17 @@ import {
 	NavigationEnd,
 	Router,
 } from '@angular/router';
-import { buffer, filter, map, Subject, switchMap, takeUntil, take } from 'rxjs';
+import {
+	buffer,
+	filter,
+	map,
+	Subject,
+	switchMap,
+	takeUntil,
+	take,
+	Observable,
+	tap,
+} from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -58,8 +68,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				takeUntil(this.completer$),
 				map((id) => {
 					this.postingFacade.deletePosting(id);
-					router.navigate(['marketplace'])
-				})
+				}),
 			)
 			.subscribe();
 

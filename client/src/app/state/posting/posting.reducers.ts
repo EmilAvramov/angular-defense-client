@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { initialPostingState, PostingState } from './posting.state';
+import { initialPostingState, Posting, PostingState } from './posting.state';
 import * as postingActions from './posting.actions';
 
 export const _postingReducer = createReducer(
@@ -127,8 +127,10 @@ export const _postingReducer = createReducer(
 		loaded: false,
 		error: null,
 	})),
-	on(postingActions.PostingDeleteSuccess, (state) => ({
+	on(postingActions.PostingDeleteSuccess, (state, { data }) => ({
 		...state,
+		postings: state.postings!.filter((x: Posting) => data.id !== x.id),
+		userPostings: state.userPostings!.filter((x: Posting) => data.id !== x.id),
 		loaded: true,
 		error: null,
 	})),

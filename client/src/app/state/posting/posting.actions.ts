@@ -161,7 +161,7 @@ export const PostingDelete = createAction(
 
 export const PostingDeleteSuccess = createAction(
 	PostingActionNames.PostingDeleteSuccess,
-	props<{ message: string }>()
+	props<{ data: Posting }>()
 );
 
 export const PostingDeleteFailure = createAction(

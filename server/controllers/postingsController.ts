@@ -64,8 +64,8 @@ router.put('/edit/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
 	try {
 		const id = Number(req.params.id);
-		await deletePosting(id);
-		res.status(200).json({ message: 'Success' });
+		const response = await deletePosting(id);
+		res.status(200).json(response);
 	} catch (err: any) {
 		res.status(400).json({ message: err.message });
 	}

@@ -86,7 +86,9 @@ export const editPosting = async (
 
 export const deletePosting = async (id: number) => {
 	try {
-		return await PostingModel.destroy({ where: { id } });
+		const posting = await PostingModel.findByPk(id)
+		await PostingModel.destroy({where: {id}})
+		return posting
 	} catch (err: any) {
 		throw new Error(err.message);
 	}

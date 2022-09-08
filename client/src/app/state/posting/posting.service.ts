@@ -61,7 +61,7 @@ export class PostingService {
 	}
 
 	deletePosting(id: number): Observable<any> {
-		return this.http.delete(`${server}/postings/delete/${id}`, {
+		return this.http.delete<Posting>(`${server}/postings/delete/${id}`, {
 			headers: this.headers,
 		});
 	}
