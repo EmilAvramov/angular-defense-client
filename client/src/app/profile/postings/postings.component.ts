@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { SharedService } from '../services/shared.service';
 
@@ -7,17 +8,17 @@ import { SharedService } from '../services/shared.service';
 	templateUrl: './postings.component.html',
 	styleUrls: ['./postings.component.sass'],
 })
-export class PostingsComponent implements OnInit {
-	public userPostings: Posting[] | null | undefined;
+export class PostingsComponent implements OnDestroy {
+	public completer$: Subject<void> = new Subject<void>();
+	public userPostings$: Observable<Posting[] | null> | undefined;
 
 	constructor(private sharedService: SharedService) {
-		this.sharedService.userPostings$.subscribe({
-			next: (data) => {
-				this.userPostings = data;
-			},
-			error: (err) => console.log(err),
-		});
+		this.userPostings$ = this.sharedService.userPostings$.pipe(
+			takeUntil(this.completer$)
+		);
 	}
-
-	ngOnInit(): void {}
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
 }

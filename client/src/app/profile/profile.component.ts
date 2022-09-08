@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -10,13 +11,15 @@ import { SharedService } from './services/shared.service';
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.sass'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+	public completer$: Subject<void> = new Subject<void>();
+
 	constructor(
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
 		private sharedService: SharedService
 	) {
-		this.userFacade.userData$.subscribe({
+		this.userFacade.userData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: User | null) => {
 				if (data) {
 					this.postingFacade.loadUserPostings(data.id);
@@ -25,12 +28,18 @@ export class ProfileComponent implements OnInit {
 			},
 			error: (err) => console.log(err),
 		});
-		this.postingFacade.getUserPostings$.subscribe({
-			next: (data: Posting[] | null) => {
-				this.sharedService.emitPostingData(data);
-			},
-			error: (err) => console.log(err),
-		});
+		this.postingFacade.getUserPostings$
+			.pipe(takeUntil(this.completer$))
+			.subscribe({
+				next: (data: Posting[] | null) => {
+					this.sharedService.emitPostingData(data);
+				},
+				error: (err) => console.log(err),
+			});
+	}
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 
 	ngOnInit(): void {}

@@ -3,7 +3,7 @@
 	<div class="profile__postings_subwrapper">
 		<div class="profile__postings_wrapperLeft">
 			<div
-				*ngFor="let posting of userPostings"
+                *ngFor="let posting of userPostings$ | async"
 				class="profile__postings_container"
 			>
 				<div class="profile__postings_device">
@@ -15,7 +15,7 @@
 					<p>Comments: {{ posting.comments }}</p>
 				</div>
 				<div class="profile__postings_buttons">
-                    <button>Details</button>
+					<button>Details</button>
 					<button>Edit</button>
 					<button>Delete</button>
 				</div>
