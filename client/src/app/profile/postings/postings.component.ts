@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subject, takeUntil, repeat } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { SharedService } from '../services/shared.service';
 

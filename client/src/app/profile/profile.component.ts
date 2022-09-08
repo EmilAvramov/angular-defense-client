@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import {
+	ActivatedRoute,
+	ChildActivationEnd,
+	NavigationEnd,
+	Router,
+} from '@angular/router';
+import { buffer, filter, map, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -17,25 +23,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	constructor(
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
-		private sharedService: SharedService
+		private sharedService: SharedService,
+		private router: Router,
+		private route: ActivatedRoute
 	) {
-		this.userFacade.userData$.pipe(takeUntil(this.completer$)).subscribe({
-			next: (data: User | null) => {
-				if (data) {
-					this.postingFacade.loadUserPostings(data.id);
-					this.sharedService.emitUserData(data);
-				}
-			},
-			error: (err) => console.log(err),
-		});
-		this.postingFacade.getUserPostings$
-			.pipe(takeUntil(this.completer$))
-			.subscribe({
-				next: (data: Posting[] | null) => {
-					this.sharedService.emitPostingData(data);
-				},
-				error: (err) => console.log(err),
-			});
+		this.router.events
+			.pipe(
+				filter(
+					(e) =>
+						e instanceof ChildActivationEnd &&
+						e.snapshot.component === this.route.component
+				),
+				buffer(this.router.events.pipe(filter((e) => e instanceof NavigationEnd))),
+				switchMap(() =>
+					this.userFacade.userData$.pipe(
+						takeUntil(this.completer$),
+						map((data: User) => {
+							this.postingFacade.loadUserPostings(data.id),
+								this.sharedService.emitUserData(data);
+						})
+					)
+				),
+				switchMap(() =>
+					this.postingFacade.getUserPostings$.pipe(
+						takeUntil(this.completer$),
+						map((data: Posting[] | null) => this.sharedService.emitPostingData(data))
+					)
+				)
+			)
+			.subscribe();
 	}
 	ngOnDestroy(): void {
 		this.completer$.next();
