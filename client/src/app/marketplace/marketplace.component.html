@@ -1,25 +1,25 @@
 <app-search
-	[user]="this.user"
+	[user$]="this.user$"
 	(search)="this.searchPostings($event)"
 	(create)="this.openCreateModal()"
 ></app-search>
 <app-list
-	[postings]="this.postings"
+	[postings$]="this.postings$"
 	(requestMore)="this.loadMorePostings()"
 	(requestDetails)="this.fetchPostingDetails($event)"
 ></app-list>
 <app-create
-	[user]="this.user"
-	[devices]="this.devices"
-	[deviceDetails]="this.deviceDetails"
+	[user$]="this.user$"
+	[devices$]="this.devices$"
+	[deviceDetails$]="this.deviceDetails$"
 	(requestDeviceList)="this.fetchDeviceList($event)"
 	(requestDeviceDetails)="this.fetchDeviceDetails($event)"
 	(clearDetails)="this.clearDetails()"
 	(createPosting)="this.createPosting($event)"
 ></app-create>
 <app-details
-	[details]="this.postingDetails"
-	[validatedUser]="this.validatedUser"
+	[details$]="this.postingDetails$"
+	[validatedUser$]="this.validatedUser$"
 	(editPosting)="this.editPosting($event)"
 	(deletePosting)="this.deletePosting($event)"
 ></app-details>

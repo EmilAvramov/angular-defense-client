@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 
 @Component({
@@ -7,7 +8,7 @@ import { Posting } from 'src/app/state/posting/posting.state';
 	styleUrls: ['./list.component.sass'],
 })
 export class ListComponent {
-	@Input() postings!: Posting[] | null;
+	@Input() postings$: Observable<Posting[] | null> | undefined;
 	@Output() requestMore = new EventEmitter<null>();
 	@Output() requestDetails = new EventEmitter<number>();
 

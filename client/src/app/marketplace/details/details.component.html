@@ -3,7 +3,10 @@
 		<div class="details__container">
 			<button class="close" type="button" (click)="close()">X</button>
 			<button
-				*ngIf="this.validatedUser?.email === this.details!.User?.email"
+				*ngIf="
+					(this.validatedUser$ | async)!.email ===
+					(this.details$ | async)!.User?.email
+				"
 				class="edit"
 				type="button"
 				(click)="emitEdit()"
@@ -11,7 +14,10 @@
 				Edit
 			</button>
 			<button
-				*ngIf="this.validatedUser?.email === this.details!.User?.email"
+				*ngIf="
+					(this.validatedUser$ | async)!.email ===
+					(this.details$ | async)!.User?.email
+				"
 				class="delete"
 				type="button"
 				(click)="emitDelete()"
@@ -20,130 +26,137 @@
 			</button>
 			<div class="details__body" (click)="$event.stopPropagation()">
 				<div class="details__left">
-					<p>{{ this.details!.Device!.deviceName }}</p>
-					<img src="{{ this.details!.Device!.deviceImage }}" alt="" />
+					<p>{{ (this.details$ | async)!.Device!.deviceName }}</p>
+					<img src="{{ (this.details$ | async)!.Device!.deviceImage }}" alt="" />
 					<div class="details__seller">
 						<p>
-							Seller Name: {{ this.details!.User!.firstName }}
-							{{ this.details!.User!.lastName }}
+							Seller Name: {{ (this.details$ | async)!.User!.firstName }}
+							{{ (this.details$ | async)!.User!.lastName }}
 						</p>
-						<p>Seller City: {{ this.details!.User!.city }}</p>
-						<p>Seller Phone: {{ this.details!.User!.phone }}</p>
+						<p>Seller City: {{ (this.details$ | async)!.User!.city }}</p>
+						<p>Seller Phone: {{ (this.details$ | async)!.User!.phone }}</p>
 					</div>
 				</div>
 				<div class="details__right">
 					<p>Brief Details</p>
 					<div
 						*ngIf="
-							this.details!.Device!.display ||
-							this.details!.Device!.size ||
-							this.details!.Device!.resolution
+							(this.details$ | async)!.Device!.display ||
+							(this.details$ | async)!.Device!.size ||
+							(this.details$ | async)!.Device!.resolution
 						"
 						class="details__block"
 					>
-						<p *ngIf="this.details!.Device!.display">
-							Display Type: {{ this.details!.Device!.display }}
+						<p *ngIf="(this.details$ | async)!.Device!.display">
+							Display Type: {{ (this.details$ | async)!.Device!.display }}
 						</p>
-						<p *ngIf="this.details!.Device!.size">
-							Display Size: {{ this.details!.Device!.size }}
+						<p *ngIf="(this.details$ | async)!.Device!.size">
+							Display Size: {{ (this.details$ | async)!.Device!.size }}
 						</p>
-						<p *ngIf="this.details!.Device!.resolution">
-							Resolution: {{ this.details!.Device!.resolution }}
+						<p *ngIf="(this.details$ | async)!.Device!.resolution">
+							Resolution: {{ (this.details$ | async)!.Device!.resolution }}
 						</p>
 					</div>
 					<div
 						*ngIf="
-							this.details!.Device!.cameraMain ||
-							this.details!.Device!.videoMain ||
-							this.details!.Device!.cameraSelfie ||
-							this.details!.Device!.videoSelfie
+							(this.details$ | async)!.Device!.cameraMain ||
+							(this.details$ | async)!.Device!.videoMain ||
+							(this.details$ | async)!.Device!.cameraSelfie ||
+							(this.details$ | async)!.Device!.videoSelfie
 						"
 						class="details__block"
 					>
-						<p *ngIf="this.details!.Device!.cameraMain">
-							Rear Camera: {{ this.details!.Device!.cameraMain }}
+						<p *ngIf="(this.details$ | async)!.Device!.cameraMain">
+							Rear Camera: {{ (this.details$ | async)!.Device!.cameraMain }}
 						</p>
-						<p *ngIf="this.details!.Device!.videoMain">
-							Rear Camera Video: {{ this.details!.Device!.videoMain }}
+						<p *ngIf="(this.details$ | async)!.Device!.videoMain">
+							Rear Camera Video: {{ (this.details$ | async)!.Device!.videoMain }}
 						</p>
-						<p *ngIf="this.details!.Device!.cameraSelfie">
-							Front Camera: {{ this.details!.Device!.cameraSelfie }}
+						<p *ngIf="(this.details$ | async)!.Device!.cameraSelfie">
+							Front Camera: {{ (this.details$ | async)!.Device!.cameraSelfie }}
 						</p>
-						<p *ngIf="this.details!.Device!.videoSelfie">
-							Front Camera Video: {{ this.details!.Device!.videoSelfie }}
+						<p *ngIf="(this.details$ | async)!.Device!.videoSelfie">
+							Front Camera Video: {{ (this.details$ | async)!.Device!.videoSelfie }}
 						</p>
 					</div>
 					<div
 						*ngIf="
-							this.details!.Device!.dimensions ||
-							this.details!.Device!.weight ||
-							this.details!.Device!.build
+							(this.details$ | async)!.Device!.dimensions ||
+							(this.details$ | async)!.Device!.weight ||
+							(this.details$ | async)!.Device!.build
 						"
 						class="details__block"
 					>
-						<p *ngIf="this.details!.Device!.dimensions">
-							Body Size: {{ this.details!.Device!.dimensions }}
+						<p *ngIf="(this.details$ | async)!.Device!.dimensions">
+							Body Size: {{ (this.details$ | async)!.Device!.dimensions }}
 						</p>
-						<p *ngIf="this.details!.Device!.weight">
-							Weight: {{ this.details!.Device!.weight }}
+						<p *ngIf="(this.details$ | async)!.Device!.weight">
+							Weight: {{ (this.details$ | async)!.Device!.weight }}
 						</p>
-						<p *ngIf="this.details!.Device!.build">
-							Build: {{ this.details!.Device!.build }}
+						<p *ngIf="(this.details$ | async)!.Device!.build">
+							Build: {{ (this.details$ | async)!.Device!.build }}
 						</p>
 					</div>
 					<div
 						*ngIf="
-							this.details!.Device!.cardSlot ||
-							this.details!.Device!.internalStorage ||
-							this.details!.Device!.sim
+							(this.details$ | async)!.Device!.cardSlot ||
+							(this.details$ | async)!.Device!.internalStorage ||
+							(this.details$ | async)!.Device!.sim
 						"
 						class="details__block"
 					>
-						<p *ngIf="this.details!.Device!.cardSlot">
-							Card Slot: {{ this.details!.Device!.cardSlot }}
+						<p *ngIf="(this.details$ | async)!.Device!.cardSlot">
+							Card Slot: {{ (this.details$ | async)!.Device!.cardSlot }}
 						</p>
-						<p *ngIf="this.details!.Device!.internalStorage">
-							Internal Storage: {{ this.details!.Device!.internalStorage }}
+						<p *ngIf="(this.details$ | async)!.Device!.internalStorage">
+							Internal Storage: {{ (this.details$ | async)!.Device!.internalStorage }}
 						</p>
-						<p *ngIf="this.details!.Device!.sim">
-							Sim: {{ this.details!.Device!.sim }}
+						<p *ngIf="(this.details$ | async)!.Device!.sim">
+							Sim: {{ (this.details$ | async)!.Device!.sim }}
 						</p>
 					</div>
 					<div
 						*ngIf="
-							this.details!.Device!.batteryType || this.details!.Device!.batteryCharge
+							(this.details$ | async)!.Device!.batteryType ||
+							(this.details$ | async)!.Device!.batteryCharge
 						"
 						class="details__block"
 					>
-						<p *ngIf="this.details!.Device!.batteryType">
-							Battery Type: {{ this.details!.Device!.batteryType }}
+						<p *ngIf="(this.details$ | async)!.Device!.batteryType">
+							Battery Type: {{ (this.details$ | async)!.Device!.batteryType }}
 						</p>
-						<p *ngIf="this.details!.Device!.batteryCharge">
-							Battery Charge: {{ this.details!.Device!.batteryCharge }}
+						<p *ngIf="(this.details$ | async)!.Device!.batteryCharge">
+							Battery Charge: {{ (this.details$ | async)!.Device!.batteryCharge }}
 						</p>
 					</div>
 					<div
-						*ngIf="this.validatedUser?.email !== this.details!.User?.email"
+						*ngIf="
+							(this.validatedUser$ | async)!.email !==
+							(this.details$ | async)!.User?.email
+						"
 						class="details__block"
 					>
-						<p>Seller Comments: {{ this.details!.comments }}</p>
-						<p>Price: {{ this.details!.price }} EUR</p>
+						<p>Seller Comments: {{ (this.details$ | async)!.comments }}</p>
+						<p>Price: {{ (this.details$ | async)!.price }} EUR</p>
 					</div>
 					<div
-						*ngIf="this.validatedUser?.email === this.details!.User?.email"
+						*ngIf="
+							(this.validatedUser$ | async)!.email ===
+							(this.details$ | async)!.User?.email
+						"
 						class="details__input"
 					>
 						<input
 							#comments
 							type="text"
 							name="comments"
-							[defaultValue]="this.details!.comments"
+							[defaultValue]="(this.details$ | async)!.comments"
 						/>
 						<input
 							#price
 							type="text"
 							name="price"
-							[defaultValue]="this.details!.price"
+							[defaultValue]="(this.details$ | async)!.price"
 						/>
 					</div>
 				</div>

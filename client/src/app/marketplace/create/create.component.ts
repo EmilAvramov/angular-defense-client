@@ -4,16 +4,23 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnDestroy,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {
+	concat,
 	debounceTime,
 	distinctUntilChanged,
 	fromEvent,
 	map,
+	mergeMap,
 	Observable,
+	of,
+	Subject,
+	take,
+	takeUntil,
 } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingPayload } from 'src/app/state/posting/posting.state';
@@ -25,13 +32,17 @@ import { PostingCreateService } from '../services/postingCreate.service';
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.sass'],
 })
-export class CreateComponent implements AfterViewInit {
+export class CreateComponent implements AfterViewInit, OnDestroy {
 	public display$!: Observable<boolean>;
-	public posting!: PostingPayload | null;
+	public posting!: PostingPayload;
+	private userEmail!: string;
+	private deviceKey!: string;
 
-	@Input() user!: User | null;
-	@Input() devices!: Device[] | null;
-	@Input() deviceDetails!: Device | null;
+	public completer$: Subject<void> = new Subject<void>();
+
+	@Input() user$: Observable<User | null> | undefined;
+	@Input() devices$: Observable<Device[] | null> | undefined;
+	@Input() deviceDetails$: Observable<Device | null> | undefined;
 	@Output() requestDeviceList = new EventEmitter<string>();
 	@Output() requestDeviceDetails = new EventEmitter<string>();
 	@Output() createPosting = new EventEmitter<PostingPayload>();
@@ -54,10 +65,7 @@ export class CreateComponent implements AfterViewInit {
 				map((e: Event) => (e.target as HTMLInputElement).value)
 			)
 			.subscribe({
-				next: (res) => {
-					this.deviceDetails = null;
-					this.requestDeviceList.emit(res);
-				},
+				next: (res) => this.requestDeviceList.emit(res),
 				error: (err) => console.log(err),
 			});
 	}
@@ -76,9 +84,17 @@ export class CreateComponent implements AfterViewInit {
 	}
 
 	sendPosting(): void {
+		this.user$
+			?.pipe(takeUntil(this.completer$))
+			.subscribe((user: User | null) => (this.userEmail = user?.email as string));
+		this.deviceDetails$
+			?.pipe(takeUntil(this.completer$))
+			.subscribe(
+				(device: Device | null) => (this.deviceKey = device?.deviceKey as string)
+			);
 		this.posting = {
-			userEmail: this.user!.email as string,
-			deviceKey: this.deviceDetails!.deviceKey as string,
+			userEmail: this.userEmail,
+			deviceKey: this.deviceKey,
 			comments: this.comments!.value,
 			price: this.price!.value,
 		};
@@ -95,5 +111,10 @@ export class CreateComponent implements AfterViewInit {
 
 	openCreate(key: string): void {
 		this.requestDeviceDetails.emit(key);
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 }

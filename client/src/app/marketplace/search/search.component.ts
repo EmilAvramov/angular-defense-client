@@ -6,7 +6,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { fromEvent, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { fromEvent, debounceTime, distinctUntilChanged, map, Observable } from 'rxjs';
 import { User } from 'src/app/state/user/user.state';
 
 @Component({
@@ -15,7 +15,7 @@ import { User } from 'src/app/state/user/user.state';
 	styleUrls: ['./search.component.sass'],
 })
 export class SearchComponent {
-	@Input() user!: User | null;
+	@Input() user$: Observable<User | null> | undefined;
 	@Output() search = new EventEmitter<string>();
 	@Output() create = new EventEmitter<null>();
 

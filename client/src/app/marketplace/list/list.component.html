@@ -1,6 +1,6 @@
 <main class="postings__container">
 	<div class="postings__list">
-		<div *ngFor="let posting of postings" class="postings__list_item">
+		<div *ngFor="let posting of postings$ | async" class="postings__list_item">
 			<p>{{ posting.Device?.deviceName }}</p>
 			<img
 				(click)="showDetails(posting.id)"
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<button
-		*ngIf="this.postings && this.postings.length > 18"
+		*ngIf="this.postings$"
 		(click)="loadMore()"
 		class="postings__more"
 	>

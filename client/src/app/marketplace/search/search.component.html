@@ -5,7 +5,7 @@
 		type="text"
 		placeholder="Start typing here..."
 	/>
-	<button *ngIf="this.user?.token" (click)="onCreate()" class="search__create">
+	<button *ngIf="(this.user$ | async)!.token" (click)="onCreate()" class="search__create">
 		Post New Ad
 	</button>
 </div>

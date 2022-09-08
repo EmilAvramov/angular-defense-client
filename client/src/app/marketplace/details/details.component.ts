@@ -6,7 +6,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
@@ -20,8 +20,8 @@ import { PostingDetailsService } from '../services/postingDetails.service';
 export class DetailsComponent {
 	public display$!: Observable<boolean>;
 
-	@Input() details!: Posting | null;
-	@Input() validatedUser!: User | null;
+	@Input() details$: Observable<Posting | null> | undefined;
+	@Input() validatedUser$: Observable<User | null> | undefined;
 	@Output() editPosting = new EventEmitter<{
 		id: number;
 		comments: string;
@@ -40,15 +40,23 @@ export class DetailsComponent {
 	}
 
 	emitEdit() {
-		this.editPosting.emit({
-			id: this.details!.id,
-			comments: this.comments.nativeElement.value,
-			price: Number(this.price.nativeElement.value),
-		});
+		this.details$?.pipe(
+			take(1),
+			map((data: Posting | null) =>
+				this.editPosting.emit({
+					id: data!.id,
+					comments: this.comments.nativeElement.value,
+					price: Number(this.price.nativeElement.value),
+				})
+			)
+		);
 	}
 
 	emitDelete() {
-		this.deletePosting.emit(this.details!.id);
+		this.details$?.pipe(
+			take(1),
+			map((data: Posting | null) => this.deletePosting.emit(data!.id))
+		);
 	}
 
 	close() {
