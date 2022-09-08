@@ -89,6 +89,7 @@ export class CreateComponent implements AfterViewInit {
 	close(): void {
 		this.createModal.close();
 		this.searchDevice.nativeElement.value = '';
+		this.postingForm.reset();
 		this.clearDetails.emit();
 	}
 

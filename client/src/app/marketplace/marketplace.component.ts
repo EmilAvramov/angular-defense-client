@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
@@ -117,7 +117,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.completer$.next()
-		this.completer$.complete()
+		this.completer$.next();
+		this.completer$.complete();
 	}
 }

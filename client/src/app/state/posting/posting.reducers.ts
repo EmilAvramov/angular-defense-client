@@ -188,7 +188,6 @@ export const _postingReducer = createReducer(
 	})),
 	on(postingActions.PostingClearDeviceDetailsSuccess, (state) => ({
 		...state,
-		devices: null,
 		devicesDetails: null,
 		loaded: true,
 		error: null,
