@@ -79,7 +79,7 @@ export class CreateComponent implements AfterViewInit, OnDestroy {
 			'',
 			{
 				validators: [Validators.required],
-				updateOn: 'blur',
+				updateOn: 'change',
 			},
 		],
 	});

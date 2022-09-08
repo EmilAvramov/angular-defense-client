@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { Observable, Subject, takeUntil, repeat } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { SharedService } from '../services/shared.service';
 
@@ -8,14 +8,11 @@ import { SharedService } from '../services/shared.service';
 	templateUrl: './postings.component.html',
 	styleUrls: ['./postings.component.sass'],
 })
-export class PostingsComponent implements OnDestroy {
-	public completer$: Subject<void> = new Subject<void>();
+export class PostingsComponent {
 	public userPostings$: Observable<Posting[] | null> | undefined;
 
 	constructor(private sharedService: SharedService) {
-		this.userPostings$ = this.sharedService.userPostings$.pipe(
-			takeUntil(this.completer$)
-		);
+		this.userPostings$ = this.sharedService.userPostings$;
 	}
 
 	editPosting(id: number, comments: string, price: number): void {
@@ -24,10 +21,5 @@ export class PostingsComponent implements OnDestroy {
 
 	deletePosting(id: number): void {
 		this.sharedService.emitPostingId(id);
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }

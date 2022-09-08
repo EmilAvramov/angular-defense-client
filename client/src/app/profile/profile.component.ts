@@ -15,6 +15,7 @@ import {
 	take,
 	Observable,
 	tap,
+	repeat,
 } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
@@ -51,7 +52,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						map((data: User) => {
 							this.postingFacade.loadUserPostings(data.id),
 								this.sharedService.emitUserData(data);
-						})
+						}),
 					)
 				),
 				switchMap(() =>
@@ -68,7 +69,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				takeUntil(this.completer$),
 				map((id) => {
 					this.postingFacade.deletePosting(id);
-				}),
+				})
 			)
 			.subscribe();
 
