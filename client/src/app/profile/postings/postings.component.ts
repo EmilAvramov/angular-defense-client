@@ -1,5 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { Observable, Subject, takeUntil, repeat } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { SharedService } from '../services/shared.service';
@@ -18,6 +17,15 @@ export class PostingsComponent implements OnDestroy {
 			takeUntil(this.completer$)
 		);
 	}
+
+	editPosting(id: number, comments: string, price: number): void {
+		this.sharedService.emitPostingEdit({ id, comments, price });
+	}
+
+	deletePosting(id: number): void {
+		this.sharedService.emitPostingId(id);
+	}
+
 	ngOnDestroy(): void {
 		this.completer$.next();
 		this.completer$.complete();

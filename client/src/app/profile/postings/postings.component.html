@@ -3,7 +3,7 @@
 	<div class="profile__postings_subwrapper">
 		<div class="profile__postings_wrapperLeft">
 			<div
-                *ngFor="let posting of userPostings$ | async"
+				*ngFor="let posting of userPostings$ | async"
 				class="profile__postings_container"
 			>
 				<div class="profile__postings_device">
@@ -17,7 +17,7 @@
 				<div class="profile__postings_buttons">
 					<button>Details</button>
 					<button>Edit</button>
-					<button>Delete</button>
+					<button (click)="deletePosting(posting.id)">Delete</button>
 				</div>
 			</div>
 		</div>
