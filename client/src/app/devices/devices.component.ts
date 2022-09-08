@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/devices/services/modal.service';
 import { DeviceFacade } from '../state/device/device.facade';
 import { Device } from '../state/device/device.state';
@@ -9,18 +10,20 @@ import { Device } from '../state/device/device.state';
 	templateUrl: './devices.component.html',
 	styleUrls: ['./devices.component.sass'],
 })
-export class DevicesComponent {
+export class DevicesComponent implements OnDestroy {
 	public limit: number = 100;
 	public offset: number = 0;
 	public data!: Device[] | null;
 	public details!: Device | null;
+
+	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(
 		private spinner: NgxSpinnerService,
 		private deviceFacade: DeviceFacade,
 		public modal: ModalService
 	) {
-		this.deviceFacade.dataLoaded$.subscribe({
+		this.deviceFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (loading: boolean) => {
 				if (!loading) {
 					this.spinner.show();
@@ -30,11 +33,11 @@ export class DevicesComponent {
 			},
 			error: (err: string | null) => console.log(err),
 		});
-		this.deviceFacade.deviceData$.subscribe({
+		this.deviceFacade.deviceData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: Device[] | null) => (this.data = data),
 			error: (err: string | null) => console.log(err),
 		});
-		this.deviceFacade.deviceDetails$.subscribe({
+		this.deviceFacade.deviceDetails$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: Device | null) => (this.details = data),
 			error: (err: string | null) => console.log(err),
 		});
@@ -57,5 +60,10 @@ export class DevicesComponent {
 	getDetails(key: string) {
 		this.deviceFacade.getDeviceDetails(key);
 		this.modal.open();
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 }

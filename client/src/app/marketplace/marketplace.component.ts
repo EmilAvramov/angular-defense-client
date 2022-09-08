@@ -1,4 +1,5 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
@@ -12,7 +13,7 @@ import { PostingDetailsService } from './services/postingDetails.service';
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent implements AfterViewInit {
+export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	public limit: number = 18;
 	public offset: number = 0;
 
@@ -23,33 +24,37 @@ export class MarketplaceComponent implements AfterViewInit {
 	public user!: User | null;
 	public validatedUser!: User | null;
 
+	public completer$: Subject<void> = new Subject<void>();
+
 	constructor(
 		public postingModal: PostingDetailsService,
 		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade
 	) {
-		this.postingFacade.postingData$.subscribe({
+		this.postingFacade.postingData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: Posting[] | null) => (this.postings = data),
 			error: (err: string | null) => console.log(err),
 		});
-		this.postingFacade.postingDetails$.subscribe({
-			next: (data: Posting | null) => (this.postingDetails = data),
-			error: (err: string | null) => console.log(err),
-		});
-		this.postingFacade.devicesData$.subscribe({
+		this.postingFacade.postingDetails$
+			.pipe(takeUntil(this.completer$))
+			.subscribe({
+				next: (data: Posting | null) => (this.postingDetails = data),
+				error: (err: string | null) => console.log(err),
+			});
+		this.postingFacade.devicesData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: Device[] | null) => (this.devices = data),
 			error: (err: string | null) => console.log(err),
 		});
-		this.postingFacade.deviceDetails$.subscribe({
+		this.postingFacade.deviceDetails$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: Device | null) => (this.deviceDetails = data),
 			error: (err: string | null) => console.log(err),
 		});
-		this.userFacade.userData$.subscribe({
+		this.userFacade.userData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: User | null) => (this.user = data),
 			error: (err: string | null) => console.log(err),
 		});
-		this.userFacade.userValidated$.subscribe({
+		this.userFacade.userValidated$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (data: User | null) => (this.validatedUser = data),
 			error: (err: string | null) => console.log(err),
 		});
@@ -109,5 +114,10 @@ export class MarketplaceComponent implements AfterViewInit {
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
 		this.postingFacade.initPostingsData();
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next()
+		this.completer$.complete()
 	}
 }

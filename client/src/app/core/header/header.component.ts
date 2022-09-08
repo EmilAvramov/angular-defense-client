@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { UserFacade } from 'src/app/state/user/user.facade';
 
 @Component({
@@ -6,16 +7,22 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.sass'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
 	token!: string;
+
+	public completer$: Subject<void> = new Subject<void>();
 
 	@ViewChild('dropdown') private dropdown!: ElementRef<HTMLElement>;
 
 	constructor(private readonly userFacade: UserFacade) {
-		this.userFacade.userData$.subscribe({
+		this.userFacade.userData$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (res) => (this.token = res.token),
 			error: (err) => console.log(err),
 		});
+	}
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 
 	logout(): void {

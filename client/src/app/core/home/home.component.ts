@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -16,9 +16,11 @@ import { server } from 'src/app/shared/variables/config';
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.sass'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 	latest: LatestDevice[] | undefined;
 	popular: PopularDevice[] | undefined;
+
+	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
@@ -26,7 +28,10 @@ export class HomeComponent implements OnInit {
 		this.spinner.show();
 		this.http
 			.get<HomeRequest>(`${server}/data/recommended`)
-			.pipe(finalize(() => this.spinner.hide()))
+			.pipe(
+				finalize(() => this.spinner.hide()),
+				takeUntil(this.completer$)
+			)
 			.subscribe({
 				next: (value) => {
 					this.latest = value.latest;
@@ -34,5 +39,10 @@ export class HomeComponent implements OnInit {
 				},
 				error: (err) => console.log(err.message),
 			});
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 }
