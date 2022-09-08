@@ -8,18 +8,14 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
-	concat,
 	debounceTime,
 	distinctUntilChanged,
 	fromEvent,
 	map,
-	mergeMap,
 	Observable,
-	of,
 	Subject,
-	take,
 	takeUntil,
 } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
@@ -71,8 +67,21 @@ export class CreateComponent implements AfterViewInit, OnDestroy {
 	}
 
 	postingForm = this.fb.group({
-		comments: [''],
-		price: [''],
+		comments: [
+			'',
+			{
+				validators: [Validators.required],
+				updateOn: 'blur',
+			},
+		],
+
+		price: [
+			'',
+			{
+				validators: [Validators.required],
+				updateOn: 'blur',
+			},
+		],
 	});
 
 	get comments() {

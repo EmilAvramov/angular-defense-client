@@ -39,26 +39,17 @@ export class DetailsComponent {
 		this.display$ = this.postingModal.watch();
 	}
 
-	emitEdit() {
-		this.details$?.pipe(
-			take(1),
-			map((data: Posting | null) =>
-				this.editPosting.emit({
-					id: data!.id,
-					comments: this.comments.nativeElement.value,
-					price: Number(this.price.nativeElement.value),
-				})
-			)
-		);
+	emitEdit(id: number) {
+		this.editPosting.emit({
+			id,
+			comments: this.comments.nativeElement.value,
+			price: Number(this.price.nativeElement.value),
+		})
 	}
 
-	emitDelete() {
-		this.details$?.pipe(
-			take(1),
-			map((data: Posting | null) => this.deletePosting.emit(data!.id))
-		);
+	emitDelete(id: number) {
+		this.deletePosting.emit(id);
 	}
-
 	close() {
 		this.postingModal.close();
 	}

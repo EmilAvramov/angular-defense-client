@@ -1,6 +1,6 @@
 <ng-container *ngIf="display$ | async as display">
 	<section class="details__wrapper" (click)="close()">
-		<div class="details__container">
+		<div *ngIf="(this.details$ | async)!.id as id" class="details__container">
 			<button class="close" type="button" (click)="close()">X</button>
 			<button
 				*ngIf="
@@ -9,7 +9,7 @@
 				"
 				class="edit"
 				type="button"
-				(click)="emitEdit()"
+				(click)="emitEdit(id)"
 			>
 				Edit
 			</button>
@@ -18,9 +18,10 @@
 					(this.validatedUser$ | async)?.email ===
 					(this.details$ | async)!.User?.email
 				"
+				
 				class="delete"
 				type="button"
-				(click)="emitDelete()"
+				(click)="emitDelete(id)"
 			>
 				Delete
 			</button>

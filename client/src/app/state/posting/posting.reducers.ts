@@ -130,7 +130,6 @@ export const _postingReducer = createReducer(
 	on(postingActions.PostingDeleteSuccess, (state, { data }) => ({
 		...state,
 		postings: state.postings!.filter((x: Posting) => data.id !== x.id),
-		userPostings: state.userPostings!.filter((x: Posting) => data.id !== x.id),
 		loaded: true,
 		error: null,
 	})),

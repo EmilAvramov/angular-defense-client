@@ -183,9 +183,11 @@
 							<tbody></tbody>
 						</table>
 					</div>
-
 					<div class="details__rightBlock">
-						<form [formGroup]="postingForm" (ngSubmit)="sendPosting()">
+						<form
+							[formGroup]="postingForm"
+							(ngSubmit)="sendPosting()"
+						>
 							<label for="comments">Comments about your device</label>
 							<textarea
 								name="comments"
@@ -196,7 +198,7 @@
 							></textarea>
 							<label for="price">Sell Price</label>
 							<input type="number" name="price" formControlName="price" />
-							<button>Create Posting</button>
+							<button [disabled]="!this.postingForm.valid">Create Posting</button>
 						</form>
 					</div>
 				</div>

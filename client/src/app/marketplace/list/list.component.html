@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<button
-		*ngIf="this.postings$"
+		*ngIf="(this.postings$ | async) && (this.postings$ | async)!.length > 18"
 		(click)="loadMore()"
 		class="postings__more"
 	>

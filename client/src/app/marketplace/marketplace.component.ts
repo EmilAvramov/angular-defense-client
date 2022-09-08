@@ -39,14 +39,16 @@ export class MarketplaceComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		this.user$.pipe(
-			take(1),
-			map((data: User | null) => {
-				if (data) {
-					this.userFacade.validateUser(data.token);
-				}
-			})
-		).subscribe()
+		this.user$
+			.pipe(
+				take(1),
+				map((data: User | null) => {
+					if (data) {
+						this.userFacade.validateUser(data.token);
+					}
+				})
+			)
+			.subscribe();
 	}
 
 	// Posting modal actions below
@@ -96,5 +98,6 @@ export class MarketplaceComponent implements AfterViewInit {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
+		this.postingFacade.initPostingsData();
 	}
 }
