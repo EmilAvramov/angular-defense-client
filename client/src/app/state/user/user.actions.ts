@@ -24,7 +24,7 @@ export const UserInit = createAction(UserActionsNames.UserInit);
 export const UserInitSuccess = createAction(
 	UserActionsNames.UserInitSuccess,
 	props<{
-		id: number | null;
+		id: number;
 		email: string;
 		firstName: string;
 		lastName: string;

@@ -9,31 +9,28 @@
         margin: 20px auto
         border: 1px solid black
 
-    h2
-        font-size: 30px
-        width: 100%
-        text-align: center
-
-    .profile__postings_subwrapper
-        width: 100%
         display: flex
-        justify-content: center
-        align-items: center
+        flex-direction: column
 
-        .profile__postings_wrapperLeft
-            flex-basis: 70%
+        h2
+            font-size: 30px
+            width: 100%
+            text-align: center
+
+        .profile__postings_subwrapper
             display: flex
             flex-direction: column
             justify-content: center
             align-items: center
             margin: 15px 30px
-
             position: relative
 
             .profile__postings_container
+                flex-basis: 100%
+                width: 90%
+
                 position: relative
                 display: flex
-                width: 100%
                 gap: 30px
                 padding: 20px
 
@@ -47,23 +44,17 @@
                     align-items: center
                     gap: 20px
 
-                .profile__postings_personal
-                    display: flex
-                    flex-direction: column
-                    justify-content: center
-                    gap: 20px
+                    .profile__postings_personal
+                        display: flex
+                        flex-direction: column
+                        justify-content: center
+                        gap: 20px
 
-                .profile__postings_buttons
-                    position: absolute
-                    top: 0px
-                    right: 0px
+                    .profile__postings_buttons
+                        position: absolute
+                        top: 0px
+                        right: 0px
 
-                    button
-                        width: 100px
-                        height: 50px
-
-        .profile__postings_wrapperRight
-            flex-basis: 30%
-            border: 1px solid red
-            height: 500px
-            margin: 15px 30px
+                        button
+                            width: 100px
+                            height: 50px

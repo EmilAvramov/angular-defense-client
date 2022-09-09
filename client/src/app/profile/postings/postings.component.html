@@ -2,28 +2,23 @@
 	<div class="profile__postings_wrapper">
 		<h2>My MarketPlace Postings</h2>
 		<div class="profile__postings_subwrapper">
-			<div class="profile__postings_wrapperLeft">
-				<div
-					*ngFor="let posting of userPostings$ | async"
-					class="profile__postings_container"
-				>
-					<div class="profile__postings_device">
-						<p>{{ posting.Device!.deviceName }}</p>
-						<img src="{{ posting.Device!.deviceImage }}" alt="" />
-					</div>
-					<div class="profile__postings_personal">
-						<p>Posting Price: {{ posting.price }}</p>
-						<p>Comments: {{ posting.comments }}</p>
-					</div>
-					<div class="profile__postings_buttons">
-						<button>Details</button>
-						<button>Edit</button>
-						<button (click)="deletePosting(posting.id)">Delete</button>
-					</div>
+			<div
+				*ngFor="let posting of userPostings"
+				class="profile__postings_container"
+			>
+				<div class="profile__postings_device">
+					<p>{{ posting.Device!.deviceName }}</p>
+					<img src="{{ posting.Device!.deviceImage }}" alt="" />
 				</div>
-			</div>
-			<div class="profile__postings_wrapperRight">
-				<p>Text placeholder</p>
+				<div class="profile__postings_personal">
+					<p>Posting Price: {{ posting.price }}</p>
+					<p>Comments: {{ posting.comments }}</p>
+				</div>
+				<div class="profile__postings_buttons">
+					<button>Details</button>
+					<button>Edit</button>
+					<button (click)="deletePosting(posting.id)">Delete</button>
+				</div>
 			</div>
 		</div>
 	</div>

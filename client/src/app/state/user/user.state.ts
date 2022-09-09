@@ -1,7 +1,7 @@
 export const USER_FEATURE_KEY = 'user';
 
 export const initialUserState: UserState = {
-	id: null,
+	id: 0,
 	email: '',
 	firstName: '',
 	lastName: '',
@@ -15,7 +15,7 @@ export const initialUserState: UserState = {
 };
 
 export interface UserState {
-	id: number | null;
+	id: number;
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -29,7 +29,7 @@ export interface UserState {
 }
 
 export interface User {
-	id: number | null;
+	id: number;
 	email: string;
 	firstName: string;
 	lastName: string;
