@@ -44,6 +44,7 @@ export class PostingsComponent implements OnDestroy {
 
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
+		this.postingFacade.initPostingsData()
 	}
 
 	deletePosting(id: number): void {

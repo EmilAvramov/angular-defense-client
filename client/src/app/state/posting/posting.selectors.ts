@@ -11,11 +11,6 @@ export const getPostings = createSelector(
 	(state: PostingState) => state.postings
 );
 
-export const getUserPostings = createSelector(
-	getPostingState,
-	(state: PostingState) => state.userPostings
-);
-
 export const getPostingDetails = createSelector(
 	getPostingState,
 	(state: PostingState) => state.postingsDetails
@@ -64,9 +59,3 @@ export const filterDevices = (key: string) =>
 		(state: PostingState) =>
 			state.devices!.filter((x: Device) => x.deviceKey === key)[0]
 	);
-
-export const filterUserPostings = (id: number) =>
-	createSelector(getPostingState, (state: PostingState) => {
-		console.log(state)
-		return state.postings!.filter((x: Posting) => x.User!.id === id);
-	});

@@ -22,12 +22,6 @@ export class PostingService {
 		);
 	}
 
-	getUserPostings(id: number): Observable<Posting[]> {
-		return this.http.get<Posting[]>(`${server}/postings/user/${id}`, {
-			headers: this.headers,
-		});
-	}
-
 	searchPostings(
 		query: string,
 		limit: number,

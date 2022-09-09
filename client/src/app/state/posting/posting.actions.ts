@@ -109,21 +109,6 @@ export const PostingGetDetailsFailure = createAction(
 	props<{ error: string | null }>()
 );
 
-export const PostingUserGet = createAction(
-	PostingActionNames.PostingUserGet,
-	props<{ id: number }>()
-);
-
-export const PostingUserGetSuccess = createAction(
-	PostingActionNames.PostingUserGetSuccess,
-	props<{ data: Posting[] }>()
-);
-
-export const PostingUserGetFailure = createAction(
-	PostingActionNames.PostingUserGetFailure,
-	props<{ error: string | null }>()
-);
-
 export const PostingCreate = createAction(
 	PostingActionNames.PostingCreate,
 	props<{ payload: PostingPayload }>()

@@ -72,22 +72,6 @@ export const _postingReducer = createReducer(
 		loaded: false,
 		error,
 	})),
-	on(postingActions.PostingUserGet, (state) => ({
-		...state,
-		loaded: false,
-		error: null,
-	})),
-	on(postingActions.PostingUserGetSuccess, (state, { data }) => ({
-		...state,
-		userPostings: data,
-		loaded: true,
-		error: null,
-	})),
-	on(postingActions.PostingUserGetFailure, (state, { error }) => ({
-		...state,
-		loaded: false,
-		error,
-	})),
 	on(postingActions.PostingCreate, (state) => ({
 		...state,
 		create: null,
