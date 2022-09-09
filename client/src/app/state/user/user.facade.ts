@@ -18,7 +18,7 @@ export class UserFacade {
 		select(userSelectors.getUserToken)
 	);
 
-	public readonly userId$: Observable<number> = this.store.pipe(
+	public readonly userId$: Observable<number | null> = this.store.pipe(
 		select(userSelectors.getUserId)
 	);
 

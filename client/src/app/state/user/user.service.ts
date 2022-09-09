@@ -69,7 +69,7 @@ export class AuthService {
 @Injectable()
 export class StorageService {
 	setStorage(response: User): void {
-		sessionStorage.setItem('id', response.id.toString());
+		sessionStorage.setItem('id', response.id!.toString());
 		sessionStorage.setItem('email', response.email);
 		sessionStorage.setItem('firstName', response.firstName);
 		sessionStorage.setItem('lastName', response.lastName);

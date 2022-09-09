@@ -100,11 +100,13 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingUserGet),
 			map(({ id }) => PostingActions.PostingUserGet({ id })),
 			switchMap(({ id }) =>
-				this.postingService
-					.getUserPostings(id)
-					.pipe(
-						map((data: Posting[]) => PostingActions.PostingUserGetSuccess({ data }))
-					)
+				this.postingStore.pipe(
+					select(PostingSelectors.filterUserPostings(id)),
+					map((data: Posting[]) => {
+						console.log(data);
+						return PostingActions.PostingUserGetSuccess({ data });
+					})
+				)
 			),
 			catchError((error: string | null) =>
 				of(PostingActions.PostingUserGetFailure({ error }))
