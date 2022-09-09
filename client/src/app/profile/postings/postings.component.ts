@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
-import { map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
-import { User } from 'src/app/state/user/user.state';
+import { EditModalService } from './services/editModal.service';
 
 @Component({
 	selector: 'app-postings',
@@ -12,12 +12,14 @@ import { User } from 'src/app/state/user/user.state';
 })
 export class PostingsComponent implements OnDestroy {
 	public userPostings!: Posting[] | null;
+	public postingDetails$: Observable<Posting | null>;
 
 	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(
 		private userFacade: UserFacade,
-		private postingFacade: PostingFacade
+		private postingFacade: PostingFacade,
+		private editModal: EditModalService
 	) {
 		this.userFacade.userData$
 			.pipe(
@@ -37,11 +39,21 @@ export class PostingsComponent implements OnDestroy {
 			)
 
 			.subscribe();
+		this.postingDetails$ = this.postingFacade.postingDetails$;
 	}
 
-	editPosting(id: number, comments: string, price: number): void {}
+	editPosting(data: any): void {
+		this.postingFacade.editPosting(data.id, data.comments, data.price);
+	}
 
-	deletePosting(id: number): void {}
+	deletePosting(id: number): void {
+		this.postingFacade.deletePosting(id);
+	}
+
+	fetchPostingDetails(id: number): void {
+		this.postingFacade.getPostingDetails(id);
+		this.editModal.open();
+	}
 
 	ngOnDestroy(): void {
 		this.completer$.next();

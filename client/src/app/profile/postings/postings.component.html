@@ -15,7 +15,6 @@
 					<p>Comments: {{ posting.comments }}</p>
 				</div>
 				<div class="profile__postings_buttons">
-					<button>Details</button>
 					<button>Edit</button>
 					<button (click)="deletePosting(posting.id)">Delete</button>
 				</div>
@@ -23,3 +22,8 @@
 		</div>
 	</div>
 </div>
+<app-edit
+	[details$]="this.postingDetails$"
+	(editPosting)="this.editPosting($event)"
+	(deletePosting)="this.deletePosting($event)"
+></app-edit>
