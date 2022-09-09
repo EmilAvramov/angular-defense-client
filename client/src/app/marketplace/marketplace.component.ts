@@ -75,7 +75,6 @@ export class MarketplaceComponent implements AfterViewInit {
 
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
-		this.postingFacade.initPostingsData();
 	}
 
 	// Create modal methods below
