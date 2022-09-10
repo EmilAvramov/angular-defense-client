@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+} from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, Subject, take, takeUntil } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
@@ -88,12 +93,12 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
-		this.postingFacade.initPostingsData()
+		this.postingFacade.initPostingsData();
 	}
 
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
-		this.postingFacade.initPostingsData()
+		this.postingFacade.initPostingsData();
 	}
 
 	// Create modal methods below
@@ -116,6 +121,6 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
-		this.postingFacade.initPostingsData()
+		this.postingFacade.initPostingsData();
 	}
 }

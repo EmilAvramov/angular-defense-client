@@ -20,9 +20,6 @@ router.post('/list/search', async (req, res) => {
 	try {
 		let query = req.query.query;
 		let limit = req.body.limit
-		if (!query) {
-			res.status(404).json({ message: 'not found' });
-		}
 		const response = await getDevices(query as string, limit);
 		res.status(200).json(response);
 	} catch (err: any) {

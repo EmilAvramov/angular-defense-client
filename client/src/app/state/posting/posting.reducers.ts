@@ -45,7 +45,7 @@ export const _postingReducer = createReducer(
 	})),
 	on(postingActions.PostingSearchSuccess, (state, { data }) => ({
 		...state,
-		posting: data,
+		postings: data,
 		query: '',
 		loaded: true,
 		error: null,
