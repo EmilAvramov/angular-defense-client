@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
@@ -19,8 +20,19 @@ export class PostingsComponent implements OnDestroy {
 	constructor(
 		private userFacade: UserFacade,
 		private postingFacade: PostingFacade,
-		private editModal: EditModalService
+		private editModal: EditModalService,
+		private spinner: NgxSpinnerService
 	) {
+		this.postingFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({
+			next: (loading: boolean) => {
+				if (!loading) {
+					this.spinner.show();
+				} else {
+					this.spinner.hide();
+				}
+			},
+			error: (err: string | null) => console.log(err),
+		});
 		this.userFacade.userData$
 			.pipe(
 				takeUntil(this.completer$),

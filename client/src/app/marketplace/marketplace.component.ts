@@ -31,7 +31,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
-		private spinner: NgxSpinnerService
+		private spinner: NgxSpinnerService,
 	) {
 		this.postings$ = this.postingFacade.postingData$;
 		this.postingDetails$ = this.postingFacade.postingDetails$;
@@ -88,11 +88,12 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
-		this.postingFacade.initPostingsData();
+		this.postingFacade.initPostingsData()
 	}
 
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
+		this.postingFacade.initPostingsData()
 	}
 
 	// Create modal methods below
@@ -115,6 +116,6 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	createPosting(data: PostingPayload) {
 		this.postingFacade.createPosting(data);
-		this.postingFacade.initPostingsData();
+		this.postingFacade.initPostingsData()
 	}
 }
