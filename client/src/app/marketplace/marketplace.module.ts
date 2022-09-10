@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { MarketplaceComponent } from './marketplace.component';
 import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
-
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { CreateComponent } from './create/create.component';
 import { DetailsComponent } from './details/details.component';
 
@@ -26,5 +25,6 @@ import { DetailsComponent } from './details/details.component';
 		BrowserAnimationsModule,
 	],
 	providers: [],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MarketplaceModule {}

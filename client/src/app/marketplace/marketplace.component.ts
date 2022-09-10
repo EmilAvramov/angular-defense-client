@@ -1,5 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { map, Observable, take } from 'rxjs';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { map, Observable, Subject, take, takeUntil } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
@@ -13,9 +14,10 @@ import { PostingDetailsService } from './services/postingDetails.service';
 	templateUrl: './marketplace.component.html',
 	styleUrls: ['./marketplace.component.sass'],
 })
-export class MarketplaceComponent implements AfterViewInit {
+export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	public limit: number = 18;
 	public offset: number = 0;
+	public completer$: Subject<void> = new Subject<void>();
 
 	public postings$: Observable<Posting[] | null>;
 	public postingDetails$: Observable<Posting | null>;
@@ -28,7 +30,8 @@ export class MarketplaceComponent implements AfterViewInit {
 		public postingModal: PostingDetailsService,
 		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
-		private userFacade: UserFacade
+		private userFacade: UserFacade,
+		private spinner: NgxSpinnerService
 	) {
 		this.postings$ = this.postingFacade.postingData$;
 		this.postingDetails$ = this.postingFacade.postingDetails$;
@@ -39,6 +42,16 @@ export class MarketplaceComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
+		this.postingFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({
+			next: (loading: boolean) => {
+				if (!loading) {
+					this.spinner.show();
+				} else {
+					this.spinner.hide();
+				}
+			},
+			error: (err: string | null) => console.log(err),
+		});
 		this.user$
 			.pipe(
 				take(1),
@@ -49,6 +62,11 @@ export class MarketplaceComponent implements AfterViewInit {
 				})
 			)
 			.subscribe();
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 
 	// Posting modal actions below
