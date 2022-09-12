@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -15,7 +15,7 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.sass'],
 })
-export class SettingsComponent implements OnDestroy {
+export class SettingsComponent implements AfterViewInit, OnDestroy {
 	public completer$: Subject<void> = new Subject<void>();
 	public userData$: Observable<User | null> | undefined;
 
@@ -36,8 +36,9 @@ export class SettingsComponent implements OnDestroy {
 		this.userFacade.userData$
 			.pipe(
 				takeUntil(this.completer$),
-				map(({ id, firstName, lastName, phone, address, city, token }) => {
+				map(({ id, email, firstName, lastName, phone, address, city, token }) => {
 					this.userId = id;
+					this.userEmail = email
 					this.userFirstName = firstName;
 					this.userLastName = lastName;
 					this.userPhone = phone;
@@ -47,6 +48,28 @@ export class SettingsComponent implements OnDestroy {
 				})
 			)
 			.subscribe();
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
+
+	ngAfterViewInit(): void {
+		this.profileForm.patchValue({
+			email: this.userEmail,
+			firstName: this.userFirstName,
+			lastName: this.userLastName,
+			phone: this.userPhone,
+			address: this.userAddress,
+			city: this.userCity
+		})
+
+		this.passwordForm.patchValue({
+			currentPassword: '',
+			newPassword: '',
+			newPasswordRe: ''
+		})
 	}
 
 	profileForm = this.fb.group({
@@ -159,20 +182,31 @@ export class SettingsComponent implements OnDestroy {
 	changeDetails() {
 		const { email, firstName, lastName, phone, address, city } =
 			this.profileForm.value;
+		this.userFacade.changeDetails(
+			this.userId,
+			email as string,
+			firstName as string,
+			lastName as string,
+			phone as string,
+			address as string,
+			city as string,
+			this.userToken
+		);
 	}
 
 	changePassword() {
 		const { newPassword } = this.passwordForm.value;
+
+		this.userFacade.changePassword(
+			this.userId,
+			newPassword as string,
+			this.userToken
+		);
 	}
 
 	deleteAccount(id: number, token: string) {
 		this.userFacade.deleteAccount(id, token);
 		this.router.navigate(['/']);
 		this.userFacade.logoutUser(token);
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }

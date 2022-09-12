@@ -5,7 +5,7 @@
 		(ngSubmit)="changeDetails()"
 	>
 		<label for="email">Email: </label>
-		<input name="email" type="text" formControlName="email" required />
+		<input name="email" type="email" formControlName="email" required />
 		<span
 			class="form__error"
 			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
@@ -67,7 +67,7 @@
 		[formGroup]="passwordForm"
 		(ngSubmit)="changePassword()"
 	>
-		<label for="currentPassword">Password: </label>
+		<label for="currentPassword">Current Password: </label>
 		<input
 			name="currentPassword"
 			type="password"
@@ -87,7 +87,7 @@
 				character
 			</p>
 		</span>
-		<label for="newPassword">Password: </label>
+		<label for="newPassword">New Password: </label>
 		<input
 			name="newPassword"
 			type="password"
@@ -104,7 +104,7 @@
 				character
 			</p>
 		</span>
-		<label for="newPasswordRe">Password: </label>
+		<label for="newPasswordRe">Repeat Password: </label>
 		<input
 			name="newPasswordRe"
 			type="password"
@@ -131,7 +131,7 @@
 	>
 		<input
 			name="newPasswordRe"
-			type="password"
+			type="text"
 			formControlName="newPasswordRe"
 			required
 		/>

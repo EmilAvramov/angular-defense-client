@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, Observable, switchMap, of } from 'rxjs';
+import { catchError, map, Observable, switchMap, of, tap } from 'rxjs';
 
 import * as userActions from './user.actions';
 import { UserActionsNames } from './user.actions';
@@ -177,13 +177,12 @@ export class UserEffects {
 			ofType(UserActionsNames.UserDeleteAccount),
 			map(({ id, token }) => userActions.UserDeleteAccount({ id, token })),
 			switchMap(({ id, token }) =>
-				this.authService
-					.deleteAccount(id, token)
-					.pipe(
-						map((message: string) =>
-							userActions.UserDeleteAccountSuccess({ message })
-						)
-					)
+				this.authService.deleteAccount(id, token).pipe(
+					map((message: string) =>
+						userActions.UserDeleteAccountSuccess({ message })
+					),
+					tap(() => this.storageService.clearStorage())
+				)
 			),
 			catchError((error: string | null) =>
 				of(userActions.userDeleteAccountFailure({ error }))
