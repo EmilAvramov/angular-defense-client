@@ -138,6 +138,65 @@ export const _userReducer = createReducer(
 		validated: null,
 		loaded: false,
 		error,
+	})),
+	on(userActions.UserChangeDetails, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(userActions.UserChangeDetailsSuccess, (state, { data }) => ({
+		...state,
+		email: data.email,
+		firstName: data.firstName,
+		lastName: data.lastName,
+		phone: data.phone,
+		address: data.address,
+		city: data.city,
+		loaded: true,
+		error: null,
+	})),
+	on(userActions.UserChangeDetailsFailure, (state, { error }) => ({
+		...state,
+		loaded: false,
+		error,
+	})),
+	on(userActions.UserChangePassword, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(userActions.UserChangeDetailsSuccess, (state) => ({
+		...state,
+		loaded: true,
+		error: null,
+	})),
+	on(userActions.UserChangePasswordFailure, (state, { error }) => ({
+		...state,
+		loaded: false,
+		error,
+	})),
+	on(userActions.UserDeleteAccount, (state) => ({
+		...state,
+		loaded: false,
+		error: null,
+	})),
+	on(userActions.UserDeleteAccountSuccess, (state) => ({
+		...state,
+		id: 0,
+		email: '',
+		firstName: '',
+		lastName: '',
+		phone: '',
+		address: '',
+		city: '',
+		token: '',
+		loaded: true,
+		error: null,
+	})),
+	on(userActions.userDeleteAccountFailure, (state, { error }) => ({
+		...state,
+		loaded: false,
+		error,
 	}))
 );
 

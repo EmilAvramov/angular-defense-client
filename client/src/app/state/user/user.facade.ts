@@ -73,4 +73,36 @@ export class UserFacade {
 			this.store.dispatch(userActions.UserValidate({ token }));
 		}
 	}
+
+	public changeDetails(
+		id: number,
+		email: string,
+		firstName: string,
+		lastName: string,
+		phone: string,
+		address: string,
+		city: string,
+		token: string
+	): void {
+		this.store.dispatch(
+			userActions.UserChangeDetails({
+				id,
+				email,
+				firstName,
+				lastName,
+				phone,
+				address,
+				city,
+				token,
+			})
+		);
+	}
+
+	public changePassword(id: number, password: string, token: string): void {
+		this.store.dispatch(userActions.UserChangePassword({ id, password, token }));
+	}
+
+	public deleteAccount(id: number, token: string): void {
+		this.store.dispatch(userActions.UserDeleteAccount({ id, token }));
+	}
 }
