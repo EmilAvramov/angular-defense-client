@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 import {
 	emailPattern,
 	passwordPattern,
@@ -17,15 +17,36 @@ import { User } from 'src/app/state/user/user.state';
 })
 export class SettingsComponent implements OnDestroy {
 	public completer$: Subject<void> = new Subject<void>();
-
 	public userData$: Observable<User | null> | undefined;
+
+	public userId!: number;
+	public userEmail!: string;
+	public userFirstName!: string;
+	public userLastName!: string;
+	public userPhone!: string;
+	public userAddress!: string;
+	public userCity!: string;
+	public userToken!: string;
 
 	constructor(
 		private fb: FormBuilder,
 		private userFacade: UserFacade,
 		private router: Router
 	) {
-		this.userData$ = this.userFacade.userData$;
+		this.userFacade.userData$
+			.pipe(
+				takeUntil(this.completer$),
+				map(({ id, firstName, lastName, phone, address, city, token }) => {
+					this.userId = id;
+					this.userFirstName = firstName;
+					this.userLastName = lastName;
+					this.userPhone = phone;
+					this.userAddress = address;
+					this.userCity = city;
+					this.userToken = token;
+				})
+			)
+			.subscribe();
 	}
 
 	profileForm = this.fb.group({
@@ -97,6 +118,16 @@ export class SettingsComponent implements OnDestroy {
 		],
 	});
 
+	deleteForm = this.fb.group({
+		confirm: [
+			'',
+			{
+				validators: [Validators.required],
+				updateOn: 'change',
+			},
+		],
+	});
+
 	get email() {
 		return this.profileForm.get('email');
 	}
@@ -135,6 +166,7 @@ export class SettingsComponent implements OnDestroy {
 	}
 
 	deleteAccount(id: number, token: string) {
+		this.userFacade.deleteAccount(id, token);
 		this.router.navigate(['/']);
 		this.userFacade.logoutUser(token);
 	}

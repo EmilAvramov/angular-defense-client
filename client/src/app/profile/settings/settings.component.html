@@ -1,11 +1,152 @@
 <div class="profile__settings_container">
-    <div class="profile__settings_left">
+	<form
+		class="profile__settings_left"
+		[formGroup]="profileForm"
+		(ngSubmit)="changeDetails()"
+	>
+		<label for="email">Email: </label>
+		<input name="email" type="text" formControlName="email" required />
+		<span
+			class="form__error"
+			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
+		>
+			<p *ngIf="email?.errors?.['required']">This field is required</p>
+			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
+		</span>
+		<label for="firstName">First Name: </label>
+		<input name="firstName" type="text" formControlName="firstName" required />
+		<span
+			class="form__error"
+			*ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
+		>
+			<p *ngIf="firstName?.errors?.['required']">This field is required</p>
+		</span>
 
-    </div>
-    <div class="profile__settings_mid">
+		<label for="lastName">Last Name: </label>
+		<input name="last-name" type="text" formControlName="lastName" required />
+		<span
+			class="form__error"
+			*ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+		>
+			<p *ngIf="lastName?.errors?.['required']">This field is required</p>
+		</span>
 
-    </div>
-    <div class="profile__settings_left">
-        
-    </div>
+		<label for="phone">Phone Number: </label>
+		<input name="phone" type="text" formControlName="phone" required />
+		<span
+			class="form__error"
+			*ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+		>
+			<p *ngIf="phone?.errors?.['required']">This field is required</p>
+			<p *ngIf="phone?.errors?.['pattern']">
+				Phone must contain only digits and be at least 6 characters long
+			</p>
+		</span>
+
+		<label for="address">Address: </label>
+		<input name="address" type="text" formControlName="address" required />
+		<span
+			class="form__error"
+			*ngIf="address?.invalid && (address?.dirty || address?.touched)"
+		>
+			<p *ngIf="address?.errors?.['required']">This field is required</p>
+		</span>
+
+		<label for="city">City: </label>
+		<input name="city" type="text" formControlName="city" required />
+		<span
+			class="form__error"
+			*ngIf="city?.invalid && (city?.dirty || city?.touched)"
+		>
+			<p *ngIf="city?.errors?.['required']">This field is required</p>
+		</span>
+		<button [disabled]="!this.profileForm.valid">Change Details</button>
+	</form>
+	<form
+		class="profile__settings_mid"
+		[formGroup]="passwordForm"
+		(ngSubmit)="changePassword()"
+	>
+		<label for="currentPassword">Password: </label>
+		<input
+			name="currentPassword"
+			type="password"
+			formControlName="currentPassword"
+			required
+		/>
+		<span
+			class="form__error"
+			*ngIf="
+				currentPassword?.invalid &&
+				(currentPassword?.dirty || currentPassword?.touched)
+			"
+		>
+			<p *ngIf="currentPassword?.errors?.['required']">This field is required</p>
+			<p *ngIf="currentPassword?.errors?.['pattern']">
+				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+				character
+			</p>
+		</span>
+		<label for="newPassword">Password: </label>
+		<input
+			name="newPassword"
+			type="password"
+			formControlName="newPassword"
+			required
+		/>
+		<span
+			class="form__error"
+			*ngIf="newPassword?.invalid && (newPassword?.dirty || newPassword?.touched)"
+		>
+			<p *ngIf="newPassword?.errors?.['required']">This field is required</p>
+			<p *ngIf="newPassword?.errors?.['pattern']">
+				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+				character
+			</p>
+		</span>
+		<label for="newPasswordRe">Password: </label>
+		<input
+			name="newPasswordRe"
+			type="password"
+			formControlName="newPasswordRe"
+			required
+		/>
+		<span
+			class="form__error"
+			*ngIf="
+				newPasswordRe?.invalid && (newPasswordRe?.dirty || newPasswordRe?.touched)
+			"
+		>
+			<p *ngIf="newPasswordRe?.errors?.['required']">This field is required</p>
+			<p *ngIf="newPasswordRe?.errors?.['pattern']">
+				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+				character
+			</p>
+		</span>
+	</form>
+	<form
+		class="profile__settings_right"
+		[formGroup]="deleteForm"
+		(ngSubmit)="deleteAccount(this.userId, this.userToken)"
+	>
+		<input
+			name="newPasswordRe"
+			type="password"
+			formControlName="newPasswordRe"
+			required
+		/>
+		<span
+			class="form__error"
+			*ngIf="
+				newPasswordRe?.invalid && (newPasswordRe?.dirty || newPasswordRe?.touched)
+			"
+		>
+			<p *ngIf="newPasswordRe?.errors?.['required']">This field is required</p>
+			<p *ngIf="newPasswordRe?.errors?.['pattern']">
+				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
+				character
+			</p>
+		</span>
+		<button>Delete Account</button>
+	</form>
 </div>

@@ -7,6 +7,7 @@ import { PostingsComponent } from './postings/postings.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileRoutingModule } from './profile.routing.module';
 import { EditComponent } from './postings/edit/edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [PostingsComponent, SettingsComponent, EditComponent],
@@ -15,6 +16,7 @@ import { EditComponent } from './postings/edit/edit.component';
 		ProfileRoutingModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
+		ReactiveFormsModule,
 	],
 	providers: [],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
