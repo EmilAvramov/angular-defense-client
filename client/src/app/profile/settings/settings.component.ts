@@ -1,16 +1,9 @@
-import {
-	AfterContentChecked,
-	AfterViewInit,
-	Component,
-	OnDestroy,
-} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import {
-	confirmDelete,
 	emailPattern,
-	passwordMatch,
 	passwordPattern,
 	phonePattern,
 } from 'src/app/shared/variables/validationPatterns';
@@ -65,12 +58,43 @@ export class SettingsComponent implements OnDestroy, AfterViewInit {
 			address: this.userAddress,
 			city: this.userCity,
 		});
-
 	}
 
 	ngOnDestroy(): void {
 		this.completer$.next();
 		this.completer$.complete();
+	}
+
+	passwordValidation(
+		firstControl: string,
+		secondControl: string,
+		thirdControl: string
+	) {
+		return (formGroup: FormGroup) => {
+			const first = formGroup.controls[firstControl];
+			const second = formGroup.controls[secondControl];
+			const third = formGroup.controls[thirdControl];
+
+			if (second.value !== third.value) {
+				third.setErrors({ mismatch: true });
+			} else if (first.value === third.value) {
+				third.setErrors({ identical: true });
+			} else {
+				third.setErrors(null);
+			}
+		};
+	}
+
+	deleteValidation(controlName: string) {
+		return (formGroup: FormGroup) => {
+			const control = formGroup.controls[controlName];
+
+			if (control.value !== 'I confirm to delete my account') {
+				control.setErrors({ mismatch: true });
+			} else {
+				control.setErrors(null);
+			}
+		};
 	}
 
 	profileForm = this.fb.group({
@@ -118,43 +142,53 @@ export class SettingsComponent implements OnDestroy, AfterViewInit {
 		],
 	});
 
-	passwordForm = this.fb.group({
-		currentPassword: [
-			'',
-			{
-				validators: [Validators.required, Validators.pattern(passwordPattern)],
-				updateOn: 'blur',
-			},
-		],
-		password: [
-			'',
-			{
-				validators: [Validators.required, Validators.pattern(passwordPattern)],
-				updateOn: 'blur',
-			},
-		],
-		passwordRe: [
-			'',
-			{
-				validators: [Validators.required, Validators.pattern(passwordPattern)],
-				updateOn: 'change',
-			},
-		],
-	}, {
-		validator: passwordMatch
-	});
+	passwordForm = this.fb.group(
+		{
+			currentPassword: [
+				'',
+				{
+					validators: [Validators.required, Validators.pattern(passwordPattern)],
+					updateOn: 'blur',
+				},
+			],
+			password: [
+				'',
+				{
+					validators: [Validators.required, Validators.pattern(passwordPattern)],
+					updateOn: 'blur',
+				},
+			],
+			passwordRe: [
+				'',
+				{
+					validators: [Validators.required, Validators.pattern(passwordPattern)],
+					updateOn: 'change',
+				},
+			],
+		},
+		{
+			validator: this.passwordValidation(
+				'currentPassword',
+				'password',
+				'passwordRe'
+			),
+		}
+	);
 
-	deleteForm = this.fb.group({
-		confirm: [
-			'',
-			{
-				validators: [Validators.required],
-				updateOn: 'change',
-			},
-		],
-	}, {
-		Validators: confirmDelete
-	});
+	deleteForm = this.fb.group(
+		{
+			confirm: [
+				'',
+				{
+					validators: [Validators.required],
+					updateOn: 'change',
+				},
+			],
+		},
+		{
+			validator: this.deleteValidation('confirm'),
+		}
+	);
 
 	get email() {
 		return this.profileForm.get('email');
