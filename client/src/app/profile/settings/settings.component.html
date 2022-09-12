@@ -60,7 +60,7 @@
 		>
 			<p *ngIf="city?.errors?.['required']">This field is required</p>
 		</span>
-		<button [disabled]="!this.profileForm.valid">Change Details</button>
+		<button [disabled]="!this.profileForm.dirty && this.profileForm.valid">Change Details</button>
 	</form>
 	<form
 		class="profile__settings_mid"
@@ -87,62 +87,50 @@
 				character
 			</p>
 		</span>
-		<label for="newPassword">New Password: </label>
-		<input
-			name="newPassword"
-			type="password"
-			formControlName="newPassword"
-			required
-		/>
+		<label for="password">New Password: </label>
+		<input name="password" type="password" formControlName="password" required />
 		<span
 			class="form__error"
-			*ngIf="newPassword?.invalid && (newPassword?.dirty || newPassword?.touched)"
+			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
 		>
-			<p *ngIf="newPassword?.errors?.['required']">This field is required</p>
-			<p *ngIf="newPassword?.errors?.['pattern']">
+			<p *ngIf="password?.errors?.['required']">This field is required</p>
+			<p *ngIf="password?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
 		</span>
-		<label for="newPasswordRe">Repeat Password: </label>
+		<label for="passwordRe">Repeat Password: </label>
 		<input
-			name="newPasswordRe"
+			name="passwordRe"
 			type="password"
-			formControlName="newPasswordRe"
+			formControlName="passwordRe"
 			required
 		/>
 		<span
 			class="form__error"
-			*ngIf="
-				newPasswordRe?.invalid && (newPasswordRe?.dirty || newPasswordRe?.touched)
-			"
+			*ngIf="passwordRe?.invalid && (passwordRe?.dirty || passwordRe?.touched)"
 		>
-			<p *ngIf="newPasswordRe?.errors?.['required']">This field is required</p>
-			<p *ngIf="newPasswordRe?.errors?.['pattern']">
+			<p *ngIf="passwordRe?.errors?.['required']">This field is required</p>
+			<p *ngIf="passwordRe?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
+			<p *ngIf="!passwordRe?.errors?.['match']">Passwords must match</p>
 		</span>
+		<button [disabled]="!this.passwordForm.valid">Change Password</button>
 	</form>
 	<form
 		class="profile__settings_right"
 		[formGroup]="deleteForm"
 		(ngSubmit)="deleteAccount(this.userId, this.userToken)"
 	>
-		<input
-			name="newPasswordRe"
-			type="text"
-			formControlName="newPasswordRe"
-			required
-		/>
+		<input name="confirm" type="text" formControlName="confirm" required />
 		<span
 			class="form__error"
-			*ngIf="
-				newPasswordRe?.invalid && (newPasswordRe?.dirty || newPasswordRe?.touched)
-			"
+			*ngIf="confirm?.invalid && (confirm?.dirty || confirm?.touched)"
 		>
-			<p *ngIf="newPasswordRe?.errors?.['required']">This field is required</p>
-			<p *ngIf="newPasswordRe?.errors?.['pattern']">
+			<p *ngIf="confirm?.errors?.['required']">This field is required</p>
+			<p *ngIf="confirm?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>

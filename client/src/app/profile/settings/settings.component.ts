@@ -3,7 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import {
+	confirmDelete,
 	emailPattern,
+	passwordMatch,
 	passwordPattern,
 	phonePattern,
 } from 'src/app/shared/variables/validationPatterns';
@@ -38,7 +40,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 				takeUntil(this.completer$),
 				map(({ id, email, firstName, lastName, phone, address, city, token }) => {
 					this.userId = id;
-					this.userEmail = email
+					this.userEmail = email;
 					this.userFirstName = firstName;
 					this.userLastName = lastName;
 					this.userPhone = phone;
@@ -62,14 +64,19 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 			lastName: this.userLastName,
 			phone: this.userPhone,
 			address: this.userAddress,
-			city: this.userCity
-		})
+			city: this.userCity,
+		});
 
 		this.passwordForm.patchValue({
 			currentPassword: '',
-			newPassword: '',
-			newPasswordRe: ''
-		})
+			password: '',
+			passwordRe: '',
+		});
+
+		this.passwordForm.addValidators(passwordMatch)
+
+		this.deleteForm.addValidators(confirmDelete)
+
 	}
 
 	profileForm = this.fb.group({
@@ -125,14 +132,14 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 				updateOn: 'blur',
 			},
 		],
-		newPassword: [
+		password: [
 			'',
 			{
 				validators: [Validators.required, Validators.pattern(passwordPattern)],
 				updateOn: 'blur',
 			},
 		],
-		newPasswordRe: [
+		passwordRe: [
 			'',
 			{
 				validators: [Validators.required, Validators.pattern(passwordPattern)],
@@ -172,11 +179,14 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 	get currentPassword() {
 		return this.passwordForm.get('currentPassword');
 	}
-	get newPassword() {
-		return this.passwordForm.get('newPassword');
+	get password() {
+		return this.passwordForm.get('password');
 	}
-	get newPasswordRe() {
-		return this.passwordForm.get('newPasswordRe');
+	get passwordRe() {
+		return this.passwordForm.get('passwordRe');
+	}
+	get confirm() {
+		return this.deleteForm.get('confirm');
 	}
 
 	changeDetails() {
@@ -195,11 +205,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 	}
 
 	changePassword() {
-		const { newPassword } = this.passwordForm.value;
+		const { password } = this.passwordForm.value;
 
 		this.userFacade.changePassword(
 			this.userId,
-			newPassword as string,
+			password as string,
 			this.userToken
 		);
 	}
