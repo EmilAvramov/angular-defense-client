@@ -146,7 +146,10 @@ export class UserEffects {
 							token
 						)
 						.pipe(
-							map((user: User) => userActions.UserChangeDetailsSuccess({ data: user }))
+							map((user: User) => {
+								this.storageService.setStorage(user);
+								return userActions.UserChangeDetailsSuccess({ data: user });
+							})
 						)
 			),
 			catchError((error: string | null) =>
@@ -162,9 +165,12 @@ export class UserEffects {
 				userActions.UserChangePassword({ id, password, token })
 			),
 			switchMap(({ id, password, token }) =>
-				this.authService
-					.changePassword(id, password, token)
-					.pipe(map((data: User) => userActions.UserChangePasswordSuccess({ data })))
+				this.authService.changePassword(id, password, token).pipe(
+					map((user: User) => {
+						this.storageService.setStorage(user);
+						return userActions.UserChangePasswordSuccess({ data: user });
+					})
+				)
 			),
 			catchError((error: string | null) =>
 				of(userActions.UserChangePasswordFailure({ error }))

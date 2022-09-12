@@ -62,7 +62,6 @@ export const login = async (data: { email: string; password: string }) => {
 	if (!user) {
 		throw new Error('Incorrect credentials');
 	}
-
 	const matchPassword = await bcrypt.compare(data.password, user.password);
 
 	if (!matchPassword) {
@@ -88,7 +87,7 @@ export const editUserDetails = async (id: number, data: User) => {
 		let firstName = data.firstName;
 		let lastName = data.lastName;
 		let email = data.email;
-		let phone = data.email;
+		let phone = data.phone;
 		let address = data.address;
 		let city = data.city;
 		return await UserModel.update(
@@ -102,6 +101,7 @@ export const editUserDetails = async (id: number, data: User) => {
 
 export const editUserPassword = async (id: number, password: string) => {
 	try {
+		console.log(id, password)
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
 		return await UserModel.update(
 			{ password: hashedPassword },

@@ -7,79 +7,43 @@
 		<h3>Change Personal Details</h3>
 		<label for="email">Email: </label>
 		<input name="email" type="email" formControlName="email" required />
-		<span
-			class="form__error"
-			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
-		>
-			<p class="form__error" *ngIf="email?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="email?.errors?.['pattern']">
-				Please enter a valid email address
-			</p>
+		<span class="form__error" *ngIf="email?.invalid">
+			<p *ngIf="email?.errors?.['required']">This field is required</p>
+			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
 		</span>
 		<label for="firstName">First Name: </label>
 		<input name="firstName" type="text" formControlName="firstName" required />
-		<span
-			class="form__error"
-			*ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
-		>
-			<p class="form__error" *ngIf="firstName?.errors?.['required']">
-				This field is required
-			</p>
+		<span class="form__error" *ngIf="firstName?.invalid">
+			<p *ngIf="firstName?.errors?.['required']">This field is required</p>
 		</span>
 
 		<label for="lastName">Last Name: </label>
 		<input name="last-name" type="text" formControlName="lastName" required />
-		<span
-			class="form__error"
-			*ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
-		>
-			<p class="form__error" *ngIf="lastName?.errors?.['required']">
-				This field is required
-			</p>
+		<span class="form__error" *ngIf="lastName?.invalid">
+			<p *ngIf="lastName?.errors?.['required']">This field is required</p>
 		</span>
 
 		<label for="phone">Phone Number: </label>
 		<input name="phone" type="text" formControlName="phone" required />
-		<span
-			class="form__error"
-			*ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
-		>
-			<p class="form__error" *ngIf="phone?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="phone?.errors?.['pattern']">
+		<span class="form__error" *ngIf="phone?.invalid">
+			<p *ngIf="phone?.errors?.['required']">This field is required</p>
+			<p *ngIf="phone?.errors?.['pattern']">
 				Phone must contain only digits and be at least 6 characters long
 			</p>
 		</span>
 
 		<label for="address">Address: </label>
 		<input name="address" type="text" formControlName="address" required />
-		<span
-			class="form__error"
-			*ngIf="address?.invalid && (address?.dirty || address?.touched)"
-		>
-			<p class="form__error" *ngIf="address?.errors?.['required']">
-				This field is required
-			</p>
+		<span class="form__error" *ngIf="address?.invalid">
+			<p *ngIf="address?.errors?.['required']">This field is required</p>
 		</span>
 
 		<label for="city">City: </label>
 		<input name="city" type="text" formControlName="city" required />
-		<span
-			class="form__error"
-			*ngIf="city?.invalid && (city?.dirty || city?.touched)"
-		>
-			<p class="form__error" *ngIf="city?.errors?.['required']">
-				This field is required
-			</p>
+		<span class="form__error" *ngIf="city?.invalid">
+			<p *ngIf="city?.errors?.['required']">This field is required</p>
 		</span>
-		<button
-			[disabled]="!confirm?.dirty || !confirm?.touched || !this.profileForm.valid"
-		>
-			Change Details
-		</button>
+		<button [disabled]="!this.profileForm.valid">Change Details</button>
 	</form>
 	<form
 		class="profile__settings_mid"
@@ -101,10 +65,8 @@
 				(currentPassword?.dirty || currentPassword?.touched)
 			"
 		>
-			<p class="form__error" *ngIf="currentPassword?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="currentPassword?.errors?.['pattern']">
+			<p *ngIf="currentPassword?.errors?.['required']">This field is required</p>
+			<p *ngIf="currentPassword?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
@@ -115,10 +77,8 @@
 			class="form__error"
 			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
 		>
-			<p class="form__error" *ngIf="password?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="password?.errors?.['pattern']">
+			<p *ngIf="password?.errors?.['required']">This field is required</p>
+			<p *ngIf="password?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
@@ -134,17 +94,13 @@
 			class="form__error"
 			*ngIf="passwordRe?.invalid && (passwordRe?.dirty || passwordRe?.touched)"
 		>
-			<p class="form__error" *ngIf="passwordRe?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="passwordRe?.errors?.['pattern']">
+			<p *ngIf="passwordRe?.errors?.['required']">This field is required</p>
+			<p *ngIf="passwordRe?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
-			<p class="form__error" *ngIf="passwordRe?.errors?.['mismatch']">
-				Passwords must match
-			</p>
-			<p class="form__error" *ngIf="passwordRe?.errors?.['identical']">
+			<p *ngIf="passwordRe?.errors?.['mismatch']">Passwords must match</p>
+			<p *ngIf="passwordRe?.errors?.['identical']">
 				New password cannot be the same as our old password
 			</p>
 		</span>
@@ -153,7 +109,7 @@
 	<form
 		class="profile__settings_right"
 		[formGroup]="deleteForm"
-		(ngSubmit)="deleteAccount(this.userId, this.userToken)"
+		(ngSubmit)="deleteAccount()"
 	>
 		<h3>Delete Account Permanently</h3>
 		<label for="confirm">Please enter "I confirm to delete my account"</label>
@@ -162,16 +118,12 @@
 			class="form__error"
 			*ngIf="confirm?.invalid && (confirm?.dirty || confirm?.touched)"
 		>
-			<p class="form__error" *ngIf="confirm?.errors?.['required']">
-				This field is required
-			</p>
-			<p class="form__error" *ngIf="confirm?.errors?.['pattern']">
+			<p *ngIf="confirm?.errors?.['required']">This field is required</p>
+			<p *ngIf="confirm?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
-			<p class="form__error" *ngIf="confirm?.errors?.['mismatch']">
-				Entered text does not match
-			</p>
+			<p *ngIf="confirm?.errors?.['mismatch']">Entered text does not match</p>
 		</span>
 		<button [disabled]="!this.deleteForm.valid">Delete Account</button>
 	</form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import {
@@ -7,18 +7,28 @@ import {
 } from 'src/app/shared/variables/validationPatterns';
 import { Router } from '@angular/router';
 import { UserFacade } from '../../state/user/user.facade';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy {
+	public completer$: Subject<void> = new Subject<void>();
+
+	public error: string | null | undefined;
+
 	constructor(
 		private fb: FormBuilder,
 		private router: Router,
 		private readonly userFacade: UserFacade
 	) {}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
 
 	profileForm = this.fb.group({
 		email: [
@@ -44,14 +54,21 @@ export class LoginComponent implements OnInit {
 		return this.profileForm.get(['password']);
 	}
 
-	ngOnInit(): void {}
-
 	onSubmit(): void {
 		const { email, password } = this.profileForm.value;
 
-		this.userFacade.loginUser(email as string, password as string)
-		this.router.navigate(['/']);
-
+		this.userFacade.loginUser(email as string, password as string);
+		this.userFacade.userError$
+			.pipe(
+				takeUntil(this.completer$),
+				map((error: string | null) => (this.error = error))
+			)
+			.subscribe();
+		if (this.error) {
+			console.log(this.error);
+		} else {
+			this.router.navigate(['/']);
+		}
 		this.profileForm.reset();
 	}
 }

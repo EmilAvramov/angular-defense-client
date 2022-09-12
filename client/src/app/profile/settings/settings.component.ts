@@ -244,11 +244,14 @@ export class SettingsComponent implements OnDestroy, AfterViewInit {
 			password as string,
 			this.userToken
 		);
+
+		this.router.navigate(['/login']);
+		this.userFacade.logoutUser(this.userToken);
 	}
 
-	deleteAccount(id: number, token: string) {
-		this.userFacade.deleteAccount(id, token);
+	deleteAccount() {
+		this.userFacade.deleteAccount(this.userId, this.userToken);
 		this.router.navigate(['/']);
-		this.userFacade.logoutUser(token);
+		this.userFacade.logoutUser(this.userToken);
 	}
 }
