@@ -120,12 +120,14 @@ export const UserValidateFailure = createAction(
 export const UserChangeDetails = createAction(
 	UserActionsNames.UserChangeDetails,
 	props<{
+		id: number;
 		email: string;
 		firstName: string;
 		lastName: string;
 		phone: string;
 		address: string;
 		city: string;
+		token: string;
 	}>()
 );
 
@@ -141,12 +143,12 @@ export const UserChangeDetailsFailure = createAction(
 
 export const UserChangePassword = createAction(
 	UserActionsNames.UserChangePassword,
-	props<{ password: string }>()
+	props<{ id: number; password: string; token: string }>()
 );
 
 export const UserChangePasswordSuccess = createAction(
 	UserActionsNames.UserChangePasswordSuccess,
-	props<{ message: string }>()
+	props<{ data: User }>()
 );
 
 export const UserChangePasswordFailure = createAction(
@@ -156,7 +158,7 @@ export const UserChangePasswordFailure = createAction(
 
 export const UserDeleteAccount = createAction(
 	UserActionsNames.UserDeleteAccount,
-	props<{ id: number }>()
+	props<{ id: number; token: string }>()
 );
 
 export const UserDeleteAccountSuccess = createAction(

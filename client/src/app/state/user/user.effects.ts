@@ -116,4 +116,78 @@ export class UserEffects {
 			)
 		)
 	);
+
+	public readonly changeDetails$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActionsNames.UserChangeDetails),
+			map(({ id, email, firstName, lastName, phone, address, city, token }) =>
+				userActions.UserChangeDetails({
+					id,
+					email,
+					firstName,
+					lastName,
+					phone,
+					address,
+					city,
+					token,
+				})
+			),
+			switchMap(
+				({ id, email, firstName, lastName, phone, address, city, token }) =>
+					this.authService
+						.changeDetails(
+							id,
+							email,
+							firstName,
+							lastName,
+							phone,
+							address,
+							city,
+							token
+						)
+						.pipe(
+							map((user: User) => userActions.UserChangeDetailsSuccess({ data: user }))
+						)
+			),
+			catchError((error: string | null) =>
+				of(userActions.UserChangeDetailsFailure({ error }))
+			)
+		)
+	);
+
+	public readonly changePassword$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActionsNames.UserChangePassword),
+			map(({ id, password, token }) =>
+				userActions.UserChangePassword({ id, password, token })
+			),
+			switchMap(({ id, password, token }) =>
+				this.authService
+					.changePassword(id, password, token)
+					.pipe(map((data: User) => userActions.UserChangePasswordSuccess({ data })))
+			),
+			catchError((error: string | null) =>
+				of(userActions.UserChangePasswordFailure({ error }))
+			)
+		)
+	);
+
+	public readonly deleteAccount$: Observable<any> = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActionsNames.UserDeleteAccount),
+			map(({ id, token }) => userActions.UserDeleteAccount({ id, token })),
+			switchMap(({ id, token }) =>
+				this.authService
+					.deleteAccount(id, token)
+					.pipe(
+						map((message: string) =>
+							userActions.UserDeleteAccountSuccess({ message })
+						)
+					)
+			),
+			catchError((error: string | null) =>
+				of(userActions.userDeleteAccountFailure({ error }))
+			)
+		)
+	);
 }

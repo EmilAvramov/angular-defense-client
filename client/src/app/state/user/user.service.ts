@@ -64,6 +64,37 @@ export class AuthService {
 			{ headers: this.headers }
 		);
 	}
+
+	changeDetails(
+		id: number,
+		email: string,
+		firstName: string,
+		lastName: string,
+		phone: string,
+		address: string,
+		city: string,
+		token: string
+	): Observable<User> {
+		return this.http.patch<User>(
+			`${server}/users/edit/details/${id}`,
+			{ email, firstName, lastName, phone, address, city },
+			{ headers: { 'content-type': 'application/json', 'X-Authorization': token } }
+		);
+	}
+
+	changePassword(id: number, password: string, token: string): Observable<User> {
+		return this.http.patch<User>(
+			`${server}/users/edit/password/${id}`,
+			{ password },
+			{ headers: { 'content-type': 'application/json', 'X-Authorization': token } }
+		);
+	}
+
+	deleteAccount(id: number, token: string): Observable<any> {
+		return this.http.delete<User>(`${server}/users/delete/${id}`, {
+			headers: { 'content-type': 'application/json', 'X-Authorization': token },
+		});
+	}
 }
 
 @Injectable()
