@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import {
+	AfterContentChecked,
+	AfterViewInit,
+	Component,
+	OnDestroy,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -17,7 +22,7 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.sass'],
 })
-export class SettingsComponent implements AfterViewInit, OnDestroy {
+export class SettingsComponent implements OnDestroy, AfterViewInit {
 	public completer$: Subject<void> = new Subject<void>();
 	public userData$: Observable<User | null> | undefined;
 
@@ -51,12 +56,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 			)
 			.subscribe();
 	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
-	}
-
 	ngAfterViewInit(): void {
 		this.profileForm.patchValue({
 			email: this.userEmail,
@@ -67,16 +66,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 			city: this.userCity,
 		});
 
-		this.passwordForm.patchValue({
-			currentPassword: '',
-			password: '',
-			passwordRe: '',
-		});
+	}
 
-		this.passwordForm.addValidators(passwordMatch)
-
-		this.deleteForm.addValidators(confirmDelete)
-
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 
 	profileForm = this.fb.group({
@@ -146,6 +140,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 				updateOn: 'change',
 			},
 		],
+	}, {
+		validator: passwordMatch
 	});
 
 	deleteForm = this.fb.group({
@@ -156,6 +152,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 				updateOn: 'change',
 			},
 		],
+	}, {
+		Validators: confirmDelete
 	});
 
 	get email() {

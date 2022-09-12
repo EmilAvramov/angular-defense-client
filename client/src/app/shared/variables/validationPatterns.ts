@@ -12,7 +12,7 @@ export const passwordMatch: ValidatorFn = (
 	const passwordRe = control.get('passwordRe');
 
 	return password && passwordRe && password.value !== passwordRe.value
-		? { match_error: true }
+		? { mismatch: true }
 		: null;
 };
 
@@ -22,6 +22,6 @@ export const confirmDelete: ValidatorFn = (
 	const confirm = control.get('confirm');
 
 	return confirm && confirm.value !== 'I confirm to delete my account'
-		? { match_error: true }
+		? { mismatch: true }
 		: null;
 };

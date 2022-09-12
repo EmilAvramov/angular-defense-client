@@ -4,6 +4,7 @@
 		[formGroup]="profileForm"
 		(ngSubmit)="changeDetails()"
 	>
+		<h3>Change Personal Details</h3>
 		<label for="email">Email: </label>
 		<input name="email" type="email" formControlName="email" required />
 		<span
@@ -60,13 +61,18 @@
 		>
 			<p *ngIf="city?.errors?.['required']">This field is required</p>
 		</span>
-		<button [disabled]="!this.profileForm.dirty && this.profileForm.valid">Change Details</button>
+		<button
+			[disabled]="!confirm?.dirty || !confirm?.touched || !this.profileForm.valid"
+		>
+			Change Details
+		</button>
 	</form>
 	<form
 		class="profile__settings_mid"
 		[formGroup]="passwordForm"
 		(ngSubmit)="changePassword()"
 	>
+		<h3>Change Password</h3>
 		<label for="currentPassword">Current Password: </label>
 		<input
 			name="currentPassword"
@@ -115,7 +121,7 @@
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
-			<p *ngIf="!passwordRe?.errors?.['match']">Passwords must match</p>
+			<p *ngIf="password?.value !== passwordRe?.value">Passwords must match</p>
 		</span>
 		<button [disabled]="!this.passwordForm.valid">Change Password</button>
 	</form>
@@ -124,6 +130,8 @@
 		[formGroup]="deleteForm"
 		(ngSubmit)="deleteAccount(this.userId, this.userToken)"
 	>
+		<h3>Delete Account Permanently</h3>
+		<label for="confirm">Please enter "I confirm to delete my account"</label>
 		<input name="confirm" type="text" formControlName="confirm" required />
 		<span
 			class="form__error"
@@ -134,7 +142,8 @@
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
+			<p *ngIf="this.confirm?.errors?.['mismatch']">Entered text does not match</p>
 		</span>
-		<button>Delete Account</button>
+		<button [disabled]="!this.deleteForm.valid">Delete Account</button>
 	</form>
 </div>
