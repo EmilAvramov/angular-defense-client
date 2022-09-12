@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import {
 	emailPattern,
@@ -19,7 +20,11 @@ export class SettingsComponent implements OnDestroy {
 
 	public userData$: Observable<User | null> | undefined;
 
-	constructor(private fb: FormBuilder, private userFacade: UserFacade) {
+	constructor(
+		private fb: FormBuilder,
+		private userFacade: UserFacade,
+		private router: Router
+	) {
 		this.userData$ = this.userFacade.userData$;
 	}
 
@@ -127,6 +132,11 @@ export class SettingsComponent implements OnDestroy {
 
 	changePassword() {
 		const { newPassword } = this.passwordForm.value;
+	}
+
+	deleteAccount(id: number, token: string) {
+		this.router.navigate(['/']);
+		this.userFacade.logoutUser(token);
 	}
 
 	ngOnDestroy(): void {

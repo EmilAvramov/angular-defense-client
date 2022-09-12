@@ -17,6 +17,15 @@ export enum UserActionsNames {
 	UserValidate = '[User] Validate',
 	UserValidateSuccess = '[User] Validate Success',
 	UserValidateFailure = '[User] Validate Failure',
+	UserChangeDetails = '[User] Change Details',
+	UserChangeDetailsSuccess = '[User] Change Details Success',
+	UserChangeDetailsFailure = '[User] Change Details Failure',
+	UserChangePassword = '[User] Change Password',
+	UserChangePasswordSuccess = '[User] Change Password Success',
+	UserChangePasswordFailure = '[User] CHange Password Failure',
+	UserDeleteAccount = '[User] Delete Account',
+	UserDeleteAccountSuccess = '[User] Delete Account Success',
+	UserDeleteAccountFailure = '[User] Delete Account Failure',
 }
 
 export const UserInit = createAction(UserActionsNames.UserInit);
@@ -105,5 +114,57 @@ export const UserValidateSuccess = createAction(
 
 export const UserValidateFailure = createAction(
 	UserActionsNames.UserValidateFailure,
+	props<{ error: string | null }>()
+);
+
+export const UserChangeDetails = createAction(
+	UserActionsNames.UserChangeDetails,
+	props<{
+		email: string;
+		firstName: string;
+		lastName: string;
+		phone: string;
+		address: string;
+		city: string;
+	}>()
+);
+
+export const UserChangeDetailsSuccess = createAction(
+	UserActionsNames.UserChangeDetailsSuccess,
+	props<{ data: User }>()
+);
+
+export const UserChangeDetailsFailure = createAction(
+	UserActionsNames.UserChangeDetailsFailure,
+	props<{ error: string | null }>()
+);
+
+export const UserChangePassword = createAction(
+	UserActionsNames.UserChangePassword,
+	props<{ password: string }>()
+);
+
+export const UserChangePasswordSuccess = createAction(
+	UserActionsNames.UserChangePasswordSuccess,
+	props<{ message: string }>()
+);
+
+export const UserChangePasswordFailure = createAction(
+	UserActionsNames.UserChangePasswordFailure,
+	props<{ error: string | null }>()
+);
+
+export const UserDeleteAccount = createAction(
+	UserActionsNames.UserDeleteAccount,
+	props<{ id: number }>()
+);
+
+export const UserDeleteAccountSuccess = createAction(
+	UserActionsNames.UserDeleteAccountSuccess,
+	props<{ message: string }>()
+);
+
+export const userDeleteAccountFailure = createAction(
+	UserActionsNames.UserDeleteAccountFailure,
 	props<{ error: string | null }>()
 );
