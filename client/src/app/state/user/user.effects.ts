@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of, tap } from 'rxjs';
@@ -46,13 +45,13 @@ export class UserEffects {
 					map((user: User) => {
 						this.storageService.setStorage(user);
 						return userActions.UserLoginSuccess({ user });
+					}),
+					catchError((error: Error) => {
+						const message = error?.error.message;
+						return of(userActions.UserLoginFailure({ message }));
 					})
 				)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserLoginFailure({ message }));
-			})
+			)
 		)
 	);
 
@@ -77,13 +76,13 @@ export class UserEffects {
 						map((user: User) => {
 							this.storageService.setStorage(user);
 							return userActions.UserRegisterSuccess({ user });
+						}),
+						catchError((error: Error) => {
+							const message = error?.error.message;
+							return of(userActions.UserRegisterFailure({ message }));
 						})
 					)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserRegisterFailure({ message }));
-			})
+			)
 		);
 	});
 
@@ -96,13 +95,13 @@ export class UserEffects {
 					map((res) => {
 						this.storageService.clearStorage();
 						return userActions.UserLogoutSuccess({ message: res.message });
+					}),
+					catchError((error: Error) => {
+						const message = error?.error.message;
+						return of(userActions.UserLogoutFailure({ message }));
 					})
 				)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserLogoutFailure({ message }));
-			})
+			)
 		);
 	});
 
@@ -111,14 +110,14 @@ export class UserEffects {
 			ofType(UserActionsNames.UserValidate),
 			map(({ token }) => userActions.UserValidate({ token })),
 			switchMap(({ token }) =>
-				this.authService
-					.validateUser(token)
-					.pipe(map((user: User) => userActions.UserValidateSuccess({ user })))
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserValidateFailure({ message }));
-			})
+				this.authService.validateUser(token).pipe(
+					map((user: User) => userActions.UserValidateSuccess({ user })),
+					catchError((error: Error) => {
+						const message = error?.error.message;
+						return of(userActions.UserValidateFailure({ message }));
+					})
+				)
+			)
 		)
 	);
 
@@ -154,13 +153,13 @@ export class UserEffects {
 							map((user: User) => {
 								this.storageService.setStorage(user);
 								return userActions.UserChangeDetailsSuccess({ data: user });
+							}),
+							catchError((error: Error) => {
+								const message = error?.error.message;
+								return of(userActions.UserChangeDetailsFailure({ message }));
 							})
 						)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserChangeDetailsFailure({ message }));
-			})
+			)
 		)
 	);
 
@@ -175,13 +174,13 @@ export class UserEffects {
 					map((user: User) => {
 						this.storageService.setStorage(user);
 						return userActions.UserChangePasswordSuccess({ data: user });
+					}),
+					catchError((error: Error) => {
+						const message = error?.error.message;
+						return of(userActions.UserChangePasswordFailure({ message }));
 					})
 				)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.UserChangePasswordFailure({ message }));
-			})
+			)
 		)
 	);
 
@@ -194,13 +193,13 @@ export class UserEffects {
 					map((message: string) =>
 						userActions.UserDeleteAccountSuccess({ message })
 					),
-					tap(() => this.storageService.clearStorage())
+					tap(() => this.storageService.clearStorage()),
+					catchError((error: Error) => {
+						const message = error?.error.message;
+						return of(userActions.userDeleteAccountFailure({ message }));
+					})
 				)
-			),
-			catchError((error: Error) => {
-				const message = error?.error.message;
-				return of(userActions.userDeleteAccountFailure({ message }));
-			})
+			)
 		)
 	);
 }

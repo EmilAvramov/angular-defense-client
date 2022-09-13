@@ -57,17 +57,10 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.UserLoginFailure, (state, { error }) => ({
+	on(userActions.UserLoginFailure, (state, { message }) => ({
 		...state,
-		id: 0,
-		email: '',
-		firstName: '',
-		lastName: '',
-		phone: '',
-		address: '',
-		city: '',
-		token: '',
-		error,
+		loaded: false,
+		error: message,
 	})),
 	on(userActions.UserRegister, (state) => ({
 		...state,
@@ -87,7 +80,7 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.UserRegisterFailure, (state, { error }) => ({
+	on(userActions.UserRegisterFailure, (state, { message }) => ({
 		...state,
 		id: 0,
 		email: '',
@@ -97,7 +90,8 @@ export const _userReducer = createReducer(
 		address: '',
 		city: '',
 		token: '',
-		error,
+		loaded: false,
+		error: message,
 	})),
 	on(userActions.UserLogout, (state) => ({
 		...state,
@@ -118,9 +112,9 @@ export const _userReducer = createReducer(
 		loaded: false,
 		error: null,
 	})),
-	on(userActions.UserLogoutFailure, (state, { error }) => ({
+	on(userActions.UserLogoutFailure, (state, { message }) => ({
 		...state,
-		error,
+		error: message,
 	})),
 	on(userActions.UserValidate, (state) => ({
 		...state,
@@ -133,11 +127,11 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.UserValidateFailure, (state, { error }) => ({
+	on(userActions.UserValidateFailure, (state, { message }) => ({
 		...state,
 		validated: null,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(userActions.UserChangeDetails, (state) => ({
 		...state,
@@ -155,10 +149,10 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.UserChangeDetailsFailure, (state, { error }) => ({
+	on(userActions.UserChangeDetailsFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(userActions.UserChangePassword, (state) => ({
 		...state,
@@ -170,10 +164,10 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.UserChangePasswordFailure, (state, { error }) => ({
+	on(userActions.UserChangePasswordFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(userActions.UserDeleteAccount, (state) => ({
 		...state,
@@ -193,10 +187,10 @@ export const _userReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(userActions.userDeleteAccountFailure, (state, { error }) => ({
+	on(userActions.userDeleteAccountFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	}))
 );
 
