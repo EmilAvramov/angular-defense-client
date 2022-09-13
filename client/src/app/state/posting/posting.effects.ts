@@ -27,14 +27,12 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingInit),
 			map(({ limit, offset }) => PostingActions.PostingInit({ offset, limit })),
 			switchMap(({ limit, offset }) =>
-				this.postingService
-					.getPostings(limit, offset)
-					.pipe(
-						map((data: Posting[]) => PostingActions.PostingInitSuccess({ data }))
+				this.postingService.getPostings(limit, offset).pipe(
+					map((data: Posting[]) => PostingActions.PostingInitSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingInitFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingInitFailure({ error }))
+				)
 			)
 		)
 	);
@@ -46,14 +44,12 @@ export class PostingEffects {
 				PostingActions.PostingLoadMore({ limit, offset })
 			),
 			switchMap(({ limit, offset }) =>
-				this.postingService
-					.getPostings(limit, offset)
-					.pipe(
-						map((data: Posting[]) => PostingActions.PostingLoadMoreSuccess({ data }))
+				this.postingService.getPostings(limit, offset).pipe(
+					map((data: Posting[]) => PostingActions.PostingLoadMoreSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingLoadMoreFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingLoadMoreFailure({ error }))
+				)
 			)
 		)
 	);
@@ -65,14 +61,12 @@ export class PostingEffects {
 				PostingActions.PostingSearch({ query, limit, offset })
 			),
 			switchMap(({ query, limit, offset }) =>
-				this.postingService
-					.searchPostings(query, limit, offset)
-					.pipe(
-						map((data: Posting[]) => PostingActions.PostingSearchSuccess({ data }))
+				this.postingService.searchPostings(query, limit, offset).pipe(
+					map((data: Posting[]) => PostingActions.PostingSearchSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingSearchFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingSearchFailure({ error }))
+				)
 			)
 		)
 	);
@@ -86,11 +80,11 @@ export class PostingEffects {
 					select(PostingSelectors.filterPostings(id)),
 					map((posting: Posting) =>
 						PostingActions.PostingGetDetailsSuccess({ data: posting })
+					),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingGetDetailsFailure({ error }))
 					)
 				)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingGetDetailsFailure({ error }))
 			)
 		)
 	);
@@ -100,14 +94,12 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingCreate),
 			map(({ payload }) => PostingActions.PostingCreate({ payload })),
 			switchMap(({ payload }) =>
-				this.postingService
-					.createPosting(payload)
-					.pipe(
-						map((data: Posting) => PostingActions.PostingCreateSuccess({ data }))
+				this.postingService.createPosting(payload).pipe(
+					map((data: Posting) => PostingActions.PostingCreateSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingCreateFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingCreateFailure({ error }))
+				)
 			)
 		)
 	);
@@ -119,12 +111,12 @@ export class PostingEffects {
 				PostingActions.PostingEdit({ id, comments, price })
 			),
 			switchMap(({ id, comments, price }) =>
-				this.postingService
-					.editPosting(id, comments, price)
-					.pipe(map((data: Posting) => PostingActions.PostingEditSuccess({ data })))
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingEditFailure({ error }))
+				this.postingService.editPosting(id, comments, price).pipe(
+					map((data: Posting) => PostingActions.PostingEditSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingEditFailure({ error }))
+					)
+				)
 			)
 		)
 	);
@@ -134,14 +126,12 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingDelete),
 			map(({ id }) => PostingActions.PostingDelete({ id })),
 			switchMap(({ id }) =>
-				this.postingService
-					.deletePosting(id)
-					.pipe(
-						map((data: Posting) => PostingActions.PostingDeleteSuccess({ data }))
+				this.postingService.deletePosting(id).pipe(
+					map((data: Posting) => PostingActions.PostingDeleteSuccess({ data })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingDeleteFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingDeleteFailure({ error }))
+				)
 			)
 		)
 	);
@@ -153,16 +143,14 @@ export class PostingEffects {
 				PostingActions.PostingLoadDevices({ query, limit })
 			),
 			switchMap(({ query, limit }) =>
-				this.postingService
-					.searchDevices(query, limit)
-					.pipe(
-						map((data: Device[]) =>
-							PostingActions.PostingLoadDevicesSuccess({ data })
-						)
+				this.postingService.searchDevices(query, limit).pipe(
+					map((data: Device[]) =>
+						PostingActions.PostingLoadDevicesSuccess({ data })
+					),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingLoadDevicesFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingLoadDevicesFailure({ error }))
+				)
 			)
 		)
 	);
@@ -176,11 +164,11 @@ export class PostingEffects {
 					select(PostingSelectors.filterDevices(key)),
 					map((data: Device) =>
 						PostingActions.PostingLoadDeviceDetailsSuccess({ data })
+					),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingLoadDeviceDetailsFailure({ error }))
 					)
 				)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingLoadDeviceDetailsFailure({ error }))
 			)
 		)
 	);
@@ -190,11 +178,11 @@ export class PostingEffects {
 			ofType(PostingActionNames.PostingLoadUser),
 			switchMap(() =>
 				this.userFacade.userData$.pipe(
-					map((user: User) => PostingActions.PostingLoadUserSuccess({ user }))
+					map((user: User) => PostingActions.PostingLoadUserSuccess({ user })),
+					catchError((error: string | null) =>
+						of(PostingActions.PostingLoadUserFailure({ error }))
+					)
 				)
-			),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingLoadUserFailure({ error }))
 			)
 		)
 	);

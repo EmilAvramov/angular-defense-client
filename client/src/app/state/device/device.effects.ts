@@ -22,12 +22,12 @@ export class DeviceEffects {
 			ofType(DeviceActionsNames.DeviceInit),
 			map(({ limit, offset }) => DeviceActions.DeviceInit({ limit, offset })),
 			switchMap(({ limit, offset }) =>
-				this.deviceService
-					.getDevices(limit, offset)
-					.pipe(map((data: Device[]) => DeviceActions.DeviceInitSuccess({ data })))
-			),
-			catchError((error: string | null) =>
-				of(DeviceActions.DeviceInitFailure({ error }))
+				this.deviceService.getDevices(limit, offset).pipe(
+					map((data: Device[]) => DeviceActions.DeviceInitSuccess({ data })),
+					catchError((error: string | null) =>
+						of(DeviceActions.DeviceInitFailure({ error }))
+					)
+				)
 			)
 		)
 	);
@@ -39,12 +39,12 @@ export class DeviceEffects {
 				DeviceActions.DeviceSearch({ query, limit, offset })
 			),
 			switchMap(({ query, limit, offset }) =>
-				this.deviceService
-					.searchDevices(query, limit, offset)
-					.pipe(map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })))
-			),
-			catchError((error: null | string) =>
-				of(DeviceActions.DeviceSearchFailure({ error }))
+				this.deviceService.searchDevices(query, limit, offset).pipe(
+					map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })),
+					catchError((error: null | string) =>
+						of(DeviceActions.DeviceSearchFailure({ error }))
+					)
+				)
 			)
 		)
 	);
@@ -54,14 +54,12 @@ export class DeviceEffects {
 			ofType(DeviceActionsNames.DeviceLoadMore),
 			map(({ limit, offset }) => DeviceActions.DeviceLoadMore({ limit, offset })),
 			switchMap(({ limit, offset }) =>
-				this.deviceService
-					.getDevices(limit, offset)
-					.pipe(
-						map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data }))
+				this.deviceService.getDevices(limit, offset).pipe(
+					map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data })),
+					catchError((error: string | null) =>
+						of(DeviceActions.DeviceLoadMoreFailure({ error }))
 					)
-			),
-			catchError((error: string | null) =>
-				of(DeviceActions.DeviceLoadMoreFailure({ error }))
+				)
 			)
 		)
 	);
@@ -73,11 +71,11 @@ export class DeviceEffects {
 			switchMap(({ key }) =>
 				this.store.pipe(
 					select(DeviceSelectors.getDeviceDetails(key)),
-					map((data: Device) => DeviceActions.DeviceGetDetailsSuccess({ data }))
+					map((data: Device) => DeviceActions.DeviceGetDetailsSuccess({ data })),
+					catchError((error: string | null) =>
+						of(DeviceActions.DeviceGetDetailsFailure({ error }))
+					)
 				)
-			),
-			catchError((error: string | null) =>
-				of(DeviceActions.DeviceGetDetailsFailure({ error }))
 			)
 		)
 	);
