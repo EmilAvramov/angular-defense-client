@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import {
@@ -8,18 +8,32 @@ import {
 } from 'src/app/shared/variables/validationPatterns';
 import { Router } from '@angular/router';
 import { UserFacade } from 'src/app/state/user/user.facade';
+import { Subject, Observable, takeUntil, map } from 'rxjs';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.sass'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnDestroy {
+	public completer$: Subject<void> = new Subject<void>();
+
+	public error$: Observable<string | null>;
+	public loading$: Observable<boolean>;
+
 	constructor(
 		private fb: FormBuilder,
 		private router: Router,
 		private readonly userFacade: UserFacade
-	) {}
+	) {
+		this.error$ = this.userFacade.userError$;
+		this.loading$ = this.userFacade.userLoaded$;
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
 
 	profileForm = this.fb.group({
 		credentials: this.fb.group({
@@ -113,9 +127,17 @@ export class RegisterComponent implements OnInit {
 			address as string,
 			city as string
 		);
-		this.router.navigate(['/']);
+		this.loading$
+			.pipe(
+				takeUntil(this.completer$),
+				map((loading: boolean) => {
+					if (loading) {
+						this.router.navigate(['/']);
+					}
+				})
+			)
+			.subscribe();
+
 		this.profileForm.reset();
 	}
-
-	ngOnInit(): void {}
 }

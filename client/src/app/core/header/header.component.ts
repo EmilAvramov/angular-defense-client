@@ -9,7 +9,7 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 })
 export class HeaderComponent implements OnDestroy {
 	token!: string;
-
+	
 	public completer$: Subject<void> = new Subject<void>();
 
 	@ViewChild('dropdown') private dropdown!: ElementRef<HTMLElement>;
