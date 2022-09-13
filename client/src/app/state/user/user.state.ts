@@ -38,3 +38,17 @@ export interface User {
 	city: string;
 	token: string;
 }
+
+export interface Error {
+	error: Message;
+	message: string;
+	name: string;
+	ok: boolean;
+	status: number;
+	statusText: string;
+	url: string;
+}
+
+export interface Message {
+	message: string | null
+}

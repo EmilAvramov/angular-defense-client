@@ -61,7 +61,7 @@ export const UserLoginSuccess = createAction(
 
 export const UserLoginFailure = createAction(
 	UserActionsNames.UserLoginFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserRegister = createAction(
@@ -84,7 +84,7 @@ export const UserRegisterSuccess = createAction(
 
 export const UserRegisterFailure = createAction(
 	UserActionsNames.UserRegisterFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserLogout = createAction(
@@ -99,7 +99,7 @@ export const UserLogoutSuccess = createAction(
 
 export const UserLogoutFailure = createAction(
 	UserActionsNames.UserLogoutFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserValidate = createAction(
@@ -114,7 +114,7 @@ export const UserValidateSuccess = createAction(
 
 export const UserValidateFailure = createAction(
 	UserActionsNames.UserValidateFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserChangeDetails = createAction(
@@ -138,7 +138,7 @@ export const UserChangeDetailsSuccess = createAction(
 
 export const UserChangeDetailsFailure = createAction(
 	UserActionsNames.UserChangeDetailsFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserChangePassword = createAction(
@@ -153,7 +153,7 @@ export const UserChangePasswordSuccess = createAction(
 
 export const UserChangePasswordFailure = createAction(
 	UserActionsNames.UserChangePasswordFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const UserDeleteAccount = createAction(
@@ -168,5 +168,5 @@ export const UserDeleteAccountSuccess = createAction(
 
 export const userDeleteAccountFailure = createAction(
 	UserActionsNames.UserDeleteAccountFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );

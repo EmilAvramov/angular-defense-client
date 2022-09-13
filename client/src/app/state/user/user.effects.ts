@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, Observable, switchMap, of, tap } from 'rxjs';
@@ -5,7 +6,7 @@ import { catchError, map, Observable, switchMap, of, tap } from 'rxjs';
 import * as userActions from './user.actions';
 import { UserActionsNames } from './user.actions';
 import { AuthService, StorageService } from './user.service';
-import { User } from './user.state';
+import { Error, User } from './user.state';
 
 @Injectable()
 export class UserEffects {
@@ -48,9 +49,10 @@ export class UserEffects {
 					})
 				)
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserLoginFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserLoginFailure({ message }));
+			})
 		)
 	);
 
@@ -78,9 +80,10 @@ export class UserEffects {
 						})
 					)
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserRegisterFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserRegisterFailure({ message }));
+			})
 		);
 	});
 
@@ -96,9 +99,10 @@ export class UserEffects {
 					})
 				)
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserLogoutFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserLogoutFailure({ message }));
+			})
 		);
 	});
 
@@ -111,9 +115,10 @@ export class UserEffects {
 					.validateUser(token)
 					.pipe(map((user: User) => userActions.UserValidateSuccess({ user })))
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserValidateFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserValidateFailure({ message }));
+			})
 		)
 	);
 
@@ -152,9 +157,10 @@ export class UserEffects {
 							})
 						)
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserChangeDetailsFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserChangeDetailsFailure({ message }));
+			})
 		)
 	);
 
@@ -172,9 +178,10 @@ export class UserEffects {
 					})
 				)
 			),
-			catchError((error: string | null) =>
-				of(userActions.UserChangePasswordFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.UserChangePasswordFailure({ message }));
+			})
 		)
 	);
 
@@ -190,9 +197,10 @@ export class UserEffects {
 					tap(() => this.storageService.clearStorage())
 				)
 			),
-			catchError((error: string | null) =>
-				of(userActions.userDeleteAccountFailure({ error }))
-			)
+			catchError((error: Error) => {
+				const message = error?.error.message;
+				return of(userActions.userDeleteAccountFailure({ message }));
+			})
 		)
 	);
 }
