@@ -16,10 +16,10 @@ export const _deviceReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(deviceActions.DeviceInitFailure, (state, { error }) => ({
+	on(deviceActions.DeviceInitFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 
 	on(deviceActions.DeviceSearch, (state) => ({
@@ -33,10 +33,10 @@ export const _deviceReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(deviceActions.DeviceSearchFailure, (state, { error }) => ({
+	on(deviceActions.DeviceSearchFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(deviceActions.DeviceLoadMore, (state) => ({
 		...state,
@@ -49,10 +49,10 @@ export const _deviceReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(deviceActions.DeviceLoadMoreFailure, (state, { error }) => ({
+	on(deviceActions.DeviceLoadMoreFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 
 	on(deviceActions.DeviceGetDetails, (state) => ({
@@ -62,9 +62,9 @@ export const _deviceReducer = createReducer(
 		...state,
 		details: data,
 	})),
-	on(deviceActions.DeviceGetDetailsFailure, (state, { error }) => ({
+	on(deviceActions.DeviceGetDetailsFailure, (state, { message }) => ({
 		...state,
-		error,
+		error: message,
 	}))
 );
 

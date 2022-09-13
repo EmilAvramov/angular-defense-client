@@ -28,7 +28,7 @@ export const DeviceInitSuccess = createAction(
 
 export const DeviceInitFailure = createAction(
 	DeviceActionsNames.DeviceInitFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const DeviceSearch = createAction(
@@ -43,7 +43,7 @@ export const DeviceSearchSuccess = createAction(
 
 export const DeviceSearchFailure = createAction(
 	DeviceActionsNames.DeviceSearchFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const DeviceLoadMore = createAction(
@@ -58,7 +58,7 @@ export const DeviceLoadMoreSuccess = createAction(
 
 export const DeviceLoadMoreFailure = createAction(
 	DeviceActionsNames.DeviceLoadMoreFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const DeviceGetDetails = createAction(
@@ -73,5 +73,5 @@ export const DeviceGetDetailsSuccess = createAction(
 
 export const DeviceGetDetailsFailure = createAction(
 	DeviceActionsNames.DeviceGetDetailsFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );

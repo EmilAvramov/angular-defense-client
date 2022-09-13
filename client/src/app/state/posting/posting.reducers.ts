@@ -16,10 +16,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingInitFailure, (state, { error }) => ({
+	on(postingActions.PostingInitFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingLoadMore, (state) => ({
 		...state,
@@ -32,10 +32,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingLoadMoreFailure, (state, { error }) => ({
+	on(postingActions.PostingLoadMoreFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingSearch, (state, { query }) => ({
 		...state,
@@ -50,11 +50,11 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingSearchFailure, (state, { error }) => ({
+	on(postingActions.PostingSearchFailure, (state, { message }) => ({
 		...state,
 		query: '',
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingGetDetails, (state) => ({
 		...state,
@@ -67,10 +67,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingGetDetailsFailure, (state, { error }) => ({
+	on(postingActions.PostingGetDetailsFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingCreate, (state) => ({
 		...state,
@@ -84,11 +84,11 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingCreateFailure, (state, { error }) => ({
+	on(postingActions.PostingCreateFailure, (state, { message }) => ({
 		...state,
 		create: null,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingEdit, (state) => ({
 		...state,
@@ -101,10 +101,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingEditFailure, (state, { error }) => ({
+	on(postingActions.PostingEditFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingDelete, (state) => ({
 		...state,
@@ -117,10 +117,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingDeleteFailure, (state, { error }) => ({
+	on(postingActions.PostingDeleteFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingCheckOwner, (state) => ({
 		...state,
@@ -143,10 +143,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingLoadDevicesFailure, (state, { error }) => ({
+	on(postingActions.PostingLoadDevicesFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingLoadDeviceDetails, (state) => ({
 		...state,
@@ -159,10 +159,10 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingLoadDeviceDetailsFailure, (state, { error }) => ({
+	on(postingActions.PostingLoadDeviceDetailsFailure, (state, { message }) => ({
 		...state,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingClearDeviceDetails, (state) => ({
 		...state,
@@ -175,12 +175,12 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingClearDeviceDetailsFailure, (state, { error }) => ({
+	on(postingActions.PostingClearDeviceDetailsFailure, (state, { message }) => ({
 		...state,
 		devices: null,
 		devicesDetails: null,
 		loaded: false,
-		error,
+		error: message,
 	})),
 	on(postingActions.PostingLoadUser, (state) => ({
 		...state,
@@ -193,11 +193,11 @@ export const _postingReducer = createReducer(
 		loaded: true,
 		error: null,
 	})),
-	on(postingActions.PostingLoadUserFailure, (state, { error }) => ({
+	on(postingActions.PostingLoadUserFailure, (state, { message }) => ({
 		...state,
 		user: null,
 		loaded: false,
-		error,
+		error: message,
 	}))
 );
 

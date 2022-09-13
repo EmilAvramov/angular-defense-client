@@ -7,7 +7,7 @@ import { DeviceService } from './device.service';
 import * as DeviceActions from './device.actions';
 import * as DeviceSelectors from './device.selectors';
 import { DeviceActionsNames } from './device.actions';
-import { Device, DeviceState } from './device.state';
+import { Device, DeviceState, Error } from './device.state';
 
 @Injectable()
 export class DeviceEffects {
@@ -24,8 +24,8 @@ export class DeviceEffects {
 			switchMap(({ limit, offset }) =>
 				this.deviceService.getDevices(limit, offset).pipe(
 					map((data: Device[]) => DeviceActions.DeviceInitSuccess({ data })),
-					catchError((error: string | null) =>
-						of(DeviceActions.DeviceInitFailure({ error }))
+					catchError((error: Error) =>
+						of(DeviceActions.DeviceInitFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -41,8 +41,8 @@ export class DeviceEffects {
 			switchMap(({ query, limit, offset }) =>
 				this.deviceService.searchDevices(query, limit, offset).pipe(
 					map((data: Device[]) => DeviceActions.DeviceSearchSuccess({ data })),
-					catchError((error: null | string) =>
-						of(DeviceActions.DeviceSearchFailure({ error }))
+					catchError((error: Error) =>
+						of(DeviceActions.DeviceSearchFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -56,8 +56,8 @@ export class DeviceEffects {
 			switchMap(({ limit, offset }) =>
 				this.deviceService.getDevices(limit, offset).pipe(
 					map((data: Device[]) => DeviceActions.DeviceLoadMoreSuccess({ data })),
-					catchError((error: string | null) =>
-						of(DeviceActions.DeviceLoadMoreFailure({ error }))
+					catchError((error: Error) =>
+						of(DeviceActions.DeviceLoadMoreFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -72,8 +72,10 @@ export class DeviceEffects {
 				this.store.pipe(
 					select(DeviceSelectors.getDeviceDetails(key)),
 					map((data: Device) => DeviceActions.DeviceGetDetailsSuccess({ data })),
-					catchError((error: string | null) =>
-						of(DeviceActions.DeviceGetDetailsFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							DeviceActions.DeviceGetDetailsFailure({ message: error.error.message })
+						)
 					)
 				)
 			)

@@ -61,7 +61,7 @@ export const PostingInitSuccess = createAction(
 
 export const PostingInitFailure = createAction(
 	PostingActionNames.PostingInitFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingSearch = createAction(
@@ -76,7 +76,7 @@ export const PostingSearchSuccess = createAction(
 
 export const PostingSearchFailure = createAction(
 	PostingActionNames.PostingLoadMoreFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingLoadMore = createAction(
@@ -91,7 +91,7 @@ export const PostingLoadMoreSuccess = createAction(
 
 export const PostingLoadMoreFailure = createAction(
 	PostingActionNames.PostingLoadMoreFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingGetDetails = createAction(
@@ -106,7 +106,7 @@ export const PostingGetDetailsSuccess = createAction(
 
 export const PostingGetDetailsFailure = createAction(
 	PostingActionNames.PostingGetDetailsFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingCreate = createAction(
@@ -121,7 +121,7 @@ export const PostingCreateSuccess = createAction(
 
 export const PostingCreateFailure = createAction(
 	PostingActionNames.PostingCreateFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingEdit = createAction(
@@ -136,7 +136,7 @@ export const PostingEditSuccess = createAction(
 
 export const PostingEditFailure = createAction(
 	PostingActionNames.PostingEditFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingDelete = createAction(
@@ -151,7 +151,7 @@ export const PostingDeleteSuccess = createAction(
 
 export const PostingDeleteFailure = createAction(
 	PostingActionNames.PostingDeleteFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingCheckOwner = createAction(
@@ -166,7 +166,7 @@ export const PostingCheckOwnerSuccess = createAction(
 
 export const PostingCheckOwnerFailure = createAction(
 	PostingActionNames.PostingCheckOwnerFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingLoadDevices = createAction(
@@ -181,7 +181,7 @@ export const PostingLoadDevicesSuccess = createAction(
 
 export const PostingLoadDevicesFailure = createAction(
 	PostingActionNames.PostingLoadDevicesFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingLoadDeviceDetails = createAction(
@@ -195,7 +195,7 @@ export const PostingLoadDeviceDetailsSuccess = createAction(
 );
 export const PostingLoadDeviceDetailsFailure = createAction(
 	PostingActionNames.PostingLoadDeviceDetailsFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingClearDeviceDetails = createAction(
@@ -209,7 +209,7 @@ export const PostingClearDeviceDetailsSuccess = createAction(
 
 export const PostingClearDeviceDetailsFailure = createAction(
 	PostingActionNames.PostingClearDeviceDetailsFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );
 
 export const PostingLoadUser = createAction(PostingActionNames.PostingLoadUser);
@@ -221,5 +221,5 @@ export const PostingLoadUserSuccess = createAction(
 
 export const PostingLoadUserFailure = createAction(
 	PostingActionNames.PostingLoadUserFailure,
-	props<{ error: string | null }>()
+	props<{ message: string | null }>()
 );

@@ -7,7 +7,7 @@ import { PostingService } from './posting.service';
 import * as PostingActions from './posting.actions';
 import * as PostingSelectors from './posting.selectors';
 import { PostingActionNames } from './posting.actions';
-import { Posting, PostingState } from './posting.state';
+import { Error, Posting, PostingState } from './posting.state';
 
 import { UserFacade } from '../user/user.facade';
 import { User } from '../user/user.state';
@@ -29,8 +29,8 @@ export class PostingEffects {
 			switchMap(({ limit, offset }) =>
 				this.postingService.getPostings(limit, offset).pipe(
 					map((data: Posting[]) => PostingActions.PostingInitSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingInitFailure({ error }))
+					catchError((error: Error) =>
+						of(PostingActions.PostingInitFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -46,8 +46,10 @@ export class PostingEffects {
 			switchMap(({ limit, offset }) =>
 				this.postingService.getPostings(limit, offset).pipe(
 					map((data: Posting[]) => PostingActions.PostingLoadMoreSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingLoadMoreFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							PostingActions.PostingLoadMoreFailure({ message: error.error.message })
+						)
 					)
 				)
 			)
@@ -63,8 +65,8 @@ export class PostingEffects {
 			switchMap(({ query, limit, offset }) =>
 				this.postingService.searchPostings(query, limit, offset).pipe(
 					map((data: Posting[]) => PostingActions.PostingSearchSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingSearchFailure({ error }))
+					catchError((error: Error) =>
+						of(PostingActions.PostingSearchFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -81,8 +83,10 @@ export class PostingEffects {
 					map((posting: Posting) =>
 						PostingActions.PostingGetDetailsSuccess({ data: posting })
 					),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingGetDetailsFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							PostingActions.PostingGetDetailsFailure({ message: error.error.message })
+						)
 					)
 				)
 			)
@@ -96,8 +100,8 @@ export class PostingEffects {
 			switchMap(({ payload }) =>
 				this.postingService.createPosting(payload).pipe(
 					map((data: Posting) => PostingActions.PostingCreateSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingCreateFailure({ error }))
+					catchError((error: Error) =>
+						of(PostingActions.PostingCreateFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -113,8 +117,8 @@ export class PostingEffects {
 			switchMap(({ id, comments, price }) =>
 				this.postingService.editPosting(id, comments, price).pipe(
 					map((data: Posting) => PostingActions.PostingEditSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingEditFailure({ error }))
+					catchError((error: Error) =>
+						of(PostingActions.PostingEditFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -128,8 +132,8 @@ export class PostingEffects {
 			switchMap(({ id }) =>
 				this.postingService.deletePosting(id).pipe(
 					map((data: Posting) => PostingActions.PostingDeleteSuccess({ data })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingDeleteFailure({ error }))
+					catchError((error: Error) =>
+						of(PostingActions.PostingDeleteFailure({ message: error.error.message }))
 					)
 				)
 			)
@@ -147,8 +151,12 @@ export class PostingEffects {
 					map((data: Device[]) =>
 						PostingActions.PostingLoadDevicesSuccess({ data })
 					),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingLoadDevicesFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							PostingActions.PostingLoadDevicesFailure({
+								message: error.error.message,
+							})
+						)
 					)
 				)
 			)
@@ -165,8 +173,12 @@ export class PostingEffects {
 					map((data: Device) =>
 						PostingActions.PostingLoadDeviceDetailsSuccess({ data })
 					),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingLoadDeviceDetailsFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							PostingActions.PostingLoadDeviceDetailsFailure({
+								message: error.error.message,
+							})
+						)
 					)
 				)
 			)
@@ -179,8 +191,10 @@ export class PostingEffects {
 			switchMap(() =>
 				this.userFacade.userData$.pipe(
 					map((user: User) => PostingActions.PostingLoadUserSuccess({ user })),
-					catchError((error: string | null) =>
-						of(PostingActions.PostingLoadUserFailure({ error }))
+					catchError((error: Error) =>
+						of(
+							PostingActions.PostingLoadUserFailure({ message: error.error.message })
+						)
 					)
 				)
 			)
@@ -201,8 +215,10 @@ export class PostingEffects {
 					return PostingActions.PostingCheckOwnerSuccess({ check: false });
 				}
 			}),
-			catchError((error: string | null) =>
-				of(PostingActions.PostingCheckOwnerFailure({ error }))
+			catchError((error: Error) =>
+				of(
+					PostingActions.PostingCheckOwnerFailure({ message: error.error.message })
+				)
 			)
 		)
 	);

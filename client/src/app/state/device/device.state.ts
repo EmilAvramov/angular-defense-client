@@ -45,3 +45,17 @@ export interface Device {
 	batteryType: string;
 	price: string;
 }
+
+export interface Error {
+	error: Message;
+	message: string;
+	name: string;
+	ok: boolean;
+	status: number;
+	statusText: string;
+	url: string;
+}
+
+export interface Message {
+	message: string | null
+}
