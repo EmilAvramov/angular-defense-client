@@ -1,2 +1,2 @@
-export const server = 'node-typescript.eu-west-1.elasticbeanstalk.com';
-export const devServer = 'http://localhost:8080';
+export const server = 'http://node-typescript.eu-west-1.elasticbeanstalk.com';
+export const devserver = 'http://localhost:8080';
