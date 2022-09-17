@@ -9,7 +9,7 @@ import { Posting, PostingPayload, PostingState } from './posting.state';
 import { Device } from '../device/device.state';
 import { User } from '../user/user.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PostingFacade {
 	constructor(private readonly store: Store<PostingState>) {}
 

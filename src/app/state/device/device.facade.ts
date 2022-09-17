@@ -6,7 +6,7 @@ import * as deviceSelectors from './device.selectors';
 import * as deviceActions from './device.actions';
 import { Device, DeviceState } from './device.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DeviceFacade {
 	constructor(private readonly store: Store<DeviceState>) {}
 

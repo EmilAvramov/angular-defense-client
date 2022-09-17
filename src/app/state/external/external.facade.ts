@@ -6,7 +6,7 @@ import * as externalSelectors from './external.selectors';
 import * as externalActions from './external.actions';
 import { ExternalState, LatestDevice, PopularDevice } from './external.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExternalFacade {
 	constructor(private readonly store: Store<ExternalState>) {}
 

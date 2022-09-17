@@ -9,8 +9,6 @@ import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { DeviceFacade } from '../state/device/device.facade';
-import { UserFacade } from '../state/user/user.facade';
 
 @NgModule({
 	declarations: [
@@ -25,7 +23,7 @@ import { UserFacade } from '../state/user/user.facade';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	providers: [DeviceFacade, UserFacade, FormBuilder],
+	providers: [FormBuilder],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DevicesModule {}

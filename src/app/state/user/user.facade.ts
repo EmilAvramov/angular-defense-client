@@ -6,7 +6,7 @@ import * as userSelectors from './user.selectors';
 import * as userActions from './user.actions';
 import { User, UserState } from './user.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserFacade {
 	constructor(private readonly store: Store<UserState>) {}
 
