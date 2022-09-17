@@ -11,6 +11,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { ModalService } from '../devices/services/modal.service';
+import { UserFacade } from '../state/user/user.facade';
+import { ExternalFacade } from '../state/external/external.facade';
 
 @NgModule({
 	declarations: [
@@ -27,7 +29,7 @@ import { ModalService } from '../devices/services/modal.service';
 		BrowserAnimationsModule,
 	],
 	exports: [HeaderComponent, FooterComponent, NotFoundComponent],
-	providers: [ModalService],
+	providers: [ModalService, UserFacade, ExternalFacade],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoreModule {}

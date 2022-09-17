@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DevicesComponent } from './devices.component';
@@ -9,6 +9,8 @@ import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DeviceFacade } from '../state/device/device.facade';
+import { UserFacade } from '../state/user/user.facade';
 
 @NgModule({
 	declarations: [
@@ -23,7 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	providers: [],
+	providers: [DeviceFacade, UserFacade, FormBuilder],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DevicesModule {}
