@@ -8,7 +8,7 @@ import { Error, ExternalDataRequest } from './external.state';
 import { ExternalService } from './external.service';
 
 @Injectable()
-export class DeviceEffects {
+export class ExternalEffects {
 	constructor(
 		private readonly actions$: Actions,
 		private readonly externalServce: ExternalService

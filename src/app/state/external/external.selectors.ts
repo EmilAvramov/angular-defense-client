@@ -6,12 +6,12 @@ export const getExternalState =
 
 export const getPopular = createSelector(
 	getExternalState,
-	(state: ExternalState) => state.latest
+	(state: ExternalState) => state.popular
 );
 
 export const getLatest = createSelector(
 	getExternalState,
-	(state: ExternalState) => state.popular
+	(state: ExternalState) => state.latest
 );
 
 export const getExternalLoaded = createSelector(

@@ -31,19 +31,34 @@ import { postingReducer } from './state/posting/posting.reducers';
 import { PostingEffects } from './state/posting/posting.effects';
 import { PostingService } from './state/posting/posting.service';
 
+import { ExternalEffects } from './state/external/external.effects';
+import { externalReducer } from './state/external/external.reducers';
+import { ExternalFacade } from './state/external/external.facade';
+import { ExternalService } from './state/external/external.service';
+
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		StoreModule.forRoot(
-			{ user: userReducer, device: deviceReducer, posting: postingReducer },
+			{
+				user: userReducer,
+				device: deviceReducer,
+				posting: postingReducer,
+				external: externalReducer,
+			},
 			{}
 		),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
 		}),
-		EffectsModule.forRoot([UserEffects, DeviceEffects, PostingEffects]),
+		EffectsModule.forRoot([
+			UserEffects,
+			DeviceEffects,
+			PostingEffects,
+			ExternalEffects,
+		]),
 		SharedModule,
 		HttpClientModule,
 		AuthModule,
@@ -58,9 +73,11 @@ import { PostingService } from './state/posting/posting.service';
 		AuthService,
 		DeviceService,
 		PostingService,
+		ExternalService,
 		UserFacade,
 		DeviceFacade,
 		PostingFacade,
+		ExternalFacade,
 	],
 	bootstrap: [AppComponent],
 })
