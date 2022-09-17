@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LatestDevice, PopularDevice } from './external.state';
+import { ExternalDataRequest } from './external.state';
 
 export enum ExternalActionsNames {
 	ExternalInit = '[External] Init',
@@ -11,7 +11,7 @@ export const ExternalInit = createAction(ExternalActionsNames.ExternalInit);
 
 export const ExternalInitSuccess = createAction(
 	ExternalActionsNames.ExternalInitSuccess,
-	props<{ data: { latest: LatestDevice[]; popular: PopularDevice[] } }>()
+	props<{ data: ExternalDataRequest }>()
 );
 
 export const ExternalInitFailure = createAction(
