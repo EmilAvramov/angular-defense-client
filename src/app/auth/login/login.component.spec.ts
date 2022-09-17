@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugTracingFeature } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -52,10 +52,13 @@ describe('LoginComponent', () => {
 		const email = component.profileForm.controls.email;
 		email.setValue('123@12');
 		expect(email.valid).toBeFalsy();
+		expect(email.hasError('pattern')).toBeTruthy();
 		email.setValue('12345');
 		expect(email.valid).toBeFalsy();
+		expect(email.hasError('pattern')).toBeTruthy();
 		email.setValue('123@dot.com.');
 		expect(email.valid).toBeFalsy();
+		expect(email.hasError('pattern')).toBeTruthy();
 	});
 	it('(password) should be valid if validation passed', () => {
 		const password = component.profileForm.controls.password;
@@ -66,15 +69,47 @@ describe('LoginComponent', () => {
 		const password = component.profileForm.controls.password;
 		password.setValue('aaaaaaaaa');
 		expect(password.valid).toBeFalsy();
+		expect(password.hasError('pattern')).toBeTruthy();
 		password.setValue('12345');
 		expect(password.valid).toBeFalsy();
+		expect(password.hasError('pattern')).toBeTruthy();
 		password.setValue('12345asd');
 		expect(password.valid).toBeFalsy();
+		expect(password.hasError('pattern')).toBeTruthy();
 		password.setValue('a!@1');
 		expect(password.valid).toBeFalsy();
+		expect(password.hasError('pattern')).toBeTruthy();
 	});
-	it('should be invalid if validation not passed', () => {});
-	it('should be valid if validation passed', () => {});
+	it('(button) should be invalid if validation not passed', () => {
+		const email: AbstractControl = component.profileForm.controls.email;
+		const password: AbstractControl = component.profileForm.controls.password;
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('button')
+		).nativeElement;
+
+		spyOn(component, 'onSubmit');
+		email.setValue('123');
+		password.setValue('abcd@a1@111!');
+		button.click();
+		expect(button.disabled).toBeTruthy();
+		expect(component.onSubmit).toHaveBeenCalledTimes(0);
+	});
+	it('(button) should be valid if validation passed', () => {
+		const email = component.profileForm.controls.email;
+		const password = component.profileForm.controls.password;
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('button')
+		).nativeElement;
+
+		spyOn(component, 'onSubmit');
+		email.setValue('123@123.com');
+		password.setValue('Abcd@a1@111!');
+		expect(component.profileForm.valid).toBeTruthy();
+		fixture.detectChanges();
+		expect(button.disabled).toBeFalsy();
+		button.click();
+		expect(component.onSubmit).toHaveBeenCalledTimes(1);
+	});
 	it('should be not be clickable if form invalid', () => {});
 	it('should be clickable if form valid', () => {});
 });
