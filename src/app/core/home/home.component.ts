@@ -1,44 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ExternalFacade } from 'src/app/state/external/external.facade';
 import {
-	HomeRequest,
 	LatestDevice,
 	PopularDevice,
-} from 'src/app/shared/interfaces/Home.interface';
-import { server } from 'src/app/shared/variables/config';
+} from 'src/app/state/external/external.state';
 
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.sass'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-	latest: LatestDevice[] | undefined;
-	popular: PopularDevice[] | undefined;
+export class HomeComponent implements OnDestroy {
+	latest!: Observable<LatestDevice[] | null>;
+	popular!: Observable<PopularDevice[] | null>;
 
 	public completer$: Subject<void> = new Subject<void>();
 
-	constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
-
-	ngOnInit(): void {
-		this.spinner.show();
-		this.http
-			.get<HomeRequest>(`${server}/data/recommended`)
-			.pipe(
-				finalize(() => this.spinner.hide()),
-				takeUntil(this.completer$)
-			)
-			.subscribe({
-				next: (value) => {
-					this.latest = value.latest;
-					this.popular = value.popular;
-				},
-				error: (err) => console.log(err.message),
-			});
+	constructor(
+		private spinner: NgxSpinnerService,
+		private externalFacade: ExternalFacade
+	) {
+		this.externalFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({
+			next: (loading: boolean) => {
+				if (!loading) {
+					this.spinner.show();
+				} else {
+					this.spinner.hide();
+				}
+			},
+			error: (err: string | null) => console.log(err),
+		});
+		this.latest = this.externalFacade.getLatest$;
+		this.popular = this.externalFacade.getPopular$;
 	}
 
 	ngOnDestroy(): void {

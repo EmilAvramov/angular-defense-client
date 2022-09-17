@@ -2,7 +2,7 @@
 	<main class="home__main">
 		<h2>Latest Devices</h2>
 		<div class="home__main_container">
-			<div *ngFor="let item of latest">
+			<div *ngFor="let item of latest | async">
 				<p>{{ item.deviceName }}</p>
 				<img src="{{ item.deviceImage }}" alt="" />
 			</div>
@@ -11,7 +11,7 @@
 	<aside class="home__aside">
 		<h2>Most Popular Devices</h2>
 		<div class="home__aside_container">
-			<div *ngFor="let item of popular">
+			<div *ngFor="let item of popular | async">
 				<p>Rank: {{ item.rank }}</p>
 				<p>Name: {{ item.deviceName }}</p>
 				<p>Daily Hits: {{ item.dailyHits }}</p>
