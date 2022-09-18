@@ -1,8 +1,8 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
-import { map } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 
@@ -14,6 +14,7 @@ describe('LoginComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [LoginComponent],
 			providers: [provideMockStore({}), FormBuilder],
+			schemas: [NO_ERRORS_SCHEMA]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LoginComponent);
@@ -23,11 +24,6 @@ describe('LoginComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
-	});
-	it('should load as false', () => {
-		let state: boolean = false;
-		component.loading$.pipe(map((value) => (state = value)));
-		expect(state).toBe(false);
 	});
 	it('should render empty form', () => {
 		const { email, password } = component.profileForm.value;

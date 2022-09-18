@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 
@@ -11,6 +12,7 @@ describe('SearchComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [SearchComponent],
 			providers: [FormBuilder],
+			schemas: [NO_ERRORS_SCHEMA]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(SearchComponent);

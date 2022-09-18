@@ -1,8 +1,7 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
-import { map } from 'rxjs';
 
 import { RegisterComponent } from './register.component';
 
@@ -14,6 +13,7 @@ describe('RegisterComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [RegisterComponent],
 			providers: [provideMockStore({}), FormBuilder],
+			schemas: [NO_ERRORS_SCHEMA]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(RegisterComponent);
@@ -23,11 +23,6 @@ describe('RegisterComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
-	});
-	it('should load as false', () => {
-		let state: boolean = false;
-		component.loading$.pipe(map((value) => (state = value)));
-		expect(state).toBe(false);
 	});
 	it('should render empty form', () => {
 		const { credentials, personalDetails } = component.profileForm.value;

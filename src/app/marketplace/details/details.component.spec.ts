@@ -1,6 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { UserFacade } from 'src/app/state/user/user.facade';
 
 import { DetailsComponent } from './details.component';
 
@@ -11,7 +11,8 @@ describe('DetailsComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [DetailsComponent],
-			providers: [UserFacade, provideMockStore({})],
+			providers: [provideMockStore({})],
+			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(DetailsComponent);

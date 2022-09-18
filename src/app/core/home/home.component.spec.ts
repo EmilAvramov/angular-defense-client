@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -11,6 +12,7 @@ describe('HomeComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [HomeComponent],
 			providers: [provideMockStore({})],
+			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(HomeComponent);

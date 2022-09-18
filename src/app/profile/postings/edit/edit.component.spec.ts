@@ -1,6 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { UserFacade } from 'src/app/state/user/user.facade';
 
 import { EditComponent } from './edit.component';
 
@@ -11,7 +11,8 @@ describe('EditComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [EditComponent],
-			providers: [UserFacade, provideMockStore({})],
+			providers: [provideMockStore({})],
+			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(EditComponent);

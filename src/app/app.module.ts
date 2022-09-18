@@ -49,10 +49,6 @@ import { ExternalService } from './state/external/external.service';
 			},
 			{}
 		),
-		StoreDevtoolsModule.instrument({
-			maxAge: 25,
-			logOnly: environment.production,
-		}),
 		EffectsModule.forRoot([
 			UserEffects,
 			DeviceEffects,
@@ -67,6 +63,10 @@ import { ExternalService } from './state/external/external.service';
 		ProfileModule,
 		CoreModule,
 		AppRoutingModule,
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production,
+		}),
 	],
 	providers: [
 		StorageService,

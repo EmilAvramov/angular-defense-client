@@ -1,6 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { DeviceFacade } from '../state/device/device.facade';
 
 import { DevicesComponent } from './devices.component';
 
@@ -11,7 +11,8 @@ describe('DevicesComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [DevicesComponent],
-			providers: [provideMockStore({}), DeviceFacade],
+			providers: [provideMockStore({})],
+			schemas: [NO_ERRORS_SCHEMA]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(DevicesComponent);
@@ -22,4 +23,13 @@ describe('DevicesComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
+	it('(loadMore) should increase limit', () => {
+
+	});
+	it('(query) should reset limit to 100', () => {
+
+	});
+	it('(getDetails) should open model', () => {
+
+	})
 });
