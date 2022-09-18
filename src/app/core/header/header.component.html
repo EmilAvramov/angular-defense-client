@@ -3,13 +3,18 @@
 	<nav>
 		<ul>
 			<li><a routerLink="/">Home</a></li>
-			<li><a routerLink="/marketplace">Marketplace</a></li>
+			<li>
+				<a routerLink="/marketplace">Marketplace</a>
+			</li>
 			<li><a routerLink="/devices">Devices</a></li>
 			<li><a routerLink="/about"> About</a></li>
-			<li *ngIf="!this.token"><a routerLink="/login">Login</a></li>
-			<li *ngIf="!this.token"><a routerLink="/register">Register</a></li>
+			<li class="header__login_nav" *ngIf="!this.token">
+				<a routerLink="/login">Login</a>
+			</li>
+			<li class="header__register_nav" *ngIf="!this.token">
+				<a routerLink="/register">Register</a>
+			</li>
 			<li
-				
 				class="header__dropdown"
 				(mouseover)="openDropDown()"
 				(mouseleave)="closeDropDown()"
@@ -25,7 +30,7 @@
 					</li>
 				</ul>
 			</li>
-			<li *ngIf="this.token" (click)="logout()">
+			<li class="header__logout_nav" *ngIf="this.token" (click)="logout()">
 				<a routerLink="/">Logout</a>
 			</li>
 		</ul>
