@@ -1,9 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-	AbstractControl,
-	FormBuilder,
-	RequiredValidator,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { map } from 'rxjs';
@@ -39,12 +35,11 @@ describe('LoginComponent', () => {
 		expect(password).toBe('');
 	});
 	it('should be invalid if empty', () => {
-		component.profileForm.controls.email.setValue('');
-		component.profileForm.controls.password.setValue('');
 		expect(component.profileForm.valid).toBeFalsy();
 	});
 	it('(email) should be valid if validation passed', () => {
 		const email = component.profileForm.controls.email;
+
 		email.setValue('123@123.com');
 		expect(email.valid).toBeTrue();
 	});
@@ -67,6 +62,7 @@ describe('LoginComponent', () => {
 	});
 	it('(password) should be invalid if validation failed', () => {
 		const password = component.profileForm.controls.password;
+
 		password.setValue('aaaaaaaaa');
 		expect(password.valid).toBeFalsy();
 		expect(password.hasError('pattern')).toBeTruthy();
@@ -80,38 +76,44 @@ describe('LoginComponent', () => {
 		expect(password.valid).toBeFalsy();
 		expect(password.hasError('pattern')).toBeTruthy();
 	});
-	it('(button) should be disabled if validation not passed', () => {
+	it('(form) should not submit if validation not passed', () => {
 		const email: AbstractControl = component.profileForm.controls.email;
 		const password: AbstractControl = component.profileForm.controls.password;
 		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('button')
 		).nativeElement;
 
-		fixture.whenStable().then(() => {
-			email.setValue('123');
-			password.setValue('abcd@a1@111!');
-			fixture.detectChanges();
-			expect(component.profileForm.valid).toBeFalsy();
-			expect(button.disabled).toBeTruthy();
-			button.click();
-			expect(component.onSubmit).toHaveBeenCalledTimes(0);
-		});
+		spyOn(component, 'onSubmit');
+		email.setValue('123');
+		password.setValue('abcd@a1@111!');
+		fixture.detectChanges();
+		expect(component.profileForm.valid).toBeFalsy();
+		expect(button.disabled).toBeTruthy();
+		fixture
+			.whenStable()
+			.then(() => button.click())
+			.finally(() => expect(component.onSubmit).toHaveBeenCalledTimes(0));
 	});
-	it('(button) should be enabled if validation passed', () => {
+	it('(form) should submit if validation passed', () => {
 		const email: AbstractControl = component.profileForm.controls.email;
 		const password: AbstractControl = component.profileForm.controls.password;
 		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('button')
 		).nativeElement;
 
-		fixture.whenStable().then(() => {
-			email.setValue('123@123.com');
-			password.setValue('Abcd@a1@111!');
-			fixture.detectChanges();
-			expect(component.profileForm.valid).toBeTruthy();
-			expect(button.disabled).toBeFalsy();
-			button.click();
-			expect(component.onSubmit).toHaveBeenCalledTimes(1);
-		});
+		email.setValue('123@123.com');
+		password.setValue('Abcd@a1@111!');
+		fixture.detectChanges();
+		spyOn(component, 'onSubmit');
+		expect(component.profileForm.valid).toBeTruthy();
+		expect(button.disabled).toBeFalsy();
+		fixture
+			.whenStable()
+			.then(() => button.click())
+			.finally(() => {
+				expect(component.onSubmit).toHaveBeenCalledTimes(1);
+				expect(email.value).toBe('');
+				expect(password.value).toBe('');
+			});
 	});
 });
