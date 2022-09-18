@@ -5,7 +5,8 @@ import {
 	NO_ERRORS_SCHEMA,
 	Output,
 } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Device, DeviceState } from '../state/device/device.state';
 import { DetailsComponent } from './details/details.component';
@@ -71,5 +72,46 @@ describe('DevicesComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+	it('should request more data upon trigger', () => {
+		const listEl = fixture.debugElement.query(By.directive(FakeListComponent));
+		const listComponent: FakeListComponent = listEl.componentInstance;
+
+		spyOn(component, 'loadMore');
+		listComponent.request.emit('request more data');
+		fixture.detectChanges();
+		expect(component.loadMore).toHaveBeenCalled();
+	});
+	it('should request query data upon trigger', () => {
+		const searchEl = fixture.debugElement.query(
+			By.directive(FakeSearchComponent)
+		);
+		const SearchComponent: FakeSearchComponent = searchEl.componentInstance;
+
+		spyOn(component, 'query');
+		SearchComponent.search.emit('a string');
+		fixture.detectChanges();
+		expect(component.query).toHaveBeenCalled();
+	});
+	it('should request details upon trigger', () => {
+		const listEl = fixture.debugElement.query(By.directive(FakeListComponent));
+		const listComponent: FakeListComponent = listEl.componentInstance;
+
+		spyOn(component, 'getDetails');
+		listComponent.details.emit('key');
+		fixture.detectChanges();
+		expect(component.getDetails).toHaveBeenCalled();
+	});
+	it('should call method and unsubscribe on destroy', () => {
+		const destroy = spyOn(component, 'ngOnDestroy');
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		component.ngOnDestroy();
+		fixture.detectChanges();
+
+		expect(destroy).toHaveBeenCalled();
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
 	});
 });
