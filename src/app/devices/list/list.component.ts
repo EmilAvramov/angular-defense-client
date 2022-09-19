@@ -20,8 +20,4 @@ export class ListComponent {
 	}
 
 	constructor() {}
-
-	open(deviceKey: string) {
-		this.showDetails(deviceKey);
-	}
 }

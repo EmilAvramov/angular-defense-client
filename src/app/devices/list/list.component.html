@@ -3,7 +3,7 @@
 		<div *ngFor="let device of data" class="devices__list_item">
 			<p>{{ device.deviceName }}</p>
 			<img
-				(click)="open(device.deviceKey)"
+				(click)="showDetails(device.deviceKey)"
 				src="{{ device.deviceImage }}"
 				alt=""
 			/>

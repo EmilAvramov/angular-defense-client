@@ -26,6 +26,13 @@ describe('ListComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
+	it('should not be visible if not enough data', () => {
+		component.data = deviceMockDataPartial;
+		expect(component.data.length).toBe(1);
+		fixture.detectChanges();
+
+		expect(fixture.debugElement.query(By.css('.devices__more'))).toBeNull();
+	});
 	it('should trigger load more emitter', () => {
 		component.data = deviceMockDataFull;
 		expect(component.data.length).toBeGreaterThan(18);
@@ -39,12 +46,18 @@ describe('ListComponent', () => {
 		fixture.detectChanges();
 		expect(component.loadMore).toHaveBeenCalled();
 	});
-	it('should not be visible if not enough data', () => {
-		component.data = deviceMockDataPartial;
-		expect(component.data.length).toBe(1);
+	it('should trigger details emitter', () => {
+		component.data = deviceMockDataFull;
+		expect(component.data.length).toBeGreaterThan(18);
 		fixture.detectChanges();
 
-		expect(fixture.debugElement.query(By.css('.devices__more'))).toBeNull();
+		const image: HTMLImageElement = fixture.debugElement.query(
+			By.css('img')
+		).nativeElement;
+
+		spyOn(component, 'showDetails');
+		image.click();
+		fixture.detectChanges();
+		expect(component.showDetails).toHaveBeenCalledWith('key');
 	});
-  it('should trigger')
 });
