@@ -5,7 +5,7 @@ import {
 	NO_ERRORS_SCHEMA,
 	Output,
 } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Device, DeviceState } from '../state/device/device.state';
@@ -102,15 +102,13 @@ describe('DevicesComponent', () => {
 		fixture.detectChanges();
 		expect(component.getDetails).toHaveBeenCalled();
 	});
-	it('should call method and unsubscribe on destroy', () => {
-		const destroy = spyOn(component, 'ngOnDestroy');
+	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');
 		const complete = spyOn(component.completer$, 'complete');
 
-		component.ngOnDestroy();
+		fixture.destroy();
 		fixture.detectChanges();
 
-		expect(destroy).toHaveBeenCalled();
 		expect(next).toHaveBeenCalled();
 		expect(complete).toHaveBeenCalled();
 	});
