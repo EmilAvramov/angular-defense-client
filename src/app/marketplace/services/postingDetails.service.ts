@@ -5,17 +5,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 	providedIn: 'root',
 })
 export class PostingDetailsService {
-	private display: BehaviorSubject<boolean> = new BehaviorSubject(false);
+	private display$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	watch(): Observable<boolean> {
-		return this.display.asObservable();
+		return this.display$.asObservable();
 	}
 
 	open() {
-		this.display.next(true);
+		this.display$.next(true);
 	}
 
 	close() {
-		this.display.next(false);
+		this.display$.next(false);
 	}
 }
