@@ -6,8 +6,10 @@ import {
 	Output,
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
+import { mockPostingPayload } from '../shared/mockData/postings.mock';
 import { Device } from '../state/device/device.state';
 import { Posting, PostingPayload } from '../state/posting/posting.state';
 import { User } from '../state/user/user.state';
@@ -91,6 +93,124 @@ describe('MarketplaceComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+	it('should trigger search method if emit triggered by child', () => {
+		spyOn(component, 'searchPostings');
+		const fakeSearchEl = fixture.debugElement.query(
+			By.directive(FakeSearchComponent)
+		);
+		const fakeSearch: FakeSearchComponent = fakeSearchEl.componentInstance;
+
+		fakeSearch.search.emit('search text');
+		fixture.detectChanges();
+		expect(component.searchPostings).toHaveBeenCalledWith('search text');
+	});
+	it('should trigger loadMore method if emit triggered by child', () => {
+		spyOn(component, 'loadMorePostings');
+		const fakeListEl = fixture.debugElement.query(
+			By.directive(FakeListComponent)
+		);
+		const fakeList: FakeListComponent = fakeListEl.componentInstance;
+
+		fakeList.requestMore.emit();
+		fixture.detectChanges();
+		expect(component.loadMorePostings).toHaveBeenCalled();
+	});
+	it('should trigger requestDetails method if emit triggered by child', () => {
+		spyOn(component, 'fetchPostingDetails');
+		const fakeListEl = fixture.debugElement.query(
+			By.directive(FakeListComponent)
+		);
+		const fakeList: FakeListComponent = fakeListEl.componentInstance;
+
+		fakeList.requestDetails.emit(99);
+		fixture.detectChanges();
+		expect(component.fetchPostingDetails).toHaveBeenCalledWith(99);
+	});
+	it('should trigger editPosting method if emit triggered by child', () => {
+		spyOn(component, 'editPosting');
+		const fakeDetailsEl = fixture.debugElement.query(
+			By.directive(FakeDetailsComponent)
+		);
+		const fakeDetails: FakeDetailsComponent = fakeDetailsEl.componentInstance;
+
+		fakeDetails.editPosting.emit({
+			id: 100,
+			comments: 'test comments',
+			price: 9999,
+		});
+		fixture.detectChanges();
+		expect(component.editPosting).toHaveBeenCalledWith({
+			id: 100,
+			comments: 'test comments',
+			price: 9999,
+		});
+	});
+	it('should trigger deletePosting method if emit triggered by child', () => {
+		spyOn(component, 'deletePosting');
+		const fakeDetailsEl = fixture.debugElement.query(
+			By.directive(FakeDetailsComponent)
+		);
+		const fakeDetails: FakeDetailsComponent = fakeDetailsEl.componentInstance;
+
+		fakeDetails.deletePosting.emit(99);
+		fixture.detectChanges();
+		expect(component.deletePosting).toHaveBeenCalledWith(99);
+	});
+	it('should trigger openCreateModal method if emit triggered by child', () => {
+		spyOn(component, 'openCreateModal');
+		const fakeSearchEl = fixture.debugElement.query(
+			By.directive(FakeSearchComponent)
+		);
+		const fakeSearch: FakeSearchComponent = fakeSearchEl.componentInstance;
+
+		fakeSearch.create.emit();
+		fixture.detectChanges();
+		expect(component.openCreateModal).toHaveBeenCalled();
+	});
+	it('should trigger fetchDeviceList method if emit triggered by child', () => {
+		spyOn(component, 'fetchDeviceList');
+		const fakeCreateEL = fixture.debugElement.query(
+			By.directive(FakeCreateComponent)
+		);
+		const fakeCreate: FakeCreateComponent = fakeCreateEL.componentInstance;
+
+		fakeCreate.requestDeviceList.emit('search');
+		fixture.detectChanges();
+		expect(component.fetchDeviceList).toHaveBeenCalledWith('search');
+	});
+	it('should trigger fetchDeviceDetails method if emit triggered by child', () => {
+		spyOn(component, 'fetchDeviceDetails');
+		const fakeCreateEL = fixture.debugElement.query(
+			By.directive(FakeCreateComponent)
+		);
+		const fakeCreate: FakeCreateComponent = fakeCreateEL.componentInstance;
+
+		fakeCreate.requestDeviceDetails.emit('key');
+		fixture.detectChanges();
+		expect(component.fetchDeviceDetails).toHaveBeenCalledWith('key');
+	});
+	it('should trigger clearDetails method if emit triggered by child', () => {
+		spyOn(component, 'clearDetails');
+		const fakeCreateEL = fixture.debugElement.query(
+			By.directive(FakeCreateComponent)
+		);
+		const fakeCreate: FakeCreateComponent = fakeCreateEL.componentInstance;
+
+		fakeCreate.clearDetails.emit();
+		fixture.detectChanges();
+		expect(component.clearDetails).toHaveBeenCalled();
+	});
+	it('should trigger createPosting method if emit triggered by child', () => {
+		spyOn(component, 'createPosting');
+		const fakeCreateEL = fixture.debugElement.query(
+			By.directive(FakeCreateComponent)
+		);
+		const fakeCreate: FakeCreateComponent = fakeCreateEL.componentInstance;
+
+		fakeCreate.createPosting.emit(mockPostingPayload);
+		fixture.detectChanges();
+		expect(component.createPosting).toHaveBeenCalledWith(mockPostingPayload);
 	});
 	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');
