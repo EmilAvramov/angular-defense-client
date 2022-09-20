@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { mockPostingDetails } from 'src/app/shared/mockData/postings.mock';
+import { mockUser } from 'src/app/shared/mockData/users.mock';
 
 import { DetailsComponent } from './details.component';
 
@@ -38,6 +39,55 @@ describe('DetailsComponent', () => {
 		const detailsHTML: HTMLElement = detailsDE.nativeElement;
 
 		expect(detailsHTML).toBeTruthy();
+	});
+	it('should emit edit data on trigger', () => {
+		spyOn(component, 'emitEdit').and.callThrough();
+		spyOn(component.editPosting, 'emit');
+		component.validatedUser$ = of(mockUser);
+		component.display$ = of(true);
+		component.details$ = of(mockPostingDetails);
+		fixture.detectChanges();
+
+		const editButtonDE: DebugElement = fixture.debugElement.query(
+			By.css('.edit')
+		);
+		const editButtonHTML: HTMLButtonElement = editButtonDE.nativeElement;
+		const editCommentsDe: DebugElement = fixture.debugElement.query(
+			By.css('.details__input_comments')
+		);
+		const editCommentsHTML: HTMLButtonElement = editCommentsDe.nativeElement;
+		const editPriceDE: DebugElement = fixture.debugElement.query(
+			By.css('.details__input_price')
+		);
+		const editPriceHTML: HTMLButtonElement = editPriceDE.nativeElement;
+
+		editCommentsHTML.value = 'test comments';
+		editPriceHTML.value = '999';
+		editButtonHTML.click();
+		fixture.detectChanges();
+
+		expect(component.emitEdit).toHaveBeenCalledWith(1);
+		expect(component.editPosting.emit).toHaveBeenCalledWith({
+			id: 1,
+			comments: 'test comments',
+			price: 999,
+		});
+	});
+	it('should emit delete id on trigger', () => {
+		spyOn(component, 'emitDelete');
+		component.validatedUser$ = of(mockUser);
+		component.display$ = of(true);
+		component.details$ = of(mockPostingDetails);
+		fixture.detectChanges();
+
+		const deleteButtonDE: DebugElement = fixture.debugElement.query(
+			By.css('.delete')
+		);
+		const deleteButtonHTML: HTMLButtonElement = deleteButtonDE.nativeElement;
+		deleteButtonHTML.click();
+		fixture.detectChanges();
+
+		expect(component.emitDelete).toHaveBeenCalledWith(1);
 	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close');

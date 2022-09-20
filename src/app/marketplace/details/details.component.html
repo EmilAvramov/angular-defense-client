@@ -151,12 +151,14 @@
 							#comments
 							type="text"
 							name="comments"
+							class="details__input_comments"
 							[defaultValue]="(this.details$ | async)!.comments"
 						/>
 						<input
 							#price
 							type="text"
 							name="price"
+							class="details__input_price"
 							[defaultValue]="(this.details$ | async)!.price"
 						/>
 					</div>
