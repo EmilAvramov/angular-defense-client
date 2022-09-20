@@ -74,4 +74,14 @@ describe('HeaderComponent', () => {
 		fixture.detectChanges();
 		expect(component.closeDropDown).toHaveBeenCalled();
 	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
+	});
 });

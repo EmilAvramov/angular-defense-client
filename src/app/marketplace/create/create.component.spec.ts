@@ -23,4 +23,14 @@ describe('CreateComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
+	});
 });

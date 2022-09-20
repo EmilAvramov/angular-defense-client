@@ -28,6 +28,10 @@ class FakeListComponent implements Partial<ListComponent> {
 	@Output() requestDetails = new EventEmitter<number>();
 }
 
+@Component({
+	selector: 'app-create',
+	template: '',
+})
 class FakeCreateComponent implements Partial<CreateComponent> {
 	@Input() user$: Observable<User | null> | undefined;
 	@Input() devices$: Observable<Device[] | null> | undefined;
@@ -38,6 +42,10 @@ class FakeCreateComponent implements Partial<CreateComponent> {
 	@Output() clearDetails = new EventEmitter<null>();
 }
 
+@Component({
+	selector: 'app-details',
+	template: '',
+})
 class FakeDetailsComponent implements Partial<DetailsComponent> {
 	@Input() details$: Observable<Posting | null> | undefined;
 	@Input() validatedUser$: Observable<User | null> | undefined;
@@ -49,6 +57,10 @@ class FakeDetailsComponent implements Partial<DetailsComponent> {
 	@Output() deletePosting = new EventEmitter<number>();
 }
 
+@Component({
+	selector: 'app-search',
+	template: '',
+})
 class FakeSearchComponent implements Partial<SearchComponent> {
 	@Input() user$: Observable<User | null> | undefined;
 	@Output() search = new EventEmitter<string>();
@@ -79,5 +91,15 @@ describe('MarketplaceComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
 	});
 });

@@ -37,4 +37,14 @@ describe('RegisterComponent', () => {
 	it('should be invalid if empty', () => {
 		expect(component.profileForm.valid).toBeFalsy();
 	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
+	});
 });

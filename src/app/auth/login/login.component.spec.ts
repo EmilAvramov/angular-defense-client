@@ -14,7 +14,7 @@ describe('LoginComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [LoginComponent],
 			providers: [provideMockStore({}), FormBuilder],
-			schemas: [NO_ERRORS_SCHEMA]
+			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LoginComponent);
@@ -111,5 +111,15 @@ describe('LoginComponent', () => {
 				expect(email.value).toBe('');
 				expect(password.value).toBe('');
 			});
+	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
 	});
 });
