@@ -1,20 +1,18 @@
+@use '../../../styles/layouts/_flex'
+
 .register__container
-    display: flex
-    justify-content: center
-    align-items: center
+    @extend %flex-basic-horizontal
 
     min-height: 91vh
 
     form
-        display: flex
-        flex-direction: column
+        @extend %flex-basic-vertical
         gap: 10px
         width: 50%
         margin: 0 auto
 
     div
-        display: flex
-        flex-direction: column
+        @extend %flex-basic-vertical
 
         .form__error
             color: red

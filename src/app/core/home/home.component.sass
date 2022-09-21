@@ -1,44 +1,29 @@
+@use '../../../styles/mixins/_layouts' as m
+
 .home__container
-    display: flex
+    @include m.flex($direction: '', $content-align: '', $item-align: '', $gap: 0)
+
     min-height: 91vh
 
-    .home__loader 
+    .home__loader
         position: relative
         margin-top: 500px
 
     .home__main
         flex-basis: 85%
 
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        gap: 50px
+        @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
         .home__main_container
-            display: grid
+            @include m.grid-repeat-columns($pieces: 5, $size: 1fr, $gap: 30px)
 
-            grid-template-columns: repeat(5, 1fr)
-            gap: 30px
-
-            div 
-                display: flex
-                flex-direction: column
-                justify-content: center
-                align-items: center
-                gap: 5px
+            div
+                @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 5px)
 
     .home__aside
         flex-basis: 15%
 
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        gap: 50px
+        @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
         .home__aside_container
-            display: flex
-            flex-direction: column
-
-            gap: 10px
+            @include m.flex($direction: column, $content-align: '', $item-align: '', $gap: 10px)
