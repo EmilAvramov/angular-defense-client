@@ -1,8 +1,7 @@
+@use '../../../styles/mixins/_layouts' as layout
+
 .search__wrapper
-    display: flex
-    justify-content: center
-    align-items: center
-    gap: 20px
+    @include layout.flex($content-align: center, $item-align: center, $gap: 20px)
 
     .search__input
         flex-basis: 70%

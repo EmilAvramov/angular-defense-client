@@ -1,37 +1,14 @@
 @use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/mixins/_geometry' as geo
 
 .details__wrapper
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    position: fixed
-    z-index: 5
-
-    background: rgba(0, 0, 0, 0.5)
-    transition: opacity 250ms ease-in
+    @include geo.wrapper()
 
     .details__container
-        position: absolute
-        height: 70vh
-        width: 80vw
-
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-
-        border-radius: 8px
-
-        box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1)
+        @include geo.container($height: 70vh, $width: 80vw)
 
         .close
-            cursor: pointer
-
-            position: absolute
-            top: 0
-            left: 0
-
-            padding: 16px
+            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
 
         .details__body
             background-color: white

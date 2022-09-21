@@ -1,3 +1,5 @@
+@use '../../../styles/mixins/_layouts' as layout
+
 .profile__postings_container
     width: 90vw
     min-height: 88.5vh
@@ -9,8 +11,7 @@
         margin: 20px auto
         border: 1px solid black
 
-        display: flex
-        flex-direction: column
+        @include layout.flex($direction: column)
 
         h2
             font-size: 30px
@@ -18,10 +19,8 @@
             text-align: center
 
         .profile__postings_subwrapper
-            display: flex
-            flex-direction: column
-            justify-content: center
-            align-items: center
+            @include layout.flex($direction: column, $content-align: center, $item-align: center)
+
             margin: 15px 30px
             position: relative
 
@@ -31,25 +30,20 @@
                 min-height: 20vh
 
                 position: relative
-                display: flex
-                gap: 30px
+
+                @include layout.flex($gap: 30px)
+
                 padding: 20px
 
                 border: 1px solid red
 
                 .profile__postings_device
                     margin: 15px 0px
-                    display: flex
-                    flex-direction: column
-                    justify-content: center
-                    align-items: center
-                    gap: 20px
+
+                    @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px)
 
                     .profile__postings_personal
-                        display: flex
-                        flex-direction: column
-                        justify-content: center
-                        gap: 20px
+                        @include layout.flex($direction: column, $content-align: center, $gap: 20px)
 
                     .profile__postings_buttons
                         position: absolute

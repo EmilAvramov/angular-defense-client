@@ -1,78 +1,34 @@
+@use '../../../styles/mixins/_layouts' as layout
 @use '../../../styles/mixins/_geometry' as geo
-    
-.details__wrapper
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    position: fixed
-    z-index: 5
 
-    background: rgba(0, 0, 0, 0.5)
-    transition: opacity 250ms ease-in
+.details__wrapper
+    @include geo.wrapper()
 
     .details__container
-        position: absolute
-        height: 80vh
-        width: 50vw
-
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-
-        border-radius: 8px
-
-        box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1)
+        @include geo.container($height: 80vh, $width: 50vw)
 
         .close
-            cursor: pointer
-
-            position: absolute
-            top: 0
-            left: 0
-
-            padding: 16px
+            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
 
         .edit
-            cursor: pointer
-
-            position: absolute
-            top: 0
-            right: 80px
-
-            padding: 16px
+            @include geo.button-adjust($top: 0, $right: 80px, $padding: 16px)
 
         .delete
-            cursor: pointer
-
-            position: absolute
-            top: 0
-            right: 0
-
-            padding: 16px
+            @include geo.button-adjust($top: 0, $right: 0, $padding: 16px)
 
         .details__body
             background-color: white
             flex-basis: 100%
             height: 100%
 
-            display: flex
-            box-sizing: border-box
-            justify-content: center
-            align-items: center
+            @include layout.flex($content-align: center, $item-align: center, $gap: 10px)
             column-gap: 40px
             padding: 20px
-            gap: 10px
 
             .details__left
                 flex-basis: 40%
 
-                display: flex
-                flex-direction: column
-                flex-wrap: wrap
-                justify-content: center
-                align-items: center
-                gap: 20px
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px, $wrap: wrap)
 
                 img
                     width: 80%
@@ -81,18 +37,13 @@
             .details__right
                 flex-basis: 60%
 
-                display: flex
-                flex-direction: column
-                flex-wrap: wrap
-                gap: 20px
+                @include layout.flex($direction: column, $gap: 20px, $wrap: wrap)
 
                 .details__block
                     border: 1px solid black
 
                 .details__input
-                    display: flex
-                    flex-direction: column
-                    flex-wrap: wrap
+                    @include layout.flex($direction: column, $wrap: wrap)
 
                     input
                         border: 1px solid blue
