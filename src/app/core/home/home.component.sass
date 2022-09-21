@@ -1,5 +1,6 @@
 @use '../../../styles/mixins/_layouts' as layout
 @use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
 
 .home__container
     @include layout.flex()
@@ -11,20 +12,42 @@
         margin-top: 500px
 
     .home__main
-        flex-basis: 85%
+        flex-basis: 75%
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
+
+        h2
+            margin: 30px auto 0px auto
+            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$blue )
 
         .home__main_container
-            @include layout.grid-repeat-columns($pieces: 5, $size: 1fr, $gap: 30px)
+            width: 80%
+            @include layout.grid-repeat-columns($pieces: 3, $size: 1fr, $gap: 70px)
+            margin: 30px auto
 
             div
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 5px)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 15px)
+                
+
+                img
+                    width: 85%
+
+                p
+                    @include text.format-text($size: 18px, $weight: 400, $align: center, $color: color.$blue )
+                    
 
     .home__aside
-        flex-basis: 15%
+        flex-basis: 25%
+        margin: 20px auto 20px
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
+        h2
+            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$blue )
+
         .home__aside_container
-            @include layout.flex($direction: column, $gap: 10px)
+            @include layout.flex($direction: column, $gap: 50px)
+
+            div
+                @include layout.flex($direction: column, $gap: 5px)
+                @include text.format-text($size: 18px, $weight: 400, $align: left, $color: color.$blue )
