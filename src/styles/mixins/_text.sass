@@ -1,7 +1,13 @@
-@use '../variables/_colors'
+@use '../variables/_colors' as color
 
-@mixin format-text($size: 14px, $weight: 400, $align: left, $color: $blue)
+@mixin format-text($size: 14px, $weight: 400, $align: left, $color: color.$blue)
     font-size: $size
     font-weight: $weight
     text-align: $align
     color: $color
+
+@mixin format-link($color: $blue)
+    text-decoration: none
+    color: $color
+    &:visited
+        color: $color

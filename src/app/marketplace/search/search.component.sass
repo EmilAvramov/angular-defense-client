@@ -1,13 +1,23 @@
 @use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
 
 .search__wrapper
     @include layout.flex($content-align: center, $item-align: center, $gap: 20px)
 
     .search__input
         flex-basis: 70%
+
+        @include text.format-text($size: 18px, $weight: 400, $color: color.$blue )
+
+        background-color: color.$smoked
         margin: 10px 20px
+        padding: 5px
 
     .search__create
-        flex-basis: 20%
+        @include text.format-text($size: 16px, $weight: 700, $align: center, $color: color.$blue )
+        background-color: color.$turquoise
+        padding: 5px 15px
 
+        flex-basis: 20%
         margin: 0 auto
