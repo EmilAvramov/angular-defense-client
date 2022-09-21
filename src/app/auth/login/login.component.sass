@@ -1,18 +1,17 @@
 @use '../../../styles/mixins/_layouts' as m
 
 .login__container
-    @include m.flex($direction: '', $content-align: center, $item-align: center, $gap: 0)
+    @include m.flex($content-align: center, $item-align: center)
 
     min-height: 91vh
 
     form
-        @include m.flex($direction: column, $content-align: '', $item-align: '', $gap: 0)
-        gap: 10px
+        @include m.flex($direction: column, $gap: 10px)
         width: 50%
         margin: 0 auto
 
     div
-        @include m.flex($direction: column, $content-align: '', $item-align: '', $gap: 0)
+        @include m.flex($direction: column)
 
     .form__error
         color: red

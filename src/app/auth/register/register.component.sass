@@ -1,18 +1,17 @@
-@use '../../../styles/layouts/_flex'
+@use '../../../styles/mixins/_layouts' as m
 
 .register__container
-    @extend %flex-basic-horizontal
+    @include m.flex($content-align: center, $item-align: center)
 
     min-height: 91vh
 
     form
-        @extend %flex-basic-vertical
-        gap: 10px
+        @include m.flex($direction: column, $gap: 10px)
         width: 50%
         margin: 0 auto
 
     div
-        @extend %flex-basic-vertical
+        @include m.flex($direction: column)
 
         .form__error
             color: red

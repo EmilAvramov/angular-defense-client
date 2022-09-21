@@ -1,8 +1,8 @@
+@use '../../../styles/mixins/_layouts' as m
+    
 form
-    display: flex
-    justify-content: center
-    align-items: center
-    gap: 10px
+    @include m.flex($direction: '', $content-align: center, $item-align: center, $gap: 10px)
+    
     margin: 10px auto
 
     #query

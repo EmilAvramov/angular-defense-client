@@ -1,7 +1,7 @@
 @use '../../../styles/mixins/_layouts' as m
 
 header
-    @include m.flex($direction: '', $content-align: space-between, $item-align: center, $gap: 0)
+    @include m.flex($content-align: space-between, $item-align: center)
 
     height: 5vh
     background-color: whitesmoke
@@ -17,7 +17,7 @@ header
     nav > ul
         flex-basis: 70%
 
-        @include m.flex($direction: '', $content-align: space-evenly, $item-align: right, $gap: 0)
+        @include m.flex($content-align: space-evenly, $item-align: right)
         column-gap: 60px
         list-style-type: none
 
