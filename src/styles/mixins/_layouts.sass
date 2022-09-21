@@ -6,7 +6,9 @@
     gap: $gap
     flex-wrap: $wrap
 
-@mixin grid-repeat-columns($pieces, $size, $gap:0)
-    display: grid   
+@mixin grid-repeat-columns($pieces, $size, $content-align:'', $item-align:'',$gap:0)
+    display: grid
+    justify-content: $content-align
+    align-items: $item-align
     grid-template-columns: repeat($pieces, $size)
     gap: $gap

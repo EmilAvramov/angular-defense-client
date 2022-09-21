@@ -1,0 +1,34 @@
+@mixin wrapper()
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    position: fixed
+    z-index: 5
+
+    background: rgba(0, 0, 0, 0.5)
+    transition: opacity 250ms ease-in
+
+@mixin container($height: 50vh, $width: 50vw)
+    position: absolute
+    height: $height
+    width: $width
+
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+    border-radius: 8px
+
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1)
+
+@mixin button-adjust($cursor: pointer, $position: absolute, $top: '', $left: '', $right: '', $bottom: '', $padding: 0px)
+    cursor: $cursor
+
+    position: $position
+    top: $top
+    left: $left
+    right: $right
+    bottom: $bottom
+
+    padding: $padding

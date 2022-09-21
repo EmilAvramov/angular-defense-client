@@ -1,4 +1,4 @@
-@use '../../../styles/mixins/_layouts' as m
+@use '../../../styles/mixins/_layouts' as layout
 
 .details__wrapper
     top: 0
@@ -38,7 +38,7 @@
             flex-basis: 100%
             height: 100%
 
-            @include m.flex($content-align: center, $item-align: center, $gap: 10px)
+            @include layout.flex($content-align: center, $item-align: center, $gap: 10px)
 
             box-sizing: border-box
             column-gap: 40px
@@ -48,12 +48,12 @@
                 flex-basis: 35%
                 border: 1px solid black
 
-                @include m.flex($direction: column, $gap: 30px, $wrap: wrap)
+                @include layout.flex($direction: column, $gap: 30px, $wrap: wrap)
 
                 .details__block
                     flex-basis: 100%
 
-                    @include m.flex($direction: column, $wrap: wrap)
+                    @include layout.flex($direction: column, $wrap: wrap)
 
                     h6
                         font-weight: bold
@@ -62,7 +62,7 @@
                 flex-basis: 20%
                 border: 1px solid black
 
-                @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px, $wrap: wrap)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px, $wrap: wrap)
 
                 img
                     width: 100%

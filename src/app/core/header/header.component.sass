@@ -1,7 +1,7 @@
-@use '../../../styles/mixins/_layouts' as m
+@use '../../../styles/mixins/_layouts' as layout
 
 header
-    @include m.flex($content-align: space-between, $item-align: center)
+    @include layout.flex($content-align: space-between, $item-align: center)
 
     height: 5vh
     background-color: whitesmoke
@@ -17,13 +17,13 @@ header
     nav > ul
         flex-basis: 70%
 
-        @include m.flex($content-align: space-evenly, $item-align: right)
+        @include layout.flex($content-align: space-evenly, $item-align: right)
         column-gap: 60px
         list-style-type: none
 
         .header__dropdown
             .dropdown
-                @include m.flex($direction: column, $content-align: center, $item-align: right, $gap: 5px 0px)
+                @include layout.flex($direction: column, $content-align: center, $item-align: right, $gap: 5px 0px)
                 margin: 5px 0px
 
             .dropdown__hide

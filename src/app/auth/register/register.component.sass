@@ -1,17 +1,17 @@
-@use '../../../styles/mixins/_layouts' as m
+@use '../../../styles/mixins/_layouts' as layout
 
 .register__container
-    @include m.flex($content-align: center, $item-align: center)
+    @include layout.flex($content-align: center, $item-align: center)
 
     min-height: 91vh
 
     form
-        @include m.flex($direction: column, $gap: 10px)
+        @include layout.flex($direction: column, $gap: 10px)
         width: 50%
         margin: 0 auto
 
     div
-        @include m.flex($direction: column)
+        @include layout.flex($direction: column)
 
         .form__error
             color: red

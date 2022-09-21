@@ -1,7 +1,7 @@
-@use '../../../styles/mixins/_layouts' as m
+@use '../../../styles/mixins/_layouts' as layout
 
 .home__container
-    @include m.flex()
+    @include layout.flex()
 
     min-height: 91vh
 
@@ -12,18 +12,18 @@
     .home__main
         flex-basis: 85%
 
-        @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
+        @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
         .home__main_container
-            @include m.grid-repeat-columns($pieces: 5, $size: 1fr, $gap: 30px)
+            @include layout.grid-repeat-columns($pieces: 5, $size: 1fr, $gap: 30px)
 
             div
-                @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 5px)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 5px)
 
     .home__aside
         flex-basis: 15%
 
-        @include m.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
+        @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
         .home__aside_container
-            @include m.flex($direction: column, $gap: 10px)
+            @include layout.flex($direction: column, $gap: 10px)

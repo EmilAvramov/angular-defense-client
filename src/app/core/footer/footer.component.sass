@@ -1,7 +1,7 @@
-@use '../../../styles/mixins/_layouts' as m
+@use '../../../styles/mixins/_layouts' as layout
 
 footer
-    @include m.flex($content-align: space-between, $item-align: center)
+    @include layout.flex($content-align: space-between, $item-align: center)
 
     height: 4vh
     background-color: whitesmoke
@@ -12,10 +12,10 @@ footer
     width: 100vw
 
     .footer__container
-        @include m.flex($$gap: 30px)
+        @include layout.flex($$gap: 30px)
 
         h3
             font-weight: bold
 
         .footer__list
-            @include m.flex($gap: 20px)
+            @include layout.flex($gap: 20px)

@@ -1,72 +1,38 @@
-.create__wrapper
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    position: fixed
-    z-index: 5
+@use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/mixins/_geometry' as geo
 
-    background: rgba(0, 0, 0, 0.5)
-    transition: opacity 250ms ease-in
+.create__wrapper
+    @include geo.wrapper()
 
     .create__container
-        position: absolute
-        height: 85vh
-        width: 80vw
-
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-
-        border-radius: 8px
-
-        box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1)
+        @include geo.container($height: 80vh, $width: 70vw)
 
         .close
-            cursor: pointer
-
-            position: absolute
-            top: 0
-            left: 0
-
-            padding: 16px
+            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
 
         .create__body
             background-color: white
             flex-basis: 100%
             height: 100%
 
-            display: flex
+            @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
+
             box-sizing: border-box
-            justify-content: center
-            align-items: center
-            flex-direction: column
             column-gap: 40px
             padding: 20px
-            gap: 10px
 
             .create__search
                 flex-basis: 10%
 
-                display: flex
-                justify-content: center
-                align-items: center
-                gap: 20px
+                @include layout.flex($content-align: center, $item-align: center, $gap: 20px)
 
             .create__list
                 flex-basis: 80%
 
-                display: grid
-                justify-content: center
-                align-items: center
-                grid-template-columns: repeat(5, 1fr)
-                gap: 20px
+                @include layout.grid-repeat-columns($pieces: 5, $size: 1fr, $content-align: center, $item-align: center,$gap: 20px)
 
                 .create__block
-                    display: flex
-                    justify-content: center
-                    align-items: center
-                    flex-direction: column
+                    @include layout.flex($direction: column, $content-align: center, $item-align: center)
 
             .create__details
                 flex-basis: 90%
@@ -77,11 +43,7 @@
                 .details__leftBlock
                     flex-basis: 20%
 
-                    display: flex
-                    flex-direction: column
-                    justify-content: space-around
-                    align-items: center
-                    gap: 20px
+                    @include layout.flex($direction: column, $content-align: space-around, $item-align: center, $gap: 20px)
 
                     img
                         width: 100%
@@ -113,8 +75,4 @@
                 .details__rightBlock
                     flex-basis: 20%
 
-                    display: flex
-                    flex-direction: column
-                    justify-content: center
-                    align-items: center
-                    gap: 10px
+                    @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
