@@ -1,21 +1,25 @@
 @use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/variables/_colors' as color
 
 footer
     @include layout.flex($content-align: space-between, $item-align: center)
+    @include geo.box-sizing-adjust()
+    @include text.format-text($size: 14px, $weight: 400, $color: color.$blue )
 
+    width: 100vw
     height: 4vh
-    background-color: whitesmoke
-    padding: 10px 20px
-    box-sizing: border-box
     position: sticky
     bottom: 0
-    width: 100vw
+    padding: 10px 20px
+    background-color: color.$turquoise
 
     .footer__container
-        @include layout.flex($$gap: 30px)
+        @include layout.flex($gap: 30px)
 
         h3
-            font-weight: bold
+            font-weight: 700
 
         .footer__list
             @include layout.flex($gap: 20px)

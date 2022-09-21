@@ -42,6 +42,11 @@
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
 
+@mixin box-sizing-adjust()
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+
 @mixin format-link($color: $blue)
     text-decoration: none
     color: $color

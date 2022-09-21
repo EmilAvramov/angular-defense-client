@@ -24,7 +24,11 @@
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "sass",
 						"assets": ["src/favicon.ico", "src/assets", "src/styles"],
-						"styles": ["node_modules/ngx-spinner/animations/ball-spin.css"],
+						"styles": [
+							"node_modules/ngx-spinner/animations/ball-spin.css",
+							"src/styles/helpers/global.sass",
+							"src/styles/helpers/reset.sass"
+						],
 						"scripts": []
 					},
 					"configurations": {
