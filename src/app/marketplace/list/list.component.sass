@@ -7,7 +7,7 @@
 
     .postings__list
         width: 80%
-        margin: 0 auto
+        margin: 0px auto 30px auto
         @include layout.grid-repeat-columns($pieces: 4, $size: 1fr, $gap: 30px)
 
         .postings__list_item
@@ -16,6 +16,12 @@
             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
             @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
+
+            p
+                margin-bottom: 35px
+
+            img
+                mix-blend-mode: multiply
 
     .postings__more
         width: 100%

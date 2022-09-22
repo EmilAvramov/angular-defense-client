@@ -147,6 +147,7 @@
 						"
 						class="details__input"
 					>
+						<label for="comments">Seller Comments:</label>
 						<input
 							#comments
 							type="text"
@@ -154,6 +155,7 @@
 							class="details__input_comments"
 							[defaultValue]="(this.details$ | async)!.comments"
 						/>
+						<label for="price">Price:</label>
 						<input
 							#price
 							type="text"
