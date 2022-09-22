@@ -23,37 +23,79 @@
             @include geo.button-reset($color: color.$red, $size: 24px)
 
         .details__body
-            background-color: white
-            flex-basis: 100%
-            height: 100%
+            background-color: color.$white
 
             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
             @include geo.box-sizing-adjust()
             @include layout.flex($content-align: center, $item-align: center, $gap: 10px)
 
+            min-height: 85vh
+            min-width: 55vw
             column-gap: 40px
             padding: 20px
 
             .details__left
                 flex-basis: 40%
 
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px, $wrap: wrap)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 60px, $wrap: wrap)
 
                 img
                     width: 80%
                     height: 100%
 
+                .details__left_title
+                    @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)
+
+                .details__seller
+
+                    p
+                        margin-top: 2px
+
             .details__right
                 flex-basis: 60%
+                @include layout.flex($direction: column, $content-align: left, $item-align: left, $gap: 55px)
 
-                @include layout.flex($direction: column, $gap: 20px, $wrap: wrap)
+                .details__right_title
+                    @include text.format-text($size: 16px, $weight: 700)
 
-                .details__block
-                    border: 1px solid black
+                .details__seller_info
+                    @include layout.flex($direction: column, $gap: 5px)
 
-                .details__input
-                    @include layout.flex($direction: column, $wrap: wrap)
+                    .details__seller_wrapper
+                        textarea
+                            padding: 2px 5px
+                            width: 85%
+                            resize: none
+                            background-color: color.$smoked
+                            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 0px)
+                            @include text.format-text($size: 16px)
+                        input
+                            width: 15%
+                            padding: 2px 5px
 
-                    input
-                        border: 1px solid blue
-                        flex-basis: 100%
+                            background-color: color.$smoked
+                            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 0px)
+                            @include text.format-text($size: 16px, $align: right)
+
+                .details__right_wrapper
+                    height: 41vh
+                    overflow: scroll
+                    @include layout.flex($direction: column, $gap: 30px, $wrap: '')
+
+                    .details__block
+                        width: 85%
+                        background-color: color.$smoked
+                        @include layout.flex($direction: column,$gap: 10px, $wrap: '')
+
+                        p
+                            line-height: 1.2
+                            strong
+                                font-weight: bold
+
+                    .details__input
+                        @include layout.flex($direction: column, $wrap: wrap)
+
+                        input
+                            flex-basis: 100%
+                            border: 1px solid blue
+                            flex-basis: 100%
