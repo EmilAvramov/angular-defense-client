@@ -46,3 +46,11 @@
     box-sizing: border-box
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
+
+@mixin button-reset($color: '', $size: 30px)
+    background-color: Transparent
+    background-repeat: no-repeat
+    border: none
+    font-size: $size
+    &:hover
+        color: $color

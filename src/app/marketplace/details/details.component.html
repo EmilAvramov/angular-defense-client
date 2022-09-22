@@ -1,7 +1,9 @@
 <ng-container *ngIf="display$ | async as display">
 	<section class="details__wrapper" (click)="close()">
 		<div *ngIf="(this.details$ | async)!.id as id" class="details__container">
-			<button class="close" type="button" (click)="close()">X</button>
+			<button class="close" type="button" (click)="close()">
+				<i class="fa-solid fa-xmark"></i>
+			</button>
 			<button
 				*ngIf="
 					(this.validatedUser$ | async)?.email ===
@@ -11,19 +13,18 @@
 				type="button"
 				(click)="emitEdit(id)"
 			>
-				Edit
+				<i class="fa-solid fa-pencil"></i>
 			</button>
 			<button
 				*ngIf="
 					(this.validatedUser$ | async)?.email ===
 					(this.details$ | async)!.User?.email
 				"
-				
 				class="delete"
 				type="button"
 				(click)="emitDelete(id)"
 			>
-				Delete
+				<i class="fa-solid fa-trash-can"></i>
 			</button>
 			<div class="details__body" (click)="$event.stopPropagation()">
 				<div class="details__left">

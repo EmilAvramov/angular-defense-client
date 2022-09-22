@@ -1,5 +1,7 @@
 @use '../../../styles/mixins/_layouts' as layout
 @use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/variables/_colors' as color
 
 .details__wrapper
     @include geo.wrapper()
@@ -8,13 +10,16 @@
         @include geo.container($height: 80vh, $width: 50vw)
 
         .close
-            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
+            @include geo.button-adjust($top: 0, $left: 10px, $padding: 16px)
+            @include geo.button-reset($color: color.$orange, $size: 32px)
 
         .edit
-            @include geo.button-adjust($top: 0, $right: 80px, $padding: 16px)
+            @include geo.button-adjust($top: 0, $right: 70px, $padding: 16px)
+            @include geo.button-reset($color: color.$orange, $size: 24px)
 
         .delete
-            @include geo.button-adjust($top: 0, $right: 0, $padding: 16px)
+            @include geo.button-adjust($top: 0, $right: 10px, $padding: 16px)
+            @include geo.button-reset($color: color.$red, $size: 24px)
 
         .details__body
             background-color: white

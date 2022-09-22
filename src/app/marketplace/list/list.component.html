@@ -9,11 +9,11 @@
 			/>
 		</div>
 	</div>
-	<button
-		*ngIf="(this.postings$ | async) && (this.postings$ | async)!.length > 18"
+	<div
+		*ngIf="(this.postings$ | async) && (this.postings$ | async)!.length > 16"
 		(click)="loadMore()"
 		class="postings__more"
 	>
-		Load More...
-	</button>
+		<i class="fa-solid fa-angle-down"></i>
+	</div>
 </main>
