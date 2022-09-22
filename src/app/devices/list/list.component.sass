@@ -1,13 +1,14 @@
 @use '../../../styles/mixins/_layouts' as layout
 @use '../../../styles/mixins/_geometry' as geo
 @use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
 
 .device__container
     min-height: 86vh
 
     .devices__list
         width: 80%
-        margin: 0px auto 30px auto
+        margin: 0px auto 15px auto
         @include layout.grid-repeat-columns($pieces: 4, $size: 1fr, $gap: 30px)
 
         .devices__list_item
@@ -24,5 +25,13 @@
                 mix-blend-mode: multiply
 
     .devices__more
-        width: 100%
-        margin: 10px auto
+
+        i
+            font-size: 40px
+            text-align: center
+            width: 100%
+            padding: 15px 0px
+            cursor: pointer
+            &:hover
+                background-color: color.$lightBlue
+                transition: background-color 250ms ease-in

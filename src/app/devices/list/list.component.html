@@ -12,7 +12,11 @@
 	<div *ngIf="this.data?.length === 0" class="devices__list">
 		<p>Your search brought back no results</p>
 	</div>
-	<button *ngIf="this.data && this.data.length > 18" (click)="loadMore()" class="devices__more">
-		Load More...
-	</button>
+	<div
+		*ngIf="this.data && this.data.length > 18"
+		(click)="loadMore()"
+		class="devices__more"
+	>
+		<i class="fa-solid fa-angle-down"></i>
+	</div>
 </main>
