@@ -1,7 +1,9 @@
 <ng-container *ngIf="display$ | async as display">
 	<section class="details__wrapper" (click)="close()">
 		<div class="details__container">
-			<button class="close" type="button" (click)="close()">X</button>
+			<button class="close" type="button" (click)="close()">
+				<i class="fa-solid fa-xmark"></i>
+			</button>
 			<div class="details__body" (click)="$event.stopPropagation()">
 				<div class="details__leftSpecs">
 					<div

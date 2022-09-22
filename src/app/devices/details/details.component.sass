@@ -1,14 +1,17 @@
 @use '../../../styles/mixins/_layouts' as layout
 @use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/variables/_colors' as color
 
 .details__wrapper
     @include geo.wrapper()
 
     .details__container
         @include geo.container($height: 70vh, $width: 80vw)
+        @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
-            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
+            @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
+            @include geo.button-reset($color: color.$orange, $size: 32px)
 
         .details__body
             background-color: white
@@ -16,8 +19,9 @@
             height: 100%
 
             @include layout.flex($content-align: center, $item-align: center, $gap: 10px)
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+            @include geo.box-sizing-adjust()
 
-            box-sizing: border-box
             column-gap: 40px
             padding: 20px
 
