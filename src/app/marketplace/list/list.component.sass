@@ -1,16 +1,21 @@
 @use '../../../styles/mixins/_layouts' as layout
-    
+@use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/variables/_colors' as color
+
 .postings__container
     min-height: 86vh
 
     .postings__list
-        @include layout.grid-repeat-columns($pieces: 4, $size: 1fr)
+        width: 80%
+        margin: 0 auto
+        @include layout.grid-repeat-columns($pieces: 4, $size: 1fr, $gap: 30px)
 
-    .postings__list_item
-        border: 1px solid black
-        padding: 20px
+        .postings__list_item
+            background-color: color.$smoked
+            padding: 45px 20px
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
-        @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
+            @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
 
     .postings__more
         width: 100%
