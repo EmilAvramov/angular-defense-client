@@ -6,14 +6,13 @@
 footer
     @include layout.flex($content-align: space-between, $item-align: center)
     @include geo.box-sizing-adjust()
-    @include text.format-text($size: 14px, $weight: 400, $color: color.$blue )
+    @include text.format-text($size: 14px, $weight: 400, $color: color.$darkBlue )
 
     width: 100vw
     height: 4vh
-    position: sticky
-    bottom: 0
+
     padding: 10px 20px
-    background-color: color.$blue
+    background-color: color.$darkBlue
     color: color.$white
 
     .footer__container

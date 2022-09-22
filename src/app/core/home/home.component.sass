@@ -19,7 +19,7 @@
 
         h2
             margin: 55px auto -15px auto
-            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$blue )
+            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue )
 
         .home__main_container
             width: 80%
@@ -31,27 +31,25 @@
                 background-color: color.$smoked
                 padding: 45px 20px
                 @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
-                
 
                 img
                     width: 80%
+                    mix-blend-mode: multiply
 
                 p
-                    @include text.format-text($size: 18px, $weight: 400, $align: center, $color: color.$blue )
+                    @include text.format-text($size: 18px, $weight: 400, $align: center, $color: color.$darkBlue )
                     margin-bottom: 25px
-                    
 
     .home__aside
         flex-basis: 25%
         margin: 25px 60px 20px auto
-        background-color: color.$turquoise
-        
+        background-color: color.$orange
+
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
-        
 
         h2
-            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$blue )
+            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue )
             margin: 35px 0px 40px 0px
 
         .home__aside_container
@@ -60,4 +58,4 @@
 
             div
                 @include layout.flex($direction: column, $gap: 5px)
-                @include text.format-text($size: 18px, $weight: 400, $align: left, $color: color.$blue )
+                @include text.format-text($size: 18px, $weight: 400, $align: left, $color: color.$darkBlue )
