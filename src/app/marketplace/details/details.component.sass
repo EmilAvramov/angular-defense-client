@@ -20,20 +20,27 @@
 
                 &:hover
                     color: color.$orange
+                    transition: color 100ms ease-in
 
         .edit
             @include geo.button-adjust($top: 10px, $right: 80px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 24px)
             i
+                width: 100%
+                padding: 15px
                 &:hover
                     color: color.$orange
+                    transition: color 100ms ease-in
 
         .delete
             @include geo.button-adjust($top: 10px, $right: 20px, $padding: 16px)
             @include geo.button-reset($color: color.$red, $size: 24px)
             i
+                width: 100%
+                padding: 15px
                 &:hover
                     color: color.$red
+                    transition: color 100ms ease-in
 
         .details__body
             background-color: color.$white
