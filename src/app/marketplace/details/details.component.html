@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div class="details__right">
-					<p class="details__right_title">Brief Details</p>
+					<p class="details__right_title">Full Device Specifications</p>
 					<div class="details__right_wrapper">
 						<div
 							*ngIf="
@@ -52,17 +52,15 @@
 							"
 							class="details__block"
 						>
+							<h6>Display</h6>
 							<p *ngIf="(this.details$ | async)!.Device!.display">
-								<strong>Display Type:</strong>
-								{{ (this.details$ | async)!.Device!.display }}
+								Display Type: {{ (this.details$ | async)!.Device!.display }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.size">
-								<strong>Display Size:</strong>
-								{{ (this.details$ | async)!.Device!.size }}
+								Display Size: {{ (this.details$ | async)!.Device!.size }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.resolution">
-								<strong>Resolution:</strong>
-								{{ (this.details$ | async)!.Device!.resolution }}
+								Resolution: {{ (this.details$ | async)!.Device!.resolution }}
 							</p>
 						</div>
 						<div
@@ -74,23 +72,63 @@
 							"
 							class="details__block"
 						>
+							<h6>Cameras</h6>
 							<p *ngIf="(this.details$ | async)!.Device!.cameraMain">
-								<strong>Rear Camera:</strong>
-								{{ (this.details$ | async)!.Device!.cameraMain }}
+								Rear Camera: {{ (this.details$ | async)!.Device!.cameraMain }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.videoMain">
-								<strong>Rear Camera Video:</strong>
-								{{ (this.details$ | async)!.Device!.videoMain }}
+								Rear Camera Video: {{ (this.details$ | async)!.Device!.videoMain }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.cameraSelfie">
-								<strong>Front Camera:</strong>
-								{{ (this.details$ | async)!.Device!.cameraSelfie }}
+								Front Camera: {{ (this.details$ | async)!.Device!.cameraSelfie }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.videoSelfie">
-								<strong>Front Camera Video:</strong>
-								{{ (this.details$ | async)!.Device!.videoSelfie }}
+								Front Camera Video: {{ (this.details$ | async)!.Device!.videoSelfie }}
 							</p>
 						</div>
+						<div
+							*ngIf="
+								(this.details$ | async)!.Device!.chipset ||
+								(this.details$ | async)!.Device!.os ||
+								(this.details$ | async)!.Device!.cpu ||
+								(this.details$ | async)!.Device!.gpu
+							"
+							class="details__block"
+						>
+							<h6>Hardware</h6>
+							<p *ngIf="(this.details$ | async)!.Device!.chipset">
+								Chipset: {{ (this.details$ | async)!.Device!.chipset }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.os">
+								OS: {{ (this.details$ | async)!.Device!.os }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.cpu">
+								CPU: {{ (this.details$ | async)!.Device!.cpu }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.gpu">
+								GPU: {{ (this.details$ | async)!.Device!.gpu }}
+							</p>
+						</div>
+						<div
+							*ngIf="
+								(this.details$ | async)!.Device!.jack ||
+								(this.details$ | async)!.Device!.features ||
+								(this.details$ | async)!.Device!.connectivity
+							"
+							class="details__block"
+						>
+							<h6>Features</h6>
+							<p *ngIf="(this.details$ | async)!.Device!.connectivity">
+								Connectivity: {{ (this.details$ | async)!.Device!.connectivity }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.jack">
+								3.5mm Jack: {{ (this.details$ | async)!.Device!.jack }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.features">
+								Others: {{ (this.details$ | async)!.Device!.features }}
+							</p>
+						</div>
+
 						<div
 							*ngIf="
 								(this.details$ | async)!.Device!.dimensions ||
@@ -99,15 +137,30 @@
 							"
 							class="details__block"
 						>
+							<h6>Body</h6>
 							<p *ngIf="(this.details$ | async)!.Device!.dimensions">
-								<strong>Body Size:</strong>
-								{{ (this.details$ | async)!.Device!.dimensions }}
+								Body Size: {{ (this.details$ | async)!.Device!.dimensions }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.weight">
-								<strong>Weight:</strong> {{ (this.details$ | async)!.Device!.weight }}
+								Weight: {{ (this.details$ | async)!.Device!.weight }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.build">
-								<strong>Build:</strong> {{ (this.details$ | async)!.Device!.build }}
+								Build: {{ (this.details$ | async)!.Device!.build }}
+							</p>
+						</div>
+						<div
+							*ngIf="
+								(this.details$ | async)!.Device!.batteryType ||
+								(this.details$ | async)!.Device!.batteryCharge
+							"
+							class="details__block"
+						>
+							<h6>Battery</h6>
+							<p *ngIf="(this.details$ | async)!.Device!.batteryType">
+								Battery Type: {{ (this.details$ | async)!.Device!.batteryType }}
+							</p>
+							<p *ngIf="(this.details$ | async)!.Device!.batteryCharge">
+								Battery Charge: {{ (this.details$ | async)!.Device!.batteryCharge }}
 							</p>
 						</div>
 						<div
@@ -118,32 +171,30 @@
 							"
 							class="details__block"
 						>
+							<h6>Storage & Sim</h6>
 							<p *ngIf="(this.details$ | async)!.Device!.cardSlot">
-								<strong>Card Slot:</strong>
-								{{ (this.details$ | async)!.Device!.cardSlot }}
+								Card Slot: {{ (this.details$ | async)!.Device!.cardSlot }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.internalStorage">
-								<strong>Internal Storage:</strong>
-								{{ (this.details$ | async)!.Device!.internalStorage }}
+								Internal Storage: {{ (this.details$ | async)!.Device!.internalStorage }}
 							</p>
 							<p *ngIf="(this.details$ | async)!.Device!.sim">
-								<strong>Sim:</strong> {{ (this.details$ | async)!.Device!.sim }}
+								Sim: {{ (this.details$ | async)!.Device!.sim }}
 							</p>
 						</div>
 						<div
 							*ngIf="
-								(this.details$ | async)!.Device!.batteryType ||
-								(this.details$ | async)!.Device!.batteryCharge
+								(this.details$ | async)!.Device!.launchDate ||
+								(this.details$ | async)!.Device!.price
 							"
 							class="details__block"
 						>
-							<p *ngIf="(this.details$ | async)!.Device!.batteryType">
-								<strong>Battery Type:</strong>
-								{{ (this.details$ | async)!.Device!.batteryType }}
+							<h6>Distribution</h6>
+							<p *ngIf="(this.details$ | async)!.Device!.launchDate">
+								Release Date: {{ (this.details$ | async)!.Device!.launchDate }}
 							</p>
-							<p *ngIf="(this.details$ | async)!.Device!.batteryCharge">
-								<strong>Battery Charge:</strong>
-								{{ (this.details$ | async)!.Device!.batteryCharge }}
+							<p *ngIf="(this.details$ | async)!.Device!.price">
+								Retail Price: {{ (this.details$ | async)!.Device!.price }}
 							</p>
 						</div>
 					</div>
@@ -155,10 +206,8 @@
 						class="details__seller_info"
 					>
 						<div class="details__seller_wrapper">
-							<p>Price: {{ (this.details$ | async)!.price }} BGN</p>
-							<p class="detail__seller_comments">
-								Seller Comments: {{ (this.details$ | async)!.comments }}
-							</p>
+							<p>Price: {{ (this.details$ | async)!.price }} EUR</p>
+							<p>Seller Comments: {{ (this.details$ | async)!.comments }}</p>
 						</div>
 					</div>
 					<div
