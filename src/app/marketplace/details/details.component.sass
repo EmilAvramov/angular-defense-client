@@ -67,37 +67,25 @@
                     @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)
 
                 .details__seller
+                    @include layout.flex($direction: column, $gap: 10px)
 
             .details__right
                 flex-basis: 60%
-                min-height: 60vh
-                @include layout.flex($direction: column, $content-align: center, $item-align: left, $gap: 50px)
+                @include layout.flex($direction: column, $content-align: center, $item-align: left, $gap: 57px)
 
                 .details__right_title
                     @include text.format-text($size: 16px, $weight: 700)
 
                 .details__seller_info
-                    @include layout.flex($direction: column, $gap: 5px)
-
                     .details__seller_wrapper
-                        textarea
-                            width: 85%
-                            resize: none
-                            background-color: color.$smoked
-                            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 0px)
-                            @include text.format-text($size: 16px)
-                        input
-                            width: 15%
-                            background-color: color.$smoked
-                            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 0px)
-                            @include text.format-text($size: 16px, $align: right)
-                        .detail__seller_comments
+                        @include layout.flex($direction: column, $gap: 10px)
+                        .details__seller_comments
                             width: 85%
 
                 .details__right_wrapper
                     height: 40vh
                     overflow: scroll
-                    @include layout.flex($direction: column, $gap: 30px, $wrap: '')
+                    @include layout.flex($direction: column, $gap: 30px)
 
                     .details__block
                         width: 85%
@@ -108,9 +96,3 @@
                             font-weight: bold
                         p
                             margin-bottom: 5px
-
-                    .details__input
-                        @include layout.flex($direction: column, $wrap: wrap)
-
-                        input
-                            flex-basis: 100%

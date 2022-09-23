@@ -198,19 +198,17 @@
 							</p>
 						</div>
 					</div>
-					<div
-						*ngIf="
-							(this.validatedUser$ | async)?.email !==
-							(this.details$ | async)!.User?.email
-						"
-						class="details__seller_info"
-					>
+					<div class="details__seller_info">
 						<div class="details__seller_wrapper">
-							<p>Price: {{ (this.details$ | async)!.price }} EUR</p>
-							<p>Seller Comments: {{ (this.details$ | async)!.comments }}</p>
+							<p class="details__seller_price">
+								Price: {{ (this.details$ | async)!.price }} EUR
+							</p>
+							<p class="details__seller_comments">
+								Seller Comments: {{ (this.details$ | async)!.comments }}
+							</p>
 						</div>
 					</div>
-					<div
+					<!-- <div
 						*ngIf="
 							(this.validatedUser$ | async)?.email ===
 							(this.details$ | async)!.User?.email
@@ -240,7 +238,7 @@
 							>
 							</textarea>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
