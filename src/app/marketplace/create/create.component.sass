@@ -1,23 +1,28 @@
 @use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
 @use '../../../styles/mixins/_geometry' as geo
 
 .create__wrapper
     @include geo.wrapper()
 
     .create__container
-        @include geo.container($height: 80vh, $width: 70vw)
+        @include geo.container($height: 90vh, $width: 75vw)
+        @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
-            @include geo.button-adjust($top: 0, $left: 0, $padding: 16px)
+            @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
+            @include geo.button-reset($color: color.$orange, $size: 32px)
 
         .create__body
-            background-color: white
+            background-color: color.$white
             flex-basis: 100%
             height: 100%
 
             @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
-
-            box-sizing: border-box
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+            @include geo.box-sizing-adjust()
+            
             column-gap: 40px
             padding: 20px
 
@@ -26,13 +31,34 @@
 
                 @include layout.flex($content-align: center, $item-align: center, $gap: 20px)
 
+                input
+                    @include text.format-text($size: 18px, $color: color.$darkBlue )
+                    @include geo.border-adjust($px: 0px, $color: color.$darkBlue, $radius: 10px)
+
+                    background-color: color.$smoked
+                    padding: 5px
+
             .create__list
                 flex-basis: 80%
 
                 @include layout.grid-repeat-columns($pieces: 5, $size: 1fr, $content-align: center, $item-align: center,$gap: 20px)
 
                 .create__block
-                    @include layout.flex($direction: column, $content-align: center, $item-align: center)
+                    @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
+                    @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+                    padding: 20px 20px
+
+                    background-color: color.$smoked
+                    cursor: pointer
+
+                    img
+                        mix-blend-mode: multiply
+
+                    &:hover
+                        background-color: color.$lightBlue
+
+                    p
+                        text-align: center
 
             .create__details
                 flex-basis: 90%

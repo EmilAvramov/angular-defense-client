@@ -1,12 +1,12 @@
 <main class="device__container">
 	<div *ngIf="this.data" class="devices__list">
-		<div *ngFor="let device of data" class="devices__list_item">
+		<div
+			*ngFor="let device of data"
+			class="devices__list_item"
+			(click)="showDetails(device.deviceKey)"
+		>
 			<p>{{ device.deviceName }}</p>
-			<img
-				(click)="showDetails(device.deviceKey)"
-				src="{{ device.deviceImage }}"
-				alt=""
-			/>
+			<img src="{{ device.deviceImage }}" alt="" />
 		</div>
 	</div>
 	<div *ngIf="this.data?.length === 0" class="devices__list">

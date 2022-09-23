@@ -1,12 +1,12 @@
 <main class="postings__container">
 	<div class="postings__list">
-		<div *ngFor="let posting of postings$ | async" class="postings__list_item">
+		<div
+			*ngFor="let posting of postings$ | async"
+			class="postings__list_item"
+			(click)="showDetails(posting.id)"
+		>
 			<p>{{ posting.Device?.deviceName }}</p>
-			<img
-				(click)="showDetails(posting.id)"
-				src="{{ posting.Device?.deviceImage }}"
-				alt=""
-			/>
+			<img src="{{ posting.Device?.deviceImage }}" alt="" />
 		</div>
 	</div>
 	<div
