@@ -155,8 +155,10 @@
 						class="details__seller_info"
 					>
 						<div class="details__seller_wrapper">
-							<p>Seller Comments: {{ (this.details$ | async)!.comments }}</p>
-							<p>Price: {{ (this.details$ | async)!.price }} EUR</p>
+							<p>Price: {{ (this.details$ | async)!.price }} BGN</p>
+							<p class="detail__seller_comments">
+								Seller Comments: {{ (this.details$ | async)!.comments }}
+							</p>
 						</div>
 					</div>
 					<div

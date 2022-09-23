@@ -1,18 +1,22 @@
 @use '../../../styles/mixins/_layouts' as layout
-@use '../../../styles/mixins/_geometry' as geo
 @use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/mixins/_geometry' as geo
 
 .details__wrapper
     @include geo.wrapper()
 
     .details__container
-        @include geo.container($height: 70vh, $width: 80vw)
+        @include geo.container($height: 80vh, $width: 60vw)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
             @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 32px)
 
+            i
+                &:hover
+                    color: color.$orange
         .details__body
             background-color: white
             flex-basis: 100%
@@ -25,26 +29,34 @@
             column-gap: 40px
             padding: 20px
 
-            .details__leftSpecs, .details__rightSpecs
+            .details__left
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 40px)
                 flex-basis: 35%
-                border: 1px solid black
 
-                @include layout.flex($direction: column, $gap: 30px, $wrap: wrap)
+                .details__left_title
+                    @include text.format-text($size: 18px, $weight: 700,$color: color.$darkBlue )
 
-                .details__block
-                    flex-basis: 100%
+                .details__left_img
+                    width: 80%
 
-                    @include layout.flex($direction: column, $wrap: wrap)
+            .details__right
+                flex-basis: 65%
+                @include layout.flex($direction: column, $gap: 40px)
 
-                    h6
-                        font-weight: bold
+                .details__right_title
+                    @include text.format-text($size: 16px, $weight: 700,$color: color.$darkBlue )
 
-            .details__centerSpecs
-                flex-basis: 20%
-                border: 1px solid black
+                .details__right_wrapper
+                    height: 42vh
+                    overflow: scroll
+                    @include layout.flex($direction: column, $gap: 20px)
 
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 20px, $wrap: wrap)
-
-                img
-                    width: 100%
-                    height: 100%
+                    .details__block
+                        width: 85%
+                        background-color: color.$smoked
+                        
+                        h6
+                            margin-bottom: 5px
+                            font-weight: bold
+                        p
+                            margin-bottom: 5px

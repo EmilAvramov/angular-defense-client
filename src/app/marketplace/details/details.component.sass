@@ -14,20 +14,30 @@
             @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 32px)
 
+            i
+                &:hover
+                    color: color.$orange
+
         .edit
             @include geo.button-adjust($top: 10px, $right: 80px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 24px)
+            i
+                &:hover
+                    color: color.$orange
 
         .delete
             @include geo.button-adjust($top: 10px, $right: 20px, $padding: 16px)
             @include geo.button-reset($color: color.$red, $size: 24px)
+            i
+                &:hover
+                    color: color.$red
 
         .details__body
             background-color: color.$white
 
             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
             @include geo.box-sizing-adjust()
-            @include layout.flex($content-align: center, $item-align: center, $gap: 10px)
+            @include layout.flex($content-align: center, $item-align: center, $gap: 0px)
 
             min-height: 85vh
             min-width: 55vw
@@ -36,25 +46,22 @@
 
             .details__left
                 flex-basis: 40%
+                min-height: 60vh
 
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 75px, $wrap: wrap)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 40px)
 
                 img
-                    margin-top: -25px
                     width: 75%
 
                 .details__left_title
                     @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)
-                    margin-bottom: 12px
 
                 .details__seller
 
-                    p
-                        margin-top: 5px
-
             .details__right
                 flex-basis: 60%
-                @include layout.flex($direction: column, $content-align: left, $item-align: left, $gap: 55px)
+                min-height: 60vh
+                @include layout.flex($direction: column, $content-align: center, $item-align: left, $gap: 50px)
 
                 .details__right_title
                     @include text.format-text($size: 16px, $weight: 700)
@@ -64,7 +71,6 @@
 
                     .details__seller_wrapper
                         textarea
-                            padding: 2px 5px
                             width: 85%
                             resize: none
                             background-color: color.$smoked
@@ -72,14 +78,14 @@
                             @include text.format-text($size: 16px)
                         input
                             width: 15%
-                            padding: 2px 5px
-
                             background-color: color.$smoked
                             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 0px)
                             @include text.format-text($size: 16px, $align: right)
+                        .detail__seller_comments
+                            width: 85%
 
                 .details__right_wrapper
-                    height: 41vh
+                    height: 40vh
                     overflow: scroll
                     @include layout.flex($direction: column, $gap: 30px, $wrap: '')
 
