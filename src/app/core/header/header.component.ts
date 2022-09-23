@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { UserFacade } from 'src/app/state/user/user.facade';
 
@@ -9,10 +9,8 @@ import { UserFacade } from 'src/app/state/user/user.facade';
 })
 export class HeaderComponent implements OnDestroy {
 	token!: string;
-	
-	public completer$: Subject<void> = new Subject<void>();
 
-	@ViewChild('dropdown') private dropdown!: ElementRef<HTMLElement>;
+	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(private readonly userFacade: UserFacade) {
 		this.userFacade.userData$.pipe(takeUntil(this.completer$)).subscribe({
@@ -27,12 +25,5 @@ export class HeaderComponent implements OnDestroy {
 
 	logout(): void {
 		this.userFacade.logoutUser(this.token!);
-	}
-
-	openDropDown() {
-		this.dropdown.nativeElement.classList.remove('dropdown__hide');
-	}
-	closeDropDown() {
-		this.dropdown.nativeElement.classList.add('dropdown__hide');
 	}
 }

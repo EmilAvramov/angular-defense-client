@@ -24,24 +24,14 @@
 			<li class="header__register_nav" *ngIf="!this.token">
 				<a routerLink="/register"><i class="fa-solid fa-registered"></i></a>
 			</li>
-			<li
-				class="header__dropdown"
-				(mouseover)="openDropDown()"
-				(mouseleave)="closeDropDown()"
-				*ngIf="this.token"
-			>
-				<a href="javascript:void(0)">My Profile</a>
-				<ul #dropdown class="dropdown dropdown__hide">
-					<li>
-						<a routerLink="/profile/postings">My Postings</a>
-					</li>
-					<li>
-						<a routerLink="/profile/settings">My Settings</a>
-					</li>
-				</ul>
+			<li class="header__postings">
+				<a routerLink="/profile/postings"><i class="fa-solid fa-user"></i></a>
+			</li>
+			<li class="header__settings">
+				<a routerLink="/profile/settings"><i class="fa-solid fa-gear"></i></a>
 			</li>
 			<li class="header__logout_nav" *ngIf="this.token" (click)="logout()">
-				<a routerLink="/">Logout</a>
+				<a routerLink="/"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 			</li>
 		</ul>
 	</nav>

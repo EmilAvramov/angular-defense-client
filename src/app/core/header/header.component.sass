@@ -29,20 +29,6 @@ header
             column-gap: 30px
             list-style-type: none
 
-            .header__dropdown
-                position: relative
-                .dropdown
-                    position: absolute
-                    top: 22px
-                    left: -20px
-                    width: 120px
-                    padding: 5px
-                    @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px 0px)
-
-                .dropdown__hide
-                    display: none
-                    margin: 0px
-
             li
                 a
                     @include text.format-link($color: color.$darkBlue)

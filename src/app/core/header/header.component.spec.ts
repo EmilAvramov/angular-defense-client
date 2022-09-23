@@ -40,39 +40,19 @@ describe('HeaderComponent', () => {
 	it('should show user view if token', () => {
 		component.token = '12312312312asdasdasd';
 		fixture.detectChanges();
-		const profileNav: HTMLElement = fixture.debugElement.query(
-			By.css('.header__dropdown')
+		const postingsNav: HTMLElement = fixture.debugElement.query(
+			By.css('.header__postings')
+		).nativeElement;
+		const settingsNav: HTMLElement = fixture.debugElement.query(
+			By.css('.header__settings')
 		).nativeElement;
 		const logoutNav: HTMLElement = fixture.debugElement.query(
 			By.css('.header__logout_nav')
 		).nativeElement;
 
-		expect(profileNav).toBeTruthy();
+		expect(postingsNav).toBeTruthy();
+		expect(settingsNav).toBeTruthy();
 		expect(logoutNav).toBeTruthy();
-	});
-	it('should show dropdown on hover', () => {
-		component.token = '12312312312asdasdasd';
-		fixture.detectChanges();
-		const dropdown: DebugElement = fixture.debugElement.query(
-			By.css('.header__dropdown')
-		);
-
-		spyOn(component, 'openDropDown');
-		dropdown.triggerEventHandler('mouseover');
-		fixture.detectChanges();
-		expect(component.openDropDown).toHaveBeenCalled();
-	});
-	it('should hide dropdown on mouse leave', () => {
-		component.token = '12312312312asdasdasd';
-		fixture.detectChanges();
-		const dropdown: DebugElement = fixture.debugElement.query(
-			By.css('.header__dropdown')
-		);
-
-		spyOn(component, 'closeDropDown');
-		dropdown.triggerEventHandler('mouseleave');
-		fixture.detectChanges();
-		expect(component.closeDropDown).toHaveBeenCalled();
 	});
 	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');

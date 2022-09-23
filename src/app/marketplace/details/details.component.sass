@@ -11,10 +11,13 @@
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
-            @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
+            @include geo.button-adjust($top: 0px, $left: 0px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 32px)
 
             i
+                width: 100%
+                padding: 15px
+
                 &:hover
                     color: color.$orange
 
