@@ -1,20 +1,28 @@
 <header>
 	<div class="header__logo">
-		<img src="../../../assets/header-logo.png" alt="" routerLink="/">
+		<img src="../../../assets/header-logo.png" alt="" routerLink="/" />
 	</div>
 	<nav>
 		<ul>
-			<li><a routerLink="/">Home</a></li>
 			<li>
-				<a routerLink="/marketplace">Marketplace</a>
+				<a routerLink="/"><i class="fa-solid fa-house"></i></a>
 			</li>
-			<li><a routerLink="/devices">Devices</a></li>
-			<li><a routerLink="/about"> About</a></li>
+			<li>
+				<a routerLink="/marketplace"><i class="fa-solid fa-shop"></i></a>
+			</li>
+			<li>
+				<a routerLink="/devices"><i class="fa-solid fa-mobile-screen"></i></a>
+			</li>
+			<li>
+				<a routerLink="/about"> <i class="fa-solid fa-circle-info"></i></a>
+			</li>
 			<li class="header__login_nav" *ngIf="!this.token">
-				<a routerLink="/login">Login</a>
+				<a routerLink="/login"
+					><i class="fa-solid fa-arrow-right-to-bracket"></i
+				></a>
 			</li>
 			<li class="header__register_nav" *ngIf="!this.token">
-				<a routerLink="/register">Register</a>
+				<a routerLink="/register"><i class="fa-solid fa-registered"></i></a>
 			</li>
 			<li
 				class="header__dropdown"

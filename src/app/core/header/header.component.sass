@@ -8,7 +8,7 @@ header
     @include geo.box-sizing-adjust()
     background-color: color.$smoked
 
-    height: 10vh
+    height: 7vh
     width: 100vw
 
     position: sticky
@@ -16,32 +16,38 @@ header
     padding: 10px 20px
     z-index: 5
 
-    .header__logo > img
-        width: 25%
-        cursor: pointer
+    .header__logo
+        img
+            width: 15%
+            cursor: pointer
 
-    nav > ul
-        flex-basis: 70%
+    nav
+        ul
+            flex-basis: 70%
 
-        @include layout.flex($content-align: space-evenly, $item-align: right)
-        column-gap: 60px
-        list-style-type: none
+            @include layout.flex($content-align: space-evenly, $item-align: right)
+            column-gap: 30px
+            list-style-type: none
 
-        .header__dropdown
-            position: relative
-            .dropdown
-                position: absolute
-                top: 22px
-                left: -20px
-                width: 120px
-                padding: 5px
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px 0px)
+            .header__dropdown
+                position: relative
+                .dropdown
+                    position: absolute
+                    top: 22px
+                    left: -20px
+                    width: 120px
+                    padding: 5px
+                    @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px 0px)
 
-            .dropdown__hide
-                display: none
-                margin: 0px
+                .dropdown__hide
+                    display: none
+                    margin: 0px
 
-        li
-            a
-                @include text.format-link($color: color.$darkBlue)
-                @include text.format-text($size: 20px, $weight: 400, $color: color.$darkBlue )
+            li
+                a
+                    @include text.format-link($color: color.$darkBlue)
+                    @include text.format-text($size: 26px, $weight: 400, $color: color.$darkBlue )
+
+                    i
+                        &:hover
+                            color: color.$orange
