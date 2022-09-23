@@ -34,16 +34,17 @@ describe('ListComponent', () => {
 		expect(fixture.debugElement.query(By.css('.devices__more'))).toBeNull();
 	});
 	it('should trigger load more emitter', () => {
+		spyOn(component, 'loadMore');
 		component.data = deviceMockDataFull;
 		expect(component.data.length).toBeGreaterThan(18);
 		fixture.detectChanges();
-		const button: HTMLButtonElement = fixture.debugElement.query(
+
+		const button: HTMLElement = fixture.debugElement.query(
 			By.css('.devices__more')
 		).nativeElement;
-
-		spyOn(component, 'loadMore');
 		button.click();
 		fixture.detectChanges();
+		
 		expect(component.loadMore).toHaveBeenCalled();
 	});
 	it('should trigger details emitter', () => {

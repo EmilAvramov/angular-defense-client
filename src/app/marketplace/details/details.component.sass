@@ -37,19 +37,20 @@
             .details__left
                 flex-basis: 40%
 
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 60px, $wrap: wrap)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 75px, $wrap: wrap)
 
                 img
-                    width: 80%
-                    height: 100%
+                    margin-top: -25px
+                    width: 75%
 
                 .details__left_title
                     @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)
+                    margin-bottom: 12px
 
                 .details__seller
 
                     p
-                        margin-top: 2px
+                        margin-top: 5px
 
             .details__right
                 flex-basis: 60%
@@ -96,6 +97,4 @@
                         @include layout.flex($direction: column, $wrap: wrap)
 
                         input
-                            flex-basis: 100%
-                            border: 1px solid blue
                             flex-basis: 100%

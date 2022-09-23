@@ -42,7 +42,7 @@ describe('ListComponent', () => {
 		expect(data!.length).toEqual(19);
 
 		fixture.detectChanges();
-		const button: HTMLButtonElement = fixture.debugElement.query(
+		const button: HTMLElement = fixture.debugElement.query(
 			By.css('.postings__more')
 		).nativeElement;
 

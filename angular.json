@@ -90,8 +90,12 @@
 						"tsConfig": "tsconfig.spec.json",
 						"karmaConfig": "karma.conf.js",
 						"inlineStyleLanguage": "sass",
-						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": ["src/styles/helpers/reset.sass"],
+						"assets": ["src/favicon.ico", "src/assets", "src/styles"],
+						"styles": [
+							"node_modules/ngx-spinner/animations/ball-spin.css",
+							"src/styles/helpers/global.sass",
+							"src/styles/helpers/reset.sass"
+						],
 						"scripts": [],
 						"codeCoverage": true
 					}
