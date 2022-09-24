@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -12,6 +12,7 @@ describe('LoginComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+			imports: [ReactiveFormsModule],
 			declarations: [LoginComponent],
 			providers: [provideMockStore({}), FormBuilder],
 			schemas: [NO_ERRORS_SCHEMA],
@@ -84,42 +85,60 @@ describe('LoginComponent', () => {
 	});
 	it('(form) should not submit if validation not passed', () => {
 		spyOn(component, 'onSubmit');
-		const email: AbstractControl = component.profileForm.controls.email;
-		const password: AbstractControl = component.profileForm.controls.password;
+		const email: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__email')
+		).nativeElement;
+		const password: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__password')
+		).nativeElement;
 		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('button')
+			By.css('.form__submit')
 		).nativeElement;
 
-		email.setValue('123');
-		password.setValue('abcd@a1@111!');
+		email.value = '123';
+		email.dispatchEvent(new Event('input'));
+		email.dispatchEvent(new Event('blur'));
+		password.value = 'abcd@a1@111!';
+		password.dispatchEvent(new Event('input'));
+		password.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
+
+		expect(component.profileForm.controls.email.errors).toBeTruthy();
+		expect(component.profileForm.valid).toBeFalsy();
+		expect(button.disabled).toBeTruthy();
 
 		button.click();
 		fixture.detectChanges();
 
-		expect(component.profileForm.valid).toBeFalsy();
-		expect(button.disabled).toBeTruthy();
 		expect(component.onSubmit).toHaveBeenCalledTimes(0);
 	});
 	it('(form) should submit if validation passed', () => {
 		spyOn(component, 'onSubmit');
-		const email: AbstractControl = component.profileForm.controls.email;
-		const password: AbstractControl = component.profileForm.controls.password;
+		const email: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__email')
+		).nativeElement;
+		const password: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__password')
+		).nativeElement;
 		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('button')
+			By.css('.form__submit')
 		).nativeElement;
 
-		email.setValue('123@123.com');
-		password.setValue('Abcd@a1@111!');
+		email.value = '123@123.com';
+		email.dispatchEvent(new Event('input'));
+		email.dispatchEvent(new Event('blur'));
+		password.value = 'abcd@a1@111!';
+		password.dispatchEvent(new Event('input'));
+		password.dispatchEvent(new Event('change'));
 		fixture.detectChanges();
+
+		expect(component.profileForm.errors).toBeFalsy();
+		expect(component.profileForm.valid).toBeTruthy();
+		expect(button.disabled).toBeFalsy();
 
 		button.click();
 		fixture.detectChanges();
 
-		expect(component.profileForm.valid).toBeTruthy();
-		expect(button.disabled).toBeFalsy();
 		expect(component.onSubmit).toHaveBeenCalledTimes(1);
-		expect(email.value).toBe('');
-		expect(password.value).toBe('');
 	});
 });
