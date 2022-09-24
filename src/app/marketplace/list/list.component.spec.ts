@@ -39,6 +39,7 @@ describe('ListComponent', () => {
 		let data: Posting[] | null;
 		component.postings$.subscribe((value) => (data = value));
 		fixture.detectChanges();
+		
 		expect(data!.length).toEqual(19);
 
 		fixture.detectChanges();
@@ -49,6 +50,7 @@ describe('ListComponent', () => {
 		spyOn(component, 'loadMore');
 		button.click();
 		fixture.detectChanges();
+
 		expect(component.loadMore).toHaveBeenCalled();
 	});
 	it('should trigger details emitter', () => {
@@ -56,16 +58,16 @@ describe('ListComponent', () => {
 		let data: Posting[] | null;
 		component.postings$.subscribe((value) => (data = value));
 		fixture.detectChanges();
+
 		const image: HTMLImageElement = fixture.debugElement.query(
 			By.css('img')
 		).nativeElement;
-		fixture.detectChanges();
-
 		expect(data!.length).toEqual(19);
 
 		spyOn(component, 'showDetails');
 		image.click();
 		fixture.detectChanges();
+		
 		expect(component.showDetails).toHaveBeenCalledWith(1);
 	});
 });

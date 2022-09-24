@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
 	ComponentFixture,
 	fakeAsync,
@@ -38,11 +38,10 @@ describe('SearchComponent', () => {
 		spyOn(component.create, 'emit');
 		fixture.detectChanges();
 
-		const buttonDE: DebugElement = fixture.debugElement.query(
+		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.search__create')
-		);
-		const buttonHTML: HTMLButtonElement = buttonDE.nativeElement;
-		buttonHTML.click();
+		).nativeElement;
+		button.click();
 		fixture.detectChanges();
 
 		expect(component.onCreate).toHaveBeenCalled();
@@ -50,15 +49,12 @@ describe('SearchComponent', () => {
 	});
 	it('should emit a search string', fakeAsync(() => {
 		spyOn(component.search, 'emit');
-		fixture.detectChanges();
-
-		const searchInputDe: DebugElement = fixture.debugElement.query(
+		const searchInput: HTMLInputElement = fixture.debugElement.query(
 			By.css('.search__input')
-		);
-		const searchInputHTML: HTMLInputElement = searchInputDe.nativeElement;
+		).nativeElement;
 
-		searchInputHTML.value = 'test input';
-		searchInputHTML.dispatchEvent(new Event('input'));
+		searchInput.value = 'test input';
+		searchInput.dispatchEvent(new Event('input'));
 		tick(1000);
 
 		fixture.detectChanges();

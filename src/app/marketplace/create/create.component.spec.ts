@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
 	ComponentFixture,
 	fakeAsync,
@@ -34,28 +34,17 @@ describe('CreateComponent', () => {
 		spyOn(component.requestDeviceList, 'emit');
 		fixture.detectChanges();
 
-		const searchInputDe: DebugElement = fixture.debugElement.query(
+		const searchInput: HTMLInputElement = fixture.debugElement.query(
 			By.css('.search__input')
-		);
-		const searchInputHTML: HTMLInputElement = searchInputDe.nativeElement;
+		).nativeElement;
 
-		searchInputHTML.value = 'test input';
-		searchInputHTML.dispatchEvent(new Event('input'));
+		searchInput.value = 'test input';
+		searchInput.dispatchEvent(new Event('input'));
 		tick(1000);
 
 		fixture.detectChanges();
 		expect(component.requestDeviceList.emit).toHaveBeenCalledWith('test input');
 	}));
-	it('should close observables on component destroy', () => {
-		const next = spyOn(component.completer$, 'next');
-		const complete = spyOn(component.completer$, 'complete');
-
-		fixture.destroy();
-		fixture.detectChanges();
-
-		expect(next).toHaveBeenCalled();
-		expect(complete).toHaveBeenCalled();
-	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close').and.callThrough();
 		spyOn(component.clearDetails, 'emit');
@@ -63,19 +52,19 @@ describe('CreateComponent', () => {
 		component.display$ = of(true);
 		fixture.detectChanges();
 
-		const closeDebugEl: DebugElement = fixture.debugElement.query(
+		const closeButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.close')
-		);
-		const closeButton: HTMLButtonElement = closeDebugEl.nativeElement;
-		const searchInputDe: DebugElement = fixture.debugElement.query(
+		).nativeElement;
+		const searchInput: HTMLInputElement = fixture.debugElement.query(
 			By.css('.search__input')
-		);
-		const searchInputHTML: HTMLInputElement = searchInputDe.nativeElement;
+		).nativeElement;
 		fixture.detectChanges();
 
 		closeButton.click();
+		fixture.detectChanges()
+		
 		expect(component.close).toHaveBeenCalled();
-		expect(searchInputHTML.value).toEqual('');
+		expect(searchInput.value).toEqual('');
 		expect(component.clearDetails.emit).toHaveBeenCalled();
 		expect(component.postingForm.reset).toHaveBeenCalled();
 	});
@@ -86,20 +75,30 @@ describe('CreateComponent', () => {
 		component.display$ = of(true);
 		fixture.detectChanges();
 
-		const wrapperDE: DebugElement = fixture.debugElement.query(
+		const wrapper: HTMLElement = fixture.debugElement.query(
 			By.css('.create__wrapper')
-		);
-		const wrapperHTML: HTMLElement = wrapperDE.nativeElement;
-		const searchInputDe: DebugElement = fixture.debugElement.query(
+		).nativeElement;
+		const searchInput: HTMLInputElement = fixture.debugElement.query(
 			By.css('.search__input')
-		);
-		const searchInputHTML: HTMLInputElement = searchInputDe.nativeElement;
+		).nativeElement;
 		fixture.detectChanges();
 
-		wrapperHTML.click();
+		wrapper.click();
+		fixture.detectChanges()
+
 		expect(component.close).toHaveBeenCalled();
-		expect(searchInputHTML.value).toEqual('');
+		expect(searchInput.value).toEqual('');
 		expect(component.clearDetails.emit).toHaveBeenCalled();
 		expect(component.postingForm.reset).toHaveBeenCalled();
+	});
+	it('should close observables on component destroy', () => {
+		const next = spyOn(component.completer$, 'next');
+		const complete = spyOn(component.completer$, 'complete');
+
+		fixture.destroy();
+		fixture.detectChanges();
+
+		expect(next).toHaveBeenCalled();
+		expect(complete).toHaveBeenCalled();
 	});
 });

@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -21,6 +21,8 @@ describe('DetailsComponent', () => {
 
 		fixture = TestBed.createComponent(DetailsComponent);
 		component = fixture.componentInstance;
+		component.display$ = of(true);
+		component.details$ = of(mockPostingDetails);
 		fixture.detectChanges();
 	});
 
@@ -29,16 +31,11 @@ describe('DetailsComponent', () => {
 	});
 	it('should receive data on load', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const detailsDE: DebugElement = fixture.debugElement.query(
+		const details: HTMLElement = fixture.debugElement.query(
 			By.css('.details__body')
-		);
-		const detailsHTML: HTMLElement = detailsDE.nativeElement;
+		).nativeElement;
 
-		expect(detailsHTML).toBeTruthy();
+		expect(details).toBeTruthy();
 	});
 	// it('should emit edit data on trigger', () => {
 	// 	spyOn(component, 'emitEdit').and.callThrough();
@@ -76,47 +73,34 @@ describe('DetailsComponent', () => {
 	it('should emit delete id on trigger', () => {
 		spyOn(component, 'emitDelete');
 		component.validatedUser$ = of(mockUser);
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
 		fixture.detectChanges();
 
-		const deleteButtonDE: DebugElement = fixture.debugElement.query(
+		const deleteButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.delete')
-		);
-		const deleteButtonHTML: HTMLButtonElement = deleteButtonDE.nativeElement;
-		deleteButtonHTML.click();
+		).nativeElement;
+		deleteButton.click();
 		fixture.detectChanges();
 
 		expect(component.emitDelete).toHaveBeenCalledWith(1);
 	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const closeDebugEl: DebugElement = fixture.debugElement.query(
+		const closeButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.close')
-		);
-		const closeButton: HTMLButtonElement = closeDebugEl.nativeElement;
-		fixture.detectChanges();
+		).nativeElement;
 
 		closeButton.click();
 		expect(component.close).toHaveBeenCalled();
 	});
 	it('should close modal on wrapper click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const wrapperDE: DebugElement = fixture.debugElement.query(
+		const wrapper: HTMLElement = fixture.debugElement.query(
 			By.css('.details__wrapper')
-		);
-		const wrapperHTML: HTMLElement = wrapperDE.nativeElement;
+		).nativeElement;
+
+		wrapper.click();
 		fixture.detectChanges();
 
-		wrapperHTML.click();
 		expect(component.close).toHaveBeenCalled();
 	});
 });

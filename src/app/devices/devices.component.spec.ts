@@ -74,8 +74,9 @@ describe('DevicesComponent', () => {
 		expect(component).toBeTruthy();
 	});
 	it('should request more data upon trigger', () => {
-		const listEl = fixture.debugElement.query(By.directive(FakeListComponent));
-		const listComponent: FakeListComponent = listEl.componentInstance;
+		const listComponent: FakeListComponent = fixture.debugElement.query(
+			By.directive(FakeListComponent)
+		).componentInstance;
 
 		spyOn(component, 'loadMore');
 		listComponent.request.emit('request more data');
@@ -83,10 +84,9 @@ describe('DevicesComponent', () => {
 		expect(component.loadMore).toHaveBeenCalled();
 	});
 	it('should request query data upon trigger', () => {
-		const searchEl = fixture.debugElement.query(
+		const SearchComponent: FakeSearchComponent = fixture.debugElement.query(
 			By.directive(FakeSearchComponent)
-		);
-		const SearchComponent: FakeSearchComponent = searchEl.componentInstance;
+		).componentInstance;
 
 		spyOn(component, 'query');
 		SearchComponent.search.emit('a string');
@@ -94,8 +94,9 @@ describe('DevicesComponent', () => {
 		expect(component.query).toHaveBeenCalled();
 	});
 	it('should request details upon trigger', () => {
-		const listEl = fixture.debugElement.query(By.directive(FakeListComponent));
-		const listComponent: FakeListComponent = listEl.componentInstance;
+		const listComponent: FakeListComponent = fixture.debugElement.query(
+			By.directive(FakeListComponent)
+		).componentInstance;
 
 		spyOn(component, 'getDetails');
 		listComponent.details.emit('key');

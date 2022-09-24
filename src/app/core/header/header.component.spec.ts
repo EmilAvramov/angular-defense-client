@@ -27,6 +27,7 @@ describe('HeaderComponent', () => {
 	it('should show guest view if no token', () => {
 		component.token = '';
 		fixture.detectChanges();
+		
 		const loginNav: HTMLElement = fixture.debugElement.query(
 			By.css('.header__login_nav')
 		).nativeElement;
@@ -40,6 +41,7 @@ describe('HeaderComponent', () => {
 	it('should show user view if token', () => {
 		component.token = '12312312312asdasdasd';
 		fixture.detectChanges();
+
 		const postingsNav: HTMLElement = fixture.debugElement.query(
 			By.css('.header__postings')
 		).nativeElement;

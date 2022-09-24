@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -20,6 +20,8 @@ describe('ModalComponent', () => {
 
 		fixture = TestBed.createComponent(DetailsComponent);
 		component = fixture.componentInstance;
+		component.display$ = of(true);
+		component.details = deviceMockDataDetails;
 		fixture.detectChanges();
 	});
 
@@ -28,45 +30,32 @@ describe('ModalComponent', () => {
 	});
 	it('should receive data on load', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details = deviceMockDataDetails;
-		fixture.detectChanges();
-
-		const detailsDE: DebugElement = fixture.debugElement.query(
+		const details: HTMLElement = fixture.debugElement.query(
 			By.css('.details__body')
-		);
-		const detailsHTML: HTMLElement = detailsDE.nativeElement;
+		).nativeElement;
 
-		expect(detailsHTML).toBeTruthy();
+		expect(details).toBeTruthy();
 	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details = deviceMockDataDetails;
-		fixture.detectChanges();
-
-		const closeDebugEl: DebugElement = fixture.debugElement.query(
+		const closeButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.close')
-		);
-		const closeButton: HTMLButtonElement = closeDebugEl.nativeElement;
-		fixture.detectChanges();
+		).nativeElement;
 
 		closeButton.click();
+		fixture.detectChanges();
+
 		expect(component.close).toHaveBeenCalled();
 	});
 	it('should close modal on wrapper click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details = deviceMockDataDetails;
-		fixture.detectChanges();
-
-		const wrapperDE: DebugElement = fixture.debugElement.query(
+		const wrapper: HTMLElement = fixture.debugElement.query(
 			By.css('.details__wrapper')
-		);
-		const wrapperHTML: HTMLElement = wrapperDE.nativeElement;
+		).nativeElement;
+
+		wrapper.click();
 		fixture.detectChanges();
 
-		wrapperHTML.click();
 		expect(component.close).toHaveBeenCalled();
 	});
 });

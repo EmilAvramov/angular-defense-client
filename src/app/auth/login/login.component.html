@@ -4,7 +4,13 @@
 			Incorrect credentials
 		</p>
 		<label for="email">Email: </label>
-		<input id="email" type="text" formControlName="email" required />
+		<input
+			class="form__email"
+			id="email"
+			type="text"
+			formControlName="email"
+			required
+		/>
 		<span
 			class="form__error"
 			*ngIf="email?.invalid && (email?.dirty || email?.touched)"
@@ -14,7 +20,13 @@
 		</span>
 
 		<label for="password">Password: </label>
-		<input id="password" type="password" formControlName="password" required />
+		<input
+			class="form__password"
+			id="password"
+			type="password"
+			formControlName="password"
+			required
+		/>
 		<span
 			class="form__error"
 			*ngIf="password?.invalid && (password?.dirty || password?.touched)"

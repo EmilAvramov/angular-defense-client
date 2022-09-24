@@ -26,6 +26,7 @@ describe('RegisterComponent', () => {
 	});
 	it('should render empty form', () => {
 		const { credentials, personalDetails } = component.profileForm.value;
+		
 		expect(credentials?.email).toBe('');
 		expect(credentials?.password).toBe('');
 		expect(personalDetails?.firstName).toBe('');

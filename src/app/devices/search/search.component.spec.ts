@@ -33,7 +33,10 @@ describe('SearchComponent', () => {
 		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('button')
 		).nativeElement;
+
 		button.click();
+		fixture.detectChanges();
+
 		expect(component.onSubmit).toHaveBeenCalled();
 	});
 	it('should trigger emitter with given search value', () => {
@@ -48,6 +51,7 @@ describe('SearchComponent', () => {
 		expect(query.value).toEqual('search');
 
 		button.click();
+		fixture.detectChanges();
 		expect(component.search.emit).toHaveBeenCalledWith('search');
 	});
 	it('should reset query after submission', () => {

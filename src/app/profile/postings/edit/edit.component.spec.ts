@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -20,6 +20,8 @@ describe('EditComponent', () => {
 
 		fixture = TestBed.createComponent(EditComponent);
 		component = fixture.componentInstance;
+		component.display$ = of(true);
+		component.details$ = of(mockPostingDetails);
 		fixture.detectChanges();
 	});
 
@@ -29,26 +31,23 @@ describe('EditComponent', () => {
 	it('should trigger edit method on button click', () => {
 		spyOn(component, 'emitEdit').and.callThrough();
 		spyOn(component.editPosting, 'emit');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const editButtonDE: DebugElement = fixture.debugElement.query(
+		const editButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.edit')
-		);
-		const editButtonHTML: HTMLButtonElement = editButtonDE.nativeElement;
-		const editCommentsDe: DebugElement = fixture.debugElement.query(
+		).nativeElement;
+		const editComments: HTMLInputElement = fixture.debugElement.query(
 			By.css('.details__input_comments')
-		);
-		const editCommentsHTML: HTMLButtonElement = editCommentsDe.nativeElement;
-		const editPriceDE: DebugElement = fixture.debugElement.query(
+		).nativeElement;
+		const editPrice: HTMLInputElement = fixture.debugElement.query(
 			By.css('.details__input_price')
-		);
-		const editPriceHTML: HTMLButtonElement = editPriceDE.nativeElement;
+		).nativeElement;
 
-		editCommentsHTML.value = 'test comments';
-		editPriceHTML.value = '999';
-		editButtonHTML.click();
+		editComments.value = 'test comments';
+		editComments.dispatchEvent(new Event('input'));
+		editComments.dispatchEvent(new Event('blur'));
+		editPrice.value = '999';
+		editPrice.dispatchEvent(new Event('input'));
+		editPrice.dispatchEvent(new Event('blur'));
+		editButton.click();
 		fixture.detectChanges();
 
 		expect(component.emitEdit).toHaveBeenCalledWith(1);
@@ -60,47 +59,35 @@ describe('EditComponent', () => {
 	});
 	it('should trigger delete method on button click', () => {
 		spyOn(component, 'emitDelete');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const deleteButtonDE: DebugElement = fixture.debugElement.query(
+		const deleteButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.delete')
-		);
-		const deleteButtonHTML: HTMLButtonElement = deleteButtonDE.nativeElement;
-		deleteButtonHTML.click();
+		).nativeElement;
+
+		deleteButton.click();
 		fixture.detectChanges();
 
 		expect(component.emitDelete).toHaveBeenCalledWith(1);
 	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const closeDebugEl: DebugElement = fixture.debugElement.query(
+		const closeButton: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.close')
-		);
-		const closeButton: HTMLButtonElement = closeDebugEl.nativeElement;
-		fixture.detectChanges();
+		).nativeElement;
 
 		closeButton.click();
+		fixture.detectChanges();
+
 		expect(component.close).toHaveBeenCalled();
 	});
 	it('should close modal on wrapper click', () => {
 		spyOn(component, 'close');
-		component.display$ = of(true);
-		component.details$ = of(mockPostingDetails);
-		fixture.detectChanges();
-
-		const wrapperDE: DebugElement = fixture.debugElement.query(
+		const wrapper: HTMLElement = fixture.debugElement.query(
 			By.css('.details__wrapper')
-		);
-		const wrapperHTML: HTMLElement = wrapperDE.nativeElement;
+		).nativeElement;
+
+		wrapper.click();
 		fixture.detectChanges();
 
-		wrapperHTML.click();
 		expect(component.close).toHaveBeenCalled();
 	});
 });

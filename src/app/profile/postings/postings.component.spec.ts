@@ -1,6 +1,5 @@
 import {
 	Component,
-	DebugElement,
 	EventEmitter,
 	Input,
 	NO_ERRORS_SCHEMA,
@@ -44,6 +43,7 @@ describe('PostingsComponent', () => {
 
 		fixture = TestBed.createComponent(PostingsComponent);
 		component = fixture.componentInstance;
+		component.userPostings = mockPostingPartial;
 		fixture.detectChanges();
 	});
 
@@ -52,14 +52,9 @@ describe('PostingsComponent', () => {
 	});
 	it('should trigger editPosting method if emit triggered by child', () => {
 		spyOn(component, 'editPosting');
-		component.userPostings = mockPostingPartial;
-		fixture.detectChanges();
-
-		const fakeEditEl: DebugElement = fixture.debugElement.query(
+		const fakeEditComponent: FakeEditComponent = fixture.debugElement.query(
 			By.directive(FakeEditComponent)
-		);
-		const fakeEditComponent: FakeEditComponent = fakeEditEl.componentInstance;
-		fixture.detectChanges();
+		).componentInstance;
 
 		fakeEditComponent.editPosting.emit({
 			id: 100,
@@ -76,14 +71,9 @@ describe('PostingsComponent', () => {
 	});
 	it('should trigger deletePosting method if emit triggered by child', () => {
 		spyOn(component, 'deletePosting');
-		component.userPostings = mockPostingPartial;
-		fixture.detectChanges();
-
-		const fakeEditEl: DebugElement = fixture.debugElement.query(
+		const fakeEditComponent: FakeEditComponent = fixture.debugElement.query(
 			By.directive(FakeEditComponent)
-		);
-		const fakeEditComponent: FakeEditComponent = fakeEditEl.componentInstance;
-		fixture.detectChanges();
+		).componentInstance;
 
 		fakeEditComponent.deletePosting.emit(100);
 		fixture.detectChanges();
@@ -92,16 +82,11 @@ describe('PostingsComponent', () => {
 	});
 	it('should trigger details request on button click', () => {
 		spyOn(component, 'fetchPostingDetails');
-		component.userPostings = mockPostingPartial;
-		fixture.detectChanges();
-
-		const buttonDE: DebugElement = fixture.debugElement.query(
+		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.profile__buttons_details')
-		);
-		const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
-		fixture.detectChanges();
+		).nativeElement;
 
-		buttonEl.click();
+		button.click();
 		fixture.detectChanges();
 
 		expect(component.fetchPostingDetails).toHaveBeenCalledWith(1);
