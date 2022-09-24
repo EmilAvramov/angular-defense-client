@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -15,9 +15,9 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.sass'],
 })
-export class SettingsComponent implements OnDestroy, AfterViewInit {
+export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 	public completer$: Subject<void> = new Subject<void>();
-	public userData$: Observable<User | null> | undefined;
+	public userData$: Observable<User>;
 
 	public userId!: number;
 	public userEmail!: string;
@@ -33,22 +33,26 @@ export class SettingsComponent implements OnDestroy, AfterViewInit {
 		private userFacade: UserFacade,
 		private router: Router
 	) {
-		this.userFacade.userData$
+		this.userData$ = this.userFacade.userData$;
+	}
+	ngOnInit(): void {
+		this.userData$
 			.pipe(
 				takeUntil(this.completer$),
-				map(({ id, email, firstName, lastName, phone, address, city, token }) => {
-					this.userId = id;
-					this.userEmail = email;
-					this.userFirstName = firstName;
-					this.userLastName = lastName;
-					this.userPhone = phone;
-					this.userAddress = address;
-					this.userCity = city;
-					this.userToken = token;
+				map((user: User) => {
+					this.userId = user.id;
+					this.userEmail = user.email;
+					this.userFirstName = user.firstName;
+					this.userLastName = user.lastName;
+					this.userPhone = user.phone;
+					this.userAddress = user.address;
+					this.userCity = user.city;
+					this.userToken = user.token;
 				})
 			)
 			.subscribe();
 	}
+
 	ngAfterViewInit(): void {
 		this.profileForm.patchValue({
 			email: this.userEmail,

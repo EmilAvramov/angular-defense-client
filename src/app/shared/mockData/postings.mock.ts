@@ -15,7 +15,7 @@ export const mockPostingDetails: Posting = {
 	price: 111,
 	User: {
 		id: 1,
-		email: 'string',
+		email: 'fakeEmail',
 		firstName: 'string',
 		lastName: 'string',
 		phone: 'string',
