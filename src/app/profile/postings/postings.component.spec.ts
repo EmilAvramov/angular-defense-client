@@ -10,7 +10,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { mockPostingPartial } from 'src/app/shared/mockData/postings.mock';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { EditComponent } from './edit/edit.component';
