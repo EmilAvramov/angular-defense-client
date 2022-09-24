@@ -2,7 +2,6 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { Observable } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
-import { User } from 'src/app/state/user/user.state';
 import { EditModalService } from '../services/editModal.service';
 
 @Component({

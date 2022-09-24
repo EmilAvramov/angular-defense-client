@@ -15,8 +15,18 @@
 					<p>Comments: {{ posting.comments }}</p>
 				</div>
 				<div class="profile__postings_buttons">
-					<button (click)="fetchPostingDetails(posting.id)">Edit</button>
-					<button (click)="deletePosting(posting.id)">Delete</button>
+					<button
+						class="profile__buttons_details"
+						(click)="fetchPostingDetails(posting.id)"
+					>
+						Edit
+					</button>
+					<button
+						class="profile__buttons_delete"
+						(click)="deletePosting(posting.id)"
+					>
+						Delete
+					</button>
 				</div>
 			</div>
 		</div>
