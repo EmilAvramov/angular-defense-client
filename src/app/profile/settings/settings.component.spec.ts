@@ -1,4 +1,4 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -44,34 +44,52 @@ describe('SettingsComponent', () => {
 
 		expect(component.profileForm.valid).toBeTruthy();
 	});
-	it('should trigger change details method on button click when input is valid', () => {
+	it('should trigger change details method on button click if input valid', () => {
 		spyOn(component, 'changeDetails');
-		const buttonDE: DebugElement = fixture.debugElement.query(
+		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.form__changeDetails')
-		);
-		const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
-		const emailEl: HTMLInputElement = fixture.debugElement.query(
+		).nativeElement;
+		const emailInput: HTMLInputElement = fixture.debugElement.query(
 			By.css('.form__email')
 		).nativeElement;
 		fixture.detectChanges();
 
-		emailEl.value = 'newEmail@email.com';
-		emailEl.dispatchEvent(new Event('input'));
-		emailEl.dispatchEvent(new Event('blur'));
+		emailInput.value = 'newEmail@email.com';
+		emailInput.dispatchEvent(new Event('input'));
+		emailInput.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
 
-		buttonEl.click();
+		button.click();
 		fixture.detectChanges();
 
 		expect(component.profileForm.controls.email.value).toBe('newEmail@email.com');
 		expect(component.changeDetails).toHaveBeenCalled();
 	});
-	it('should trigger change password on button click', () => {
+	it('should not trigger changer details method if form invalud', () => {
+		spyOn(component, 'changeDetails');
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('.form__changeDetails')
+		).nativeElement;
+		const emailInput: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__email')
+		).nativeElement;
+		fixture.detectChanges();
+
+		emailInput.value = 'newEmail@email';
+		emailInput.dispatchEvent(new Event('input'));
+		emailInput.dispatchEvent(new Event('blur'));
+		fixture.detectChanges();
+
+		button.click();
+		fixture.detectChanges();
+
+		expect(component.changeDetails).toHaveBeenCalledTimes(0);
+	});
+	it('should trigger change password method on button click if input valid', () => {
 		spyOn(component, 'changePassword');
-		const buttonDE: DebugElement = fixture.debugElement.query(
+		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.form__ChangePassword')
-		);
-		const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
+		).nativeElement;
 		const currentPassword: HTMLInputElement = fixture.debugElement.query(
 			By.css('.form__currentPassword')
 		).nativeElement;
@@ -92,7 +110,7 @@ describe('SettingsComponent', () => {
 		newPasswordRe.dispatchEvent(new Event('blur'));
 		fixture.detectChanges();
 
-		buttonEl.click();
+		button.click();
 		fixture.detectChanges();
 
 		expect(component.changePassword).toHaveBeenCalled();
@@ -102,6 +120,44 @@ describe('SettingsComponent', () => {
 		expect(component.passwordForm.controls['passwordRe'].value).toBe(
 			'12345asdfg!@#!'
 		);
+	});
+	it('should not trigger change password method if input invalid', () => {
+		spyOn(component, 'changePassword');
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('.form__ChangePassword')
+		).nativeElement;
+		const currentPassword: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__currentPassword')
+		).nativeElement;
+
+		currentPassword.value = '12345asda!213!@';
+		currentPassword.dispatchEvent(new Event('input'));
+		currentPassword.dispatchEvent(new Event('blur'));
+		fixture.detectChanges();
+
+		button.click();
+		fixture.detectChanges();
+
+		expect(component.changePassword).toHaveBeenCalledTimes(0);
+	});
+	it('should trigger delete method on button click if input valid', () => {
+		spyOn(component, 'deleteAccount');
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('.form__confirmDelete')
+		).nativeElement;
+		const currentPassword: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__confirmInput')
+		).nativeElement;
+
+		currentPassword.value = 'I confirm to delete my account';
+		currentPassword.dispatchEvent(new Event('input'));
+		currentPassword.dispatchEvent(new Event('blur'));
+		fixture.detectChanges();
+
+		button.click();
+		fixture.detectChanges();
+
+		expect(component.deleteAccount).toHaveBeenCalled();
 	});
 	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');
