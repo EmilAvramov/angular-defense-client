@@ -6,7 +6,7 @@
 	>
 		<h3>Change Personal Details</h3>
 		<label for="email">Email: </label>
-		<input name="email" type="email" formControlName="email" required />
+		<input class="form__email" name="email" type="email" formControlName="email" required />
 		<span class="form__error" *ngIf="email?.invalid">
 			<p *ngIf="email?.errors?.['required']">This field is required</p>
 			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
@@ -43,7 +43,9 @@
 		<span class="form__error" *ngIf="city?.invalid">
 			<p *ngIf="city?.errors?.['required']">This field is required</p>
 		</span>
-		<button [disabled]="!this.profileForm.valid">Change Details</button>
+		<button class="form__changeDetails" [disabled]="!this.profileForm.valid">
+			Change Details
+		</button>
 	</form>
 	<form
 		class="profile__settings_mid"
@@ -104,7 +106,9 @@
 				New password cannot be the same as our old password
 			</p>
 		</span>
-		<button [disabled]="!this.passwordForm.valid">Change Password</button>
+		<button class="form__ChangePassword" [disabled]="!this.passwordForm.valid">
+			Change Password
+		</button>
 	</form>
 	<form
 		class="profile__settings_right"

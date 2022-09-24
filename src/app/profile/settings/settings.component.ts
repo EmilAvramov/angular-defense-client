@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -31,7 +31,8 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private fb: FormBuilder,
 		private userFacade: UserFacade,
-		private router: Router
+		private router: Router,
+		private cdr: ChangeDetectorRef
 	) {
 		this.userData$ = this.userFacade.userData$;
 	}
@@ -62,6 +63,7 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 			address: this.userAddress,
 			city: this.userCity,
 		});
+		this.cdr.detectChanges();
 	}
 
 	ngOnDestroy(): void {
