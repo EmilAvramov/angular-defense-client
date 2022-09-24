@@ -6,7 +6,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { map, Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';

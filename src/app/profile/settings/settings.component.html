@@ -6,7 +6,13 @@
 	>
 		<h3>Change Personal Details</h3>
 		<label for="email">Email: </label>
-		<input class="form__email" name="email" type="email" formControlName="email" required />
+		<input
+			class="form__email"
+			name="email"
+			type="email"
+			formControlName="email"
+			required
+		/>
 		<span class="form__error" *ngIf="email?.invalid">
 			<p *ngIf="email?.errors?.['required']">This field is required</p>
 			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
@@ -55,6 +61,7 @@
 		<h3>Change Password</h3>
 		<label for="currentPassword">Current Password: </label>
 		<input
+			class="form__currentPassword"
 			name="currentPassword"
 			type="password"
 			formControlName="currentPassword"
@@ -74,7 +81,13 @@
 			</p>
 		</span>
 		<label for="password">New Password: </label>
-		<input name="password" type="password" formControlName="password" required />
+		<input
+			class="form__password"
+			name="password"
+			type="password"
+			formControlName="password"
+			required
+		/>
 		<span
 			class="form__error"
 			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
@@ -90,6 +103,7 @@
 			name="passwordRe"
 			type="password"
 			formControlName="passwordRe"
+			class="form__passwordRe"
 			required
 		/>
 		<span
@@ -117,7 +131,13 @@
 	>
 		<h3>Delete Account Permanently</h3>
 		<label for="confirm">Please enter "I confirm to delete my account"</label>
-		<input name="confirm" type="text" formControlName="confirm" required />
+		<input
+			class="form__confirmInput"
+			name="confirm"
+			type="text"
+			formControlName="confirm"
+			required
+		/>
 		<span
 			class="form__error"
 			*ngIf="confirm?.invalid && (confirm?.dirty || confirm?.touched)"
@@ -129,6 +149,8 @@
 			</p>
 			<p *ngIf="confirm?.errors?.['mismatch']">Entered text does not match</p>
 		</span>
-		<button [disabled]="!this.deleteForm.valid">Delete Account</button>
+		<button class="form__confirmDelete" [disabled]="!this.deleteForm.valid">
+			Delete Account
+		</button>
 	</form>
 </div>

@@ -1,6 +1,6 @@
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
@@ -24,7 +24,6 @@ describe('SettingsComponent', () => {
 		component = fixture.componentInstance;
 		component.userData$ = of(mockUser);
 		component.ngOnInit();
-		fixture.detectChanges();
 		component.ngAfterViewInit();
 		fixture.detectChanges();
 	});
@@ -36,57 +35,74 @@ describe('SettingsComponent', () => {
 		const { email, firstName, lastName, phone, address, city } =
 			component.profileForm.value;
 
-		expect(email).toEqual('fakeEmail');
+		expect(email).toEqual('fakeEmail@email.com');
 		expect(firstName).toEqual('fakeFirstName');
 		expect(lastName).toEqual('fakeLastName');
-		expect(phone).toEqual('fakePhone');
+		expect(phone).toEqual('1234856777');
 		expect(address).toEqual('fakeAddress');
 		expect(city).toEqual('fakeCity');
 
 		expect(component.profileForm.valid).toBeTruthy();
 	});
-	it('should trigger change details method on button click', () => {
-		// spyOn(component, 'changeDetails');
-		// const buttonDE: DebugElement = fixture.debugElement.query(
-		// 	By.css('.form__changeDetails')
-		// );
-		// const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
-		// const emailEl: HTMLInputElement = fixture.debugElement.query(
-		// 	By.css('.form__email')
-		// ).nativeElement;
-		// fixture.detectChanges();
+	it('should trigger change details method on button click when input is valid', () => {
+		spyOn(component, 'changeDetails');
+		const buttonDE: DebugElement = fixture.debugElement.query(
+			By.css('.form__changeDetails')
+		);
+		const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
+		const emailEl: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__email')
+		).nativeElement;
+		fixture.detectChanges();
 
-		// emailEl.value = 'newEmail@email.com';
-		// emailEl.dispatchEvent(new Event('input'));
-		// fixture.detectChanges();
+		emailEl.value = 'newEmail@email.com';
+		emailEl.dispatchEvent(new Event('input'));
+		emailEl.dispatchEvent(new Event('blur'));
+		fixture.detectChanges();
 
-		// expect(component.profileForm.controls.email.value).toEqual(
-		// 	'newEmail@email.com'
-		// );
-		// expect(component.profileForm.valid).toBeTruthy();
+		buttonEl.click();
+		fixture.detectChanges();
 
-		// buttonEl.click();
-		// fixture.detectChanges();
-
-		// expect(component.changeDetails).toHaveBeenCalled();
+		expect(component.profileForm.controls.email.value).toBe('newEmail@email.com');
+		expect(component.changeDetails).toHaveBeenCalled();
 	});
-	// it('should trigger change password on button click', () => {
-	// 	spyOn(component, 'changePassword');
-	// 	const buttonDE: DebugElement = fixture.debugElement.query(
-	// 		By.css('.form__ChangePassword')
-	// 	);
-	// 	const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
-	// 	const newPassword: AbstractControl =
-	// 		component.passwordForm.controls['password'];
-	// 	newPassword.setValue('12345asdfg!@#!');
-	// 	fixture.detectChanges();
+	it('should trigger change password on button click', () => {
+		spyOn(component, 'changePassword');
+		const buttonDE: DebugElement = fixture.debugElement.query(
+			By.css('.form__ChangePassword')
+		);
+		const buttonEl: HTMLButtonElement = buttonDE.nativeElement;
+		const currentPassword: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__currentPassword')
+		).nativeElement;
+		const newPassword: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__password')
+		).nativeElement;
+		const newPasswordRe: HTMLInputElement = fixture.debugElement.query(
+			By.css('.form__passwordRe')
+		).nativeElement;
+		currentPassword.value = '12345asda!213!@';
+		currentPassword.dispatchEvent(new Event('input'));
+		currentPassword.dispatchEvent(new Event('blur'));
+		newPassword.value = '12345asdfg!@#!';
+		newPassword.dispatchEvent(new Event('input'));
+		newPassword.dispatchEvent(new Event('blur'));
+		newPasswordRe.value = '12345asdfg!@#!';
+		newPasswordRe.dispatchEvent(new Event('input'));
+		newPasswordRe.dispatchEvent(new Event('blur'));
+		fixture.detectChanges();
 
-	// 	expect(component.passwordForm.valid).toBeTruthy();
-	// 	buttonEl.click();
-	// 	fixture.detectChanges();
+		buttonEl.click();
+		fixture.detectChanges();
 
-	// 	expect(component.changePassword).toHaveBeenCalled();
-	// });
+		expect(component.changePassword).toHaveBeenCalled();
+		expect(component.passwordForm.controls['password'].value).toBe(
+			'12345asdfg!@#!'
+		);
+		expect(component.passwordForm.controls['passwordRe'].value).toBe(
+			'12345asdfg!@#!'
+		);
+	});
 	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');
 		const complete = spyOn(component.completer$, 'complete');
