@@ -76,6 +76,8 @@
 				<p *ngIf="city?.errors?.['required']">This field is required</p>
 			</span>
 		</div>
-		<button [disabled]="!this.profileForm.valid">Login</button>
+		<button class="form__submit" [disabled]="!this.profileForm.valid">
+			Register Now
+		</button>
 	</form>
 </div>

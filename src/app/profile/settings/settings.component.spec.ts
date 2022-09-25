@@ -88,7 +88,7 @@ describe('SettingsComponent', () => {
 	it('should trigger change password method on button click if input valid', () => {
 		spyOn(component, 'changePassword');
 		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.form__ChangePassword')
+			By.css('.form__changePassword')
 		).nativeElement;
 		const currentPassword: HTMLInputElement = fixture.debugElement.query(
 			By.css('.form__currentPassword')
@@ -124,7 +124,7 @@ describe('SettingsComponent', () => {
 	it('should not trigger change password method if input invalid', () => {
 		spyOn(component, 'changePassword');
 		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.form__ChangePassword')
+			By.css('.form__changePassword')
 		).nativeElement;
 		const currentPassword: HTMLInputElement = fixture.debugElement.query(
 			By.css('.form__currentPassword')
