@@ -1,4 +1,7 @@
 @use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/mixins/_geometry' as geo
 
 .login__container
     @include layout.flex($content-align: center, $item-align: center)
@@ -7,11 +10,28 @@
 
     form
         @include layout.flex($direction: column, $gap: 10px)
-        width: 50%
-        margin: 0 auto
+        width: 30%
+        margin: 0px auto 200px auto
 
-    div
-        @include layout.flex($direction: column)
+        .form__error
+            color: color.$crimson
 
-    .form__error
-        color: red
+        .form__email, .form__password
+            padding: 7px 0px
+            @include geo.border-adjust($px: 1px, $color: color.$darkBlue, $radius: 10px)
+            @include text.format-text($size: 16px)
+            
+            background-color: color.$smoked
+
+        .form__submit
+            @include text.format-text($size: 16px, $weight: 700, $align: center, $color: color.$darkBlue )
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
+
+            background-color: color.$orange
+            padding: 9px 15px
+
+            cursor: pointer
+            &:hover
+                color: color.$smoked
+                background-color: color.$darkBlue
+                transition: all 350ms ease-in

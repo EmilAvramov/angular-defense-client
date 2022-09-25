@@ -29,7 +29,7 @@
 		/>
 		<span
 			class="form__error"
-			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
+			*ngIf="password?.invalid && password?.touched"	
 		>
 			<p *ngIf="password?.errors?.['required']">This field is required</p>
 			<p *ngIf="password?.errors?.['pattern']">
