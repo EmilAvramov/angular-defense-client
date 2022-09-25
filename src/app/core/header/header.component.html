@@ -13,9 +13,6 @@
 			<li>
 				<a routerLink="/devices"><i class="fa-solid fa-mobile-screen"></i></a>
 			</li>
-			<li>
-				<a routerLink="/about"> <i class="fa-solid fa-circle-info"></i></a>
-			</li>
 			<li class="header__login_nav" *ngIf="!this.token">
 				<a routerLink="/login"
 					><i class="fa-solid fa-arrow-right-to-bracket"></i
@@ -24,14 +21,17 @@
 			<li class="header__register_nav" *ngIf="!this.token">
 				<a routerLink="/register"><i class="fa-solid fa-registered"></i></a>
 			</li>
-			<li class="header__postings">
+			<li class="header__postings" *ngIf="this.token">
 				<a routerLink="/profile/postings"><i class="fa-solid fa-user"></i></a>
 			</li>
-			<li class="header__settings">
+			<li class="header__settings" *ngIf="this.token">
 				<a routerLink="/profile/settings"><i class="fa-solid fa-gear"></i></a>
 			</li>
 			<li class="header__logout_nav" *ngIf="this.token" (click)="logout()">
 				<a routerLink="/"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+			</li>
+			<li>
+				<a routerLink="/about"> <i class="fa-solid fa-circle-info"></i></a>
 			</li>
 		</ul>
 	</nav>

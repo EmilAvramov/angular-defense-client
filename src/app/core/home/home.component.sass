@@ -53,9 +53,13 @@
             margin: 35px 0px 40px 0px
 
         .home__aside_container
-            @include layout.flex($direction: column, $gap: 72px)
+            @include layout.flex($direction: column, $gap: 60px)
             margin-bottom: 40px
 
             div
                 @include layout.flex($direction: column, $gap: 5px)
                 @include text.format-text($size: 18px, $weight: 400, $align: left, $color: color.$darkBlue )
+
+                .home__aside_rank
+                    font-weight: bold
+                    

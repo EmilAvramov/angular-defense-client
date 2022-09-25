@@ -12,7 +12,7 @@
 		<h2>Most Popular Devices</h2>
 		<div class="home__aside_container">
 			<div *ngFor="let item of popular | async">
-				<p>Rank: {{ item.rank }}</p>
+				<p class="home__aside_rank">Rank: {{ item.rank }}</p>
 				<p>Name: {{ item.deviceName }}</p>
 				<p>Daily Hits: {{ item.dailyHits }}</p>
 			</div>
