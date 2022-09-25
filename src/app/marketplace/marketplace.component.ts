@@ -108,7 +108,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	}
 
 	fetchDeviceList(query: string): void {
-		this.postingFacade.queryDevices(query, 10);
+		this.postingFacade.queryDevices(query, 50);
 	}
 
 	fetchDeviceDetails(key: string): void {

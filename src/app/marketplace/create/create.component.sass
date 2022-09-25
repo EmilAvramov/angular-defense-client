@@ -14,6 +14,11 @@
             @include geo.button-adjust($top: 10px, $left: 20px, $padding: 16px)
             @include geo.button-reset($color: color.$orange, $size: 32px)
 
+            i
+                &:hover
+                    color: color.$orange
+                    transition: color 100ms ease-in
+
         .create__body
             background-color: color.$white
             flex-basis: 100%
@@ -22,12 +27,13 @@
             @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
             @include geo.box-sizing-adjust()
-            
+
             column-gap: 40px
             padding: 20px
 
             .create__search
                 flex-basis: 10%
+                margin-bottom: 20px
 
                 @include layout.flex($content-align: center, $item-align: center, $gap: 20px)
 
@@ -42,6 +48,9 @@
                 flex-basis: 80%
 
                 @include layout.grid-repeat-columns($pieces: 5, $size: 1fr, $content-align: center, $item-align: center,$gap: 20px)
+                height: 70%
+                overflow: scroll
+                padding: 0px 3px
 
                 .create__block
                     @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)

@@ -5,10 +5,12 @@
 		(click)="close()"
 	>
 		<div class="create__container">
-			<button class="close" type="button" (click)="close()">X</button>
+			<button class="close" type="button" (click)="close()">
+				<i class="fa-solid fa-xmark"></i>
+			</button>
 			<div class="create__body" (click)="$event.stopPropagation()">
 				<div class="create__search">
-					<label for="deviceSearch">Search for Device</label>
+					<label for="deviceSearch">Search for device</label>
 					<input
 						#searchInput
 						class="search__input"
@@ -184,10 +186,7 @@
 						</table>
 					</div>
 					<div class="details__rightBlock">
-						<form
-							[formGroup]="postingForm"
-							(ngSubmit)="sendPosting()"
-						>
+						<form [formGroup]="postingForm" (ngSubmit)="sendPosting()">
 							<label for="comments">Comments about your device</label>
 							<textarea
 								name="comments"
