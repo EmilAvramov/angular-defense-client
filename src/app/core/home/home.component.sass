@@ -13,18 +13,24 @@
         margin-top: 500px
 
     .home__main
-        flex-basis: 75%
+        flex-basis: 65%
+        margin-left: 50px
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
 
         h2
-            margin: 55px auto -15px auto
-            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue )
+            margin: 45px auto -35px auto
+            @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue)
+            border-bottom: 10px solid color.$orange
+            border-bottom-left-radius: 10px
+            border-bottom-right-radius: 10px
+            width: 80%
+            padding-bottom: 15px
 
         .home__main_container
             width: 80%
             @include layout.grid-repeat-columns($pieces: 3, $size: 1fr, $gap: 40px)
-            margin: 30px auto
+            margin: 25px auto 115px auto
 
             div
                 @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 15px)
@@ -41,8 +47,8 @@
                     margin-bottom: 25px
 
     .home__aside
-        flex-basis: 25%
-        margin: 25px 60px 20px auto
+        flex-basis: 23%
+        margin: 30px 50px 60px -20px
         background-color: color.$orange
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
@@ -50,7 +56,7 @@
 
         h2
             @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue )
-            margin: 35px 0px 40px 0px
+            margin: 45px 0px 40px 0px
 
         .home__aside_container
             @include layout.flex($direction: column, $gap: 60px)
