@@ -1,9 +1,17 @@
-<div class="confirm__wrapper">
-	<div class="confirm__message">
-		<p>{{ this.message }}</p>
-	</div>
-	<div class="confirm__buttons">
-		<button class="confirm__yes">{{ this.btnOkText }}</button>
-		<button class="confirm__no">{{ this.btnCancelText }}</button>
-	</div>
-</div>
+<ng-container *ngIf="display$ | async as display">
+	<section class="confirm__wrapper" (click)="close()">
+		<div class="confirm__container">
+			<div class="confirm__message">
+				<p>{{ this.message }}</p>
+			</div>
+			<div class="confirm__buttons">
+				<button (click)="this.confirm()" class="confirm__yes">
+					{{ this.btnOkText }}
+				</button>
+				<button (click)="this.cancel()" class="confirm__no">
+					{{ this.btnCancelText }}
+				</button>
+			</div>
+		</div>
+	</section>
+</ng-container>

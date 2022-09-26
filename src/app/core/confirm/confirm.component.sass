@@ -1,0 +1,12 @@
+@use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/mixins/_geometry' as geo
+
+.confirm__wrapper
+    @include geo.wrapper()
+    z-index: 10
+
+    .confirm__container
+        @include geo.container($height: 80vh, $width: 60vw)
+        @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
