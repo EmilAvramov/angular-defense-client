@@ -10,6 +10,9 @@
 				alt=""
 			/>
 			<button (click)="this.marketNav()">Shop Now</button>
+			<button (click)="this.createNav()" class="header__button" *ngIf="this.token">
+				Create new ad
+			</button>
 		</div>
 		<nav class="footer__nav">
 			<h3>Site Map</h3>

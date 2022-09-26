@@ -7,7 +7,7 @@
     @include geo.wrapper()
 
     .details__container
-        @include geo.container($height: 85vh, $width: 55vw)
+        @include geo.container($height: 85vh, $width: 60vw)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
@@ -58,10 +58,10 @@
                 flex-basis: 40%
                 min-height: 60vh
 
-                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 40px)
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 45px)
 
                 img
-                    width: 75%
+                    width: 65%
 
                 .details__left_title
                     @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)

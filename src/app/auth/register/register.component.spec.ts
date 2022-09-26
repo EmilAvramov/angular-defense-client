@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { RegisterComponent } from './register.component';
@@ -11,6 +11,7 @@ describe('RegisterComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+			imports: [ReactiveFormsModule],
 			declarations: [RegisterComponent],
 			providers: [provideMockStore({}), FormBuilder],
 			schemas: [NO_ERRORS_SCHEMA]
