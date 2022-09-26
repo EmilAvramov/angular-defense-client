@@ -5,7 +5,7 @@ import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
-import { PostingDetailsService } from './services/postingDetails.service';
+import { ModalService } from '../services/modal.service';
 
 @Component({
 	selector: 'app-marketplace',
@@ -23,7 +23,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	public validatedUser$: Observable<User | null>;
 
 	constructor(
-		public postingModal: PostingDetailsService,
+		public postingModal: ModalService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
 		private spinner: NgxSpinnerService

@@ -8,6 +8,7 @@ import { MarketplaceComponent } from './marketplace.component';
 import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
 import { DetailsComponent } from './details/details.component';
+import { ModalService } from '../services/modal.service';
 
 @NgModule({
 	declarations: [
@@ -20,9 +21,9 @@ import { DetailsComponent } from './details/details.component';
 		CommonModule,
 		ReactiveFormsModule,
 		NgxSpinnerModule,
-		BrowserAnimationsModule,
+		BrowserAnimationsModule
 	],
-	providers: [],
+	providers: [ModalService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MarketplaceModule {}

@@ -240,6 +240,8 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 			city as string,
 			this.userToken
 		);
+		this.router.navigate(['/login']);
+		this.userFacade.logoutUser(this.userToken);
 	}
 
 	changePassword() {

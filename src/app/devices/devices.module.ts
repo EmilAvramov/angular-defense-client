@@ -9,6 +9,7 @@ import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ModalService } from '../services/modal.service';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	providers: [FormBuilder],
+	providers: [FormBuilder, ModalService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DevicesModule {}

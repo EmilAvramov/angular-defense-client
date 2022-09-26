@@ -7,10 +7,10 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
-import { PostingDetailsService } from '../services/postingDetails.service';
 
 @Component({
 	selector: 'app-details',
@@ -33,7 +33,7 @@ export class DetailsComponent {
 	@ViewChild('price') price!: ElementRef<HTMLInputElement>;
 
 	constructor(
-		private postingModal: PostingDetailsService,
+		private postingModal: ModalService,
 		public userFacade: UserFacade
 	) {
 		this.display$ = this.postingModal.watch();

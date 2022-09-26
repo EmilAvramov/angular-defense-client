@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModalService } from 'src/app/devices/services/modal.service';
+import { ModalService } from 'src/app/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
 
 @Component({
