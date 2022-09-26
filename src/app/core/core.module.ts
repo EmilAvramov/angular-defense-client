@@ -20,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		HomeComponent,
 		AboutComponent,
 		NotFoundComponent,
-  CreateComponent,
+		CreateComponent,
 	],
 	imports: [
 		CommonModule,

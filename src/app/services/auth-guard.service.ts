@@ -5,7 +5,7 @@ import {
 	Router,
 	RouterStateSnapshot,
 } from '@angular/router';
-import { UserFacade } from '../state/user/user.facade';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -13,29 +13,25 @@ import { UserFacade } from '../state/user/user.facade';
 export class AuthGuardService implements CanActivate {
 	routeURL: string;
 
-	constructor(private userFacade: UserFacade, private router: Router) {
+	constructor(private router: Router) {
 		this.routeURL = this.router.url;
 	}
 
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
-	): Promise<boolean> {
-		return new Promise<boolean>((res, rej) => {
-			this.userFacade.userToken$.subscribe((value: string) => {
-				if (!value && this.routeURL !== '/login') {
-					this.routeURL = '/login';
-					this.router.navigate(['/login'], {
-						queryParams: {
-							return: 'login',
-						},
-					});
-					return res(false);
-				} else {
-					this.routeURL = this.router.url;
-					return res(true);
-				}
+	): Observable<boolean> {
+		if (localStorage.getItem('token') && this.routeURL !== '/login') {
+			this.routeURL = '/login';
+			this.router.navigate(['/login'], {
+				queryParams: {
+					return: 'login',
+				},
 			});
-		});
+			return of(false);
+		} else {
+			this.routeURL = this.router.url;
+			return of(true);
+		}
 	}
 }

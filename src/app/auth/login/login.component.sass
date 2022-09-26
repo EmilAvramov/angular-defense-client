@@ -20,7 +20,7 @@
             padding: 7px 5px
             @include geo.border-adjust($px: 1px, $color: color.$darkBlue, $radius: 10px)
             @include text.format-text($size: 16px)
-            
+
             background-color: color.$smoked
 
         .form__submit
@@ -31,7 +31,10 @@
             padding: 9px 15px
 
             cursor: pointer
-            &:hover
-                color: color.$smoked
-                background-color: color.$darkBlue
-                transition: all 350ms ease-in
+            &:disabled
+                background-color: color.$smoked
+            &:enabled
+                &:hover
+                    color: color.$smoked
+                    background-color: color.$darkBlue
+                    transition: all 350ms ease-in
