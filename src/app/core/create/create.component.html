@@ -1,9 +1,36 @@
-<div class="create__search">
-    <label for="deviceSearch">Search for device</label>
-    <input
-        #searchInput
-        class="search__input"
-        name="deviceSearch"
-        type="text"
-    />
+<div class="create__wrapper">
+	<div class="create__left">
+		<div class="create__search">
+			<label for="deviceSearch">Search for device</label>
+			<input #searchInput class="search__input" name="deviceSearch" type="text" />
+		</div>
+		<div *ngIf="!(this.deviceDetails$ | async)" class="create__list">
+			<div
+				*ngFor="let device of devices$ | async"
+				class="create__block"
+				(click)="fetchDeviceDetails(device.deviceKey)"
+			>
+				<p>{{ device.deviceName }}</p>
+				<img src="{{ device.deviceImage }}" alt="" />
+			</div>
+		</div>
+	</div>
+	<form
+		*ngIf="this.deviceDetails$ | async"
+		[formGroup]="postingForm"
+		(ngSubmit)="createPosting()"
+	>
+		<label for="comments">Comments about your device</label>
+		<textarea
+			name="comments"
+			id=""
+			cols="30"
+			rows="10"
+			formControlName="comments"
+		></textarea>
+		<label for="price">Sell Price</label>
+		<input type="number" name="price" formControlName="price" />
+		<button [disabled]="!this.postingForm.valid">Create Posting</button>
+	</form>
+	<div class="create__right"></div>
 </div>

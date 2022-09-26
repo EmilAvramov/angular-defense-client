@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { CreateComponent } from './create/create.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,7 @@ import { CreateComponent } from './create/create.component';
 	imports: [
 		CommonModule,
 		CoreRoutingModule,
+		ReactiveFormsModule,
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
