@@ -1,9 +1,4 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	OnDestroy,
-} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, Subject, take, takeUntil } from 'rxjs';
 import { Device } from 'src/app/state/device/device.state';
@@ -36,7 +31,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
-		private spinner: NgxSpinnerService,
+		private spinner: NgxSpinnerService
 	) {
 		this.postings$ = this.postingFacade.postingData$;
 		this.postingDetails$ = this.postingFacade.postingDetails$;
