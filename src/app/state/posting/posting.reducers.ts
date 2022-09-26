@@ -122,16 +122,6 @@ export const _postingReducer = createReducer(
 		loaded: false,
 		error: message,
 	})),
-	on(postingActions.PostingCheckOwner, (state) => ({
-		...state,
-		loaded: false,
-		error: null,
-	})),
-	on(postingActions.PostingCheckOwnerSuccess, (state) => ({
-		...state,
-		loaded: true,
-		error: null,
-	})),
 	on(postingActions.PostingLoadDevices, (state) => ({
 		...state,
 		loaded: false,

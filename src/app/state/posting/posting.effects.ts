@@ -200,26 +200,4 @@ export class PostingEffects {
 			)
 		)
 	);
-
-	public readonly checkOwner$: Observable<any> = createEffect(() =>
-		this.actions$.pipe(
-			ofType(PostingActionNames.PostingCheckOwner),
-			map(({ token, postingEmail }) =>
-				PostingActions.PostingCheckOwner({ token, postingEmail })
-			),
-			switchMap(async ({ token, postingEmail }) => {
-				let validatedDetails = await this.userFacade.validateUser(token);
-				if (validatedDetails.email === postingEmail) {
-					return PostingActions.PostingCheckOwnerSuccess({ check: true });
-				} else {
-					return PostingActions.PostingCheckOwnerSuccess({ check: false });
-				}
-			}),
-			catchError((error: Error) =>
-				of(
-					PostingActions.PostingCheckOwnerFailure({ message: error.error.message })
-				)
-			)
-		)
-	);
 }

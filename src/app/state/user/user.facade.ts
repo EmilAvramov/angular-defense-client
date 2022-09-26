@@ -68,7 +68,7 @@ export class UserFacade {
 		this.store.dispatch(userActions.UserLogout({ token }));
 	}
 
-	public validateUser(token: string | undefined): any {
+	public validateUser(token: string): any {
 		if (token) {
 			this.store.dispatch(userActions.UserValidate({ token }));
 		}

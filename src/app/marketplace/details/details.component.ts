@@ -37,15 +37,10 @@ export class DetailsComponent {
 		public userFacade: UserFacade
 	) {
 		this.display$ = this.postingModal.watch();
+		this.userFacade.validateUser(sessionStorage.getItem('token')!);
 	}
 
-	emitEdit(id: number) {
-		this.editPosting.emit({
-			id,
-			comments: this.comments.nativeElement.value,
-			price: Number(this.price.nativeElement.value),
-		})
-	}
+	emitEdit(id: number) {}
 
 	emitDelete(id: number) {
 		this.deletePosting.emit(id);

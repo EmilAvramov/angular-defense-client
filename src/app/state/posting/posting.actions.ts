@@ -31,10 +31,7 @@ export enum PostingActionNames {
 	PostingDelete = '[Posting] Delete',
 	PostingDeleteSuccess = '[Posting] Delete Success',
 	PostingDeleteFailure = '[Posting] Delete Failure',
-	// Actions for checking user, and handling in-post data
-	PostingCheckOwner = '[Posting] Check Owner',
-	PostingCheckOwnerSuccess = '[Posting] Check Owner Success',
-	PostingCheckOwnerFailure = '[Posting] Check Owner Failure',
+	// Actions for checking user and handling in-post data
 	PostingLoadDevices = '[Posting] Load Devices',
 	PostingLoadDevicesSuccess = '[Posting] Load Devices Success',
 	PostingLoadDevicesFailure = '[Posting] Load Devices Failure',
@@ -151,21 +148,6 @@ export const PostingDeleteSuccess = createAction(
 
 export const PostingDeleteFailure = createAction(
 	PostingActionNames.PostingDeleteFailure,
-	props<{ message: string | null }>()
-);
-
-export const PostingCheckOwner = createAction(
-	PostingActionNames.PostingCheckOwner,
-	props<{ token: string; postingEmail: string }>()
-);
-
-export const PostingCheckOwnerSuccess = createAction(
-	PostingActionNames.PostingCheckOwnerSuccess,
-	props<{ check: boolean }>()
-);
-
-export const PostingCheckOwnerFailure = createAction(
-	PostingActionNames.PostingCheckOwnerFailure,
 	props<{ message: string | null }>()
 );
 
