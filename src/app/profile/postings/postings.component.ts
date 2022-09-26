@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { ModalService } from 'src/app/services/modal.service';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
-import { EditModalService } from './services/editModal.service';
 
 @Component({
 	selector: 'app-postings',
@@ -20,7 +20,7 @@ export class PostingsComponent implements OnDestroy {
 	constructor(
 		private userFacade: UserFacade,
 		private postingFacade: PostingFacade,
-		private editModal: EditModalService,
+		private editModal: ModalService,
 		private spinner: NgxSpinnerService
 	) {
 		this.postingFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({

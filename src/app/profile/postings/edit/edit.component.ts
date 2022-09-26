@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
-import { EditModalService } from '../services/editModal.service';
 
 @Component({
 	selector: 'app-edit',
@@ -24,7 +24,7 @@ export class EditComponent {
 	@ViewChild('price') price!: ElementRef<HTMLInputElement>;
 
 	constructor(
-		private editModal: EditModalService,
+		private editModal: ModalService,
 		public userFacade: UserFacade
 	) {
 		this.display$ = this.editModal.watch();

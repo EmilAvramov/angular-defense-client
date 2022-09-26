@@ -8,6 +8,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ProfileRoutingModule } from './profile.routing.module';
 import { EditComponent } from './postings/edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalService } from '../services/modal.service';
 
 @NgModule({
 	declarations: [PostingsComponent, SettingsComponent, EditComponent],
@@ -18,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 	],
-	providers: [],
+	providers: [ModalService],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProfileModule {}
