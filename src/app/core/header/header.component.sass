@@ -20,10 +20,10 @@ header
         img
             width: 25%
             cursor: pointer
-            margin-left: 135px
+            margin-left: 10%
 
     nav
-        margin-right: 135px
+        margin-right: 6%
         ul
             flex-basis: 70%
 
@@ -32,6 +32,22 @@ header
             list-style-type: none
 
             li
+                @include layout.flex($content-align: center, $item-align: center)
+                
+                .header__button
+                    width: 200px
+                    @include text.format-text($size: 18px, $weight: 700, $align: center, $color: color.$darkBlue )
+                    @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
+
+                    background-color: color.$orange
+                    padding: 9px 15px
+
+                    cursor: pointer            
+                    &:hover
+                        color: color.$smoked
+                        background-color: color.$darkBlue
+                        transition: all 350ms ease-in
+
                 a
                     @include text.format-link($color: color.$darkBlue)
                     @include text.format-text($size: 26px, $weight: 400, $color: color.$darkBlue )

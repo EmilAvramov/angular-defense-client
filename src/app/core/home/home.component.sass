@@ -4,42 +4,42 @@
 @use '../../../styles/mixins/_geometry' as geo
 
 .home__container
-    @include layout.flex()
+    @include layout.flex($gap: 50px)
 
     min-height: 91vh
+    width: 86%
+    margin: 0 auto
 
     .home__loader
         position: relative
         margin-top: 500px
 
     .home__main
-        flex-basis: 65%
-        margin-left: 50px
+        flex-basis: 75%
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
+        margin-bottom: 60px
 
         h2
-            margin: 45px auto -35px auto
+            margin: 0px auto -35px auto
             @include text.format-text($size: 22px, $weight: 700, $align: center, $color: color.$darkBlue)
             border-bottom: 10px solid color.$orange
             border-bottom-left-radius: 10px
             border-bottom-right-radius: 10px
-            width: 80%
-            padding-bottom: 15px
+            width: 100%
+            padding-bottom: 25px
 
         .home__main_container
-            width: 80%
             @include layout.grid-repeat-columns($pieces: 3, $size: 1fr, $gap: 40px)
-            margin: 25px auto 115px auto
 
             div
                 @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 15px)
                 background-color: color.$smoked
-                padding: 45px 20px
+                padding: 45px 70px
                 @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
                 img
-                    width: 80%
+                    width: 100%
                     mix-blend-mode: multiply
 
                 p
@@ -47,8 +47,8 @@
                     margin-bottom: 25px
 
     .home__aside
-        flex-basis: 23%
-        margin: 30px 50px 60px -20px
+        flex-basis: 25%
+        margin: 30px 0px 60px 0px
         background-color: color.$orange
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)

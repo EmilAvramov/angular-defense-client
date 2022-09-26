@@ -4,6 +4,8 @@
 	</div>
 	<nav>
 		<ul>
+			<li><button routerLink="/create" class="header__button" *ngIf="this.token">Create new ad</button></li>
+
 			<li>
 				<a routerLink="/"><i class="fa-solid fa-house"></i></a>
 			</li>
