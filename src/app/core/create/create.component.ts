@@ -25,7 +25,7 @@ import { User } from 'src/app/state/user/user.state';
 export class CreateComponent implements OnInit {
 	public user$: Observable<User | null>;
 	public devices$: Observable<Device[] | null>;
-	public deviceDetails$: Observable<Device | null>;
+	public details$: Observable<Device | null>;
 
 	public posting!: PostingPayload;
 	private userEmail!: string;
@@ -42,7 +42,7 @@ export class CreateComponent implements OnInit {
 	) {
 		this.user$ = this.userFacade.userData$;
 		this.devices$ = this.postingFacade.devicesData$;
-		this.deviceDetails$ = this.postingFacade.deviceDetails$;
+		this.details$ = this.postingFacade.deviceDetails$;
 	}
 
 	ngOnInit(): void {}
@@ -103,7 +103,7 @@ export class CreateComponent implements OnInit {
 		this.user$
 			?.pipe(takeUntil(this.completer$))
 			.subscribe((user: User | null) => (this.userEmail = user?.email as string));
-		this.deviceDetails$
+		this.details$
 			?.pipe(takeUntil(this.completer$))
 			.subscribe(
 				(device: Device | null) => (this.deviceKey = device?.deviceKey as string)
