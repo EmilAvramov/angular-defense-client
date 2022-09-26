@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnDestroy,
+	ViewChild,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -22,7 +28,7 @@ import { User } from 'src/app/state/user/user.state';
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.sass'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements AfterViewInit, OnDestroy {
 	public user$: Observable<User | null>;
 	public devices$: Observable<Device[] | null>;
 	public details$: Observable<Device | null>;
@@ -35,7 +41,7 @@ export class CreateComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-    private router: Router,
+		private router: Router,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
 		private spinner: NgxSpinnerService
@@ -44,8 +50,6 @@ export class CreateComponent implements OnInit {
 		this.devices$ = this.postingFacade.devicesData$;
 		this.details$ = this.postingFacade.deviceDetails$;
 	}
-
-	ngOnInit(): void {}
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;
 
@@ -68,7 +72,11 @@ export class CreateComponent implements OnInit {
 				map((e: Event) => (e.target as HTMLInputElement).value)
 			)
 			.subscribe({
-				next: (res) => this.postingFacade.queryDevices(res, 50),
+				next: (res) => {
+					this.postingFacade.clearDeviceDetails()
+					this.postingForm.reset()
+					this.postingFacade.queryDevices(res, 50);
+				},
 				error: (err) => console.log(err),
 			});
 	}
@@ -115,7 +123,7 @@ export class CreateComponent implements OnInit {
 			price: this.price!.value,
 		};
 		this.postingFacade.createPosting(this.posting);
-    this.router.navigate(['marketplace'])
+		this.router.navigate(['marketplace']);
 	}
 
 	fetchDeviceDetails(key: string): void {
@@ -123,6 +131,7 @@ export class CreateComponent implements OnInit {
 	}
 
 	ngOnDestroy(): void {
+		this.postingFacade.clearDeviceDetails();
 		this.completer$.next();
 		this.completer$.complete();
 	}

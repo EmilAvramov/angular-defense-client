@@ -1,4 +1,4 @@
-<h2>Create new device ad</h2>
+<h2 class="create__title">Create a new marketplace ad</h2>
 <div class="create__wrapper">
 	<div class="create__left">
 		<div class="create__left_search">
@@ -15,194 +15,204 @@
 				<img src="{{ device.deviceImage }}" alt="" />
 			</div>
 		</div>
+		<div class="create__left_info" *ngIf="this.details$ | async">
+			<div class="details__seller">
+				<h5>My Personal Information</h5>
+				<p>
+					<strong>Name:</strong> {{ (this.user$ | async)!.firstName }}
+					{{ (this.user$ | async)!.lastName }}
+				</p>
+				<p><strong>City:</strong> {{ (this.user$ | async)!.city }}</p>
+				<p><strong>Phone:</strong> {{ (this.user$ | async)!.phone }}</p>
+			</div>
+		</div>
 		<form
 			class="create__left_form"
 			*ngIf="this.details$ | async"
 			[formGroup]="postingForm"
 			(ngSubmit)="createPosting()"
 		>
-			<label for="comments">Comments about your device</label>
+			<label for="comments">My Comments</label>
 			<textarea
 				name="comments"
 				id=""
 				cols="30"
-				rows="10"
+				rows="5"
 				formControlName="comments"
 			></textarea>
-			<label for="price">Sell Price</label>
-			<input type="number" name="price" formControlName="price" />
-			<button [disabled]="!this.postingForm.valid">Create Posting</button>
-		</form>
-		<div class="create__left_info" *ngIf="this.details$ | async">
-			<div class="details__seller">
-				<p>
-					Seller Name: {{ (this.user$ | async)!.firstName }}
-					{{ (this.user$ | async)!.lastName }}
-				</p>
-				<p>Seller City: {{ (this.user$ | async)!.city }}</p>
-				<p>Seller Phone: {{ (this.user$ | async)!.phone }}</p>
+			<div class="create__left_price">
+				<label for="price">Sell Price in BGN</label>
+				<input type="number" name="price" formControlName="price" />
 			</div>
-		</div>
+			<button class="create__form_button" [disabled]="!this.postingForm.valid">Create Posting</button>
+		</form>
 	</div>
 	<div class="create__right" *ngIf="this.details$ | async">
-		<p class="details__left_title">
-			{{ (this.details$ | async)!.deviceName }}
-		</p>
-		<img src="{{ (this.details$ | async)!.deviceImage }}" alt="" />
-		<p class="details__right_title">Full Device Specifications</p>
-		<div class="details__right_wrapper">
-			<div
-				*ngIf="
-					(this.details$ | async)!.display ||
-					(this.details$ | async)!.size ||
-					(this.details$ | async)!.resolution
-				"
-				class="details__block"
-			>
-				<h6>Display</h6>
-				<p *ngIf="(this.details$ | async)!.display">
-					Display Type: {{ (this.details$ | async)!.display }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.size">
-					Display Size: {{ (this.details$ | async)!.size }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.resolution">
-					Resolution: {{ (this.details$ | async)!.resolution }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.cameraMain ||
-					(this.details$ | async)!.videoMain ||
-					(this.details$ | async)!.cameraSelfie ||
-					(this.details$ | async)!.videoSelfie
-				"
-				class="details__block"
-			>
-				<h6>Cameras</h6>
-				<p *ngIf="(this.details$ | async)!.cameraMain">
-					Rear Camera: {{ (this.details$ | async)!.cameraMain }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.videoMain">
-					Rear Camera Video: {{ (this.details$ | async)!.videoMain }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.cameraSelfie">
-					Front Camera: {{ (this.details$ | async)!.cameraSelfie }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.videoSelfie">
-					Front Camera Video: {{ (this.details$ | async)!.videoSelfie }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.chipset ||
-					(this.details$ | async)!.os ||
-					(this.details$ | async)!.cpu ||
-					(this.details$ | async)!.gpu
-				"
-				class="details__block"
-			>
-				<h6>Hardware</h6>
-				<p *ngIf="(this.details$ | async)!.chipset">
-					Chipset: {{ (this.details$ | async)!.chipset }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.os">
-					OS: {{ (this.details$ | async)!.os }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.cpu">
-					CPU: {{ (this.details$ | async)!.cpu }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.gpu">
-					GPU: {{ (this.details$ | async)!.gpu }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.jack ||
-					(this.details$ | async)!.features ||
-					(this.details$ | async)!.connectivity
-				"
-				class="details__block"
-			>
-				<h6>Features</h6>
-				<p *ngIf="(this.details$ | async)!.connectivity">
-					Connectivity: {{ (this.details$ | async)!.connectivity }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.jack">
-					3.5mm Jack: {{ (this.details$ | async)!.jack }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.features">
-					Others: {{ (this.details$ | async)!.features }}
-				</p>
-			</div>
+		<div class="create__right_info">
+			<p class="create__right_name">
+				{{ (this.details$ | async)!.deviceName }}
+			</p>
+			<img src="{{ (this.details$ | async)!.deviceImage }}" alt="" />
+		</div>
+		<div class="create__right_specs">
+			<p class="create__right_title">Full Device Specifications</p>
+			<div class="create__right_wrapper">
+				<div
+					*ngIf="
+						(this.details$ | async)!.display ||
+						(this.details$ | async)!.size ||
+						(this.details$ | async)!.resolution
+					"
+					class="create__block"
+				>
+					<h6>Display</h6>
+					<p *ngIf="(this.details$ | async)!.display">
+						Display Type: {{ (this.details$ | async)!.display }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.size">
+						Display Size: {{ (this.details$ | async)!.size }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.resolution">
+						Resolution: {{ (this.details$ | async)!.resolution }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.cameraMain ||
+						(this.details$ | async)!.videoMain ||
+						(this.details$ | async)!.cameraSelfie ||
+						(this.details$ | async)!.videoSelfie
+					"
+					class="create__block"
+				>
+					<h6>Cameras</h6>
+					<p *ngIf="(this.details$ | async)!.cameraMain">
+						Rear Camera: {{ (this.details$ | async)!.cameraMain }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.videoMain">
+						Rear Camera Video: {{ (this.details$ | async)!.videoMain }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.cameraSelfie">
+						Front Camera: {{ (this.details$ | async)!.cameraSelfie }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.videoSelfie">
+						Front Camera Video: {{ (this.details$ | async)!.videoSelfie }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.chipset ||
+						(this.details$ | async)!.os ||
+						(this.details$ | async)!.cpu ||
+						(this.details$ | async)!.gpu
+					"
+					class="create__block"
+				>
+					<h6>Hardware</h6>
+					<p *ngIf="(this.details$ | async)!.chipset">
+						Chipset: {{ (this.details$ | async)!.chipset }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.os">
+						OS: {{ (this.details$ | async)!.os }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.cpu">
+						CPU: {{ (this.details$ | async)!.cpu }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.gpu">
+						GPU: {{ (this.details$ | async)!.gpu }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.jack ||
+						(this.details$ | async)!.features ||
+						(this.details$ | async)!.connectivity
+					"
+					class="create__block"
+				>
+					<h6>Features</h6>
+					<p *ngIf="(this.details$ | async)!.connectivity">
+						Connectivity: {{ (this.details$ | async)!.connectivity }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.jack">
+						3.5mm Jack: {{ (this.details$ | async)!.jack }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.features">
+						Others: {{ (this.details$ | async)!.features }}
+					</p>
+				</div>
 
-			<div
-				*ngIf="
-					(this.details$ | async)!.dimensions ||
-					(this.details$ | async)!.weight ||
-					(this.details$ | async)!.build
-				"
-				class="details__block"
-			>
-				<h6>Body</h6>
-				<p *ngIf="(this.details$ | async)!.dimensions">
-					Body Size: {{ (this.details$ | async)!.dimensions }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.weight">
-					Weight: {{ (this.details$ | async)!.weight }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.build">
-					Build: {{ (this.details$ | async)!.build }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.batteryType ||
-					(this.details$ | async)!.batteryCharge
-				"
-				class="details__block"
-			>
-				<h6>Battery</h6>
-				<p *ngIf="(this.details$ | async)!.batteryType">
-					Battery Type: {{ (this.details$ | async)!.batteryType }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.batteryCharge">
-					Battery Charge: {{ (this.details$ | async)!.batteryCharge }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.cardSlot ||
-					(this.details$ | async)!.internalStorage ||
-					(this.details$ | async)!.sim
-				"
-				class="details__block"
-			>
-				<h6>Storage & Sim</h6>
-				<p *ngIf="(this.details$ | async)!.cardSlot">
-					Card Slot: {{ (this.details$ | async)!.cardSlot }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.internalStorage">
-					Internal Storage: {{ (this.details$ | async)!.internalStorage }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.sim">
-					Sim: {{ (this.details$ | async)!.sim }}
-				</p>
-			</div>
-			<div
-				*ngIf="
-					(this.details$ | async)!.launchDate || (this.details$ | async)!.price
-				"
-				class="details__block"
-			>
-				<h6>Distribution</h6>
-				<p *ngIf="(this.details$ | async)!.launchDate">
-					Release Date: {{ (this.details$ | async)!.launchDate }}
-				</p>
-				<p *ngIf="(this.details$ | async)!.price">
-					Retail Price: {{ (this.details$ | async)!.price }}
-				</p>
+				<div
+					*ngIf="
+						(this.details$ | async)!.dimensions ||
+						(this.details$ | async)!.weight ||
+						(this.details$ | async)!.build
+					"
+					class="create__block"
+				>
+					<h6>Body</h6>
+					<p *ngIf="(this.details$ | async)!.dimensions">
+						Body Size: {{ (this.details$ | async)!.dimensions }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.weight">
+						Weight: {{ (this.details$ | async)!.weight }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.build">
+						Build: {{ (this.details$ | async)!.build }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.batteryType ||
+						(this.details$ | async)!.batteryCharge
+					"
+					class="create__block"
+				>
+					<h6>Battery</h6>
+					<p *ngIf="(this.details$ | async)!.batteryType">
+						Battery Type: {{ (this.details$ | async)!.batteryType }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.batteryCharge">
+						Battery Charge: {{ (this.details$ | async)!.batteryCharge }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.cardSlot ||
+						(this.details$ | async)!.internalStorage ||
+						(this.details$ | async)!.sim
+					"
+					class="create__block"
+				>
+					<h6>Storage & Sim</h6>
+					<p *ngIf="(this.details$ | async)!.cardSlot">
+						Card Slot: {{ (this.details$ | async)!.cardSlot }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.internalStorage">
+						Internal Storage: {{ (this.details$ | async)!.internalStorage }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.sim">
+						Sim: {{ (this.details$ | async)!.sim }}
+					</p>
+				</div>
+				<div
+					*ngIf="
+						(this.details$ | async)!.launchDate || (this.details$ | async)!.price
+					"
+					class="create__block"
+				>
+					<h6>Distribution</h6>
+					<p *ngIf="(this.details$ | async)!.launchDate">
+						Release Date: {{ (this.details$ | async)!.launchDate }}
+					</p>
+					<p *ngIf="(this.details$ | async)!.price">
+						Retail Price: {{ (this.details$ | async)!.price }}
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<ngx-spinner [fullScreen]="false" type="ball-spin">
+	<p style="color: white">Loading...</p>
+</ngx-spinner>
