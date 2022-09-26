@@ -6,8 +6,6 @@ import {
 	tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
-import { mockUser } from 'src/app/shared/mockData/users.mock';
 
 import { SearchComponent } from './search.component';
 
@@ -31,21 +29,6 @@ describe('SearchComponent', () => {
 	});
 	it('(button) should not be visible to guests', () => {
 		expect(fixture.debugElement.query(By.css('.search__create'))).toBeNull();
-	});
-	it('(button) should be visible to users', () => {
-		component.user$ = of(mockUser);
-		spyOn(component, 'onCreate').and.callThrough();
-		spyOn(component.create, 'emit');
-		fixture.detectChanges();
-
-		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.search__create')
-		).nativeElement;
-		button.click();
-		fixture.detectChanges();
-
-		expect(component.onCreate).toHaveBeenCalled();
-		expect(component.create.emit).toHaveBeenCalled();
 	});
 	it('should emit a search string', fakeAsync(() => {
 		spyOn(component.search, 'emit');

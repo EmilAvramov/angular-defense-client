@@ -1,12 +1,10 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { map, Observable, Subject, take, takeUntil } from 'rxjs';
-import { Device } from 'src/app/state/device/device.state';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
-import { Posting, PostingPayload } from 'src/app/state/posting/posting.state';
+import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
-import { PostingCreateService } from './services/postingCreate.service';
 import { PostingDetailsService } from './services/postingDetails.service';
 
 @Component({
@@ -21,22 +19,17 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	public postings$: Observable<Posting[] | null>;
 	public postingDetails$: Observable<Posting | null>;
-	public devices$: Observable<Device[] | null>;
-	public deviceDetails$: Observable<Device | null>;
 	public user$: Observable<User | null>;
 	public validatedUser$: Observable<User | null>;
 
 	constructor(
 		public postingModal: PostingDetailsService,
-		public createModal: PostingCreateService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
 		private spinner: NgxSpinnerService
 	) {
 		this.postings$ = this.postingFacade.postingData$;
 		this.postingDetails$ = this.postingFacade.postingDetails$;
-		this.devices$ = this.postingFacade.devicesData$;
-		this.deviceDetails$ = this.postingFacade.deviceDetails$;
 		this.user$ = this.userFacade.userData$;
 		this.validatedUser$ = this.userFacade.userValidated$;
 	}
@@ -52,24 +45,12 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 			},
 			error: (err: string | null) => console.log(err),
 		});
-		this.user$
-			.pipe(
-				take(1),
-				map((data: User | null) => {
-					if (data) {
-						this.userFacade.validateUser(data.token);
-					}
-				})
-			)
-			.subscribe();
 	}
 
 	ngOnDestroy(): void {
 		this.completer$.next();
 		this.completer$.complete();
 	}
-
-	// Posting modal actions below
 
 	searchPostings(query: string): void {
 		this.limit = 18;
@@ -93,29 +74,6 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	deletePosting(id: number): void {
 		this.postingFacade.deletePosting(id);
-		this.postingFacade.initPostingsData();
-	}
-
-	// Create modal methods below
-
-	openCreateModal(): void {
-		this.createModal.open();
-	}
-
-	fetchDeviceList(query: string): void {
-		this.postingFacade.queryDevices(query, 50);
-	}
-
-	fetchDeviceDetails(key: string): void {
-		this.postingFacade.getDeviceDetails(key);
-	}
-
-	clearDetails(): void {
-		this.postingFacade.clearDeviceDetails();
-	}
-
-	createPosting(data: PostingPayload) {
-		this.postingFacade.createPosting(data);
 		this.postingFacade.initPostingsData();
 	}
 }

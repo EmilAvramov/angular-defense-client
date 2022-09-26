@@ -17,7 +17,6 @@ import { User } from 'src/app/state/user/user.state';
 export class SearchComponent {
 	@Input() user$: Observable<User | null> | undefined;
 	@Output() search = new EventEmitter<string>();
-	@Output() create = new EventEmitter<null>();
 
 	@ViewChild('searchInput') searchPosting!: ElementRef<HTMLInputElement>;
 
@@ -34,9 +33,5 @@ export class SearchComponent {
 				next: (res) => this.search.emit(res),
 				error: (err) => console.log(err),
 			});
-	}
-
-	onCreate() {
-		this.create.emit();
 	}
 }

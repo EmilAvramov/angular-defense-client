@@ -7,7 +7,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MarketplaceComponent } from './marketplace.component';
 import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
-import { CreateComponent } from './create/create.component';
 import { DetailsComponent } from './details/details.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { DetailsComponent } from './details/details.component';
 		MarketplaceComponent,
 		ListComponent,
 		SearchComponent,
-		CreateComponent,
 		DetailsComponent,
 	],
 	imports: [
