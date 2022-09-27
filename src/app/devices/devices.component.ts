@@ -15,7 +15,6 @@ export class DevicesComponent implements OnDestroy {
 	public offset: number = 0;
 	public data!: Device[] | null;
 	public details!: Device | null;
-
 	public completer$: Subject<void> = new Subject<void>();
 
 	constructor(

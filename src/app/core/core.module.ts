@@ -12,7 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
-import { ConfirmComponent } from './confirm/confirm.component';
+import { ConfirmDialog } from './confirm/confirm.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +22,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 		AboutComponent,
 		NotFoundComponent,
 		CreateComponent,
-		ConfirmComponent,
+		ConfirmDialog,
 	],
 	imports: [
 		CommonModule,
@@ -31,7 +31,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 		NgxSpinnerModule,
 		BrowserAnimationsModule,
 	],
-	exports: [HeaderComponent, FooterComponent, NotFoundComponent],
+	exports: [HeaderComponent, FooterComponent, NotFoundComponent, ConfirmDialog],
 	providers: [],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

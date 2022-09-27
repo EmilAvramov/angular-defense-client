@@ -35,6 +35,8 @@ import { ExternalEffects } from './state/external/external.effects';
 import { externalReducer } from './state/external/external.reducers';
 import { ExternalFacade } from './state/external/external.facade';
 import { ExternalService } from './state/external/external.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -67,6 +69,8 @@ import { ExternalService } from './state/external/external.service';
 			maxAge: 25,
 			logOnly: environment.production,
 		}),
+		BrowserAnimationsModule,
+		MatDialogModule,
 	],
 	providers: [
 		StorageService,

@@ -1,42 +1,26 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ModalService } from 'src/app/services/modal.service';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
 	selector: 'app-confirm',
 	templateUrl: './confirm.component.html',
 	styleUrls: ['./confirm.component.sass'],
 })
-export class ConfirmComponent {
-	public display$!: Observable<boolean>;
-
+export class ConfirmDialog {
 	message!: string;
 	btnOkText!: string;
 	btnCancelText!: string;
 
-	@Output() answer = new EventEmitter<boolean>();
-
-	constructor(private modal: ModalService) {
-		this.display$ = this.modal.watch();
-	}
-	close() {
-		this.modal.close();
-	}
-
-	confirm() {
-		this.answer.emit(true);
-		this.close();
-	}
-
-	cancel() {
-		this.answer.emit(false);
-		this.close();
-	}
+	constructor(public dialogRef: MatDialogRef<ConfirmDialog>) {}
 
 	loadData(message: string, ok: string, cancel: string) {
 		this.message = message;
 		this.btnOkText = ok;
 		this.btnCancelText = cancel;
-		this.modal.open();
+		this.dialogRef.close()
 	}
+
+	close() {}
+	confirm() {}
+	cancel() {}
 }

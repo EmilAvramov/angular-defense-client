@@ -1,16 +1,18 @@
-<ng-container *ngIf="display$ | async as display">
-	<section class="confirm__wrapper" (click)="close()">
+<ng-container>
+	<section class="confirm__wrapper" (click)="this.dialogRef.close(true)">
 		<div class="confirm__container">
-			<div class="confirm__message">
-				<p>{{ this.message }}</p>
-			</div>
-			<div class="confirm__buttons">
-				<button (click)="this.confirm()" class="confirm__yes">
-					{{ this.btnOkText }}
-				</button>
-				<button (click)="this.cancel()" class="confirm__no">
-					{{ this.btnCancelText }}
-				</button>
+			<div class="confirm__body">
+				<div class="confirm__message">
+					<p>{{ this.message }}</p>
+				</div>
+				<div class="confirm__buttons">
+					<button (click)="this.confirm()" class="confirm__yes">
+						{{ this.btnOkText }}
+					</button>
+					<button (click)="this.dialogRef.close(true)" class="confirm__no">
+						{{ this.btnCancelText }}
+					</button>
+				</div>
 			</div>
 		</div>
 	</section>
