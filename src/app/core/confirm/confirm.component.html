@@ -1,14 +1,14 @@
 <ng-container>
 	<section class="confirm__wrapper">
 		<div class="confirm__message">
-			<p>{{ this.message }}</p>
+			<p>{{ data.message }}</p>
 		</div>
 		<div class="confirm__buttons">
-			<button (click)="this.close(true)" class="confirm__yes">
-				{{ this.btnOkText }}
+			<button (click)="this.dialogRef.close(true)" class="confirm__yes">
+				{{ data.ok }}
 			</button>
-			<button (click)="this.close(false)" class="confirm__no">
-				{{ this.btnCancelText }}
+			<button (click)="this.dialogRef.close(false)" class="confirm__no">
+				{{ data.cancel }}
 			</button>
 		</div>
 	</section>

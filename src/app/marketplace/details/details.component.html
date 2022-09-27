@@ -1,6 +1,10 @@
 <ng-container *ngIf="display$ | async as display">
 	<section class="details__wrapper" (click)="close()">
-		<div *ngIf="(this.details$ | async)!.id as id" class="details__container">
+		<div
+			*ngIf="(this.details$ | async)!.id as id"
+			class="details__container"
+			(click)="$event.stopPropagation()"
+		>
 			<button class="close" type="button" (click)="close()">
 				<i class="fa-solid fa-xmark"></i>
 			</button>
@@ -26,7 +30,7 @@
 			>
 				<i class="fa-solid fa-trash-can"></i>
 			</button>
-			<div class="details__body" (click)="$event.stopPropagation()">
+			<div class="details__body">
 				<div class="details__left">
 					<p class="details__left_title">
 						{{ (this.details$ | async)!.Device!.deviceName }}

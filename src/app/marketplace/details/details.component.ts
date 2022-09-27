@@ -6,11 +6,13 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 
 @Component({
 	selector: 'app-details',
@@ -34,7 +36,8 @@ export class DetailsComponent {
 
 	constructor(
 		private postingModal: ModalService,
-		public userFacade: UserFacade
+		public userFacade: UserFacade,
+		public dialog: MatDialog
 	) {
 		this.display$ = this.postingModal.watch();
 		this.userFacade.validateUser(sessionStorage.getItem('token')!);
@@ -43,7 +46,30 @@ export class DetailsComponent {
 	emitEdit(id: number) {}
 
 	emitDelete(id: number) {
-		this.deletePosting.emit(id);
+		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(
+			ConfirmDialog,
+			{
+				disableClose: false,
+				width: '40vw',
+				height: '16vh',
+				data: {
+					message: 'Are you sure you want to delete this posting?',
+					ok: 'Yes, continue',
+					cancel: 'No, cancel',
+				},
+			}
+		);
+		dialogRef
+			.afterClosed()
+			.pipe(
+				map((result: boolean) => {
+					if (result) {
+						this.deletePosting.emit(id);
+						this.postingModal.close();
+					}
+				})
+			)
+			.subscribe();
 	}
 	close() {
 		this.postingModal.close();
