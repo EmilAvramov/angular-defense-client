@@ -1,0 +1,29 @@
+@use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/mixins/_geometry' as geo
+
+.faq__wrapper
+    min-height: 86vh
+    width: 85%
+    margin: 0 auto
+
+    .faq__container
+        @include layout.flex($direction: column, $gap: 20px)
+        margin: 40px auto
+
+        h2
+            @include text.format-text($size: 22px, $weight: 700)
+
+        .faq__block
+            h6
+                @include text.format-text($size: 20px, $weight: 700)
+                @include geo.border-adjust($px: 2px, $color: color.$orange, $radius: 50px)
+                padding: 10px
+
+            p
+                @include text.format-text($size: 18px)
+                padding: 10px
+
+            .faq__info
+                font-weight: bold
