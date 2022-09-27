@@ -1,8 +1,17 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 
 @Component({
 	selector: 'app-edit',
@@ -25,7 +34,8 @@ export class EditComponent {
 
 	constructor(
 		private editModal: ModalService,
-		public userFacade: UserFacade
+		public userFacade: UserFacade,
+		public dialog: MatDialog
 	) {
 		this.display$ = this.editModal.watch();
 	}
@@ -35,11 +45,33 @@ export class EditComponent {
 			id,
 			comments: this.comments.nativeElement.value,
 			price: Number(this.price.nativeElement.value),
-		})
+		});
 	}
 
 	emitDelete(id: number) {
-		this.deletePosting.emit(id);
+		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(
+			ConfirmDialog,
+			{
+				disableClose: false,
+				width: '40vw',
+				height: '16vh',
+				data: {
+					message: 'Are you sure you want to delete this posting?',
+					ok: 'Yes, continue',
+					cancel: 'No, cancel',
+				},
+			}
+		);
+		dialogRef
+			.afterClosed()
+			.pipe(
+				map((result: boolean) => {
+					if (result) {
+						this.deletePosting.emit(id);
+					}
+				})
+			)
+			.subscribe();
 	}
 	close() {
 		this.editModal.close();

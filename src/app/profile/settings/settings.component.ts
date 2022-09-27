@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	OnDestroy,
+	OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -9,6 +15,8 @@ import {
 } from 'src/app/shared/variables/validationPatterns';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 
 @Component({
 	selector: 'app-settings',
@@ -32,7 +40,8 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 		private fb: FormBuilder,
 		private userFacade: UserFacade,
 		private router: Router,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		public dialog: MatDialog
 	) {
 		this.userData$ = this.userFacade.userData$;
 	}
@@ -258,8 +267,33 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	deleteAccount() {
-		this.userFacade.deleteAccount(this.userId, this.userToken);
-		this.router.navigate(['/']);
-		this.userFacade.logoutUser(this.userToken);
+		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(
+			ConfirmDialog,
+			{
+				disableClose: false,
+				width: '40vw',
+				height: '16vh',
+				data: {
+					message:
+						'Are you sure you want to delete your account? This cannot be undone.',
+					ok: 'Yes, continue',
+					cancel: 'No, cancel',
+				},
+			}
+		);
+		dialogRef
+			.afterClosed()
+			.pipe(
+				map((result: boolean) => {
+					if (result) {
+						this.userFacade.deleteAccount(this.userId, this.userToken);
+						this.router.navigate(['/']);
+						this.userFacade.logoutUser(this.userToken);
+					} else {
+						this.deleteForm.reset();
+					}
+				})
+			)
+			.subscribe();
 	}
 }

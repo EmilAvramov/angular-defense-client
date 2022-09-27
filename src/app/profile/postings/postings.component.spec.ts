@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { mockPostingPartial } from 'src/app/shared/mockData/postings.mock';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { EditComponent } from './edit/edit.component';
-
+import { MatDialog } from '@angular/material/dialog';
 import { PostingsComponent } from './postings.component';
 
 @Component({
@@ -37,7 +37,11 @@ describe('PostingsComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [PostingsComponent, FakeEditComponent],
-			providers: [FormBuilder, provideMockStore({})],
+			providers: [
+				FormBuilder,
+				provideMockStore({}),
+				{ provide: MatDialog, useValue: {} },
+			],
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 

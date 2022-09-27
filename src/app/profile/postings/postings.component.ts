@@ -5,6 +5,8 @@ import { ModalService } from 'src/app/services/modal.service';
 import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 
 @Component({
 	selector: 'app-postings',
@@ -21,7 +23,8 @@ export class PostingsComponent implements OnDestroy {
 		private userFacade: UserFacade,
 		private postingFacade: PostingFacade,
 		private editModal: ModalService,
-		private spinner: NgxSpinnerService
+		private spinner: NgxSpinnerService,
+		public dialog: MatDialog
 	) {
 		this.postingFacade.dataLoaded$.pipe(takeUntil(this.completer$)).subscribe({
 			next: (loading: boolean) => {
@@ -56,11 +59,33 @@ export class PostingsComponent implements OnDestroy {
 
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
-		this.postingFacade.initPostingsData()
+		this.postingFacade.initPostingsData();
 	}
 
 	deletePosting(id: number): void {
-		this.postingFacade.deletePosting(id);
+		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(
+			ConfirmDialog,
+			{
+				disableClose: false,
+				width: '40vw',
+				height: '16vh',
+				data: {
+					message: 'Are you sure you want to delete this posting?',
+					ok: 'Yes, continue',
+					cancel: 'No, cancel',
+				},
+			}
+		);
+		dialogRef
+			.afterClosed()
+			.pipe(
+				map((result: boolean) => {
+					if (result) {
+						this.postingFacade.deletePosting(id);
+					}
+				})
+			)
+			.subscribe();
 	}
 
 	fetchPostingDetails(id: number): void {

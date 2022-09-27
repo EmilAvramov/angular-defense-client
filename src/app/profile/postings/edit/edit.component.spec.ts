@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { mockPostingDetails } from 'src/app/shared/mockData/postings.mock';
-
+import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from './edit.component';
 
 describe('EditComponent', () => {
@@ -14,7 +14,8 @@ describe('EditComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [EditComponent],
-			providers: [provideMockStore({})],
+			providers: [provideMockStore({}), { provide: MatDialog, useValue: {} }],
+
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 

@@ -3,9 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+
 import { mockPostingDetails } from 'src/app/shared/mockData/postings.mock';
 import { mockUser } from 'src/app/shared/mockData/users.mock';
-
 import { DetailsComponent } from './details.component';
 
 describe('DetailsComponent', () => {
@@ -15,7 +16,7 @@ describe('DetailsComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [DetailsComponent],
-			providers: [provideMockStore({})],
+			providers: [provideMockStore({}), { provide: MatDialog, useValue: {} }],
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 

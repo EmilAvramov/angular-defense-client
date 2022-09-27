@@ -1,11 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { mockUser } from 'src/app/shared/mockData/users.mock';
-
+import { MatDialog } from '@angular/material/dialog';
 import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {
@@ -16,7 +16,11 @@ describe('SettingsComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [ReactiveFormsModule],
 			declarations: [SettingsComponent],
-			providers: [FormBuilder, provideMockStore({})],
+			providers: [
+				FormBuilder,
+				provideMockStore({}),
+				{ provide: MatDialog, useValue: {} },
+			],
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
 
