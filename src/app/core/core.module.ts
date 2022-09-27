@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { ConfirmDialog } from './confirm/confirm.component';
 
+import { MatDialog } from '@angular/material/dialog';
+
 @NgModule({
 	declarations: [
 		FooterComponent,
@@ -32,7 +34,7 @@ import { ConfirmDialog } from './confirm/confirm.component';
 		BrowserAnimationsModule,
 	],
 	exports: [HeaderComponent, FooterComponent, NotFoundComponent, ConfirmDialog],
-	providers: [],
+	providers: [MatDialog],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoreModule {}

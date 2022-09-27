@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -11,11 +11,19 @@ export class ConfirmDialog {
 	btnOkText!: string;
 	btnCancelText!: string;
 
-	constructor(public dialogRef: MatDialogRef<ConfirmDialog>) {}
+	constructor(
+		public dialogRef: MatDialogRef<ConfirmDialog>,
+		private cdr: ChangeDetectorRef
+	) {}
 
 	loadData(message: string, ok: string, cancel: string) {
 		this.message = message;
 		this.btnOkText = ok;
 		this.btnCancelText = cancel;
+	}
+
+	close(state: boolean) {
+		this.dialogRef.close(state);
+		this.cdr.detectChanges();
 	}
 }
