@@ -2,6 +2,7 @@
 @use '../../../styles/variables/_colors' as color
 @use '../../../styles/mixins/_text' as text
 @use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/extend/_gradients'
 
 .profile__settings_container
     width: 90vw
@@ -80,21 +81,20 @@
             @include text.format-text($size: 16px, $weight: 700, $align: center, $color: color.$darkBlue )
             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
 
-            background-color: color.$orange
             padding: 9px 15px
-
+            @extend %orange-gradient
             cursor: pointer
             &:disabled
-                background-color: color.$smoked
+                background: color.$smoked
                 color: color.$darkBlue
             &:enabled
                 &:hover
                     color: color.$smoked
-                    background-color: color.$darkBlue
-                    transition: all 350ms ease-in
+                    @extend %blue-gradient
+                    transition: background 350ms ease-in
 
         .form__confirmDelete
-            background-color: color.$crimson
+            background: color.$crimson
             color: color.$smoked
 
         .form__error

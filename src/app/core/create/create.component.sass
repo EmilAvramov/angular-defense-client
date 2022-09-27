@@ -2,6 +2,7 @@
 @use '../../../styles/variables/_colors' as color
 @use '../../../styles/mixins/_text' as text
 @use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/extend/_gradients'
 
 .create__title
     width: 85%
@@ -99,7 +100,7 @@
                 @include text.format-text($size: 16px, $weight: 700, $align: center, $color: color.$darkBlue )
                 @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
 
-                background-color: color.$orange
+                @extend %orange-gradient
                 padding: 9px 15px
                 margin-top: 20px
 
@@ -107,12 +108,12 @@
 
                 cursor: pointer            
                 &:disabled
-                    background-color: color.$smoked
+                    background: color.$smoked
                 &:enabled
                     &:hover
                         color: color.$smoked
-                        background-color: color.$darkBlue
-                        transition: all 350ms ease-in
+                        @extend %blue-gradient
+                        transition: background 350ms ease-in
 
 
     .create__right

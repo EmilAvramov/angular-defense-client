@@ -2,6 +2,7 @@
 @use '../../../styles/mixins/_text' as text
 @use '../../../styles/mixins/_geometry' as geo
 @use '../../../styles/variables/_colors' as color
+@use '../../../styles/extend/_gradients'
 
 footer
     @include layout.flex($content-align: left, $item-align: center)
@@ -12,8 +13,9 @@ footer
     height: 50vh
 
     padding: 10px 20px
-    background-color: color.$darkBlue
     color: color.$white
+
+    @extend %blue-gradient
 
     .footer__arrow
         flex-basis: 10%
@@ -45,7 +47,7 @@ footer
                 width: 90%
                 @include text.format-text($size: 18px, $align:center, $weight: 700, $color: color.$darkBlue )
                 @include geo.border-adjust($px: 0px, $color: color.$darkBlue, $radius: 10px)
-                background-color: color.$orange
+                @extend %orange-gradient
                 cursor: pointer
                 padding: 5px 0px
                 width: 100%

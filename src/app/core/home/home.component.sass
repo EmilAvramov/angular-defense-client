@@ -2,6 +2,7 @@
 @use '../../../styles/variables/_colors' as color
 @use '../../../styles/mixins/_text' as text
 @use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/extend/_gradients'
 
 .home__container
     @include layout.flex($gap: 50px)
@@ -49,7 +50,7 @@
     .home__aside
         flex-basis: 30%
         margin: 30px 0px 60px 0px
-        background-color: color.$orange
+        @extend %orange-gradient
 
         @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 50px)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)

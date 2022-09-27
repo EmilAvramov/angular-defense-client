@@ -2,6 +2,7 @@
 @use '../../../../styles/mixins/_geometry' as geo
 @use '../../../../styles/mixins/_text' as text
 @use '../../../../styles/variables/_colors' as color
+@use '../../../../styles/extend/_gradients'
 
 .details__wrapper
     @include geo.wrapper()
@@ -93,14 +94,14 @@
                             @include text.format-text($size: 18px, $weight: 700, $align: center, $color: color.$darkBlue )
                             @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
 
-                            background-color: color.$orange
+                            @extend %orange-gradient
                             padding: 9px 15px
 
                             cursor: pointer
                             &:hover
                                 color: color.$smoked
-                                background-color: color.$darkBlue
-                                transition: all 350ms ease-in
+                                @extend %blue-gradient
+                                transition: background 350ms ease-in
 
                 .details__right_wrapper
                     height: 20vh
