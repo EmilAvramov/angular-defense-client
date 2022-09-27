@@ -39,12 +39,20 @@
 				cols="30"
 				rows="5"
 				formControlName="comments"
+				class="create__left_commentsInput"
 			></textarea>
 			<div class="create__left_price">
 				<label for="price">Sell Price in EUR</label>
-				<input type="number" name="price" formControlName="price" />
+				<input
+					type="number"
+					name="price"
+					formControlName="price"
+					class="create__left_priceInput"
+				/>
 			</div>
-			<button class="create__form_button" [disabled]="!this.postingForm.valid">Create Posting</button>
+			<button class="create__form_button" [disabled]="!this.postingForm.valid">
+				Create Posting
+			</button>
 		</form>
 	</div>
 	<div class="create__right" *ngIf="this.details$ | async">
