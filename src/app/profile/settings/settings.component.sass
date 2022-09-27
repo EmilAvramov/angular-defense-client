@@ -84,10 +84,14 @@
         padding: 9px 15px
 
         cursor: pointer
-        &:hover
-            color: color.$smoked
-            background-color: color.$darkBlue
-            transition: all 350ms ease-in
+        &:disabled
+            background-color: color.$smoked
+            color: color.$darkBlue
+        &:enabled
+            &:hover
+                color: color.$smoked
+                background-color: color.$darkBlue
+                transition: all 350ms ease-in
 
     .form__confirmDelete
         background-color: color.$crimson

@@ -68,7 +68,7 @@ export class PostingsComponent implements OnDestroy {
 			{
 				disableClose: false,
 				width: '40vw',
-				height: '16vh',
+				height: '21vh',
 				data: {
 					message: 'Are you sure you want to delete this posting?',
 					ok: 'Yes, continue',

@@ -272,7 +272,7 @@ export class SettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 			{
 				disableClose: false,
 				width: '40vw',
-				height: '16vh',
+				height: '21vh',
 				data: {
 					message:
 						'Are you sure you want to delete your account? This cannot be undone.',
