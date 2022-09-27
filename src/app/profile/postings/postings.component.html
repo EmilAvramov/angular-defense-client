@@ -1,6 +1,6 @@
 <div class="profile__postings_container">
 	<div class="profile__postings_wrapper">
-		<h2>My MarketPlace Postings</h2>
+		<h2>My Marketplace Postings</h2>
 		<div class="profile__postings_subwrapper">
 			<div
 				*ngFor="let posting of userPostings"
@@ -11,21 +11,15 @@
 					<img src="{{ posting.Device!.deviceImage }}" alt="" />
 				</div>
 				<div class="profile__postings_personal">
-					<p>Posting Price: {{ posting.price }}</p>
-					<p>Comments: {{ posting.comments }}</p>
+					<p><strong>Selling Price:</strong> {{ posting.price }} EUR</p>
+					<p><strong>Comments:</strong> {{ posting.comments }}</p>
 				</div>
 				<div class="profile__postings_buttons">
-					<button
-						class="profile__buttons_details"
-						(click)="fetchPostingDetails(posting.id)"
-					>
-						Edit
+					<button class="edit" (click)="fetchPostingDetails(posting.id)">
+						<i class="fa-solid fa-pencil"></i>
 					</button>
-					<button
-						class="profile__buttons_delete"
-						(click)="deletePosting(posting.id)"
-					>
-						Delete
+					<button class="delete" (click)="deletePosting(posting.id)">
+						<i class="fa-solid fa-trash-can"></i>
 					</button>
 				</div>
 			</div>

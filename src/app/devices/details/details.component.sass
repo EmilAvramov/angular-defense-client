@@ -5,9 +5,10 @@
 
 .details__wrapper
     @include geo.wrapper()
+    z-index: 60
 
     .details__container
-        @include geo.container($height: 80vh, $width: 60vw)
+        @include geo.container($height: 85vh, $width: 60vw)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
         .close
@@ -54,7 +55,7 @@
                     .details__block
                         width: 85%
                         background-color: color.$smoked
-                        
+
                         h6
                             margin-bottom: 5px
                             @include text.format-text($size: 16px, $weight: 700)

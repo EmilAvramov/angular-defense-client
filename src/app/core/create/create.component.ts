@@ -49,6 +49,7 @@ export class CreateComponent implements AfterViewInit, OnDestroy {
 		this.user$ = this.userFacade.userData$;
 		this.devices$ = this.postingFacade.devicesData$;
 		this.details$ = this.postingFacade.deviceDetails$;
+		window.scroll(0, 0);
 	}
 
 	@ViewChild('searchInput') searchDevice!: ElementRef<HTMLInputElement>;

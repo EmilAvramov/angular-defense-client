@@ -36,6 +36,8 @@
 
             label
                 flex-basis: 20%
+                @include text.format-text($size: 16px)
+                
 
             input
                 flex-basis: 80%
@@ -73,7 +75,7 @@
                     @include text.format-text($size: 16px, $align: center)
 
         .create__left_form
-            @include layout.flex($direction: column, $gap: 20px)
+            @include layout.flex($direction: column, $gap: 10px)
 
             label
                 font-weight: 700
@@ -99,6 +101,7 @@
 
                 background-color: color.$orange
                 padding: 9px 15px
+                margin-top: 20px
 
                 flex-basis: 50%
 
@@ -146,6 +149,6 @@
 
                     h6
                         margin-bottom: 5px
-                        font-weight: bold
+                        @include text.format-text($size: 16px, $weight: 700)
                     p
                         margin-bottom: 5px
