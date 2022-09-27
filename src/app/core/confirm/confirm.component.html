@@ -1,15 +1,15 @@
 <ng-container>
-	<section class="confirm__wrapper" (click)="this.dialogRef.close(true)">
+	<section class="confirm__wrapper" (click)="this.dialogRef.close(false)">
 		<div class="confirm__container">
-			<div class="confirm__body">
+			<div class="confirm__body" (click)="$event.stopPropagation()">
 				<div class="confirm__message">
 					<p>{{ this.message }}</p>
 				</div>
 				<div class="confirm__buttons">
-					<button (click)="this.confirm()" class="confirm__yes">
+					<button (click)="this.dialogRef.close(true)" class="confirm__yes">
 						{{ this.btnOkText }}
 					</button>
-					<button (click)="this.dialogRef.close(true)" class="confirm__no">
+					<button (click)="this.dialogRef.close(false)" class="confirm__no">
 						{{ this.btnCancelText }}
 					</button>
 				</div>

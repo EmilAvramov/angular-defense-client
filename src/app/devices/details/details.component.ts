@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { Device } from 'src/app/state/device/device.state';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 
 @Component({
@@ -11,7 +11,6 @@ import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 	styleUrls: ['./details.component.sass'],
 })
 export class DetailsComponent {
-	public dialogRef!: MatDialogRef<ConfirmDialog> | null;
 	public display$!: Observable<boolean>;
 
 	@Input() details!: Device | null;
@@ -21,13 +20,19 @@ export class DetailsComponent {
 	}
 
 	close() {
-		this.dialogRef = this.dialog.open(ConfirmDialog, { disableClose: false });
-		this.dialogRef.componentInstance.loadData('message', 'ok', 'cancel');
-		this.dialogRef.afterClosed().subscribe((response) => {
-			if (response) {
-				this.modal.close();
-			}
-			this.dialogRef = null;
-		});
+		const dialogRef = this.dialog.open(ConfirmDialog, { disableClose: false });
+		dialogRef.componentInstance.loadData(
+			'Are you sure you want to delete this posting?',
+			'Yes, continue',
+			'No, cancel'
+		);
+		dialogRef.afterClosed().pipe(
+			take(1),
+			map((result: boolean) => {
+				if (result) {
+					this.modal.close();
+				}
+			})
+		).subscribe();
 	}
 }

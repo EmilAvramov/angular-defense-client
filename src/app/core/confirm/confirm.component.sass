@@ -11,19 +11,39 @@
         @include geo.container($height: 30vh, $width: 40vw)
         @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
 
-        @include layout.flex($direction: column, $content-align: center, $item-align: center)
-        background-color: color.$smoked
+        .confirm__body
+            background-color: color.$smoked
+            flex-basis: 100%
+            height: 100%
 
-        .confirm__buttons
-            button
-                width: 200px
-                @include text.format-text($size: 18px, $weight: 700, $align: center, $color: color.$darkBlue )
-                @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
+            @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 10px)
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+            @include geo.box-sizing-adjust()
 
-                padding: 9px 15px
+            .confirm__message
+                @include text.format-text($size: 18px)
 
-                cursor: pointer
-                &:hover
-                    color: color.$smoked
-                    background-color: color.$darkBlue
-                    transition: all 350ms ease-in
+            .confirm__buttons
+                @include layout.flex()
+
+                button
+                    width: 200px
+                    @include text.format-text($size: 18px, $weight: 700, $align: center, $color: color.$darkBlue )
+                    @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
+
+                    color: color.$darkBlue
+                    background-color: color.$smoked
+
+                    padding: 9px 15px
+                    cursor: pointer
+
+                .confirm__yes
+                    &:hover
+                        color: color.$smoked
+                        background-color: color.$crimson
+                        transition: all 350ms ease-in
+                .confirm__no
+                    &:hover
+                        color: color.$darkBlue
+                        background-color: color.$lightBlue
+                        transition: all 350ms ease-in

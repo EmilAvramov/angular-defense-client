@@ -36,7 +36,9 @@ import { externalReducer } from './state/external/external.reducers';
 import { ExternalFacade } from './state/external/external.facade';
 import { ExternalService } from './state/external/external.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -82,6 +84,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 		DeviceFacade,
 		PostingFacade,
 		ExternalFacade,
+		MatDialog,
+		{ provide: MatDialogRef, useValue: {} },
 	],
 	bootstrap: [AppComponent],
 })

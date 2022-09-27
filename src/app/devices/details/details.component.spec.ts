@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { deviceMockDataDetails } from 'src/app/shared/mockData/devices.mock';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { DetailsComponent } from './details.component';
 
 describe('ModalComponent', () => {
@@ -13,6 +13,7 @@ describe('ModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+			imports: [MatDialogModule],
 			declarations: [DetailsComponent],
 			providers: [provideMockStore({})],
 			schemas: [NO_ERRORS_SCHEMA],

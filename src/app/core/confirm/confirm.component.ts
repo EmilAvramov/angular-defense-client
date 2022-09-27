@@ -17,10 +17,5 @@ export class ConfirmDialog {
 		this.message = message;
 		this.btnOkText = ok;
 		this.btnCancelText = cancel;
-		this.dialogRef.close()
 	}
-
-	close() {}
-	confirm() {}
-	cancel() {}
 }
