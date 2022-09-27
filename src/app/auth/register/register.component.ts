@@ -41,14 +41,14 @@ export class RegisterComponent implements OnDestroy {
 				'',
 				{
 					validators: [Validators.required, Validators.pattern(emailPattern)],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 			password: [
 				'',
 				{
 					validators: [Validators.required, Validators.pattern(passwordPattern)],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 		}),
@@ -57,28 +57,28 @@ export class RegisterComponent implements OnDestroy {
 				'',
 				{
 					validators: [Validators.required],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 			lastName: [
 				'',
 				{
 					validators: [Validators.required],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 			phone: [
 				'',
 				{
 					validators: [Validators.required, Validators.pattern(phonePattern)],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 			address: [
 				'',
 				{
 					validators: [Validators.required],
-					updateOn: 'blur',
+					updateOn: 'change',
 				},
 			],
 			city: [

@@ -91,6 +91,7 @@ describe('CreateComponent', () => {
 		fixture.detectChanges();
 
 		expect(button.disabled).toBeFalsy();
+		expect(component.postingForm.valid).toBeTruthy();
 		button.click();
 		fixture.detectChanges();
 		//doesnt enable button
