@@ -1,4 +1,7 @@
 <div class="register__container">
+	<div class="register__image">
+		<img src="../../../assets/register-backdrop.png" alt="" />
+	</div>
 	<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 		<p class="form__error" style="text-align: center" *ngIf="this.error$ | async">
 			Something went wrong, please try again

@@ -8,10 +8,19 @@
 
     min-height: 91vh
 
+    margin-top: -50px
+    .login__image
+        flex-basis: 50%
+        margin-left: 50px
+
+        img
+            width: 95%
+
     form
+        flex-basis: 25%
         @include layout.flex($direction: column, $gap: 10px)
         width: 30%
-        margin: 0px auto 200px auto
+        margin: 0px 300px 200px auto
 
         .form__error
             color: color.$crimson

@@ -1,4 +1,7 @@
 <div class="login__container">
+	<div class="login__image">
+		<img src="../../../assets//login-backdrop.png" alt="" />
+	</div>
 	<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 		<p class="form__error" style="text-align: center" *ngIf="this.error$ | async">
 			Incorrect credentials
@@ -27,16 +30,15 @@
 			formControlName="password"
 			required
 		/>
-		<span
-			class="form__error"
-			*ngIf="password?.invalid && password?.touched"	
-		>
+		<span class="form__error" *ngIf="password?.invalid && password?.touched">
 			<p *ngIf="password?.errors?.['required']">This field is required</p>
 			<p *ngIf="password?.errors?.['pattern']">
 				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
 				character
 			</p>
 		</span>
-		<button class="form__submit" [disabled]="!this.profileForm.valid">Login</button>
+		<button class="form__submit" [disabled]="!this.profileForm.valid">
+			Login
+		</button>
 	</form>
 </div>

@@ -1,156 +1,161 @@
 <div class="profile__settings_container">
-	<form
-		class="profile__settings_left"
-		[formGroup]="profileForm"
-		(ngSubmit)="changeDetails()"
-	>
-		<h3>Change Personal Details</h3>
-		<label for="email">Email: </label>
-		<input
-			class="form__email"
-			name="email"
-			type="email"
-			formControlName="email"
-			required
-		/>
-		<span class="form__error" *ngIf="email?.invalid">
-			<p *ngIf="email?.errors?.['required']">This field is required</p>
-			<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
-		</span>
-		<label for="firstName">First Name: </label>
-		<input name="firstName" type="text" formControlName="firstName" required />
-		<span class="form__error" *ngIf="firstName?.invalid">
-			<p *ngIf="firstName?.errors?.['required']">This field is required</p>
-		</span>
-
-		<label for="lastName">Last Name: </label>
-		<input name="last-name" type="text" formControlName="lastName" required />
-		<span class="form__error" *ngIf="lastName?.invalid">
-			<p *ngIf="lastName?.errors?.['required']">This field is required</p>
-		</span>
-
-		<label for="phone">Phone Number: </label>
-		<input name="phone" type="text" formControlName="phone" required />
-		<span class="form__error" *ngIf="phone?.invalid">
-			<p *ngIf="phone?.errors?.['required']">This field is required</p>
-			<p *ngIf="phone?.errors?.['pattern']">
-				Phone must contain only digits and be at least 6 characters long
-			</p>
-		</span>
-
-		<label for="address">Address: </label>
-		<input name="address" type="text" formControlName="address" required />
-		<span class="form__error" *ngIf="address?.invalid">
-			<p *ngIf="address?.errors?.['required']">This field is required</p>
-		</span>
-
-		<label for="city">City: </label>
-		<input name="city" type="text" formControlName="city" required />
-		<span class="form__error" *ngIf="city?.invalid">
-			<p *ngIf="city?.errors?.['required']">This field is required</p>
-		</span>
-		<button class="form__changeDetails" [disabled]="!this.profileForm.valid">
-			Change Details
-		</button>
-	</form>
-	<form
-		class="profile__settings_mid"
-		[formGroup]="passwordForm"
-		(ngSubmit)="changePassword()"
-	>
-		<h3>Change Password</h3>
-		<label for="currentPassword">Current Password: </label>
-		<input
-			class="form__currentPassword"
-			name="currentPassword"
-			type="password"
-			formControlName="currentPassword"
-			required
-		/>
-		<span
-			class="form__error"
-			*ngIf="
-				currentPassword?.invalid &&
-				(currentPassword?.dirty || currentPassword?.touched)
-			"
+	<div class="profile__image">
+		<img src="../../../assets/settings-backdrop.png" alt="" />
+	</div>
+	<div class="profile__form_wrapper">
+		<form
+			class="profile__settings_left"
+			[formGroup]="profileForm"
+			(ngSubmit)="changeDetails()"
 		>
-			<p *ngIf="currentPassword?.errors?.['required']">This field is required</p>
-			<p *ngIf="currentPassword?.errors?.['pattern']">
-				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
-				character
-			</p>
-		</span>
-		<label for="password">New Password: </label>
-		<input
-			class="form__password"
-			name="password"
-			type="password"
-			formControlName="password"
-			required
-		/>
-		<span
-			class="form__error"
-			*ngIf="password?.invalid && (password?.dirty || password?.touched)"
+			<h3>Change Personal Details</h3>
+			<label for="email">Email: </label>
+			<input
+				class="form__email"
+				name="email"
+				type="email"
+				formControlName="email"
+				required
+			/>
+			<span class="form__error" *ngIf="email?.invalid">
+				<p *ngIf="email?.errors?.['required']">This field is required</p>
+				<p *ngIf="email?.errors?.['pattern']">Please enter a valid email address</p>
+			</span>
+			<label for="firstName">First Name: </label>
+			<input name="firstName" type="text" formControlName="firstName" required />
+			<span class="form__error" *ngIf="firstName?.invalid">
+				<p *ngIf="firstName?.errors?.['required']">This field is required</p>
+			</span>
+
+			<label for="lastName">Last Name: </label>
+			<input name="last-name" type="text" formControlName="lastName" required />
+			<span class="form__error" *ngIf="lastName?.invalid">
+				<p *ngIf="lastName?.errors?.['required']">This field is required</p>
+			</span>
+
+			<label for="phone">Phone Number: </label>
+			<input name="phone" type="text" formControlName="phone" required />
+			<span class="form__error" *ngIf="phone?.invalid">
+				<p *ngIf="phone?.errors?.['required']">This field is required</p>
+				<p *ngIf="phone?.errors?.['pattern']">
+					Phone must contain only digits and be at least 6 characters long
+				</p>
+			</span>
+
+			<label for="address">Address: </label>
+			<input name="address" type="text" formControlName="address" required />
+			<span class="form__error" *ngIf="address?.invalid">
+				<p *ngIf="address?.errors?.['required']">This field is required</p>
+			</span>
+
+			<label for="city">City: </label>
+			<input name="city" type="text" formControlName="city" required />
+			<span class="form__error" *ngIf="city?.invalid">
+				<p *ngIf="city?.errors?.['required']">This field is required</p>
+			</span>
+			<button class="form__changeDetails" [disabled]="!this.profileForm.valid">
+				Change Details
+			</button>
+		</form>
+		<form
+			class="profile__settings_mid"
+			[formGroup]="passwordForm"
+			(ngSubmit)="changePassword()"
 		>
-			<p *ngIf="password?.errors?.['required']">This field is required</p>
-			<p *ngIf="password?.errors?.['pattern']">
-				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
-				character
-			</p>
-		</span>
-		<label for="passwordRe">Repeat Password: </label>
-		<input
-			name="passwordRe"
-			type="password"
-			formControlName="passwordRe"
-			class="form__passwordRe"
-			required
-		/>
-		<span
-			class="form__error"
-			*ngIf="passwordRe?.invalid && (passwordRe?.dirty || passwordRe?.touched)"
+			<h3>Change Password</h3>
+			<label for="currentPassword">Current Password: </label>
+			<input
+				class="form__currentPassword"
+				name="currentPassword"
+				type="password"
+				formControlName="currentPassword"
+				required
+			/>
+			<span
+				class="form__error"
+				*ngIf="
+					currentPassword?.invalid &&
+					(currentPassword?.dirty || currentPassword?.touched)
+				"
+			>
+				<p *ngIf="currentPassword?.errors?.['required']">This field is required</p>
+				<p *ngIf="currentPassword?.errors?.['pattern']">
+					Password must be 8 characters long, contain 1 letter, 1 number and 1
+					special character
+				</p>
+			</span>
+			<label for="password">New Password: </label>
+			<input
+				class="form__password"
+				name="password"
+				type="password"
+				formControlName="password"
+				required
+			/>
+			<span
+				class="form__error"
+				*ngIf="password?.invalid && (password?.dirty || password?.touched)"
+			>
+				<p *ngIf="password?.errors?.['required']">This field is required</p>
+				<p *ngIf="password?.errors?.['pattern']">
+					Password must be 8 characters long, contain 1 letter, 1 number and 1
+					special character
+				</p>
+			</span>
+			<label for="passwordRe">Repeat Password: </label>
+			<input
+				name="passwordRe"
+				type="password"
+				formControlName="passwordRe"
+				class="form__passwordRe"
+				required
+			/>
+			<span
+				class="form__error"
+				*ngIf="passwordRe?.invalid && (passwordRe?.dirty || passwordRe?.touched)"
+			>
+				<p *ngIf="passwordRe?.errors?.['required']">This field is required</p>
+				<p *ngIf="passwordRe?.errors?.['pattern']">
+					Password must be 8 characters long, contain 1 letter, 1 number and 1
+					special character
+				</p>
+				<p *ngIf="passwordRe?.errors?.['mismatch']">Passwords must match</p>
+				<p *ngIf="passwordRe?.errors?.['identical']">
+					New password cannot be the same as our old password
+				</p>
+			</span>
+			<button class="form__changePassword" [disabled]="!this.passwordForm.valid">
+				Change Password
+			</button>
+		</form>
+		<form
+			class="profile__settings_right"
+			[formGroup]="deleteForm"
+			(ngSubmit)="deleteAccount()"
 		>
-			<p *ngIf="passwordRe?.errors?.['required']">This field is required</p>
-			<p *ngIf="passwordRe?.errors?.['pattern']">
-				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
-				character
-			</p>
-			<p *ngIf="passwordRe?.errors?.['mismatch']">Passwords must match</p>
-			<p *ngIf="passwordRe?.errors?.['identical']">
-				New password cannot be the same as our old password
-			</p>
-		</span>
-		<button class="form__changePassword" [disabled]="!this.passwordForm.valid">
-			Change Password
-		</button>
-	</form>
-	<form
-		class="profile__settings_right"
-		[formGroup]="deleteForm"
-		(ngSubmit)="deleteAccount()"
-	>
-		<h3>Delete Account Permanently</h3>
-		<label for="confirm">Please enter "I confirm to delete my account"</label>
-		<input
-			class="form__confirmInput"
-			name="confirm"
-			type="text"
-			formControlName="confirm"
-			required
-		/>
-		<span
-			class="form__error"
-			*ngIf="confirm?.invalid && (confirm?.dirty || confirm?.touched)"
-		>
-			<p *ngIf="confirm?.errors?.['required']">This field is required</p>
-			<p *ngIf="confirm?.errors?.['pattern']">
-				Password must be 8 characters long, contain 1 letter, 1 number and 1 special
-				character
-			</p>
-			<p *ngIf="confirm?.errors?.['mismatch']">Entered text does not match</p>
-		</span>
-		<button class="form__confirmDelete" [disabled]="!this.deleteForm.valid">
-			Delete Account
-		</button>
-	</form>
+			<h3>Delete Account Permanently</h3>
+			<label for="confirm">Please enter "I confirm to delete my account"</label>
+			<input
+				class="form__confirmInput"
+				name="confirm"
+				type="text"
+				formControlName="confirm"
+				required
+			/>
+			<span
+				class="form__error"
+				*ngIf="confirm?.invalid && (confirm?.dirty || confirm?.touched)"
+			>
+				<p *ngIf="confirm?.errors?.['required']">This field is required</p>
+				<p *ngIf="confirm?.errors?.['pattern']">
+					Password must be 8 characters long, contain 1 letter, 1 number and 1
+					special character
+				</p>
+				<p *ngIf="confirm?.errors?.['mismatch']">Entered text does not match</p>
+			</span>
+			<button class="form__confirmDelete" [disabled]="!this.deleteForm.valid">
+				Delete Account
+			</button>
+		</form>
+	</div>
 </div>
