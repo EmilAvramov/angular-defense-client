@@ -5,7 +5,7 @@ import {
 	TestBed,
 	tick,
 } from '@angular/core/testing';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, AbstractControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
@@ -63,48 +63,50 @@ describe('CreateComponent', () => {
 
 		expect(component.fetchDeviceDetails).toHaveBeenCalledWith('key');
 	});
-	it('should trigger create method on click if form valid', () => {
-		component.devices$ = of(deviceMockDataPartial);
-		component.user$ = of(mockUser);
+	it('should trigger create method on click if form valid', fakeAsync(() => {
 		spyOn(component, 'createPosting');
+		component.user$ = of(mockUser);
+		const searchInput: HTMLInputElement = fixture.debugElement.query(
+			By.css('.search__input')
+		).nativeElement;
+		fixture.detectChanges();
+
+		searchInput.value = 'x';
+		searchInput.dispatchEvent(new Event('input'));
+		searchInput.dispatchEvent(new Event('change'));
+		tick(1000);
+		fixture.detectChanges();
+
+		component.devices$ = of(deviceMockDataPartial);
 		fixture.detectChanges();
 
 		const device: HTMLElement = fixture.debugElement.query(
 			By.css('.create__block')
 		).nativeElement;
-		const textArea: HTMLTextAreaElement = fixture.debugElement.query(
-			By.css('.create__left_commentsInput')
-		).nativeElement;
-		const priceInput: HTMLInputElement = fixture.debugElement.query(
-			By.css('.create__left_priceInput')
-		).nativeElement;
-		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.create__form_button')
-		).nativeElement;
-
 		device.click();
 		fixture.detectChanges();
 
 		component.details$ = of(deviceMockDataDetails);
 		fixture.detectChanges();
 
-		textArea.value = 'test comments';
-		textArea.dispatchEvent(new Event('input'));
-		textArea.dispatchEvent(new Event('blur'));
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('.create__form_button')
+		).nativeElement;
+		const comments:AbstractControl = component.postingForm.controls.comments
+		const price:AbstractControl = component.postingForm.controls.price
+
+		comments.setValue('value')
+		price.setValue('99')
 		fixture.detectChanges();
 
-		priceInput.value = '99';
-		textArea.dispatchEvent(new Event('input'));
-		textArea.dispatchEvent(new Event('change'));
-		fixture.detectChanges();
-
+		expect(component.postingForm.errors).toBeFalsy();
 		expect(button.disabled).toBeFalsy();
 		expect(component.postingForm.valid).toBeTruthy();
 		button.click();
 		fixture.detectChanges();
-		//doesnt enable button
+
 		expect(component.createPosting).toHaveBeenCalled();
-	});
+	}));
 	it('should close observables on component destroy', () => {
 		const next = spyOn(component.completer$, 'next');
 		const complete = spyOn(component.completer$, 'complete');

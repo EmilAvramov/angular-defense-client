@@ -73,21 +73,26 @@ describe('PostingsComponent', () => {
 			price: 9999,
 		});
 	});
-	it('should trigger deletePosting method if emit triggered by child', () => {
-		spyOn(component, 'deletePosting');
-		const fakeEditComponent: FakeEditComponent = fixture.debugElement.query(
-			By.directive(FakeEditComponent)
-		).componentInstance;
-
-		fakeEditComponent.deletePosting.emit(100);
+	it('should trigger deletePosting method on button click', () => {
+		component.userPostings = mockPostingPartial;
 		fixture.detectChanges();
 
-		expect(component.deletePosting).toHaveBeenCalledWith(100);
+		spyOn(component, 'deletePosting');
+		const button: HTMLButtonElement = fixture.debugElement.query(
+			By.css('.delete')
+		).nativeElement;
+		button.click();
+		fixture.detectChanges();
+
+		expect(component.deletePosting).toHaveBeenCalledWith(1);
 	});
 	it('should trigger details request on button click', () => {
+		component.userPostings = mockPostingPartial;
+		fixture.detectChanges();
+
 		spyOn(component, 'fetchPostingDetails');
 		const button: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.profile__buttons_details')
+			By.css('.edit')
 		).nativeElement;
 
 		button.click();

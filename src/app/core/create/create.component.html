@@ -41,6 +41,12 @@
 				formControlName="comments"
 				class="create__left_commentsInput"
 			></textarea>
+			<span
+				class="form__error"
+				*ngIf="comments?.invalid && (comments?.dirty || comments?.touched)"
+			>
+				<p *ngIf="comments?.errors?.['required']">This field is required</p>
+			</span>
 			<div class="create__left_price">
 				<label for="price">Sell Price in EUR</label>
 				<input
@@ -50,6 +56,12 @@
 					class="create__left_priceInput"
 				/>
 			</div>
+			<span
+				class="form__error"
+				*ngIf="price?.invalid && (price?.dirty || price?.touched)"
+			>
+				<p *ngIf="price?.errors?.['required']">This field is required</p>
+			</span>
 			<button class="create__form_button" [disabled]="!this.postingForm.valid">
 				Create Posting
 			</button>
