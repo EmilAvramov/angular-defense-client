@@ -65,11 +65,13 @@ describe('CreateComponent', () => {
 	});
 	it('should trigger create method on click if form valid', () => {
 		component.devices$ = of(deviceMockDataPartial);
-		component.details$ = of(deviceMockDataDetails);
 		component.user$ = of(mockUser);
 		spyOn(component, 'createPosting');
 		fixture.detectChanges();
 
+		const device: HTMLElement = fixture.debugElement.query(
+			By.css('.create__block')
+		).nativeElement;
 		const textArea: HTMLTextAreaElement = fixture.debugElement.query(
 			By.css('.create__left_commentsInput')
 		).nativeElement;
@@ -79,6 +81,12 @@ describe('CreateComponent', () => {
 		const button: HTMLButtonElement = fixture.debugElement.query(
 			By.css('.create__form_button')
 		).nativeElement;
+
+		device.click();
+		fixture.detectChanges();
+
+		component.details$ = of(deviceMockDataDetails);
+		fixture.detectChanges();
 
 		textArea.value = 'test comments';
 		textArea.dispatchEvent(new Event('input'));

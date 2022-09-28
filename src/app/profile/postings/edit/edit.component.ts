@@ -11,8 +11,6 @@ import { map, Observable, Subject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialog } from 'src/app/core/confirm/confirm.component';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -35,7 +33,6 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 	constructor(
 		private editModal: ModalService,
 		public userFacade: UserFacade,
-		public dialog: MatDialog,
 		public fb: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -91,31 +88,6 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 		this.editModal.close();
 	}
 
-	emitDelete(id: number) {
-		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(
-			ConfirmDialog,
-			{
-				disableClose: false,
-				width: '40vw',
-				height: '21vh',
-				data: {
-					message: 'Are you sure you want to delete this posting?',
-					ok: 'Yes, continue',
-					cancel: 'No, cancel',
-				},
-			}
-		);
-		dialogRef
-			.afterClosed()
-			.pipe(
-				map((result: boolean) => {
-					if (result) {
-						this.deletePosting.emit(id);
-					}
-				})
-			)
-			.subscribe();
-	}
 	close() {
 		this.editModal.close();
 	}

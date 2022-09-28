@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { mockPostingDetails } from 'src/app/shared/mockData/postings.mock';
 import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from './edit.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 describe('EditComponent', () => {
 	let component: EditComponent;
@@ -13,8 +14,13 @@ describe('EditComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+			imports: [ReactiveFormsModule],
 			declarations: [EditComponent],
-			providers: [provideMockStore({}), { provide: MatDialog, useValue: {} }],
+			providers: [
+				provideMockStore({}),
+				{ provide: MatDialog, useValue: {} },
+				FormBuilder,
+			],
 
 			schemas: [NO_ERRORS_SCHEMA],
 		}).compileComponents();
@@ -30,16 +36,20 @@ describe('EditComponent', () => {
 		expect(component).toBeTruthy();
 	});
 	it('should trigger edit method on button click', () => {
+		component.display$ = of(true);
+		component.details$ = of(mockPostingDetails);
+		fixture.detectChanges();
+
 		spyOn(component, 'emitEdit').and.callThrough();
 		spyOn(component.editPosting, 'emit');
 		const editButton: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.edit')
+			By.css('.details__seller_button')
 		).nativeElement;
 		const editComments: HTMLInputElement = fixture.debugElement.query(
-			By.css('.details__input_comments')
+			By.css('.details__seller_comments')
 		).nativeElement;
 		const editPrice: HTMLInputElement = fixture.debugElement.query(
-			By.css('.details__input_price')
+			By.css('.details__seller_price')
 		).nativeElement;
 
 		editComments.value = 'test comments';
@@ -57,17 +67,6 @@ describe('EditComponent', () => {
 			comments: 'test comments',
 			price: 999,
 		});
-	});
-	it('should trigger delete method on button click', () => {
-		spyOn(component, 'emitDelete');
-		const deleteButton: HTMLButtonElement = fixture.debugElement.query(
-			By.css('.delete')
-		).nativeElement;
-
-		deleteButton.click();
-		fixture.detectChanges();
-
-		expect(component.emitDelete).toHaveBeenCalledWith(1);
 	});
 	it('should close modal on button click', () => {
 		spyOn(component, 'close');
