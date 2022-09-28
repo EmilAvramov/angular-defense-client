@@ -9,6 +9,9 @@ import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
 import { DetailsComponent } from './details/details.component';
 import { ModalService } from '../services/modal.service';
+import { EditComponent } from './edit/edit.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AuxModalService } from '../services/auxModal.service';
 
 @NgModule({
 	declarations: [
@@ -16,14 +19,15 @@ import { ModalService } from '../services/modal.service';
 		ListComponent,
 		SearchComponent,
 		DetailsComponent,
+		EditComponent,
 	],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		NgxSpinnerModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
 	],
-	providers: [ModalService],
+	providers: [ModalService, AuxModalService, MatDialog],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MarketplaceModule {}

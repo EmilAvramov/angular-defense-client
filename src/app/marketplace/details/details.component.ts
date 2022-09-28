@@ -6,7 +6,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
@@ -24,11 +24,7 @@ export class DetailsComponent {
 
 	@Input() details$: Observable<Posting | null> | undefined;
 	@Input() validatedUser$: Observable<User | null> | undefined;
-	@Output() editPosting = new EventEmitter<{
-		id: number;
-		comments: string;
-		price: number;
-	}>();
+	@Output() editPosting = new EventEmitter<null>();
 	@Output() deletePosting = new EventEmitter<number>();
 
 	@ViewChild('comments') comments!: ElementRef<HTMLInputElement>;
@@ -43,7 +39,10 @@ export class DetailsComponent {
 		this.userFacade.validateUser(sessionStorage.getItem('token')!);
 	}
 
-	emitEdit(id: number) {}
+	emitEdit() {
+		this.editPosting.emit();
+		this.postingModal.close();
+	}
 
 	emitDelete(id: number) {
 		const dialogRef: MatDialogRef<ConfirmDialog> = this.dialog.open(

@@ -8,28 +8,6 @@
 			<button class="close" type="button" (click)="close()">
 				<i class="fa-solid fa-xmark"></i>
 			</button>
-			<button
-				*ngIf="
-					(this.validatedUser$ | async)?.email ===
-					(this.details$ | async)!.User?.email
-				"
-				class="edit"
-				type="button"
-				(click)="emitEdit()"
-			>
-				<i class="fa-solid fa-pencil"></i>
-			</button>
-			<button
-				*ngIf="
-					(this.validatedUser$ | async)?.email ===
-					(this.details$ | async)!.User?.email
-				"
-				class="delete"
-				type="button"
-				(click)="emitDelete(id)"
-			>
-				<i class="fa-solid fa-trash-can"></i>
-			</button>
 			<div class="details__body">
 				<div class="details__left">
 					<p class="details__left_title">
@@ -203,14 +181,30 @@
 						</div>
 					</div>
 					<div class="details__seller_info">
-						<div class="details__seller_wrapper">
-							<p class="details__seller_price">
-								Price: {{ (this.details$ | async)!.price }} EUR
-							</p>
-							<p class="details__seller_comments">
-								Seller Comments: {{ (this.details$ | async)!.comments }}
-							</p>
-						</div>
+						<form
+							class="details__seller_wrapper"
+							[formGroup]="postingForm"
+							(ngSubmit)="this.emitEdit(id)"
+						>
+							<label for="price">Selling Price in EUR:</label>
+							<input
+								formControlName="price"
+								class="details__seller_price"
+								type="number"
+								name="price"
+								id="price"
+							/>
+							<label for="comments">Comments:</label>
+							<textarea
+								formControlName="comments"
+								class="details__seller_comments"
+								name="comments"
+								id="comments"
+								cols="10"
+								rows="5"
+							></textarea>
+							<button class="details__seller_button">Submit Edits</button>
+						</form>
 					</div>
 				</div>
 			</div>

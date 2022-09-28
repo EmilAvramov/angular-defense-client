@@ -5,6 +5,7 @@ import { PostingFacade } from 'src/app/state/posting/posting.facade';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { User } from 'src/app/state/user/user.state';
+import { AuxModalService } from '../services/auxModal.service';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 
 	constructor(
 		public postingModal: ModalService,
+		public auxModal: AuxModalService,
 		private postingFacade: PostingFacade,
 		private userFacade: UserFacade,
 		private spinner: NgxSpinnerService
@@ -65,6 +67,10 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	fetchPostingDetails(id: number): void {
 		this.postingFacade.getPostingDetails(id);
 		this.postingModal.open();
+	}
+
+	createEditModal(): void {
+		this.auxModal.open();
 	}
 
 	editPosting(data: any): void {

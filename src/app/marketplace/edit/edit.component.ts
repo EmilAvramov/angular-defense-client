@@ -8,10 +8,10 @@ import {
 	Output,
 } from '@angular/core';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
-import { ModalService } from 'src/app/services/modal.service';
 import { Posting } from 'src/app/state/posting/posting.state';
 import { UserFacade } from 'src/app/state/user/user.facade';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuxModalService } from 'src/app/services/auxModal.service';
 
 @Component({
 	selector: 'app-edit',
@@ -28,14 +28,14 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 		comments: string;
 		price: number;
 	}>();
-	
+
 	constructor(
-		private editModal: ModalService,
+		private auxModal: AuxModalService,
 		public userFacade: UserFacade,
 		public fb: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
-		this.display$ = this.editModal.watch();
+		this.display$ = this.auxModal.watch();
 	}
 	ngAfterViewInit(): void {
 		this.details$
@@ -84,11 +84,11 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 			comments: this.comments?.value,
 			price: Number(this.price?.value),
 		});
-		this.editModal.close();
+		this.auxModal.close();
 	}
 
 	close() {
-		this.editModal.close();
+		this.auxModal.close();
 	}
 
 	ngOnDestroy(): void {

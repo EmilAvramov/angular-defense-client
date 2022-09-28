@@ -1,0 +1,99 @@
+@use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/mixins/_geometry' as geo
+@use '../../../styles/mixins/_text' as text
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/extend/_gradients'
+
+.details__wrapper
+    @include geo.wrapper()
+    z-index: 60
+
+    .details__container
+        @include geo.container($height: 85vh, $width: 60vw)
+        @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+
+        .close
+            @include geo.button-adjust($top: 0px, $left: 0px, $padding: 16px)
+            @include geo.button-reset($color: color.$orange, $size: 32px)
+
+            i
+                width: 100%
+                padding: 15px
+
+                &:hover
+                    color: color.$orange
+                    transition: color 100ms ease-in
+
+        .details__body
+            background-color: color.$white
+
+            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 50px)
+            @include geo.box-sizing-adjust()
+            @include layout.flex($content-align: center, $item-align: center, $gap: 0px)
+
+            min-height: 85vh
+            min-width: 55vw
+            column-gap: 40px
+            padding: 20px
+
+            .details__left
+                flex-basis: 40%
+                min-height: 60vh
+
+                @include layout.flex($direction: column, $content-align: center, $item-align: center, $gap: 35px)
+
+                img
+                    width: 65%
+
+                .details__left_title
+                    @include text.format-text($size: 18px, $weight: 700, $color: color.$darkBlue)
+
+                .details__seller
+                    @include layout.flex($direction: column, $gap: 10px)
+
+            .details__right
+                flex-basis: 60%
+                margin-bottom: 10px
+                @include layout.flex($direction: column, $content-align: center, $item-align: left, $gap: 55px)
+
+                .details__right_title
+                    @include text.format-text($size: 16px, $weight: 700)
+
+                .details__seller_info
+                    .details__seller_wrapper
+                        @include layout.flex($direction: column, $gap: 5px)
+                        .details__seller_comments, .details__seller_price
+                            width: 83.5%
+
+                        .details__seller_comments
+                            resize: none
+                            @include text.format-text($size: 14px)
+
+                        .details__seller_button
+                            width: 85%
+                            @include text.format-text($size: 18px, $weight: 700, $align: center, $color: color.$darkBlue )
+                            @include geo.border-adjust($px: 0px, $color: color.$white, $radius: 10px)
+
+                            @extend %orange-gradient
+                            padding: 9px 15px
+
+                            cursor: pointer
+                            &:hover
+                                color: color.$smoked
+                                @extend %blue-gradient
+                                transition: background 350ms ease-in
+
+                .details__right_wrapper
+                    height: 20vh
+                    overflow: scroll
+                    @include layout.flex($direction: column, $gap: 30px)
+
+                    .details__block
+                        width: 85%
+                        background-color: color.$smoked
+
+                        h6
+                            margin-bottom: 5px
+                            @include text.format-text($size: 16px, $weight: 700)
+                        p
+                            margin-bottom: 5px
