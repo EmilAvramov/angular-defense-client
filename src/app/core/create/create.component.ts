@@ -82,6 +82,12 @@ export class CreateComponent implements AfterViewInit, OnDestroy {
 			});
 	}
 
+	ngOnDestroy(): void {
+		this.postingFacade.clearDeviceDetails();
+		this.completer$.next();
+		this.completer$.complete();
+	}
+
 	postingForm = this.fb.group({
 		comments: [
 			'',
@@ -129,11 +135,5 @@ export class CreateComponent implements AfterViewInit, OnDestroy {
 
 	fetchDeviceDetails(key: string): void {
 		this.postingFacade.getDeviceDetails(key);
-	}
-
-	ngOnDestroy(): void {
-		this.postingFacade.clearDeviceDetails();
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }

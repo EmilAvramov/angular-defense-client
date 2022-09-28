@@ -42,6 +42,11 @@ export class DevicesComponent implements OnDestroy {
 		});
 	}
 
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
+
 	loadMore(): void {
 		this.limit += 100;
 		this.deviceFacade.loadMoreDevices(this.limit, this.offset);
@@ -59,10 +64,5 @@ export class DevicesComponent implements OnDestroy {
 	getDetails(key: string) {
 		this.deviceFacade.getDeviceDetails(key);
 		this.modal.open();
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }

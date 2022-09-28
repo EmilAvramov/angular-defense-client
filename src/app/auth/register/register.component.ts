@@ -24,7 +24,7 @@ export class RegisterComponent implements OnDestroy {
 	constructor(
 		private fb: FormBuilder,
 		private router: Router,
-		private readonly userFacade: UserFacade
+		private userFacade: UserFacade
 	) {
 		this.error$ = this.userFacade.userError$;
 		this.loading$ = this.userFacade.userLoaded$;

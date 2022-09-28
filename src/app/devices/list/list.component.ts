@@ -18,6 +18,4 @@ export class ListComponent {
 	showDetails(deviceKey: string) {
 		this.details.emit(deviceKey);
 	}
-
-	constructor() {}
 }

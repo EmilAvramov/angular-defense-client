@@ -24,6 +24,4 @@ export class ListComponent {
 	showDetails(id: number) {
 		this.requestDetails.emit(id);
 	}
-
-	constructor() {}
 }

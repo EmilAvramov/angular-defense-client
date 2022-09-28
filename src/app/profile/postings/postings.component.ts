@@ -57,6 +57,11 @@ export class PostingsComponent implements OnDestroy {
 		this.postingDetails$ = this.postingFacade.postingDetails$;
 	}
 
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
+	}
+
 	editPosting(data: any): void {
 		this.postingFacade.editPosting(data.id, data.comments, data.price);
 		this.postingFacade.initPostingsData();
@@ -91,10 +96,5 @@ export class PostingsComponent implements OnDestroy {
 	fetchPostingDetails(id: number): void {
 		this.postingFacade.getPostingDetails(id);
 		this.editModal.open();
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }

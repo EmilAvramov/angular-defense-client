@@ -7,7 +7,7 @@ import {
 } from 'src/app/shared/variables/validationPatterns';
 import { Router } from '@angular/router';
 import { UserFacade } from '../../state/user/user.facade';
-import { map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-login',

@@ -37,6 +37,7 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 	) {
 		this.display$ = this.auxModal.watch();
 	}
+
 	ngAfterViewInit(): void {
 		this.details$
 			?.pipe(
@@ -50,6 +51,11 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 			)
 			.subscribe();
 		this.cdr.detectChanges();
+	}
+
+	ngOnDestroy(): void {
+		this.completer$.next();
+		this.completer$.complete();
 	}
 
 	get comments() {
@@ -89,10 +95,5 @@ export class EditComponent implements AfterViewInit, OnDestroy {
 
 	close() {
 		this.auxModal.close();
-	}
-
-	ngOnDestroy(): void {
-		this.completer$.next();
-		this.completer$.complete();
 	}
 }
