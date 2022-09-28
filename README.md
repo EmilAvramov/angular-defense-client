@@ -1,27 +1,54 @@
-# AngularDefenseProject
+### Project description
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
+Mobispace is a simple marketplace platform for mobile devices where users can register/login, post marketplace ads, browse mobile devices, edit their profile, etc. The backend is a persisent PostgreSQL database (AWS-RDS), hosted from [this] (<https://github.com/EmilAvramov/angular-defense-server>) repository.
 
-## Development server
+The home page is different depending on whether the user is authenticated or not. Registered/logged in users get additional functionality in the form of creating marketplace ads, editing their settings and deleting ads, while guests can still browse devices and ads.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Project purpose and requirements
 
-## Code scaffolding
+This is a mock project for Softuni's Angular 2022 Course. The main project requirements are:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Create a live, functional website using Angular
+- Implement user authentication
+- Have dynamic pages, based on authentication (guest/user)
+- Communicate to a remote service, technology of your choice
+- Have at least one catalog and details section
+- Demonstrate familiarity with Angular
+- Use client-side rendering (SPA)
+- Use a source-control system
+- Apply error handling and data validation
+- Good UI/UX and good usability
 
-## Build
+### Technologies used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Front-end - Javascript (Typescript), SASS
+- Back-end - [Details] (<https://github.com/EmilAvramov/angular-defense-server>)
+- Hosting - Hosted via AWS Codebuild and S3 Bucket [here] (<http://s3-angular-client.s3-website-eu-west-1.amazonaws.com/>)
+- Frameworks/Libraries
+  - Angular
+  - NgRx
+  - RxJS
+  - ngx-spinner
+  - material-dialog
+  - reactive-forms
+  - Jasmine (testing)
 
-## Running unit tests
+### Setup
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To run the project locally, you will need the back-end located [here] (<https://github.com/EmilAvramov/angular-defense-server>) and run that one locally as well in parallel. NodeJS is necessary. Steps to follow:
 
-## Running end-to-end tests
+- Install NodeJS (v16+)
+- Run ```npm i -D @angular/cli@14.1.2```
+- Run ```npm i```
+- Run ```ng s```
+- Client should now be available at localhost:4200
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+To run the project in the cloud, one of the options is to create a free AWS account, build a pipeline to this repository and codebuild the pipeline into a S3 bucket (which offers free hosting and a free domain). If you want to run the client locally to a server in the cloud, change the address in src/app/shared/variable/config.ts to point to the server. Additionally, double-check the buidlspec.yaml in the root dir for necessary changes.
 
-## Further help
+### NgRx Store Specifics
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The store holds 4 different states, depending on the data type (user, device, posting or misc). Dispatching of the events is done through the facades in each store/state. 'readonly' methods are observables which can be used, which the other methods trigger different state changes depending on the operation.
+
+### Architecture
+
+- To be added later
