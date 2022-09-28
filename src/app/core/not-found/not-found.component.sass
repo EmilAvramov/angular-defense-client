@@ -1,0 +1,16 @@
+@use '../../../styles/mixins/_layouts' as layout
+@use '../../../styles/variables/_colors' as color
+@use '../../../styles/mixins/_text' as text
+
+.error__wrapper
+    @include layout.flex($content-align: center, $item-align: center)
+
+    min-height: 86vh
+    .error__container
+        @include layout.flex($gap: 20px)
+
+        p
+            @include text.format-text($size: 24px, $color: color.$crimson )
+        i
+            color: color.$crimson
+            font-size: 22px
