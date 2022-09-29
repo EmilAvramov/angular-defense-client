@@ -1,6 +1,6 @@
 ### Project description
 
-Mobispace is a simple marketplace platform for mobile devices where users can register/login, post marketplace ads, browse mobile devices, edit their profile, etc. The backend is a persisent PostgreSQL database (AWS-RDS), hosted from [this] (<https://github.com/EmilAvramov/angular-defense-server>) repository.
+Mobispace is a simple marketplace platform for mobile devices where users can register/login, post marketplace ads, browse mobile devices, edit their profile, etc. The backend is a persisent PostgreSQL database (AWS-RDS), hosted from [this] (https://github.com/EmilAvramov/angular-defense-server) repository.
 
 The home page is different depending on whether the user is authenticated or not. Registered/logged in users get additional functionality in the form of creating marketplace ads, editing their settings and deleting ads, while guests can still browse devices and ads.
 
@@ -22,8 +22,8 @@ This is a mock project for Softuni's Angular 2022 Course. The main project requi
 ### Technologies used
 
 - Front-end - Javascript (Typescript), SASS
-- Back-end - [Details] (<https://github.com/EmilAvramov/angular-defense-server>)
-- Hosting - Hosted via AWS Codebuild and S3 Bucket [here] (<http://s3-angular-client.s3-website-eu-west-1.amazonaws.com/>)
+- Back-end - [Details] (https://github.com/EmilAvramov/angular-defense-server)
+- Hosting - Hosted via AWS Codebuild and S3 Bucket [here] (http://s3-angular-client.s3-website-eu-west-1.amazonaws.com/)
 - Frameworks/Libraries
   - Angular
   - NgRx
@@ -35,7 +35,7 @@ This is a mock project for Softuni's Angular 2022 Course. The main project requi
 
 ### Setup
 
-To run the project locally, you will need the back-end located [here] (<https://github.com/EmilAvramov/angular-defense-server>) and run that one locally as well in parallel. NodeJS is necessary. Steps to follow:
+To run the project locally, you will need the back-end located [here] (https://github.com/EmilAvramov/angular-defense-server), as well as a PostgreSQL database to hook the back-end to, and run that one locally as well in parallel. NodeJS is necessary. Steps to follow for front-end:
 
 - Install NodeJS (v16+)
 - Run ```npm i -D @angular/cli@14.1.2```
@@ -47,8 +47,17 @@ To run the project in the cloud, one of the options is to create a free AWS acco
 
 ### NgRx Store Specifics
 
-The store holds 4 different states, depending on the data type (user, device, posting or misc). Dispatching of the events is done through the facades in each store/state. 'readonly' methods are observables which can be used, which the other methods trigger different state changes depending on the operation.
+The store holds 4 different states, depending on the data type (user, device, posting or misc). Dispatching of the events is done through the facades in each store/state. 'readonly' methods are observables which can be used to pull state data to components/services, while the other methods trigger different state changes depending on the operation (and may change the aforementioned observables' data).
+
+### Credits
+
+Design and creative by [@Aykama_art] (https://www.instagram.com/aykama_art/)
 
 ### Architecture
+#### Guest
 
-- To be added later
+!['alt guest'](/GuestView.png)
+
+#### User
+
+!['alt user'](/UserView.png)
