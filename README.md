@@ -40,10 +40,11 @@ To run the project locally, you will need the back-end located [here] (https://g
 - Install NodeJS (v16+)
 - Run ```npm i -D @angular/cli@14.1.2```
 - Run ```npm i```
+- Change the endpoint in src/app/shared/variables/config.ts to point to your server or switch to localhost
 - Run ```ng s```
 - Client should now be available at localhost:4200
 
-To run the project in the cloud, one of the options is to create a free AWS account, build a pipeline to this repository and codebuild the pipeline into a S3 bucket (which offers free hosting and a free domain). If you want to run the client locally to a server in the cloud, change the address in src/app/shared/variable/config.ts to point to the server. Additionally, double-check the buidlspec.yaml in the root dir for necessary changes.
+To run the project in the cloud, one of the options is to create a free AWS account, build a pipeline to this repository and codebuild the pipeline into a S3 bucket (which offers free hosting and a free domain). Additionally, double-check the buidlspec.yaml in the root dir for necessary changes.
 
 ### NgRx Store Specifics
 
