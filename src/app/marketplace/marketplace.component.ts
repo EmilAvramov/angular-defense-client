@@ -36,10 +36,14 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 		this.postingDetails$ = this.postingFacade.postingDetails$;
 		this.user$ = this.userFacade.userData$;
 		this.validatedUser$ = this.userFacade.userValidated$;
-		this.validatedUser$
+		this.userFacade.userData$
 			.pipe(
 				takeUntil(this.completer$),
-				map((data: User | null) => (this.token = data!.token))
+				map((data: User | null) => {
+					if (data) {
+						this.token = data.token;
+					}
+				})
 			)
 			.subscribe();
 	}
@@ -82,7 +86,12 @@ export class MarketplaceComponent implements AfterViewInit, OnDestroy {
 	}
 
 	editPosting(data: any): void {
-		this.postingFacade.editPosting(data.id, data.comments, data.price, this.token);
+		this.postingFacade.editPosting(
+			data.id,
+			data.comments,
+			data.price,
+			this.token
+		);
 		this.postingFacade.initPostingsData();
 	}
 
