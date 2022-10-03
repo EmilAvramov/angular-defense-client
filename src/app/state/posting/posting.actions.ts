@@ -123,7 +123,12 @@ export const PostingCreateFailure = createAction(
 
 export const PostingEdit = createAction(
 	PostingActionNames.PostingEdit,
-	props<{ id: number; comments: string | null; price: number | null }>()
+	props<{
+		id: number;
+		comments: string | null;
+		price: number | null;
+		token: string;
+	}>()
 );
 
 export const PostingEditSuccess = createAction(
@@ -138,7 +143,7 @@ export const PostingEditFailure = createAction(
 
 export const PostingDelete = createAction(
 	PostingActionNames.PostingDelete,
-	props<{ id: number }>()
+	props<{ id: number; token: string }>()
 );
 
 export const PostingDeleteSuccess = createAction(

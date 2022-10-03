@@ -34,11 +34,7 @@ class FakeListComponent implements Partial<ListComponent> {
 class FakeDetailsComponent implements Partial<DetailsComponent> {
 	@Input() details$: Observable<Posting | null> | undefined;
 	@Input() validatedUser$: Observable<User | null> | undefined;
-	@Output() editPosting = new EventEmitter<{
-		id: number;
-		comments: string;
-		price: number;
-	}>();
+	@Output() editPosting = new EventEmitter<null>();
 	@Output() deletePosting = new EventEmitter<number>();
 }
 
@@ -110,23 +106,15 @@ describe('MarketplaceComponent', () => {
 		expect(component.fetchPostingDetails).toHaveBeenCalledWith(99);
 	});
 	it('should trigger editPosting method if emit triggered by child', () => {
-		spyOn(component, 'editPosting');
+		spyOn(component, 'createEditModal');
 		const fakeDetails: FakeDetailsComponent = fixture.debugElement.query(
 			By.directive(FakeDetailsComponent)
 		).componentInstance;
 
-		fakeDetails.editPosting.emit({
-			id: 100,
-			comments: 'test comments',
-			price: 9999,
-		});
+		fakeDetails.editPosting.emit();
 		fixture.detectChanges();
 
-		expect(component.editPosting).toHaveBeenCalledWith({
-			id: 100,
-			comments: 'test comments',
-			price: 9999,
-		});
+		expect(component.createEditModal).toHaveBeenCalledWith();
 	});
 	it('should trigger deletePosting method if emit triggered by child', () => {
 		spyOn(component, 'deletePosting');

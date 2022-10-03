@@ -77,11 +77,11 @@ export class PostingFacade {
 		this.store.dispatch(postingActions.PostingCreate({ payload }));
 	}
 
-	public editPosting(id: number, comments: string, price: number): void {
-		this.store.dispatch(postingActions.PostingEdit({ id, comments, price }));
+	public editPosting(id: number, comments: string, price: number, token: string): void {
+		this.store.dispatch(postingActions.PostingEdit({ id, comments, price, token }));
 	}
 
-	public deletePosting(id: number): void {
-		this.store.dispatch(postingActions.PostingDelete({ id }));
+	public deletePosting(id: number, token: string): void {
+		this.store.dispatch(postingActions.PostingDelete({ id, token }));
 	}
 }

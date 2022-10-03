@@ -19,6 +19,8 @@ export class PostingsComponent implements OnDestroy {
 
 	public completer$: Subject<void> = new Subject<void>();
 
+	public token!: string;
+
 	constructor(
 		private userFacade: UserFacade,
 		private postingFacade: PostingFacade,
@@ -39,10 +41,11 @@ export class PostingsComponent implements OnDestroy {
 		this.userFacade.userData$
 			.pipe(
 				takeUntil(this.completer$),
-				switchMap(({ id }) =>
+				switchMap(({ id, token }) =>
 					this.postingFacade.postingData$.pipe(
 						map((data: Posting[] | null) => {
 							if (data) {
+								this.token = token;
 								return (this.userPostings = data!.filter(
 									(x: Posting) => x.User!.id === id
 								));
@@ -63,7 +66,12 @@ export class PostingsComponent implements OnDestroy {
 	}
 
 	editPosting(data: any): void {
-		this.postingFacade.editPosting(data.id, data.comments, data.price);
+		this.postingFacade.editPosting(
+			data.id,
+			data.comments,
+			data.price,
+			this.token
+		);
 		this.postingFacade.initPostingsData();
 	}
 
@@ -86,7 +94,7 @@ export class PostingsComponent implements OnDestroy {
 			.pipe(
 				map((result: boolean) => {
 					if (result) {
-						this.postingFacade.deletePosting(id);
+						this.postingFacade.deletePosting(id, this.token);
 					}
 				})
 			)

@@ -111,11 +111,11 @@ export class PostingEffects {
 	public readonly editPosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingEdit),
-			map(({ id, comments, price }) =>
-				PostingActions.PostingEdit({ id, comments, price })
+			map(({ id, comments, price, token }) =>
+				PostingActions.PostingEdit({ id, comments, price, token })
 			),
-			switchMap(({ id, comments, price }) =>
-				this.postingService.editPosting(id, comments, price).pipe(
+			switchMap(({ id, comments, price, token }) =>
+				this.postingService.editPosting(id, comments, price, token).pipe(
 					map((data: Posting) => PostingActions.PostingEditSuccess({ data })),
 					catchError((error: Error) =>
 						of(PostingActions.PostingEditFailure({ message: error.error.message }))
@@ -128,9 +128,9 @@ export class PostingEffects {
 	public readonly deletePosting$: Observable<any> = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PostingActionNames.PostingDelete),
-			map(({ id }) => PostingActions.PostingDelete({ id })),
-			switchMap(({ id }) =>
-				this.postingService.deletePosting(id).pipe(
+			map(({ id, token }) => PostingActions.PostingDelete({ id, token })),
+			switchMap(({ id, token }) =>
+				this.postingService.deletePosting(id, token).pipe(
 					map((data: Posting) => PostingActions.PostingDeleteSuccess({ data })),
 					catchError((error: Error) =>
 						of(PostingActions.PostingDeleteFailure({ message: error.error.message }))

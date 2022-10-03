@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { server } from 'src/app/shared/variables/config';
 import { Device } from '../device/device.state';
@@ -45,18 +45,19 @@ export class PostingService {
 	editPosting(
 		id: number,
 		comments: string | null,
-		price: number | null
+		price: number | null,
+		token: string
 	): Observable<Posting> {
 		return this.http.put<Posting>(
 			`${server}/postings/edit/${id}`,
 			{ comments, price },
-			{ headers: this.headers }
+			{ headers: { 'content-type': 'application/json', 'X-Authorization': token } }
 		);
 	}
 
-	deletePosting(id: number): Observable<any> {
+	deletePosting(id: number, token: string): Observable<any> {
 		return this.http.delete<Posting>(`${server}/postings/delete/${id}`, {
-			headers: this.headers,
+			headers: { 'content-type': 'application/json', 'X-Authorization': token },
 		});
 	}
 
