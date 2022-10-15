@@ -21,6 +21,8 @@ This is a mock project for Softuni's Angular 2022 Course. The main project requi
 
 ### Technologies used
 
+** Taken offline due to ongoing costs in AWS
+
 - Front-end - Javascript (Typescript), SASS
 - Back-end - [Details](https://github.com/EmilAvramov/angular-defense-server)
 - Hosting - Hosted via AWS Codebuild and S3 Bucket [here](http://s3-angular-client.s3-website-eu-west-1.amazonaws.com/)
